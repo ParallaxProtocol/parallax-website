@@ -12,8 +12,8 @@ const EXTRACT_CMDS: Record<Os, string | null> = {
 };
 
 const RUN_CMDS: Record<Os, string | null> = {
-  darwin: "./prlx",
-  linux: "chmod +x prlx && ./prlx",
+  darwin: "./parallaxd",
+  linux: "chmod +x parallaxd && ./parallaxd",
   windows: null,
 };
 
@@ -67,8 +67,8 @@ export default function ClientQuickStart() {
 
   const extractTitle =
     os === "darwin" ? t("darwin.extractTitle") :
-    os === "linux" ? t("linux.extractTitle") :
-    t("windows.extractTitle");
+      os === "linux" ? t("linux.extractTitle") :
+        t("windows.extractTitle");
 
   const extractBody =
     os === "darwin" ? (
@@ -88,11 +88,11 @@ export default function ClientQuickStart() {
       </>
     );
 
-  const runBinary = os === "windows" ? "prlx.exe" : "prlx";
+  const runBinary = os === "windows" ? "parallaxd.exe" : "parallaxd";
   const runTitlePrefix =
     os === "darwin" ? t("darwin.runTitlePrefix") :
-    os === "linux" ? t("linux.runTitlePrefix") :
-    t("windows.runTitlePrefix");
+      os === "linux" ? t("linux.runTitlePrefix") :
+        t("windows.runTitlePrefix");
   const runTitle = (
     <>
       {runTitlePrefix}
