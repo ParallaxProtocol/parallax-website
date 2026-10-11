@@ -180,7 +180,8 @@
       "brandAssets": "브랜드 자산",
       "blockExplorer": "블록 익스플로러",
       "faucet": "Faucet",
-      "networkAtlas": "네트워크 아틀라스"
+      "networkAtlas": "네트워크 아틀라스",
+      "networkStatus": "네트워크 상태"
     },
     "participateSub": {
       "supportParallax": "Parallax 지원하기",
@@ -216,6 +217,7 @@
       "brandAssets": "브랜드 자산",
       "blockExplorer": "블록 익스플로러",
       "networkAtlas": "네트워크 아틀라스",
+      "networkStatus": "네트워크 상태",
       "faq": "FAQ",
       "blog": "블로그",
       "supportParallax": "Parallax 지원하기",
@@ -258,6 +260,7 @@
       "market": "시장",
       "blockExplorer": "블록 익스플로러",
       "networkAtlas": "네트워크 아틀라스",
+      "networkStatus": "네트워크 상태",
       "coingecko": "CoinGecko",
       "labels": {
         "blocks": "블록",

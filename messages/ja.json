@@ -180,7 +180,8 @@
       "brandAssets": "ブランドアセット",
       "blockExplorer": "ブロックエクスプローラー",
       "faucet": "フォーセット",
-      "networkAtlas": "ネットワーク・アトラス"
+      "networkAtlas": "ネットワーク・アトラス",
+      "networkStatus": "ネットワーク・ステータス"
     },
     "participateSub": {
       "supportParallax": "Parallaxを支援する",
@@ -216,6 +217,7 @@
       "brandAssets": "ブランドアセット",
       "blockExplorer": "ブロックエクスプローラー",
       "networkAtlas": "ネットワーク・アトラス",
+      "networkStatus": "ネットワーク・ステータス",
       "faq": "FAQ",
       "blog": "ブログ",
       "supportParallax": "Parallaxを支援する",
@@ -258,6 +260,7 @@
       "market": "マーケット",
       "blockExplorer": "ブロックエクスプローラー",
       "networkAtlas": "ネットワーク・アトラス",
+      "networkStatus": "ネットワーク・ステータス",
       "coingecko": "CoinGecko",
       "labels": {
         "blocks": "ブロック数",

@@ -31,6 +31,7 @@ const footerLinks: Record<string, FooterLink[]> = {
     { key: "brandAssets", href: "/resources/branding" },
     { key: "blockExplorer", href: "https://explorer.parallaxprotocol.org", external: true },
     { key: "networkAtlas", href: "/resources/network-atlas" },
+    { key: "networkStatus", href: "https://status.parallaxprotocol.org", external: true },
     { key: "faq", href: "/faq" },
     { key: "blog", href: "/blog" },
   ],

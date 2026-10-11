@@ -180,7 +180,8 @@
       "brandAssets": "Brand Assets",
       "blockExplorer": "Block Explorer",
       "faucet": "Faucet",
-      "networkAtlas": "Network Atlas"
+      "networkAtlas": "Network Atlas",
+      "networkStatus": "Network Status"
     },
     "participateSub": {
       "supportParallax": "Suportahan ang Parallax",
@@ -216,6 +217,7 @@
       "brandAssets": "Brand Assets",
       "blockExplorer": "Block Explorer",
       "networkAtlas": "Network Atlas",
+      "networkStatus": "Network Status",
       "faq": "FAQ",
       "blog": "Blog",
       "supportParallax": "Suportahan ang Parallax",
@@ -258,6 +260,7 @@
       "market": "Market",
       "blockExplorer": "Block Explorer",
       "networkAtlas": "Network Atlas",
+      "networkStatus": "Network Status",
       "coingecko": "CoinGecko",
       "labels": {
         "blocks": "Blocks",

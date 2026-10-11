@@ -345,6 +345,11 @@ export function NetworkStats() {
             <Link href="/resources/network-atlas" className="text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors">
               {t("networkAtlas")}
             </Link>
+            <span className="text-xs text-muted-foreground/30" aria-hidden="true">·</span>
+            <a href="https://status.parallaxprotocol.org" target="_blank" rel="noopener" className="text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors inline-flex items-center gap-1.5">
+              {t("networkStatus")}
+              <ExternalLink className="size-3" />
+            </a>
           </div>
         </FadeIn>
 

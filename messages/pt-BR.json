@@ -180,7 +180,8 @@
       "brandAssets": "Ativos de marca",
       "blockExplorer": "Explorador de blocos",
       "faucet": "Faucet",
-      "networkAtlas": "Atlas da rede"
+      "networkAtlas": "Atlas da rede",
+      "networkStatus": "Status da rede"
     },
     "participateSub": {
       "supportParallax": "Apoie o Parallax",
@@ -216,6 +217,7 @@
       "brandAssets": "Ativos de marca",
       "blockExplorer": "Explorador de blocos",
       "networkAtlas": "Atlas da rede",
+      "networkStatus": "Status da rede",
       "faq": "FAQ",
       "blog": "Blog",
       "supportParallax": "Apoie o Parallax",
@@ -258,6 +260,7 @@
       "market": "Mercado",
       "blockExplorer": "Explorador de blocos",
       "networkAtlas": "Atlas da rede",
+      "networkStatus": "Status da rede",
       "coingecko": "CoinGecko",
       "labels": {
         "blocks": "Blocos",

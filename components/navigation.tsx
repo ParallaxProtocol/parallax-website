@@ -59,6 +59,7 @@ function useNavItems(): NavItem[] {
         { name: "###" },
         { name: t("resourcesSub.blockExplorer"), href: "https://explorer.parallaxprotocol.org" },
         { name: t("resourcesSub.networkAtlas"), href: "/resources/network-atlas" },
+        { name: t("resourcesSub.networkStatus"), href: "https://status.parallaxprotocol.org" },
       ],
     },
     {

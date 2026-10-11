@@ -180,7 +180,8 @@
       "brandAssets": "品牌资源",
       "blockExplorer": "区块浏览器",
       "faucet": "水龙头",
-      "networkAtlas": "网络图谱"
+      "networkAtlas": "网络图谱",
+      "networkStatus": "网络状态"
     },
     "participateSub": {
       "supportParallax": "支持 Parallax",
@@ -216,6 +217,7 @@
       "brandAssets": "品牌资源",
       "blockExplorer": "区块浏览器",
       "networkAtlas": "网络图谱",
+      "networkStatus": "网络状态",
       "faq": "常见问题",
       "blog": "博客",
       "supportParallax": "支持 Parallax",
@@ -264,6 +266,7 @@
       "market": "市场",
       "blockExplorer": "区块浏览器",
       "networkAtlas": "网络图谱",
+      "networkStatus": "网络状态",
       "coingecko": "CoinGecko",
       "labels": {
         "blocks": "区块",
