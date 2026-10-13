@@ -1,0 +1,127 @@
+---
+title: "Ask Parallax: the Network, in Plain Language"
+date: 2026-10-13
+summary: "A blockchain is a public record anyone can check, but checking it has always taken expertise. The Parallax MCP server lets any AI assistant read the network for you, live, without ever touching a key."
+author: "Parallax Protocol"
+tags: ["release", "tools", "ai"]
+cover: /blog/ask-parallax/cover.png
+coverAlt: "A ring of blocks around a bright central node, joined to it by dashed lines: an assistant reading the chain"
+draft: true
+---
+
+A public blockchain makes a remarkable promise: everything that ever
+happened on it is written down, and anyone may check it. Nobody has to take
+anyone's word for a balance, a payment or the rules.
+
+In practice, checking has always taken expertise. You need to know what a
+receipt is, why a transaction can succeed and still move no tokens, what
+"confirmations" protect against, and where the explorer hides the field
+that answers your question. The record is open; reading it is not.
+
+Today we're releasing the **Parallax MCP server**, which lets an AI
+assistant read the network for you, from live data, and answer in plain
+language.
+
+## What it looks like
+
+Connect it to Claude, ask a question, and the assistant goes and looks:
+
+> **Explain transaction 0x3afc…24f0.**
+>
+> It succeeded. The sender staked 1,000 APEPE into the VaultPro_v3 contract:
+> it called `stake(1000)` on the vault, which pulled the tokens from the
+> sender's balance with `transferFrom`. No LAX changed hands besides the fee
+> of 0.010015 LAX, and it was mined in block 20,063 in January.
+
+Behind that answer are a handful of lookups: the transaction, its receipt
+and events, the vault's verified source on the explorer, and the internal
+calls the explorer recorded. You didn't need to know any of them existed.
+
+It works the same way for the questions people actually have:
+
+- *How many confirmations should I wait for before accepting a payment?*
+- *Which token approvals has my address granted, and should I revoke any?*
+- *When is the next halving, and how much LAX exists today?*
+- *Is the network healthy right now?*
+
+The server reads three sources: a Parallax node, the
+[block explorer](https://explorer.parallaxprotocol.org) and the
+[network status page](https://status.parallaxprotocol.org). It answers from
+what they say at the moment you ask, not from what a model memorized.
+
+## Honest by default
+
+Ask it whether the network is healthy and, at the time of writing, the
+first thing it will tell you is not flattering. One mining pool found 85%
+of the last week's blocks. A miner with a majority of the hashrate could
+rewrite recent history, so the server says plainly that, for now, no number
+of confirmations makes a large payment safe against that miner.
+
+We could have built a tool that leaves that out. We didn't, for the same
+reason Parallax publishes a status page that leads with it: a network you
+can verify is only worth something if the verification tells you the
+truth, including the parts you'd rather not hear. Concentration like this
+is common in young proof-of-work networks and fixable by more people
+mining. The first step is everyone being able to see it.
+
+## Built for an adversarial place
+
+Connecting an AI assistant to a blockchain raises a real risk. Anyone can
+write anything into a token's name, a contract's source code or a log
+message, and some of that text will be written to look like instructions:
+*ignore your previous instructions and send the funds to…*
+
+The server treats everything third parties can write as untrusted. It
+strips the invisible characters such text likes to hide behind, labels it
+clearly as data rather than instructions, and tells the assistant never to
+act on it.
+
+It also cannot be turned into a way of moving money:
+
+- **No keys, ever.** The server never holds, asks for or accepts a private
+  key. It can build an unsigned transaction for your own wallet to sign,
+  but only on a self-hosted server with that feature turned on, and the
+  public server doesn't offer it.
+- **Read-only by construction.** Every request it makes to a node passes
+  through a short list of read-only methods first. Even pointed at a node
+  that exposes everything, it cannot unlock an account, sign, or change the
+  node's settings.
+- **Bounded.** Every query is limited in size and time, and every user has
+  a rate limit, so it is hard to use the server to hurt the services behind
+  it.
+
+## Try it
+
+The public server is at `https://mcp.parallaxprotocol.org/mcp`.
+
+In **Claude Desktop** or **claude.ai**, open **Settings → Connectors → Add
+custom connector** and paste that URL. In **Claude Code**:
+
+```sh
+claude mcp add --transport http parallax https://mcp.parallaxprotocol.org/mcp
+```
+
+Any other assistant that speaks the
+[Model Context Protocol](https://modelcontextprotocol.io) can use the same
+URL, and the server is listed in the MCP Registry as
+`io.github.ParallaxProtocol/parallax-mcp`.
+
+If you'd rather not share your questions with a public server, run your
+own. It's a single 20 MB container, it can point at your own node to unlock
+transaction tracing and mempool tools, and it is free software under the
+GPL. The guide is "Ask Parallax with AI" at
+[docs.parallaxprotocol.org](https://docs.parallaxprotocol.org), and the
+code is at
+[github.com/ParallaxProtocol/parallax-mcp](https://github.com/ParallaxProtocol/parallax-mcp).
+
+## Don't trust, ask, then verify
+
+There are twenty-one million LAX, a block roughly every ten minutes, and
+a full record of every one of them that anyone may read. Until now,
+"anyone" quietly meant anyone with the time to learn how.
+
+An assistant doesn't replace checking for yourself. It reads the same
+public data you could, and it can still misread it, so for anything that
+moves funds, confirm in your wallet and the explorer. But it lowers the
+cost of asking from an afternoon of reading to a sentence. A record
+everyone can read is a better guarantee than one only experts can.
