@@ -138,7 +138,7 @@ export default async function ParallaxWalletPage() {
       <div className="relative mt-16 overflow-hidden border-b border-hairline">
         <div aria-hidden className="aurora" />
         <div aria-hidden className="aurora aurora-left opacity-60" />
-        <div className="relative mx-auto max-w-[90rem] px-5 pt-24 md:px-10 md:pt-32">
+        <div className="relative mx-auto max-w-[90rem] px-5 pt-24 pb-20 md:px-10 md:pt-32 md:pb-28">
           <div className="mb-8 flex flex-wrap items-center gap-3 enter-fade-up" style={{ "--enter-delay": "0.05s" } as React.CSSProperties}>
             <p className="tag">{t("hero.eyebrow")}</p>
             <Badge>{t("hero.badge")}</Badge>
