@@ -392,7 +392,24 @@
       "cta": "Read the announcement",
       "docs": "Setup guide",
       "question": "Explain transaction 0x3afc…24f0.",
-      "answer": "It succeeded. The sender staked 1,000 APEPE into the VaultPro_v3 contract: it called stake(1000) on the vault, which pulled the tokens from the sender's balance with transferFrom. No LAX changed hands besides the fee of 0.010015 LAX."
+      "answer": "It succeeded. The sender staked 1,000 APEPE into the VaultPro_v3 contract: it called stake(1000) on the vault, which pulled the tokens from the sender's balance with transferFrom. No LAX changed hands besides the fee of 0.010015 LAX.",
+      "connect": {
+        "title": "Connect your assistant",
+        "copy": "Copy",
+        "copied": "Copied",
+        "example": "Then ask, for example",
+        "clients": {
+          "claude": "In the Claude app or claude.ai, open Settings → Connectors, choose Add custom connector, name it Parallax and paste this URL. Custom connectors need a Claude plan that supports them.",
+          "claudeCode": "Run this in your terminal, then /mcp inside Claude Code to check that parallax is connected.",
+          "chatgpt": "On a paid ChatGPT plan, turn on Developer mode in Settings, then create a connector with this URL and no authentication. OpenAI moves this setting from time to time; ChatGPT's help pages have the current path.",
+          "cursor": "Add this to Cursor's MCP config (or a project's .cursor/mcp.json), then enable parallax under Settings → MCP.",
+          "vscode": "Add this to your workspace's .vscode/mcp.json, then start the server and pick its tools in Copilot Chat's agent mode.",
+          "gemini": "Run this in your terminal, then /mcp list inside Gemini CLI to check it's connected.",
+          "codex": "Run this in your terminal; Codex saves it to ~/.codex/config.toml.",
+          "windsurf": "Add this to Windsurf's MCP config, then restart Windsurf.",
+          "other": "Any assistant that supports MCP over Streamable HTTP can use this URL. It's also listed in the MCP Registry as io.github.ParallaxProtocol/parallax-mcp."
+        }
+      }
     },
     "wallet": {
       "eyebrow": "Parallax Wallet",

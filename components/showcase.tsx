@@ -2,17 +2,17 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Link } from "@/i18n/navigation"
-import { ArrowRight, ArrowUpRight, Eye, EyeOff, KeyRound, Lock, Radio, Server, ShieldCheck, Sparkles, TerminalSquare, Usb, Zap } from "lucide-react"
+import { ArrowRight, ArrowUpRight, Eye, EyeOff, KeyRound, Lock, Radio, Server, ShieldCheck, Sparkles, Usb, Zap } from "lucide-react"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { FadeIn } from "./fade-in"
 import { Section, SectionHeading, TwoToneTitle } from "./section"
+import { McpConnect } from "./mcp-connect"
 import { AppScreenshot } from "./wallet-app/app-screenshot"
 
 const STATUS_URL = "https://status.parallaxprotocol.org"
 const EXPLORER_URL = "https://explorer.parallaxprotocol.org"
 const MCP_GUIDE_URL = "https://docs.parallaxprotocol.org/guides/ai/parallax-mcp"
-const MCP_ADD_COMMAND = "claude mcp add --transport http parallax https://mcp.parallaxprotocol.org/mcp"
 
 /* Three dots and a centred title — the browser shots' chrome. */
 function WindowBar({ children }: { children: React.ReactNode }) {
@@ -154,8 +154,8 @@ const askPoints = [
   { key: "noKeys", icon: KeyRound },
 ] as const
 
-/* Ask Parallax: the MCP server, shown as a terminal session using the
-   exchange from the announcement post. */
+/* Ask Parallax: the MCP server, with setup for each major assistant and
+   the example exchange from the announcement post. */
 export function AskParallaxShowcase() {
   const t = useTranslations("home.askParallax")
 
@@ -165,7 +165,7 @@ export function AskParallaxShowcase() {
         <SectionHeading index="05" eyebrow={t("eyebrow")} title={t("heading")} subtitle={t("subtitle")} />
       </FadeIn>
 
-      <div className="mt-16 grid gap-10 lg:grid-cols-12 lg:gap-16">
+      <div className="mt-16 grid gap-10 lg:grid-cols-12 lg:gap-16 [&>*]:min-w-0">
         <FadeIn className="lg:col-span-5">
           <ul className="divide-y divide-hairline border-y border-hairline">
             {askPoints.map(({ key, icon: Icon }) => (
@@ -194,24 +194,16 @@ export function AskParallaxShowcase() {
         <FadeIn delay={0.1} className="lg:col-span-7">
           <div className="relative flex h-full items-center overflow-hidden rounded-2xl border border-stroke bg-card p-4 sm:p-8">
             <div aria-hidden className="aurora" />
-            <div className="on-dark-surface relative w-full overflow-hidden rounded-xl border border-stroke bg-[#050506] text-white shadow-[0_24px_80px_-24px_rgb(0_0_0/0.7)]">
-              <div className="flex items-center justify-between border-b border-hairline px-4 py-3">
-                <p className="flex items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.14em]">
-                  <TerminalSquare className="size-3.5 text-brand" aria-hidden />
-                  Terminal
-                </p>
-                <span aria-hidden className="font-mono text-xs tracking-[0.2em] text-white/30">||||||||</span>
-              </div>
-              <div className="space-y-6 p-5 font-mono text-[13px] leading-relaxed sm:p-6">
-                <p className="break-all text-white/60">
-                  <span aria-hidden className="select-none text-brand">$ </span>
-                  {MCP_ADD_COMMAND}
-                </p>
-                <p className="text-base text-white">
+            <div className="relative w-full space-y-4">
+              <McpConnect />
+              {/* An example exchange, from the announcement post */}
+              <div className="rounded-xl border border-hairline bg-background/40 p-5 backdrop-blur-sm sm:p-6">
+                <p className="font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">{t("connect.example")}</p>
+                <p className="mt-3 text-base text-foreground">
                   <span aria-hidden className="select-none text-brand-2">&gt; </span>
                   {t("question")}
                 </p>
-                <p className="border-l border-white/15 pl-4 font-sans text-[15px] leading-relaxed text-white/75">{t("answer")}</p>
+                <p className="mt-3 border-l border-hairline pl-4 text-[15px] leading-relaxed text-muted-foreground">{t("answer")}</p>
               </div>
             </div>
           </div>
