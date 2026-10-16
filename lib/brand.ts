@@ -15,14 +15,12 @@ const dataUri = (file: string) =>
 /** The mark alone, in its original gradient — for dark surfaces. */
 export const LOGO_MARK = dataUri("new_parallax_logo_transparent.svg")
 
-// Still frames of the hero's black hole, captured from the live WebGL scene
-// and cropped for the 1200×630 Open Graph canvas (see assets/og/README.md).
-const jpegDataUri = (...parts: string[]) =>
-  `data:image/jpeg;base64,${asset(...parts).toString("base64")}`
-
-/** Hole in the right two-thirds — background for every card, the copy in
- *  the dark field left of it. */
-export const OG_BLACKHOLE_RIGHT = jpegDataUri("assets", "og", "blackhole-right.jpg")
+// The hero's depth wordmark, captured from the live page as a transparent
+// PNG (see assets/og/README.md): the card renderer can't lay out the
+// per-letter depth layers itself.
+/** 1600×295, cropped to the letters. */
+export const OG_WORDMARK = `data:image/png;base64,${asset("assets", "og", "wordmark-hero.png").toString("base64")}`
+export const OG_WORDMARK_SIZE = { width: 1600, height: 295 }
 
 /** The mark on its black rounded plate — for icons and light surfaces. */
 export const LOGO_SQUARE = dataUri("new_parallax_logo_square.svg")
@@ -31,4 +29,3 @@ export const LOGO_SQUARE = dataUri("new_parallax_logo_square.svg")
 // hence the vendored TTFs rather than a next/font import.
 export const GEIST_MEDIUM = asset("assets", "fonts", "Geist-Medium.ttf")
 export const GEIST_LIGHT = asset("assets", "fonts", "Geist-Light.ttf")
-export const GEIST_MONO_MEDIUM = asset("assets", "fonts", "GeistMono-Medium.ttf")

@@ -1,20 +1,20 @@
 import {
   GEIST_LIGHT,
   GEIST_MEDIUM,
-  GEIST_MONO_MEDIUM,
   LOGO_MARK,
-  OG_BLACKHOLE_RIGHT,
+  OG_WORDMARK,
+  OG_WORDMARK_SIZE,
 } from "@/lib/brand"
 import { ImageResponse } from "next/og"
 import type { NextRequest } from "next/server"
 
 /**
- * The Open Graph card, laid out like the homepage hero: the black hole on
- * the right (a still of the hero's, see assets/og/README.md), the nav
- * wordmark top left, and a left-aligned two-tone headline — a medium lead
- * over a light tail, the site's heading voice. Without a query it renders
- * the site-wide brand card (the hero's own headline); with `?title=` it
- * renders a per-page variant with that title. Rendered per request (the
+ * The Open Graph card, in the homepage hero's style: black, a faint glow in
+ * the logo's colours, the hero's depth wordmark (a capture, see
+ * assets/og/README.md) and the site's two-tone headings — a medium lead over
+ * a light tail. Without a query it renders the site-wide brand card, the
+ * hero itself; with `?title=` a per-page card, the title above the wordmark
+ * cropped along the floor as in the site footer. Rendered per request (the
  * CDN caches each URL), hence no `force-static`.
  */
 export const dynamic = "force-dynamic"
@@ -22,7 +22,6 @@ export const dynamic = "force-dynamic"
 const SIZE = { width: 1200, height: 630 }
 
 const FOREGROUND = "#ffffff"
-const FAINT = "rgba(255, 255, 255, 0.4)"
 const HAIRLINE = "rgba(255, 255, 255, 0.12)"
 const BRAND_GRADIENT = "linear-gradient(90deg, #00ff80 0%, #0080ff 100%)"
 
@@ -36,12 +35,13 @@ const CACHE_CONTROL_BRAND = "public, max-age=86400"
 const FONTS = [
   { name: "Geist", data: GEIST_MEDIUM, weight: 500 as const, style: "normal" as const },
   { name: "Geist", data: GEIST_LIGHT, weight: 300 as const, style: "normal" as const },
-  { name: "Geist Mono", data: GEIST_MONO_MEDIUM, weight: 500 as const, style: "normal" as const },
 ]
 
 const PAD = 64
-// The hole's glow starts about 600px in; the copy column stays well left of it.
-const COLUMN = 500
+// Title cards: the headline runs the full content width. Page titles top
+// out around 32 characters ("Parallax for Ethereum Developers"); blog posts
+// bring their own cover images instead of a generated card.
+const COLUMN = 1072
 
 /** Splits a title into a medium lead and a light tail at the word boundary
  *  nearest the middle, as the site's TwoToneTitle does. Titles of three
@@ -67,9 +67,7 @@ function twoTone(text: string): [string, string] {
 function Frame({ children, wordmark = true }: { children: React.ReactNode; wordmark?: boolean }) {
   return (
     <div style={{ width: "100%", height: "100%", display: "flex", position: "relative", background: "#000" }}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={OG_BLACKHOLE_RIGHT} width={SIZE.width} height={SIZE.height} alt="" style={{ position: "absolute", top: 0, left: 0 }} />
-      {/* Fade the hole's left edge into the copy column, as the hero does */}
+      {/* The site's aurora: soft light in the logo's colours, low on the right */}
       <div
         style={{
           position: "absolute",
@@ -77,13 +75,14 @@ function Frame({ children, wordmark = true }: { children: React.ReactNode; wordm
           left: 0,
           width: SIZE.width,
           height: SIZE.height,
-          background: "linear-gradient(90deg, #000 0%, rgba(0,0,0,0.85) 34%, rgba(0,0,0,0) 62%)",
+          backgroundImage:
+            "radial-gradient(circle at 96% 96%, rgba(0,128,255,0.42), rgba(0,0,0,0) 52%), radial-gradient(circle at 72% 112%, rgba(0,255,128,0.30), rgba(0,0,0,0) 46%), radial-gradient(circle at 100% 0%, rgba(0,200,200,0.14), rgba(0,0,0,0) 40%)",
         }}
       />
 
       {/* The nav wordmark */}
       {wordmark && (
-      <div style={{ position: "absolute", top: 52, left: PAD, display: "flex", alignItems: "center", gap: 18 }}>
+      <div style={{ position: "absolute", top: NAV_TOP, left: PAD, display: "flex", alignItems: "center", gap: 18 }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={LOGO_MARK} width={50} height={50} alt="" />
         <div style={{ fontFamily: "Geist", fontWeight: 500, fontSize: 46, letterSpacing: -1.8, color: FOREGROUND }}>
@@ -101,21 +100,23 @@ function Frame({ children, wordmark = true }: { children: React.ReactNode; wordm
   )
 }
 
-function Headline({ kicker, lead, tail, size }: { kicker: string; lead: string; tail: string; size: number }) {
+/* The title, centred vertically in the band from `top` to `bottom` (card
+   coordinates). Pulled left by the font's side bearing, which grows with
+   size, so the first letter lines up with the logo above it. */
+function Headline({ lead, tail, size, top, bottom }: { lead: string; tail: string; size: number; top: number; bottom: number }) {
   return (
     <div
       style={{
         position: "absolute",
-        left: PAD,
-        bottom: 84,
+        left: PAD - Math.round(size * 0.03),
+        top,
+        height: bottom - top,
         width: COLUMN,
         display: "flex",
         flexDirection: "column",
+        justifyContent: "center",
       }}
     >
-      <div style={{ fontFamily: "Geist Mono", fontWeight: 500, fontSize: 16, letterSpacing: 3, color: FAINT, marginBottom: 26 }}>
-        {kicker}
-      </div>
       <div style={{ display: "flex", flexDirection: "column", fontFamily: "Geist", fontSize: size, lineHeight: 1.04, letterSpacing: -size * 0.035, color: FOREGROUND }}>
         {/* Balanced, so a wrapped half doesn't strand one word on a line */}
         <div style={{ fontWeight: 500, textWrap: "balance" }}>{lead}</div>
@@ -125,44 +126,66 @@ function Headline({ kicker, lead, tail, size }: { kicker: string; lead: string; 
   )
 }
 
-/* The hero itself: the mark, "Parallax" large, the subtitle light under it. */
+// The depth wordmark across the card, at the content width.
+const WORD_W = SIZE.width - PAD * 2
+const WORD_H = Math.round((WORD_W * OG_WORDMARK_SIZE.height) / OG_WORDMARK_SIZE.width)
+
+/* The hero itself: the depth wordmark full width, the subtitle light under
+   it. No nav wordmark — the big one already names the card. */
 function brandCard() {
   return (
     <Frame wordmark={false}>
-      <div style={{ position: "absolute", left: PAD, bottom: 84, width: COLUMN, display: "flex", flexDirection: "column" }}>
+      {/* The wordmark is the brand here: it and the subtitle, centred on the card */}
+      <div style={{ position: "absolute", left: PAD, top: 0, height: SIZE.height, width: WORD_W, display: "flex", flexDirection: "column", justifyContent: "center" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={LOGO_MARK} width={64} height={64} alt="" style={{ marginBottom: 40 }} />
-        <div style={{ fontFamily: "Geist", fontWeight: 500, fontSize: 120, lineHeight: 0.95, letterSpacing: -5.4, color: FOREGROUND }}>
-          Parallax
-        </div>
-        <div style={{ marginTop: 20, fontFamily: "Geist", fontWeight: 300, fontSize: 42, lineHeight: 1.12, letterSpacing: -1.3, color: FOREGROUND }}>
+        <img src={OG_WORDMARK} width={WORD_W} height={WORD_H} alt="" />
+        <div style={{ marginTop: 36, fontFamily: "Geist", fontWeight: 300, fontSize: 52, lineHeight: 1.08, letterSpacing: -1.6, color: FOREGROUND }}>
           A peer-to-peer programmable cash system.
-        </div>
-        <div style={{ marginTop: 30, fontFamily: "Geist Mono", fontWeight: 500, fontSize: 16, letterSpacing: 3, color: FAINT }}>
-          SECURED BY PHYSICS
         </div>
       </div>
     </Frame>
   )
 }
 
+// Title cards' floor wordmark: wider than the card, so it bleeds, and only a
+// third cropped, so the letters read.
+const FLOOR_W = SIZE.width + 160
+const FLOOR_CROP = 0.32
+const FLOOR_H = Math.round((FLOOR_W * OG_WORDMARK_SIZE.height) / OG_WORDMARK_SIZE.width)
+
+// The band the title is centred in: from under the nav wordmark to the top
+// of the floor wordmark's visible part.
+const NAV_TOP = 52
+const NAV_BOTTOM = NAV_TOP + 50
+const FLOOR_TOP = SIZE.height - (FLOOR_H - Math.round(FLOOR_H * FLOOR_CROP))
+
 function titleCard(title: string) {
   const [lead, tail] = twoTone(title)
-  // Largest size whose estimated wrapped height fits between the wordmark
-  // and the floor (≤ 330px of headline). The 0.53em average glyph width is
+  // Largest size whose estimated wrapped height fits between the nav
+  // wordmark and the floor wordmark, keeping at least 40px clear above and
+  // below (≤ 270px of headline in a ~357px band). The 0.53em average glyph width is
   // Geist Medium's at these sizes.
   const fontSize = (() => {
-    for (const size of [80, 72, 64, 58, 52, 46, 40]) {
+    for (const size of [132, 120, 108, 96, 88, 80, 72, 64, 58, 52, 46, 40]) {
       const charsPerLine = Math.max(1, Math.floor(COLUMN / (0.53 * size)))
       const lines = [lead, tail].filter(Boolean).reduce((n, part) => n + Math.ceil(part.length / charsPerLine), 0)
-      if (lines * 1.04 * size <= 330) return size
+      if (lines * 1.04 * size <= 270) return size
     }
     return 36
   })()
 
   return (
     <Frame>
-      <Headline kicker="PARALLAX PROTOCOL" lead={lead} tail={tail} size={fontSize} />
+      {/* The depth wordmark cropped by the floor, faint, as in the site footer */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={OG_WORDMARK}
+        width={FLOOR_W}
+        height={FLOOR_H}
+        alt=""
+        style={{ position: "absolute", left: (SIZE.width - FLOOR_W) / 2, bottom: -Math.round(FLOOR_H * FLOOR_CROP), opacity: 0.6 }}
+      />
+      <Headline lead={lead} tail={tail} size={fontSize} top={NAV_BOTTOM} bottom={FLOOR_TOP} />
     </Frame>
   )
 }

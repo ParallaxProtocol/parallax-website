@@ -16,7 +16,7 @@ const FEED_TITLE = "Parallax Protocol Blog"
  * cached) so scrapers see a fresh URL; the route ignores the parameter.
  */
 export const OG_IMAGE = {
-  url: "/og.png?v=3",
+  url: "/og.png?v=4",
   width: 1200,
   height: 630,
   alt: "Parallax Protocol — secured by physics",

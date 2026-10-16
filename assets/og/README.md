@@ -1,15 +1,18 @@
-# Open Graph card backgrounds
+# Open Graph card assets
 
-Still frames of the hero's black hole (`components/black-hole.tsx`), used by
-`app/og.png/route.tsx`. Captured from the running site with headless Chromium
-by reading the WebGL canvas (`canvas.toDataURL()` inside a rAF callback, so the
-drawing buffer is still valid), at a 1920×1080 window — the canvas itself is
-text-free; the hero's tagline, vignette, and grain are DOM overlays.
+`wordmark-hero.png` is the homepage hero's depth wordmark
+(`components/depth-wordmark.tsx`, variant `hero`), used by
+`app/og.png/route.tsx`. The card renderer (Satori) can't draw it itself — the
+depth layers are positioned from per-letter measurements a browser makes — so
+it is captured from the running site instead:
 
-- `blackhole-right.jpg` — hole filling ~95% of the height, tangent to the
-  right edge, dark space on the left for the page title; background of every card,
-  the brand card and the per-page title cards alike.
-  Crop: `magick <capture>.png -crop 1200x630+80+197 +repage -quality 88 -strip blackhole-right.jpg`
+1. With the dev server up, open `/en` in headless Chromium at a 1440px-wide
+   viewport, device scale factor 2, reduced motion on.
+2. Make the page transparent (`html, body, section, div { background:
+   transparent }`, hide `.aurora` and the nav) and screenshot with
+   `omitBackground`, clipped to the `h1 svg` box grown by 16px on every
+   side — the outer strokes spill past the svg's own box, and an element
+   screenshot would cut them.
+3. Crop to the alpha bounding box and resize to 1600px wide.
 
-The crop offsets assume the hole's glow is centered near (980, 512) in the
-1920×993 capture; re-derive them if the hero's camera or framing changes.
+Re-capture it whenever the wordmark's font, weight, depth or colours change.
