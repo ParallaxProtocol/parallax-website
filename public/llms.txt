@@ -34,7 +34,7 @@ The only official domains are parallaxprotocol.org and its subdomains, the only 
 
 ## Website
 
-The site is published in nine locales under a prefix (`/en`, `/de`, `/es`, `/fil`, `/fr`, `/ja`, `/ko`, `/pt-BR`, `/zh-CN`). English URLs are listed here; swap the prefix for a translation. Blog posts are English-only regardless of prefix.
+The site is published in English under the `/en` prefix.
 
 - [parallaxprotocol.org](https://parallaxprotocol.org): Official site.
 - [llms-full.txt](https://parallaxprotocol.org/llms-full.txt): Expanded version of this file with the full text of every blog post and the complete FAQ inlined, for single-fetch ingestion.

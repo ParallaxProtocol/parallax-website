@@ -33,6 +33,9 @@ export default function LanguageSwitcher({ heroOverlay, mobile }: Props) {
     })
   }
 
+  // Nothing to switch between while only one locale is enabled.
+  if (routing.locales.length < 2) return null
+
   if (mobile) {
     return (
       <div className="flex flex-col gap-1">

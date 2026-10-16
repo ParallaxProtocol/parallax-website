@@ -7,6 +7,13 @@ const nextConfig: NextConfig = {
   /* config options here */
   async redirects() {
     return [
+      // Translations are temporarily withdrawn; send old locale-prefixed
+      // links to English. Not permanent so the locales can come back.
+      {
+        source: '/:locale(de|es|fil|fr|ja|ko|pt-BR|zh-CN)/:path*',
+        destination: '/en/:path*',
+        permanent: false,
+      },
       // The HTML transcription of the first-edition whitepaper was removed;
       // the canonical whitepaper is the PDF (second edition).
       {
@@ -15,7 +22,7 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/:locale(en|de|es|fil|fr|ja|ko|pt-BR|zh-CN)/introduction/whitepaper',
+        source: '/:locale(en)/introduction/whitepaper',
         destination: '/parallax.pdf',
         permanent: true,
       },
@@ -34,7 +41,7 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/:locale(en|de|es|fil|fr|ja|ko|pt-BR|zh-CN)/introduction/parallax-for-individuals',
+        source: '/:locale(en)/introduction/parallax-for-individuals',
         destination: '/:locale/introduction/parallax-for-bitcoiners',
         permanent: true,
       },
@@ -44,7 +51,7 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/:locale(en|de|es|fil|fr|ja|ko|pt-BR|zh-CN)/introduction/parallax-for-businesses',
+        source: '/:locale(en)/introduction/parallax-for-businesses',
         destination: '/:locale/introduction/parallax-for-developers',
         permanent: true,
       },

@@ -38,14 +38,6 @@ export function pageOgImage(title: string) {
  */
 const OG_LOCALES: Record<string, string> = {
   en: "en_US",
-  "pt-BR": "pt_BR",
-  fr: "fr_FR",
-  de: "de_DE",
-  "zh-CN": "zh_CN",
-  fil: "fil_PH",
-  ja: "ja_JP",
-  es: "es_ES",
-  ko: "ko_KR",
 }
 
 export function ogLocale(locale: string): string {
