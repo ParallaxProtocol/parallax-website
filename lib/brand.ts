@@ -20,10 +20,8 @@ export const LOGO_MARK = dataUri("new_parallax_logo_transparent.svg")
 const jpegDataUri = (...parts: string[]) =>
   `data:image/jpeg;base64,${asset(...parts).toString("base64")}`
 
-/** Hole centered — background for the site-wide brand card. */
-export const OG_BLACKHOLE_CENTER = jpegDataUri("assets", "og", "blackhole.jpg")
-
-/** Hole in the right two-thirds — background for per-page title cards. */
+/** Hole in the right two-thirds — background for every card, the copy in
+ *  the dark field left of it. */
 export const OG_BLACKHOLE_RIGHT = jpegDataUri("assets", "og", "blackhole-right.jpg")
 
 /** The mark on its black rounded plate — for icons and light surfaces. */
@@ -31,5 +29,6 @@ export const LOGO_SQUARE = dataUri("new_parallax_logo_square.svg")
 
 // Geist, the site's sans. Satori needs raw font data and cannot read WOFF2,
 // hence the vendored TTFs rather than a next/font import.
-export const GEIST_SEMIBOLD = asset("assets", "fonts", "Geist-SemiBold.ttf")
+export const GEIST_MEDIUM = asset("assets", "fonts", "Geist-Medium.ttf")
 export const GEIST_LIGHT = asset("assets", "fonts", "Geist-Light.ttf")
+export const GEIST_MONO_MEDIUM = asset("assets", "fonts", "GeistMono-Medium.ttf")

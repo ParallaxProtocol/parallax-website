@@ -1,6 +1,8 @@
 # Vendored fonts
 
-`Geist-SemiBold.ttf` and `Geist-Light.ttf`, from Google Fonts (Geist v5).
+`Geist-Medium.ttf`, `Geist-Light.ttf` (Geist v5) and `GeistMono-Medium.ttf`
+(Geist Mono v6), from Google Fonts — the weights the site sets headings,
+standfirsts and labels in.
 Licensed under the SIL Open Font License 1.1.
 
 They exist as files rather than as a `next/font` import because the Open Graph
