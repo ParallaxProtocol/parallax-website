@@ -16,7 +16,6 @@ import {
   Landmark,
   Layers,
   Menu,
-  Moon,
   Newspaper,
   Pickaxe,
   Rocket,
@@ -24,7 +23,6 @@ import {
   Search,
   ShieldCheck,
   Smartphone,
-  Sun,
   Wallet,
   X,
   Bitcoin,
@@ -33,7 +31,6 @@ import {
 } from "lucide-react"
 import { motion } from "framer-motion"
 import { useTranslations } from "next-intl"
-import { useTheme } from "next-themes"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import { createPortal } from "react-dom"
@@ -116,11 +113,7 @@ export function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
-  const { resolvedTheme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
   const t = useTranslations("nav")
-
-  useEffect(() => { setMounted(true) }, [])
 
   useEffect(() => {
     const b = document.body
@@ -208,16 +201,6 @@ export function Navigation() {
                 </a>
               </Button>
               <LanguageSwitcher heroOverlay={heroOverlay} />
-              <Button
-                variant="outline"
-                size="icon"
-                className="size-9"
-                onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-              >
-                <Sun className="size-4 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-                <Moon className="absolute size-4 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-                <span className="sr-only">{t("toggleTheme")}</span>
-              </Button>
             </div>
           </NavigationMenu>
         </div>
@@ -287,13 +270,6 @@ export function Navigation() {
                   <Link href="/introduction/getting-started" onClick={() => setIsOpen(false)}>{t("getStarted")}</Link>
                 </Button>
                 <LanguageSwitcher mobile />
-                <button
-                  className="flex items-center gap-3 py-2 text-base text-foreground/85 cursor-pointer"
-                  onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-                >
-                  {mounted && resolvedTheme === 'dark' ? <Sun className="size-5 shrink-0" /> : <Moon className="size-5 shrink-0" />}
-                  <span>{mounted && resolvedTheme === 'dark' ? t("lightMode") : t("darkMode")}</span>
-                </button>
               </div>
             </div>
           </div>,

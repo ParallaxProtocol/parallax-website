@@ -71,8 +71,13 @@ export async function generateMetadata({
 }
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
-  colorScheme: "dark",
+  // The site follows the visitor's system theme; the browser chrome tints
+  // to match each one.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
+  colorScheme: "light dark",
 };
 
 const ORGANIZATION_ID = `${BASE_URL}/#organization`;
@@ -138,8 +143,6 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className="dark"
-      style={{ colorScheme: "dark", backgroundColor: "#000000" }}
       suppressHydrationWarning
     >
       <body
@@ -152,8 +155,12 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="dark"
-            enableSystem={false}
+            defaultTheme="system"
+            enableSystem
+            // The old manual toggle stored its choice under "theme"; a new
+            // key retires those so every visitor follows their system.
+            storageKey="parallax-theme"
+            disableTransitionOnChange
           >
             <ScrollProgress />
             <ScrollToTop />

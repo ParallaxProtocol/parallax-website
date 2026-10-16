@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation"
 import { LineChart } from "lucide-react"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
+import { FooterWordmark } from "./footer-wordmark"
 
 type InternalLink = { key: string; href: string }
 type ExternalLink = { key: string; href: string; external: true }
@@ -63,19 +64,19 @@ export function Footer() {
             <Link href="/" className="inline-flex items-center gap-3">
               <Image
                 src="/new_parallax_logo_square.svg"
-                className="h-10 w-auto dark:hidden"
+                className="size-8 w-auto dark:hidden"
                 alt="Parallax logo"
                 width={200}
                 height={200}
               />
               <Image
                 src="/new_parallax_logo_square_white.svg"
-                className="h-10 w-auto hidden dark:block"
+                className="size-8 w-auto hidden dark:block"
                 alt="Parallax logo"
                 width={200}
                 height={200}
               />
-              <span className="text-xl font-medium tracking-tight text-foreground">
+              <span className="text-[30px] leading-none font-medium tracking-[-0.04em] text-foreground">
                 Parallax
               </span>
             </Link>
@@ -170,39 +171,9 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Outlined wordmark along the floor, stroked in the logo gradient —
-          solana.com's footer signature. Decorative; the brand row carries
-          the link. */}
-      <svg aria-hidden viewBox="0 0 1000 190" className="mt-16 block w-full select-none" preserveAspectRatio="xMidYMax meet">
-        <defs>
-          <linearGradient id="footer-wordmark" x1="0" x2="1" y1="0" y2="0">
-            <stop offset="0%" stopColor="var(--brand)" stopOpacity="0.55" />
-            <stop offset="100%" stopColor="var(--brand-2)" stopOpacity="0.55" />
-          </linearGradient>
-          <linearGradient id="footer-wordmark-fade" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="white" stopOpacity="1" />
-            <stop offset="100%" stopColor="white" stopOpacity="0.15" />
-          </linearGradient>
-          <mask id="footer-wordmark-mask">
-            <rect width="1000" height="190" fill="url(#footer-wordmark-fade)" />
-          </mask>
-        </defs>
-        <text
-          x="500"
-          y="210"
-          textAnchor="middle"
-          fontSize="250"
-          fontWeight="500"
-          letterSpacing="-12"
-          fill="none"
-          stroke="url(#footer-wordmark)"
-          strokeWidth="1.25"
-          mask="url(#footer-wordmark-mask)"
-          style={{ fontFamily: "var(--font-geist-sans)" }}
-        >
-          Parallax
-        </text>
-      </svg>
+      {/* Contour wordmark along the floor, lit by the cursor — solana.com's
+          footer signature, in the logo gradient. Decorative. */}
+      <FooterWordmark />
     </footer>
   )
 }

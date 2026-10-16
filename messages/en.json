@@ -106,9 +106,6 @@
   },
   "nav": {
     "getStarted": "Get Started",
-    "toggleTheme": "Toggle theme",
-    "lightMode": "Light mode",
-    "darkMode": "Dark mode",
     "language": "Language",
     "menus": {
       "learn": "Learn",
