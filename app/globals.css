@@ -371,6 +371,35 @@ a:focus-visible > [data-slot="card"] {
   border-image: linear-gradient(to bottom, var(--brand), var(--brand-2)) 1;
 }
 
+/* Marquee: a row of logos drifting left, slow enough to read. The track
+   holds the list twice and moves by half its width, so the loop is
+   seamless; hover pauses it, and reduced motion stops it, leaving a row the
+   reader can scroll sideways instead. Edges fade into the page. */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 60s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+  }
+  .marquee-track {
+    animation: none;
+  }
+}
+
 /* --- Entrance animations ---------------------------------------------
    Mount-time entrances must be CSS, not framer-motion: framer serializes
    its `initial` styles into the SSR HTML, so pages arrived at opacity 0

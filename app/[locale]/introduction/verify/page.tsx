@@ -1,6 +1,6 @@
 "use client"
 import { FadeIn } from "@/components/fade-in"
-import { GENESIS_HASH } from "@/components/genesis-proof"
+import { GENESIS_HASH } from "@/lib/genesis"
 import MainMotion from "@/components/main-motion"
 import PageHeader from "@/components/page-header"
 import { Section, TwoToneTitle } from "@/components/section"

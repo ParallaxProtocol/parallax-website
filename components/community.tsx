@@ -18,7 +18,7 @@ export function Community() {
   return (
     <Section className="border-b-0">
       <FadeIn>
-        <SectionHeading index="07" eyebrow={t("eyebrow")} title={t("heading")} />
+        <SectionHeading index="09" eyebrow={t("eyebrow")} title={t("heading")} />
       </FadeIn>
 
       {/* Two concept cells */}

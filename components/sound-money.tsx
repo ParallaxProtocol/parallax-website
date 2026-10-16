@@ -32,7 +32,7 @@ export function SoundMoney() {
   return (
     <Section>
       <FadeIn>
-        <SectionHeading index="04" eyebrow={t("eyebrow")} title={t("heading")} subtitle={t("subtitle")} />
+        <SectionHeading index="01" eyebrow={t("eyebrow")} title={t("heading")} subtitle={t("subtitle")} />
       </FadeIn>
 
       {/* Primary features — glowing panels */}

@@ -12,7 +12,7 @@ export default function Client() {
   return (
     <Section className="z-10">
       <FadeIn>
-        <SectionHeading index="05" eyebrow={t("eyebrow")} title={t("heading")} subtitle={t("subtitle")} />
+        <SectionHeading index="07" eyebrow={t("eyebrow")} title={t("heading")} subtitle={t("subtitle")} />
       </FadeIn>
 
       {/* Two concept cells */}

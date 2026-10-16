@@ -3,10 +3,10 @@ import { AudienceRouter } from "@/components/audience-router";
 import Client from "@/components/client";
 import { Community } from "@/components/community";
 import { Documentation } from "@/components/documentation";
-import { GenesisProof } from "@/components/genesis-proof";
 import { Hero } from "@/components/hero";
-import { Parallax } from "@/components/parallax";
-import { NetworkStats } from "@/components/network-stats";
+import { MobileWallets } from "@/components/mobile-wallets";
+import { NoForks } from "@/components/no-forks";
+import { AskParallaxShowcase, ToolsShowcase, WalletShowcase } from "@/components/showcase";
 import { SoundMoney } from "@/components/sound-money";
 
 export default function Home() {
@@ -17,11 +17,13 @@ export default function Home() {
           animations" in globals.css). */}
       <div className="flex flex-col gap-0 overflow-x-hidden">
         <Hero />
-        <NetworkStats />
-        <GenesisProof />
-        <AudienceRouter />
-        <Parallax />
         <SoundMoney />
+        <NoForks />
+        <AudienceRouter />
+        <WalletShowcase />
+        <MobileWallets />
+        <AskParallaxShowcase />
+        <ToolsShowcase />
         <Client />
         <Documentation />
         <Community />

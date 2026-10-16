@@ -39,7 +39,7 @@ export function TwoToneTitle({ text }: { text: string }) {
   }
   return (
     <>
-      <span className="block">{words.slice(0, best).join(" ")}</span>
+      <span className="block">{words.slice(0, best).join(" ")}</span>{" "}
       <span className="block font-light">{words.slice(best).join(" ")}</span>
     </>
   )

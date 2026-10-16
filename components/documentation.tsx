@@ -17,7 +17,7 @@ export function Documentation() {
   return (
     <Section>
       <FadeIn>
-        <SectionHeading index="06" eyebrow={t("eyebrow")} title={t("heading")} subtitle={t("subtitle")} />
+        <SectionHeading index="08" eyebrow={t("eyebrow")} title={t("heading")} subtitle={t("subtitle")} />
       </FadeIn>
 
       <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

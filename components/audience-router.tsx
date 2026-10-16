@@ -20,7 +20,7 @@ export function AudienceRouter() {
   return (
     <Section>
       <FadeIn>
-        <SectionHeading index="02" eyebrow={t("eyebrow")} title={t("heading")} subtitle={t("subtitle")} />
+        <SectionHeading index="03" eyebrow={t("eyebrow")} title={t("heading")} subtitle={t("subtitle")} />
       </FadeIn>
 
       <div className="mt-16 grid grid-cols-1 gap-4 lg:grid-cols-2">

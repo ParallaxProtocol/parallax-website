@@ -227,46 +227,10 @@
       "runNode": "Run a node",
       "readDocs": "Read the Docs"
     },
-    "networkStats": {
-      "liveNetwork": "Live Network",
-      "market": "Market",
-      "blockExplorer": "Block Explorer",
-      "networkAtlas": "Network Atlas",
-      "networkStatus": "Network Status",
-      "coingecko": "CoinGecko",
-      "labels": {
-        "blocks": "Blocks",
-        "transactions": "Transactions",
-        "addresses": "Addresses",
-        "avgBlockTime": "Avg Block Time",
-        "txnsToday": "Txns Today",
-        "price": "LAX Price",
-        "marketCap": "Market Cap",
-        "volume24h": "24h Volume",
-        "supply": "Circulating Supply"
-      }
-    },
-    "genesis": {
-      "eyebrow": "Genesis",
-      "headline": "The Times 28/Oct/2025 Trump tells Japan: Any favours you need, we'll be there",
-      "headlineNote": "The launch-day headline embedded in the genesis block — proof the chain could not have been constructed before the news.",
-      "hashLabel": "Genesis hash",
-      "supplyNote": "Supply at block zero: 0 LAX. No premine, no allocations — every coin since has been mined under rules that were public before the first hash was tried.",
-      "cta": "Verify it yourself"
-    },
     "audience": {
       "eyebrow": "Orientation",
       "heading": "Two Ways In",
       "subtitle": "One protocol, two vantage points. Each briefing starts from what you already know — Bitcoin's monetary rules, or the EVM you build on."
-    },
-    "parallax": {
-      "eyebrow": "Principle",
-      "heading": "Rules That Cannot Be Bent",
-      "subtitle": "Commitment is credible only when it costs something. That is the Doctrine in one image.",
-      "imageCaption": "The Death of Socrates — Jacques-Louis David",
-      "body1": "The Death of Socrates shows a man who was offered escape and declined it. What makes the scene endure is not defiance but price: Socrates would not trade principle for convenience even at terminal cost — and it is precisely the cost that made his commitment believable. Cheap talk is free. Hemlock is not.",
-      "body2": "Proof-of-work runs on the same logic. Every block is irreversible expenditure — energy that cannot be faked, refunded, or voted into existence. A monetary system keeps its legitimacy only while its rules cannot be bent by power or popularity, so Parallax anchors its rules in the one thing neither can bend: physical cost. In adversarial systems, expense is credibility. Socrates proved it once; the timechain proves it every ten minutes.",
-      "cta": "Read the Parallax Doctrine"
     },
     "soundMoney": {
       "eyebrow": "Economics",
@@ -299,6 +263,39 @@
       "cta": "See how Parallax stacks up",
       "ctaSubtitle": "vs Bitcoin & Ethereum, feature by feature"
     },
+    "noForks": {
+      "eyebrow": "No forks required",
+      "heading": "Privacy and post-quantum, without a single fork",
+      "subtitle": "Parallax's consensus rules are meant to stay put. Because a full EVM runs on top of them, features other chains spend years debating forks for arrive here as ordinary contracts, secured by the same proof of work as every LAX.",
+      "contractLayer": "Contract layer",
+      "contractLayerNote": "Ships whenever it's ready",
+      "consensusLayer": "Consensus layer",
+      "consensusLayerNote": "Ossified",
+      "consensus": {
+        "pow": "Proof of work",
+        "cap": "21,000,000 LAX",
+        "blocks": "10-minute blocks",
+        "noForks": "No scheduled hard forks"
+      },
+      "statusResearch": "Research",
+      "statusDevelopment": "In development",
+      "items": {
+        "pqPool": {
+          "title": "Post-quantum shielded pool",
+          "description": "Private transfers of LAX and tokens. Inside the pool nothing rests on elliptic curves: STARK proofs with no trusted setup, checked on-chain by a plain contract, and notes encrypted with ML-KEM-768."
+        },
+        "vaults": {
+          "title": "Vaults and covenants",
+          "description": "Timelocked, reactive self-custody in the spirit of Bitcoin's proposed OP_VAULT, with a delay window and a clawback to a recovery key."
+        },
+        "channels": {
+          "title": "Payment channels",
+          "description": "Instant payments signed off-chain and carried end-to-end encrypted over the Nostr network, settling on-chain only when a channel opens or closes."
+        }
+      },
+      "contrast": "Elsewhere, each of these waits on a protocol upgrade. On Parallax, it's a contract deployment that works on the chain exactly as it runs today.",
+      "cta": "Read: Covenants Without Forks"
+    },
     "client": {
       "eyebrow": "Software",
       "heading": "The Parallax Client",
@@ -320,6 +317,94 @@
       "cli": "Parallax CLI",
       "quickStart": "Quick start",
       "github": "GitHub"
+    },
+    "showcase": {
+      "eyebrow": "Tools",
+      "heading": "Built to be checked",
+      "subtitle": "Everything Parallax claims about itself can be verified. These are the tools that make the network readable, live.",
+      "status": {
+        "label": "Network status",
+        "title": "The network's health, stated plainly",
+        "description": "Block times, hashrate, mining concentration, supply and nodes, refreshed live. It leads with whatever is wrong, because a status page that hides problems is a press release.",
+        "cta": "Open the status page"
+      },
+      "explorer": {
+        "label": "Block explorer",
+        "title": "Every block since genesis",
+        "description": "Search any block, transaction, address, token or verified contract on the chain.",
+        "cta": "Open the explorer"
+      }
+    },
+    "askParallax": {
+      "eyebrow": "Ask Parallax",
+      "heading": "A blockchain built for the AI era",
+      "subtitle": "Parallax speaks to AI assistants natively: a public MCP server that reads the chain from live data, and another inside Parallax Wallet for your own accounts. Ask in plain language, get answers you can verify.",
+      "points": {
+        "live": {
+          "title": "Answers from live data",
+          "description": "It reads a Parallax node, the block explorer and the status page at the moment you ask, not what a model memorized."
+        },
+        "readOnly": {
+          "title": "Read-only by construction",
+          "description": "Every request passes a short list of read-only methods. It cannot unlock an account, sign, or change a node's settings."
+        },
+        "noKeys": {
+          "title": "No keys, ever",
+          "description": "The server never holds, asks for or accepts a private key."
+        }
+      },
+      "cta": "Read the announcement",
+      "docs": "Setup guide",
+      "question": "Explain transaction 0x3afc…24f0.",
+      "answer": "It succeeded. The sender staked 1,000 APEPE into the VaultPro_v3 contract: it called stake(1000) on the vault, which pulled the tokens from the sender's balance with transferFrom. No LAX changed hands besides the fee of 0.010015 LAX."
+    },
+    "wallet": {
+      "eyebrow": "Parallax Wallet",
+      "badge": "Coming soon",
+      "heading": "A state-of-the-art wallet with a full node inside",
+      "subtitle": "Your own node, keys sealed under modern encryption, and an AI assistant that can help without ever touching a key. For Linux, macOS and Windows.",
+      "features": {
+        "node": {
+          "title": "A full node, built in",
+          "description": "One app runs a complete Parallax node. Balances and history come from your own copy of the chain, not someone else's server."
+        },
+        "sealed": {
+          "title": "Sealed by default",
+          "description": "Keys, recovery phrases, contacts and labels are encrypted under one password. A key is decrypted only for the moment it signs, then wiped, and the app's memory stays out of crash dumps."
+        },
+        "signing": {
+          "title": "Hardware and offline signing",
+          "description": "Sign on a Ledger or Trezor, or keep a key on an air-gapped computer and sign by QR code."
+        },
+        "assistant": {
+          "title": "Its own AI assistant server",
+          "description": "Connect Claude or any MCP assistant. It can read your accounts and history and prepare a send, but every send waits for your approval and password, and no tool can reveal a phrase or a key."
+        }
+      },
+      "inDevelopment": "In development",
+      "upcoming": {
+        "stealth": {
+          "title": "Stealth addresses",
+          "description": "Share one address publicly while every payment lands at a fresh one that outside observers can't link back to you."
+        },
+        "channels": {
+          "title": "Payment channels",
+          "description": "Instant LAX payments signed off-chain and carried end-to-end encrypted over Nostr relays, with no payment servers. They even work with no internet, in three QR scans."
+        }
+      },
+      "mock": {
+        "title": "Parallax Wallet",
+        "assistant": "Assistant request",
+        "request": "Send 2.5 LAX to a saved contact",
+        "approve": "Approve",
+        "decline": "Decline"
+      }
+    },
+    "mobileWallets": {
+      "eyebrow": "On your phone",
+      "heading": "Use the mobile wallet you already have",
+      "subtitle": "Parallax speaks Ethereum's language, so popular mobile wallets work with LAX once you add the network.",
+      "cta": "Browse wallets"
     },
     "documentation": {
       "eyebrow": "Learn",
