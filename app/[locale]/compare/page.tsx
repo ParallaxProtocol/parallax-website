@@ -3,6 +3,7 @@
 import { FadeIn } from "@/components/fade-in"
 import MainMotion from "@/components/main-motion"
 import PageHeader from "@/components/page-header"
+import { Section, SectionHeading } from "@/components/section"
 import { cn } from "@/lib/utils"
 import {
   Check,
@@ -104,7 +105,7 @@ function CellDisplay({ cell }: { cell: Cell }) {
   if (cell.kind === "yes") {
     return (
       <div className="flex items-start gap-2">
-        <Check className="size-4 text-brand shrink-0 mt-0.5" />
+        <Check className="size-4 text-brand shrink-0 mt-0.5" strokeWidth={2.25} />
         {cell.label && <span className="text-sm text-foreground">{cell.label}</span>}
       </div>
     )
@@ -112,7 +113,7 @@ function CellDisplay({ cell }: { cell: Cell }) {
   if (cell.kind === "no") {
     return (
       <div className="flex items-start gap-2">
-        <X className="size-4 text-muted-foreground/60 shrink-0 mt-0.5" />
+        <X className="size-4 text-muted-foreground shrink-0 mt-0.5" strokeWidth={2} />
         {cell.label && <span className="text-sm text-muted-foreground">{cell.label}</span>}
       </div>
     )
@@ -120,7 +121,7 @@ function CellDisplay({ cell }: { cell: Cell }) {
   if (cell.kind === "partial") {
     return (
       <div className="flex items-start gap-2">
-        <Minus className="size-4 text-muted-foreground shrink-0 mt-0.5" />
+        <Minus className="size-4 text-muted-foreground shrink-0 mt-0.5" strokeWidth={2} />
         {cell.label && <span className="text-sm text-muted-foreground">{cell.label}</span>}
       </div>
     )
@@ -192,90 +193,84 @@ export default function ComparePage() {
     <MainMotion>
       <PageHeader title={t("title")} subTitle={t("subtitle")} />
 
-      {/* At a glance cards */}
-      <section className="mt-24 px-6 sm:px-8">
-        <div className="mx-auto max-w-7xl">
-          <FadeIn>
-            <p className="text-sm font-mono uppercase tracking-[0.2em] text-muted-foreground mb-8 text-center">
-              {t("atAGlance")}
-            </p>
-          </FadeIn>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* At a glance — one hairline grid, Parallax's line lit in each cell */}
+      <Section>
+        <FadeIn>
+          <p className="tag"><span className="text-brand">01</span><span aria-hidden className="text-hairline">/</span>{t("atAGlance")}</p>
+        </FadeIn>
+        <FadeIn delay={0.05}>
+          <div className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-stroke bg-hairline md:grid-cols-2">
             {summary.map((item, i) => {
               const Icon = SUMMARY_ICONS[i]
               return (
-                <FadeIn key={item.title} delay={i * 0.08}>
-                  <div className="border-l-2 border-l-brand bg-card/50 backdrop-blur-sm border border-border p-6 h-full">
-                    <div className="flex items-center gap-3 mb-5">
-                      <Icon className="size-5 text-brand" />
-                      <h3 className="text-xs font-medium font-mono uppercase tracking-[0.15em] text-foreground">
-                        {item.title}
-                      </h3>
+                <div key={item.title} className="flex flex-col bg-background p-6 sm:p-8">
+                  <Icon className="size-6 text-brand" strokeWidth={1.5} />
+                  <h3 className="mt-8 text-2xl leading-tight text-foreground">
+                    {item.title}
+                  </h3>
+                  <dl className="mt-6 text-sm">
+                    <div className="flex items-baseline justify-between gap-4 rounded-lg bg-brand/[0.06] px-3 py-3">
+                      <dt className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-brand">
+                        <span aria-hidden className="size-1.5 rounded-full bg-brand" />
+                        {t("chains.parallax")}
+                      </dt>
+                      <dd className="text-right font-medium text-foreground">{item.parallax}</dd>
                     </div>
-                    <div className="space-y-3 text-sm">
-                      <div className="flex justify-between gap-4 border-b border-border/60 pb-2">
-                        <span className="font-mono uppercase tracking-wider text-xs text-brand">
-                          {t("chains.parallax")}
-                        </span>
-                        <span className="text-foreground text-right">{item.parallax}</span>
-                      </div>
-                      <div className="flex justify-between gap-4 border-b border-border/60 pb-2">
-                        <span className="font-mono uppercase tracking-wider text-xs text-muted-foreground">
-                          {t("chains.bitcoin")}
-                        </span>
-                        <span className="text-muted-foreground text-right">{item.bitcoin}</span>
-                      </div>
-                      <div className="flex justify-between gap-4">
-                        <span className="font-mono uppercase tracking-wider text-xs text-muted-foreground">
-                          {t("chains.ethereum")}
-                        </span>
-                        <span className="text-muted-foreground text-right">{item.ethereum}</span>
-                      </div>
+                    <div className="mx-3 flex items-baseline justify-between gap-4 border-b border-hairline py-3">
+                      <dt className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                        {t("chains.bitcoin")}
+                      </dt>
+                      <dd className="text-right text-muted-foreground">{item.bitcoin}</dd>
                     </div>
-                  </div>
-                </FadeIn>
+                    <div className="mx-3 flex items-baseline justify-between gap-4 py-3">
+                      <dt className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                        {t("chains.ethereum")}
+                      </dt>
+                      <dd className="text-right text-muted-foreground">{item.ethereum}</dd>
+                    </div>
+                  </dl>
+                </div>
               )
             })}
           </div>
-        </div>
-      </section>
+        </FadeIn>
+      </Section>
 
-      {/* Detailed comparison */}
-      <section className="mt-24 px-6 sm:px-8">
-        <div className="mx-auto max-w-7xl">
-          <FadeIn>
-            <p className="text-sm font-mono uppercase tracking-[0.2em] text-muted-foreground mb-4 text-center">
-              {t("detailedComparison")}
-            </p>
-            <h2 className="text-3xl text-foreground sm:text-4xl text-center mb-16">
-              {t("featureByFeature")}
-            </h2>
-          </FadeIn>
+      {/* Detailed comparison — one hairline-ruled ledger per section */}
+      <Section>
+        <FadeIn>
+          <SectionHeading index="02" eyebrow={t("detailedComparison")} title={t("featureByFeature")} />
+        </FadeIn>
 
+        <div className="mt-16 flex flex-col gap-8">
           {sections.map((section, si) => (
             <FadeIn key={section.key} delay={si * 0.05}>
-              <div className="mb-16">
-                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border">
+              <div className="overflow-hidden rounded-2xl border border-stroke bg-card">
+                <div className="flex items-center gap-4 border-b border-hairline px-5 py-5 sm:px-6">
                   <section.icon className="size-5 text-brand" />
-                  <h3 className="text-sm font-medium font-mono uppercase tracking-[0.15em] text-foreground">
+                  <h3 className="text-xl leading-tight text-foreground sm:text-2xl">
                     {section.title}
                   </h3>
+                  <span className="ml-auto font-mono text-xs tracking-[0.14em] text-muted-foreground">
+                    {String(si + 1).padStart(2, "0")}
+                  </span>
                 </div>
 
                 {/* Desktop table */}
                 <div className="hidden md:block">
-                  <div className="grid grid-cols-[1.6fr_1fr_1fr_1fr] gap-4 px-4 pb-3 border-b border-border">
-                    <div className="text-xs font-mono uppercase tracking-[0.15em] text-muted-foreground">
+                  <div className="grid grid-cols-[1.6fr_1fr_1fr_1fr] divide-x divide-hairline border-b border-hairline">
+                    <div className="px-6 py-3 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
                       {t("property")}
                     </div>
                     {chains.map((c) => (
                       <div
                         key={c.key}
                         className={cn(
-                          "text-xs font-mono uppercase tracking-[0.15em]",
-                          c.highlight ? "text-brand" : "text-muted-foreground"
+                          "flex items-center gap-2 px-6 py-3 font-mono text-xs uppercase tracking-[0.14em]",
+                          c.highlight ? "bg-brand/[0.05] text-brand" : "text-muted-foreground"
                         )}
                       >
+                        {c.highlight && <span aria-hidden className="size-1.5 rounded-full bg-brand" />}
                         {c.name}
                       </div>
                     ))}
@@ -284,25 +279,25 @@ export default function ComparePage() {
                     <div
                       key={row.label}
                       className={cn(
-                        "grid grid-cols-[1.6fr_1fr_1fr_1fr] gap-4 px-4 py-5",
-                        ri !== section.rows.length - 1 && "border-b border-border/60"
+                        "grid grid-cols-[1.6fr_1fr_1fr_1fr] divide-x divide-hairline",
+                        ri !== section.rows.length - 1 && "border-b border-hairline"
                       )}
                     >
-                      <div>
-                        <div className="text-sm text-foreground font-medium">{row.label}</div>
+                      <div className="px-6 py-5">
+                        <div className="text-base font-medium leading-snug text-foreground">{row.label}</div>
                         {row.description && (
-                          <div className="text-xs text-muted-foreground mt-1 leading-relaxed">
+                          <div className="text-sm text-muted-foreground mt-1.5 leading-relaxed">
                             {row.description}
                           </div>
                         )}
                       </div>
-                      <div className="border-l-2 pl-4 border-l-brand/40">
+                      <div className="bg-brand/[0.05] px-6 py-5">
                         <CellDisplay cell={row.parallax} />
                       </div>
-                      <div>
+                      <div className="px-6 py-5">
                         <CellDisplay cell={row.bitcoin} />
                       </div>
-                      <div>
+                      <div className="px-6 py-5">
                         <CellDisplay cell={row.ethereum} />
                       </div>
                     </div>
@@ -310,27 +305,35 @@ export default function ComparePage() {
                 </div>
 
                 {/* Mobile stacked layout */}
-                <div className="md:hidden space-y-6">
-                  {section.rows.map((row) => (
+                <div className="md:hidden">
+                  {section.rows.map((row, ri) => (
                     <div
                       key={row.label}
-                      className="border border-border bg-card/50 backdrop-blur-sm p-5"
+                      className={cn("p-5", ri !== section.rows.length - 1 && "border-b border-hairline")}
                     >
-                      <div className="text-sm text-foreground font-medium mb-1">{row.label}</div>
+                      <div className="text-base font-medium leading-snug text-foreground mb-1">{row.label}</div>
                       {row.description && (
-                        <div className="text-xs text-muted-foreground mb-4 leading-relaxed">
+                        <div className="text-sm text-muted-foreground leading-relaxed">
                           {row.description}
                         </div>
                       )}
-                      <div className="space-y-3 mt-4">
-                        {chains.map((c) => (
-                          <div key={c.key} className="flex flex-col gap-1">
+                      <div className="mt-4 overflow-hidden rounded-xl border border-stroke">
+                        {chains.map((c, ci) => (
+                          <div
+                            key={c.key}
+                            className={cn(
+                              "flex flex-col gap-1.5 px-4 py-3",
+                              ci !== chains.length - 1 && "border-b border-hairline",
+                              c.highlight && "bg-brand/[0.05]"
+                            )}
+                          >
                             <span
                               className={cn(
-                                "text-[10px] font-mono uppercase tracking-[0.15em]",
+                                "flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em]",
                                 c.highlight ? "text-brand" : "text-muted-foreground"
                               )}
                             >
+                              {c.highlight && <span aria-hidden className="size-1.5 rounded-full bg-brand" />}
                               {c.name}
                             </span>
                             <CellDisplay cell={row[c.key]} />
@@ -344,26 +347,25 @@ export default function ComparePage() {
             </FadeIn>
           ))}
         </div>
-      </section>
+      </Section>
 
-      {/* Closing statement */}
-      <section className="mt-16 px-6 sm:px-8">
-        <div className="mx-auto max-w-4xl">
-          <FadeIn>
-            <div className="border-l-2 border-l-brand pl-6 py-4">
-              <div className="flex items-center gap-2 mb-3">
+      {/* Closing statement — last band, MainMotion supplies the bottom space */}
+      <Section className="border-b-0">
+        <FadeIn>
+          <div className="relative overflow-hidden rounded-2xl border border-stroke bg-card p-8 sm:p-12">
+            <div aria-hidden className="aurora" />
+            <div className="relative max-w-3xl">
+              <p className="tag">
                 <GitBranch className="size-4 text-brand" />
-                <span className="text-xs font-mono uppercase tracking-[0.15em] text-brand">
-                  {t("thesisLabel")}
-                </span>
-              </div>
-              <p className="text-base text-muted-foreground leading-relaxed text-pretty">
+                {t("thesisLabel")}
+              </p>
+              <p className="mt-8 text-xl font-light leading-snug text-foreground text-pretty sm:text-2xl lg:text-3xl lg:leading-[1.25]">
                 {t("thesisBody")}
               </p>
             </div>
-          </FadeIn>
-        </div>
-      </section>
+          </div>
+        </FadeIn>
+      </Section>
     </MainMotion>
   )
 }

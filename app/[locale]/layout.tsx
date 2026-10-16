@@ -8,7 +8,7 @@ import { alternatesFor, BASE_URL, ogAlternateLocales, ogLocale, OG_IMAGE } from 
 import type { Metadata, Viewport } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Geist, Geist_Mono, Newsreader } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import "../globals.css";
 import "../table.css";
@@ -21,12 +21,6 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-});
-
-const newsreader = Newsreader({
-  variable: "--font-serif",
-  subsets: ["latin"],
-  display: "swap",
 });
 
 export function generateStaticParams() {
@@ -77,7 +71,7 @@ export async function generateMetadata({
 }
 
 export const viewport: Viewport = {
-  themeColor: "#06070d",
+  themeColor: "#000000",
   colorScheme: "dark",
 };
 
@@ -145,11 +139,11 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       className="dark"
-      style={{ colorScheme: "dark", backgroundColor: "#06070d" }}
+      style={{ colorScheme: "dark", backgroundColor: "#000000" }}
       suppressHydrationWarning
     >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <script
           type="application/ld+json"
@@ -169,21 +163,6 @@ export default async function LocaleLayout({
               <Footer />
             </div>
             <AddNetworkPopup />
-            {/* Global noise grain texture */}
-            <svg
-              className="fixed inset-0 w-full h-full pointer-events-none opacity-[0.015] dark:opacity-[0.02] z-[100]"
-              aria-hidden="true"
-            >
-              <filter id="global-grain">
-                <feTurbulence
-                  type="fractalNoise"
-                  baseFrequency="0.65"
-                  numOctaves="3"
-                  stitchTiles="stitch"
-                />
-              </filter>
-              <rect width="100%" height="100%" filter="url(#global-grain)" />
-            </svg>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

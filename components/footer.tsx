@@ -1,4 +1,3 @@
-import { Hairline } from "@/components/fade-in"
 import { Link } from "@/i18n/navigation"
 import { LineChart } from "lucide-react"
 import { useTranslations } from "next-intl"
@@ -57,13 +56,10 @@ export function Footer() {
   const t = useTranslations("footer")
 
   return (
-    <footer className="relative w-full">
-      <Hairline />
-
-      <div className="mx-auto max-w-7xl px-6 py-16 sm:px-8">
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-5">
-          {/* Brand column */}
-          <div className="sm:col-span-2 lg:col-span-1">
+    <footer className="relative w-full overflow-hidden border-t border-hairline bg-background">
+      <div className="mx-auto max-w-[90rem] px-5 pt-16 md:px-10">
+        {/* Brand row */}
+        <div className="flex flex-col gap-4 border-b border-hairline pb-10 sm:flex-row sm:items-center sm:justify-between">
             <Link href="/" className="inline-flex items-center gap-3">
               <Image
                 src="/new_parallax_logo_square.svg"
@@ -79,19 +75,21 @@ export function Footer() {
                 width={200}
                 height={200}
               />
-              <span className="text-lg font-semibold font-sans text-foreground">
+              <span className="text-xl font-medium tracking-tight text-foreground">
                 Parallax
               </span>
             </Link>
-            <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-xs">
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-xs sm:text-right">
               {t("tagline")}
             </p>
-          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-10 pt-12 sm:grid-cols-4">
 
           {/* Link columns */}
           {Object.entries(footerLinks).map(([section, links]) => (
             <div key={section}>
-              <h4 className="text-xs font-medium font-mono uppercase tracking-[0.15em] text-foreground mb-4">
+              <h4 className="mb-6 font-mono text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">
                 {t(`sections.${section}` as "sections.protocol")}
               </h4>
               <ul className="space-y-3">
@@ -104,7 +102,7 @@ export function Footer() {
                           href={link.href}
                           target="_blank"
                           rel="noopener"
-                          className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                          className="text-[15px] text-foreground/80 hover:text-foreground transition-colors"
                         >
                           {label}
                         </a>
@@ -115,7 +113,7 @@ export function Footer() {
                     <li key={link.key}>
                       <Link
                         href={link.href}
-                        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                        className="text-[15px] text-foreground/80 hover:text-foreground transition-colors"
                       >
                         {label}
                       </Link>
@@ -127,10 +125,8 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 pt-8">
-          <Hairline className="mb-8" />
-
-          <div className="flex items-center justify-center gap-2 mb-6">
+        <div className="mt-16 border-t border-hairline pt-8">
+          <div className="flex items-center gap-2 mb-6">
             <LineChart className="size-3.5 text-muted-foreground" />
             <p className="text-xs text-muted-foreground">
               {t.rich("marketDataBy", {
@@ -148,15 +144,15 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-muted-foreground">{t("copyright")}</p>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-sm">
+            <p className="text-muted-foreground">{t("copyright")}</p>
             <Link
               href="/privacy"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="text-muted-foreground hover:text-foreground hover:underline decoration-2 decoration-brand underline-offset-4 transition-colors"
             >
               {t("privacy")}
             </Link>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground">
               {t.rich("license", {
                 link: (chunks) => (
                   <a
@@ -173,6 +169,40 @@ export function Footer() {
           </div>
         </div>
       </div>
+
+      {/* Outlined wordmark along the floor, stroked in the logo gradient —
+          solana.com's footer signature. Decorative; the brand row carries
+          the link. */}
+      <svg aria-hidden viewBox="0 0 1000 190" className="mt-16 block w-full select-none" preserveAspectRatio="xMidYMax meet">
+        <defs>
+          <linearGradient id="footer-wordmark" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0%" stopColor="var(--brand)" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="var(--brand-2)" stopOpacity="0.55" />
+          </linearGradient>
+          <linearGradient id="footer-wordmark-fade" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="white" stopOpacity="1" />
+            <stop offset="100%" stopColor="white" stopOpacity="0.15" />
+          </linearGradient>
+          <mask id="footer-wordmark-mask">
+            <rect width="1000" height="190" fill="url(#footer-wordmark-fade)" />
+          </mask>
+        </defs>
+        <text
+          x="500"
+          y="210"
+          textAnchor="middle"
+          fontSize="250"
+          fontWeight="500"
+          letterSpacing="-12"
+          fill="none"
+          stroke="url(#footer-wordmark)"
+          strokeWidth="1.25"
+          mask="url(#footer-wordmark-mask)"
+          style={{ fontFamily: "var(--font-geist-sans)" }}
+        >
+          Parallax
+        </text>
+      </svg>
     </footer>
   )
 }

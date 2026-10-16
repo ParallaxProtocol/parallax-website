@@ -15,11 +15,13 @@ import { useLocale, useTranslations } from "next-intl"
 import { useTransition } from "react"
 
 type Props = {
+  // Still passed by the navigation; the outline icon button reads on every
+  // background, so it no longer changes the styling.
   heroOverlay?: boolean
   mobile?: boolean
 }
 
-export default function LanguageSwitcher({ heroOverlay, mobile }: Props) {
+export default function LanguageSwitcher({ mobile }: Props) {
   const t = useTranslations("languageSwitcher")
   const locale = useLocale() as Locale
   const router = useRouter()
@@ -39,22 +41,22 @@ export default function LanguageSwitcher({ heroOverlay, mobile }: Props) {
   if (mobile) {
     return (
       <div className="flex flex-col gap-1">
-        <span className="px-3 text-xs font-mono uppercase tracking-[0.15em] text-muted-foreground">
+        <span className="tag px-3">
           {t("label")}
         </span>
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-1">
           {routing.locales.map((l) => (
             <button
               key={l}
               disabled={isPending}
               onClick={() => switchLocale(l)}
               className={cn(
-                "flex items-center justify-between px-3 py-2 text-base font-medium text-accent-foreground/80 hover:text-foreground hover:bg-muted transition-colors cursor-pointer",
-                l === locale && "text-brand",
+                "flex items-center justify-between rounded-lg px-3 py-2 text-base font-medium text-muted-foreground hover:bg-foreground/5 hover:text-foreground transition-colors cursor-pointer",
+                l === locale && "bg-foreground/5 text-foreground",
               )}
             >
               <span>{localeNames[l]}</span>
-              {l === locale && <Check className="size-4" />}
+              {l === locale && <Check className="size-4 text-brand" />}
             </button>
           ))}
         </div>
@@ -65,30 +67,24 @@ export default function LanguageSwitcher({ heroOverlay, mobile }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant={heroOverlay ? "ghost" : "secondary"}
-          size="icon"
-          aria-label={t("label")}
-          className={cn(heroOverlay && "text-white [&_*]:text-white hover:bg-white/10")}
-          style={heroOverlay ? { border: "1px solid rgba(255,255,255,0.15)" } : undefined}
-        >
+        <Button variant="outline" size="icon" className="size-9" aria-label={t("label")}>
           <Languages className="size-4" />
           <span className="sr-only">{t("label")}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" sideOffset={8} className="min-w-44">
         {routing.locales.map((l) => (
           <DropdownMenuItem
             key={l}
             disabled={isPending}
             onSelect={() => switchLocale(l)}
             className={cn(
-              "flex items-center justify-between gap-4 cursor-pointer",
-              l === locale && "text-brand",
+              "flex items-center justify-between gap-4 cursor-pointer px-3 py-2 text-sm",
+              l === locale && "text-foreground",
             )}
           >
             <span>{localeNames[l]}</span>
-            {l === locale && <Check className="size-4" />}
+            {l === locale && <Check className="size-4 text-brand" />}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

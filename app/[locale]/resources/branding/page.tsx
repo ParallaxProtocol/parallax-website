@@ -1,7 +1,7 @@
 import MainMotion from "@/components/main-motion";
 import PageHeader from "@/components/page-header";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardTitle } from "@/components/ui/card";
 import { Download } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
@@ -59,20 +59,23 @@ export default async function BrandingPage() {
         title={t("title")}
         subTitle={t("subtitle")}
       />
-      <section className="mx-auto max-w-7xl px-6 py-16 sm:px-8 xl:px-0">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <section className="mx-auto max-w-[90rem] px-5 pt-20 md:px-10 md:pt-28">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {LOGO_ASSETS.map((logo, i) => {
             const name = names[i]?.name ?? "";
             return (
-              <Card key={`${name}_${i}`}>
-                <CardHeader>
-                  <CardTitle>{name}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex justify-center mb-8">
-                    <Image src={logo.preview} alt={name} width={200} height={200} className="rounded p-2" />
+              <Card key={`${name}_${i}`} className="overflow-hidden py-0">
+                <div className="flex justify-center border-b border-hairline bg-foreground/[0.02] px-6 py-12">
+                  <Image src={logo.preview} alt={name} width={200} height={200} className="size-36 p-2 sm:size-40" />
+                </div>
+                <div className="flex flex-1 flex-col justify-between gap-6 p-6">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <CardTitle className="text-xl">{name}</CardTitle>
+                    <span className="font-mono text-xs tracking-[0.14em] text-muted-foreground">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                   </div>
-                  <div className="flex gap-4 justify-center">
+                  <div className="flex gap-2">
                     {logo.files.map((file) => (
                       <Button key={file.type} variant="outline" size="sm" asChild>
                         <a href={file.png ? getPngPath(file.path) : file.path} download>
@@ -82,7 +85,7 @@ export default async function BrandingPage() {
                       </Button>
                     ))}
                   </div>
-                </CardContent>
+                </div>
               </Card>
             );
           })}

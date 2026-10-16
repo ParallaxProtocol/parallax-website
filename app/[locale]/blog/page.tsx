@@ -22,35 +22,33 @@ export default async function BlogPage({
     <MainMotion>
       <PageHeader title={t("title")} subTitle={t("subtitle")}>
         {locale !== routing.defaultLocale && (
-          <p className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
+          <p className="tag">
             {t("englishOnly")}
           </p>
         )}
       </PageHeader>
 
-      <section className="mx-auto max-w-7xl px-6 pb-24 sm:px-8 xl:px-0">
+      <section className="mx-auto max-w-[90rem] px-5 py-16 md:px-10 md:py-24">
         {tags.length > 0 && (
-          <nav aria-label={t("topics")} className="mb-12 flex flex-wrap items-center gap-3">
-            <span className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
-              {t("topics")}
-            </span>
+          <nav aria-label={t("topics")} className="mb-16 flex flex-wrap items-center gap-2 border-b border-hairline pb-10">
+            <span className="tag mr-3">{t("topics")}</span>
             {tags.map((tag) => (
               <Link
                 key={tag.slug}
                 href={`/blog/tag/${tag.slug}`}
-                className="rounded-full border border-border px-3 py-1 font-mono text-xs uppercase tracking-[0.1em] text-muted-foreground transition-colors hover:border-brand/40 hover:text-foreground"
+                className="inline-flex h-9 items-center gap-2 rounded-full border border-stroke px-4 text-sm font-medium text-foreground transition-colors hover:border-foreground/30 hover:bg-foreground/5 motion-reduce:transition-none"
               >
                 {tag.tag}
-                <span className="ml-2 text-border">{tag.count}</span>
+                <span className="font-mono text-xs tabular-nums text-muted-foreground">{tag.count}</span>
               </Link>
             ))}
           </nav>
         )}
 
         {posts.length === 0 ? (
-          <p className="py-16 text-center text-lg text-muted-foreground">{t("empty")}</p>
+          <p className="rounded-2xl border border-stroke bg-card px-6 py-16 text-center text-lg text-muted-foreground">{t("empty")}</p>
         ) : (
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2">
             <PostCard post={featured} locale={locale} featured />
             {rest.map((post) => (
               <PostCard key={post.slug} post={post} locale={locale} />
@@ -60,9 +58,9 @@ export default async function BlogPage({
 
         <a
           href="/blog/rss.xml"
-          className="mt-12 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:text-brand"
+          className="group mt-20 inline-flex items-center gap-2 text-[15px] font-medium text-foreground"
         >
-          <Rss className="size-4" />
+          <Rss className="size-4 text-brand" strokeWidth={1.75} />
           {t("rss")}
         </a>
       </section>

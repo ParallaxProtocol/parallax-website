@@ -40,34 +40,44 @@ export default function AddNetworkPopup() {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 w-80 bg-surface-elevated border border-border rounded-xl p-6 shadow-overlay animate-in slide-in-from-bottom-4 fade-in duration-300">
-      <button
-        onClick={dismiss}
-        className="absolute top-3 right-3 text-muted-foreground hover:text-foreground transition-colors"
-        aria-label={t("dismiss")}
-      >
-        <X className="h-4 w-4" />
-      </button>
-      <h3 className="text-sm font-medium font-mono uppercase tracking-[0.15em] text-foreground mb-2">
-        {t("title")}
-      </h3>
-      <p className="text-sm text-muted-foreground mb-4">{t("description")}</p>
-      <div className="flex flex-col items-center gap-3">
-        <Button
-          className="brand-gradient text-brand-foreground hover:opacity-90 w-full"
-          onClick={handleAdd}
-          disabled={status === "adding"}
+    <div className="fixed bottom-6 right-6 z-50 w-80 overflow-hidden rounded-2xl border border-stroke bg-popover shadow-overlay animate-in slide-in-from-bottom-4 fade-in duration-300 motion-reduce:animate-none">
+      <div aria-hidden className="aurora" />
+      <div className="relative flex items-center justify-between border-b border-hairline py-2 pr-2 pl-5">
+        <span aria-hidden className="flex items-center gap-3">
+          <span className="size-1.5 rounded-full bg-brand" />
+          <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground/50">||||||||</span>
+        </span>
+        <button
+          onClick={dismiss}
+          className="flex size-8 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
+          aria-label={t("dismiss")}
         >
-          <Plus className="mr-2 h-5 w-5" />
-          {status === "adding"
-            ? t("adding")
-            : status === "success"
-              ? t("added")
-              : t("add")}
-        </Button>
-        {status === "error" && (
-          <p className="text-sm text-destructive">{t("error")}</p>
-        )}
+          <X className="size-4" strokeWidth={1.5} />
+        </button>
+      </div>
+      <div className="relative p-5">
+        <h3 className="mb-2 text-xl leading-tight text-foreground">
+          {t("title")}
+        </h3>
+        <p className="mb-5 text-sm leading-relaxed text-muted-foreground">{t("description")}</p>
+        <div className="flex flex-col items-center gap-3">
+          <Button
+            variant="brand"
+            className="w-full"
+            onClick={handleAdd}
+            disabled={status === "adding"}
+          >
+            <Plus strokeWidth={2} />
+            {status === "adding"
+              ? t("adding")
+              : status === "success"
+                ? t("added")
+                : t("add")}
+          </Button>
+          {status === "error" && (
+            <p className="text-sm text-destructive">{t("error")}</p>
+          )}
+        </div>
       </div>
     </div>
   );

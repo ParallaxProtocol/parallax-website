@@ -3,7 +3,7 @@ import { useStableVh } from "@/hooks/useStableVh"
 import { Link } from "@/i18n/navigation"
 import { Button } from "./ui/button"
 import { useEffect, useRef, useState } from "react"
-import { ChevronDown } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { useTranslations } from "next-intl"
 import dynamic from "next/dynamic"
 
@@ -38,86 +38,64 @@ export function Hero() {
                   min-h-[calc(var(--vh,1vh)*100)]
                   pt-[env(safe-area-inset-top)]
                   pb-[env(safe-area-inset-bottom)]
-                  bg-black on-dark-surface"
+                  bg-black on-dark-surface border-b border-hairline"
     >
-      {/* Black hole background */}
-      {showBlackHole && <BlackHoleVisualization interactive={false} />}
+      {/* Black hole — centred behind the copy on small screens, pushed to
+          the right half on desktop so the headline owns the left, as on
+          solana.com. */}
+      <div className="absolute inset-0 lg:left-[32%] lg:-right-[6%]">
+        {showBlackHole && <BlackHoleVisualization interactive={false} />}
+        {/* Centered in the black hole core */}
+        <p
+          className="absolute top-1/2 left-1/2 z-[2] -translate-x-1/2 -translate-y-1/2 font-mono text-xs sm:text-sm text-white/40 text-center tracking-[0.25em] uppercase enter-fade"
+          style={{ "--enter-delay": "0.8s", animationDuration: "1.2s" } as React.CSSProperties}
+        >
+          {t("securedByPhysics")}
+        </p>
+      </div>
 
-      {/* Radial gradient vignette for text readability */}
+      {/* Readability: a vignette on mobile, a left-to-right fade on desktop */}
       <div
-        className="absolute inset-0 z-[1]"
-        style={{
-          background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0.8) 75%)',
-        }}
+        className="absolute inset-0 z-[1] lg:hidden"
+        style={{ background: "radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0.85) 75%)" }}
+      />
+      <div
+        className="absolute inset-0 z-[1] hidden lg:block"
+        style={{ background: "linear-gradient(to right, #000 0%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0) 62%)" }}
       />
 
-      {/* Noise grain texture */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.03] dark:opacity-[0.04] z-[2]"
-        aria-hidden="true"
-      >
-        <filter id="hero-grain">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.65"
-            numOctaves="3"
-            stitchTiles="stitch"
-          />
-        </filter>
-        <rect width="100%" height="100%" filter="url(#hero-grain)" />
-      </svg>
-
       {/* Content */}
-      <div className="absolute flex flex-col h-full w-full px-6 sm:px-8 items-center z-[3]">
-        {/* Title group — pinned to top area, above the black hole */}
-        <div className="flex flex-col items-center w-full max-w-7xl pt-[12vh] sm:pt-[10vh]">
+      <div className="relative z-[3] mx-auto flex min-h-[calc(var(--vh,1vh)*100)] w-full max-w-[90rem] flex-col justify-between px-5 pt-28 pb-16 md:px-10 lg:justify-center lg:pb-24">
+        <div className="max-w-2xl">
           <h1
-            className="text-4xl md:text-6xl lg:text-8xl font-semibold tracking-tight text-center text-white font-sans enter-fade-up"
+            className="text-6xl font-medium leading-[0.95] tracking-[-0.045em] text-white sm:text-7xl lg:text-8xl enter-fade-up"
             style={{ "--enter-delay": "0.1s" } as React.CSSProperties}
           >
             Parallax
           </h1>
           <p
-            className="mt-4 text-lg sm:text-2xl text-white/80 text-center enter-fade-up"
+            className="mt-3 text-[1.75rem] font-light leading-[1.1] tracking-[-0.03em] text-white text-balance sm:text-4xl lg:text-5xl enter-fade-up"
             style={{ "--enter-delay": "0.25s" } as React.CSSProperties}
           >
             {t("subtitle")}
           </p>
         </div>
 
-        {/* Centered in the black hole core */}
-        <p
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-mono text-xs sm:text-sm text-white/40 text-center tracking-[0.25em] uppercase enter-fade"
-          style={{ "--enter-delay": "0.8s", animationDuration: "1.2s" } as React.CSSProperties}
-        >
-          {t("securedByPhysics")}
-        </p>
-
-        {/* Buttons — pinned to bottom */}
         <div
-          className="absolute bottom-20 sm:bottom-24 flex flex-col gap-4 justify-between items-center sm:flex-row w-full max-w-4xl px-6 sm:px-8 enter-fade"
-          style={{ "--enter-delay": "1s" } as React.CSSProperties}
+          className="flex flex-col gap-3 sm:flex-row lg:mt-12 enter-fade"
+          style={{ "--enter-delay": "0.6s" } as React.CSSProperties}
         >
-          <Button size={"2xl"} className="w-full max-w-[15rem] px-6 brand-gradient text-brand-foreground hover:opacity-90 text-sm" asChild>
+          <Button size="xl" variant="brand" className="w-full sm:w-auto" asChild>
             <Link href={"/participate/running-a-full-node"}>
               {t("runNode")}
+              <ArrowRight />
             </Link>
           </Button>
-          <Button size={"2xl"} variant={"secondary"} className="w-full border border-white/20 max-w-[15rem] px-6 bg-white/5 text-white hover:bg-white/10 text-sm" asChild>
+          <Button size="xl" variant="outline" className="w-full sm:w-auto" asChild>
             <a href={"https://docs.parallaxprotocol.org"} target="_blank" rel="noopener">
               {t("readDocs")}
             </a>
           </Button>
-        </div>
-
-        {/* Scroll indicator */}
-        <div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 enter-fade"
-          style={{ "--enter-delay": "1.4s" } as React.CSSProperties}
-        >
-          <div className="enter-bob">
-            <ChevronDown className="size-5 text-white/20" />
-          </div>
         </div>
       </div>
     </section>

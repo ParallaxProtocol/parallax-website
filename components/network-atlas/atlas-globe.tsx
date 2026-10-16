@@ -3,6 +3,7 @@ import dynamic from "next/dynamic"
 import { useState } from "react"
 import { useTranslations } from "next-intl"
 import type { GlobeNode, NodeGlobeApi } from "@/components/node-globe"
+import { Button } from "@/components/ui/button"
 
 const NodeGlobe = dynamic(() => import("@/components/node-globe"), { ssr: false })
 
@@ -44,21 +45,25 @@ export default function AtlasGlobe({ nodes }: Props) {
         />
       </div>
       {api && (
-        <div className="absolute top-2 right-2 flex flex-col gap-1">
-          <button
+        <div className="absolute top-2 right-2 z-10 flex flex-col gap-2">
+          <Button
+            variant="outline"
+            size="icon"
             onClick={() => api.zoomBy(1 / ZOOM_STEP)}
-            className="w-8 h-8 flex items-center justify-center rounded border border-border bg-background/90 backdrop-blur-sm text-foreground text-base font-mono hover:bg-surface-elevated transition-colors"
+            className="bg-background/60 text-lg backdrop-blur"
             aria-label={t("zoomIn")}
           >
             +
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
             onClick={() => api.zoomBy(ZOOM_STEP)}
-            className="w-8 h-8 flex items-center justify-center rounded border border-border bg-background/90 backdrop-blur-sm text-foreground text-base font-mono hover:bg-surface-elevated transition-colors"
+            className="bg-background/60 text-lg backdrop-blur"
             aria-label={t("zoomOut")}
           >
             &minus;
-          </button>
+          </Button>
         </div>
       )}
     </div>

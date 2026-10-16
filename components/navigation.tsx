@@ -115,26 +115,26 @@ export function Navigation() {
   return (
     <nav
       className={cn(
-        "fixed top-0 py-2 md:py-4 px-6 sm:px-8 left-0 right-0 z-50 transition-all duration-300 border-b",
+        "fixed top-0 left-0 right-0 z-50 h-16 border-b transition-colors duration-200",
         showBg
-          ? "bg-background/80 backdrop-blur-md border-border"
+          ? "bg-background/85 backdrop-blur-xl border-hairline"
           : "bg-transparent border-transparent",
         heroOverlay && "nav-hero-overlay"
       )}
     >
-      <div className="flex items-center mx-auto max-w-7xl justify-between">
+      <div className="flex h-full items-center mx-auto max-w-[90rem] px-5 md:px-6 justify-between">
         {/* Logo */}
         <div className="flex items-center">
           <Link href="/" className="cursor-pointer flex items-center gap-3">
             <Image
               src="/new_parallax_logo_transparent.svg"
-              className="size-8 md:size-10 w-auto"
+              className="size-8 w-auto"
               width={200}
               height={200}
               alt="Parallax Logo"
               priority
             />
-            <span className="hidden lg:inline text-lg font-semibold font-sans">
+            <span className="hidden lg:inline text-[30px] leading-none font-medium tracking-[-0.04em]">
               Parallax
             </span>
           </Link>
@@ -153,7 +153,7 @@ export function Navigation() {
                         if (sub.name === "###") {
                           return (
                             <Separator
-                              className="bg-muted-foreground/15 my-1.5"
+                              className="bg-hairline my-1.5"
                               key={`desk_sub_${i}`}
                             />
                           )
@@ -172,30 +172,29 @@ export function Navigation() {
                   </NavigationMenuItem>
                 ) : (
                   <NavigationMenuItem key={`desk_${item.name}`}>
-                    <NavigationMenuLink asChild>
+                    <NavigationMenuLink asChild className="h-9 justify-center rounded-full px-3.5 text-[15px] text-foreground/80 hover:bg-transparent hover:text-foreground focus:bg-transparent">
                       <Link href={item.href ?? "#"}>{item.name}</Link>
                     </NavigationMenuLink>
                   </NavigationMenuItem>
                 )
               )}
             </NavigationMenuList>
-            <div className="flex items-center gap-2 ml-12">
-              <Button className="px-8 brand-gradient !text-brand-foreground hover:opacity-90" asChild>
+            <div className="flex items-center gap-2 ml-8">
+              <Button variant="brand" size="sm" className="h-9 px-4" asChild>
                 <Link href={"/introduction/getting-started"}>
                   {t("getStarted")}
                 </Link>
               </Button>
-              <Button variant={heroOverlay ? "ghost" : "secondary"} className={cn(heroOverlay && "text-white [&_*]:text-white hover:bg-white/10")} style={heroOverlay ? { border: '1px solid rgba(255,255,255,0.15)' } : undefined} asChild>
+              <Button variant="outline" size="icon" className="size-9" asChild>
                 <a href={'https://github.com/ParallaxProtocol/parallax'} target="_blank" rel="noopener">
                   <FaGithub />
                 </a>
               </Button>
               <LanguageSwitcher heroOverlay={heroOverlay} />
               <Button
-                variant={heroOverlay ? "ghost" : "secondary"}
+                variant="outline"
                 size="icon"
-                className={cn(heroOverlay && "text-white [&_*]:text-white hover:bg-white/10")}
-                style={heroOverlay ? { border: '1px solid rgba(255,255,255,0.15)' } : undefined}
+                className="size-9"
                 onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
               >
                 <Sun className="size-4 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
@@ -229,7 +228,7 @@ export function Navigation() {
               id="mobile-nav"
               role="dialog"
               aria-modal="true"
-              className="fixed inset-x-0 top-14 bottom-0 md:hidden z-50 bg-background border-t border-border overflow-y-auto overscroll-contain"
+              className="fixed inset-x-0 top-16 bottom-0 md:hidden z-50 bg-background overflow-y-auto overscroll-contain"
               style={{ WebkitOverflowScrolling: "touch" }}
             >
               <div className="mx-auto pb-20 max-w-6xl px-4 sm:px-6 lg:px-8 py-3">
@@ -243,7 +242,7 @@ export function Navigation() {
                       key={`mob_${item.name}`}
                     >
                       <div className="mb-2">
-                        <div className="flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium text-accent-foreground">
+                        <div className="flex items-center gap-2 px-3 py-2 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
                           {item.name}
                         </div>
                         <div className="flex pl-4 flex-col">
@@ -251,7 +250,7 @@ export function Navigation() {
                             if (sub.name === "###") {
                               return (
                                 <Separator
-                                  className="bg-muted-foreground/15 my-1.5 ml-2"
+                                  className="bg-hairline my-1.5 ml-2"
                                   key={`desk_sub_${i}`}
                                 />
                               )
@@ -261,14 +260,14 @@ export function Navigation() {
                               <Link
                                 key={`mob_sub_${item.name}_${sub.name}`}
                                 href={sub.href ?? "#"}
-                                className={cn("ml-2 px-4 py-2 text-base font-medium text-accent-foreground/70 hover:text-foreground hover:bg-muted transition-colors border-l flex items-center justify-between", {
-                                  "bg-brand text-brand-foreground": sub.href === pathname,
+                                className={cn("ml-2 px-4 py-2 text-base text-foreground/75 hover:text-foreground transition-colors border-l border-hairline flex items-center justify-between", {
+                                  "text-foreground border-brand": sub.href === pathname,
                                 })}
                                 onClick={() => setIsOpen(false)}
                               >
                                 {sub.name}
                                 {sub.badge && (
-                                  <span className="inline-flex bg-brand px-1.5 py-0.5 text-[10px] font-sans font-semibold leading-none text-brand-foreground uppercase">
+                                  <span className="inline-flex rounded-full bg-brand-muted px-2 py-0.5 text-[10px] font-mono font-medium leading-none text-brand uppercase">
                                     {sub.badge}
                                   </span>
                                 )}
@@ -282,8 +281,8 @@ export function Navigation() {
                     <Link
                       key={`mob_${item.name}`}
                       href={item.href ?? "#"}
-                      className={cn("flex items-center gap-2 px-3 py-2 text-base font-medium text-accent-foreground hover:text-foreground hover:bg-muted transition-colors", {
-                        "bg-brand text-brand-foreground": item.href === pathname,
+                      className={cn("flex items-center gap-2 px-3 py-2 text-xl font-medium text-foreground hover:text-foreground/80 transition-colors", {
+                        "text-brand": item.href === pathname,
                       })}
                       onClick={() => setIsOpen(false)}
                     >
@@ -294,7 +293,7 @@ export function Navigation() {
 
                 {/* Language + Theme toggle */}
                 <div className="mt-6 px-3 flex flex-col gap-3">
-                  <Separator className="bg-muted-foreground/15 mb-1" />
+                  <Separator className="mb-1" />
                   <LanguageSwitcher mobile />
                   <button
                     className="flex items-center gap-3 px-3 py-2 text-base font-medium text-accent-foreground cursor-pointer"
@@ -336,9 +335,9 @@ function ListItem({
         })}
       >
         <div className="text-sm leading-none font-medium flex items-center justify-between gap-2">
-          <span className="group-hover/navlink:underline">{title}</span>
+          <span>{title}</span>
           {badge && (
-            <span className="bg-brand px-1.5 py-0.5 text-[10px] font-sans font-semibold leading-none text-brand-foreground uppercase inline-block">
+            <span className="rounded-full bg-brand-muted px-2 py-0.5 text-[10px] font-mono font-medium leading-none text-brand uppercase inline-block">
               {badge}
             </span>
           )}

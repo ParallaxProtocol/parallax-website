@@ -19,7 +19,8 @@ import { useTranslations } from "next-intl"
 import MainMotion from "./main-motion"
 import PageHeader from "./page-header"
 import { Button } from "./ui/button"
-import { FadeIn, Hairline } from "./fade-in"
+import { FadeIn } from "./fade-in"
+import { Section, TwoToneTitle } from "./section"
 
 type RawAxiom = {
   id: string
@@ -48,13 +49,39 @@ function Paragraphs({ text }: { text: string }) {
   return (
     <div className="space-y-4">
       {text.split("\n\n").map((p, i) => (
-        <p key={i} className="text-sm leading-relaxed">
+        <p key={i} className="text-base leading-relaxed">
           {p}
         </p>
       ))}
     </div>
   )
 }
+
+/* A preamble block: a heading under a hairline rule, then the prose. */
+function Preamble({ heading, children }: { heading: string; children: React.ReactNode }) {
+  return (
+    <div className="border-t border-hairline pt-10">
+      <h3 className="text-3xl leading-[1.1] text-foreground sm:text-4xl">{heading}</h3>
+      <div className="mt-6 space-y-5 text-lg leading-relaxed text-foreground/85">{children}</div>
+    </div>
+  )
+}
+
+/* Short declarative lines ("It does not argue.") set large and light
+   behind the thin gradient rule. */
+function Declaration({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="accent-rule my-2 py-1 pl-6 text-2xl font-light leading-[1.2] tracking-[-0.03em] text-foreground sm:text-3xl">
+      {children}
+    </p>
+  )
+}
+
+const SOURCES = [
+  { key: "canonicalSource", href: "https://github.com/ParallaxProtocol/parallax-doctrine", icon: ExternalLink },
+  { key: "axioms", href: "https://github.com/ParallaxProtocol/parallax-doctrine/blob/main/AXIOMS.md", icon: ScrollText },
+  { key: "commentary", href: "https://github.com/ParallaxProtocol/parallax-doctrine/blob/main/COMMENTARY.md", icon: BookText },
+] as const
 
 export function Doctrine() {
   const t = useTranslations("introduction.doctrine")
@@ -67,130 +94,112 @@ export function Doctrine() {
           title={t("pageTitle")}
           subTitle={t("pageSubtitle")}
         />
-        <section className="flex flex-col gap-4 bg-card/50 backdrop-blur-sm max-w-7xl border border-border rounded-xl font-sans text-foreground/90 px-8 py-12 mx-auto items-start">
-          <div className="mx-auto">
-            <header className="text-center">
-              <div className="flex flex-wrap items-center justify-center gap-3">
-                <Button variant={"secondary"} asChild>
-                  <a
-                    href="https://github.com/ParallaxProtocol/parallax-doctrine"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ExternalLink className="size-4" />
-                    {t("buttons.canonicalSource")}
-                  </a>
-                </Button>
+        {/* Runs flush into the footer's rule instead of leaving MainMotion's bottom padding */}
+        <Section className="border-b-0">
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+            {/* Rail: the canonical sources, and on desktop an index of the axioms */}
+            <aside className="lg:col-span-4">
+              <div className="flex h-full flex-col gap-10">
+                <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-col">
+                  {SOURCES.map(({ key, href, icon: Icon }) => (
+                    <Button key={key} variant={"outline"} className="justify-start" asChild>
+                      <a href={href} target="_blank" rel="noopener noreferrer">
+                        <Icon className="size-4" />
+                        {t(`buttons.${key}`)}
+                      </a>
+                    </Button>
+                  ))}
+                </div>
 
-                <Button variant={"secondary"} asChild>
-                  <a
-                    href="https://github.com/ParallaxProtocol/parallax-doctrine/blob/main/AXIOMS.md"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ScrollText className="size-4" />
-                    {t("buttons.axioms")}
-                  </a>
-                </Button>
-
-                <Button variant={"secondary"} asChild>
-                  <a
-                    href="https://github.com/ParallaxProtocol/parallax-doctrine/blob/main/COMMENTARY.md"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <BookText className="size-4" />
-                    {t("buttons.commentary")}
-                  </a>
-                </Button>
+                <nav aria-label={t("buttons.axioms")} className="hidden overflow-hidden rounded-xl border border-stroke bg-card lg:sticky lg:top-28 lg:block">
+                  <div className="flex items-center justify-between border-b border-hairline px-4 py-3">
+                    <p className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-foreground">
+                      {t("buttons.axioms")}
+                    </p>
+                    <span aria-hidden className="font-mono text-xs tracking-[0.2em] text-muted-foreground/50">||||||||</span>
+                  </div>
+                  <ol className="p-2">
+                    {axioms.map(({ id, title }) => (
+                      <li key={id}>
+                        <a
+                          href={`#axiom-${id}`}
+                          className="grid grid-cols-[2.75rem_1fr] gap-2 rounded-lg px-3 py-2 text-sm leading-snug text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
+                        >
+                          <span className="pt-0.5 font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-brand">{id}</span>
+                          <span>{title}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+                </nav>
               </div>
-            </header>
+            </aside>
 
-            <Hairline className="mt-12" />
-
-            <section className="mt-12 space-y-10">
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-foreground">{t("intro.heading")}</h3>
-                <p className="text-base italic leading-relaxed">
+            <div className="min-w-0 space-y-16 lg:col-span-8">
+              {/* Preamble */}
+              <div>
+                <p className="font-mono text-xs font-medium uppercase leading-relaxed tracking-[0.14em] text-muted-foreground">
                   {t("intro.date")}<br />
                   {t("intro.author")}
                 </p>
-                <p className="text-base leading-relaxed" dangerouslySetInnerHTML={{ __html: t.raw("intro.body1") as string }} />
-                <p className="text-base leading-relaxed">
-                  {t("intro.body2Line1")}<br />
-                  {t("intro.body2Line2")}
-                </p>
-                <p className="text-base leading-relaxed">
-                  {t("intro.body3")}
-                </p>
+                <h3 className="mt-6 text-4xl leading-[1.05] text-foreground text-balance sm:text-5xl">
+                  <TwoToneTitle text={t("intro.heading")} />
+                </h3>
+                <div className="mt-8 space-y-5 text-lg leading-relaxed text-foreground/85">
+                  <p dangerouslySetInnerHTML={{ __html: t.raw("intro.body1") as string }} />
+                  <p>
+                    {t("intro.body2Line1")}<br />
+                    {t("intro.body2Line2")}
+                  </p>
+                  <p className="font-medium text-foreground">
+                    {t("intro.body3")}
+                  </p>
+                </div>
               </div>
 
-              <Hairline />
-
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-foreground">{t("purpose.heading")}</h3>
-                <p className="text-base leading-relaxed">
-                  {t("purpose.body1")}
-                </p>
-                <p className="text-base leading-relaxed">
+              <Preamble heading={t("purpose.heading")}>
+                <p>{t("purpose.body1")}</p>
+                <Declaration>
                   {t("purpose.body2Line1")}<br />
                   {t("purpose.body2Line2")}<br />
                   {t("purpose.body2Line3")}
-                </p>
-                <p className="text-base leading-relaxed">
-                  {t("purpose.body3")}
-                </p>
-              </div>
+                </Declaration>
+                <p>{t("purpose.body3")}</p>
+              </Preamble>
 
-              <Hairline />
+              <Preamble heading={t("scope.heading")}>
+                <p>{t("scope.body1")}</p>
+                <p>{t("scope.body2")}</p>
+                <p>{t("scope.body3")}</p>
+              </Preamble>
 
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-foreground">{t("scope.heading")}</h3>
-                <p className="text-base leading-relaxed">
-                  {t("scope.body1")}
-                </p>
-                <p className="text-base leading-relaxed">
-                  {t("scope.body2")}
-                </p>
-                <p className="text-base leading-relaxed">
-                  {t("scope.body3")}
-                </p>
-              </div>
-
-              <Hairline />
-
+              {/* The axioms */}
               <div className="space-y-16">
                 {axioms.map(({ id, title, subtitle, commentary }) => {
                   const Icon = ICONS[id] ?? ScrollText
                   return (
                     <FadeIn key={id}>
-                      <article className="scroll-mt-24" id={`axiom-${id}`}>
-                        <div className="flex items-start gap-4">
-                          <div className="min-w-0">
-                            <h4 className="text-xl font-semibold leading-snug text-foreground">
-                              <span className="text-2xl font-serif text-brand mr-2">
-                                {id}
-                              </span>
-                              {title}
-                            </h4>
+                      <article className="scroll-mt-28 border-t border-hairline pt-10" id={`axiom-${id}`}>
+                        <span className="inline-flex h-8 min-w-12 items-center justify-center rounded-full border border-stroke bg-foreground/[0.03] px-3 font-mono text-xs font-medium tracking-[0.14em] text-brand">
+                          {id}
+                        </span>
+                        <h4 className="mt-6 text-3xl leading-[1.05] text-foreground text-balance sm:text-4xl">
+                          {title}
+                        </h4>
+                        <p className="mt-5 text-xl font-light leading-snug text-foreground/90 text-pretty">{subtitle}</p>
 
-                            <p className="mt-3 text-base text-foreground/90 leading-relaxed">{subtitle}</p>
-
-                            <div className="mt-6 border-l-2 border-brand bg-card/50 p-6">
-                              <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                                <span className="inline-flex size-6 items-center justify-center">
-                                  <Icon className="size-4 text-brand" />
-                                </span>
-                                {t("commentaryLabel")}
-                              </div>
-                              <div className="mt-3 text-foreground/80">
-                                <Paragraphs text={commentary} />
-                              </div>
-                            </div>
+                        <div className="mt-8 overflow-hidden rounded-xl border border-stroke bg-card">
+                          <div className="flex items-center justify-between border-b border-hairline px-5 py-3">
+                            <p className="flex items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.14em] text-foreground">
+                              <Icon className="size-4 text-brand" />
+                              {t("commentaryLabel")}
+                            </p>
+                            <span aria-hidden className="font-mono text-xs tracking-[0.2em] text-muted-foreground/50">||||||||</span>
+                          </div>
+                          <div className="p-5 text-muted-foreground sm:p-6">
+                            <Paragraphs text={commentary} />
                           </div>
                         </div>
-
-                        <Hairline className="mt-16" />
                       </article>
                     </FadeIn>
                   )
@@ -198,31 +207,20 @@ export function Doctrine() {
               </div>
 
               <FadeIn>
-                <div className="space-y-4 pt-2">
-                  <h3 className="text-xl font-semibold text-foreground">{t("closing.heading")}</h3>
-
-                  <p className="text-base leading-relaxed">
-                    {t("closing.body1")}
-                  </p>
-
-                  <p className="text-base leading-relaxed">
-                    {t("closing.body2")}
-                  </p>
-
-                  <p className="text-base leading-relaxed">
+                <Preamble heading={t("closing.heading")}>
+                  <p>{t("closing.body1")}</p>
+                  <p>{t("closing.body2")}</p>
+                  <Declaration>
                     {t("closing.body3Line1")} <br />
                     {t("closing.body3Line2")} <br />
                     {t("closing.body3Line3")}
-                  </p>
-
-                  <p className="text-base leading-relaxed">
-                    {t("closing.body4")}
-                  </p>
-                </div>
+                  </Declaration>
+                  <p className="font-medium text-foreground">{t("closing.body4")}</p>
+                </Preamble>
               </FadeIn>
-            </section>
+            </div>
           </div>
-        </section>
+        </Section>
       </MainMotion>
     </>
   )

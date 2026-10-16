@@ -4,29 +4,34 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
+// Pill controls, after solana.com. The primary pill is solid white (ink in
+// light mode); a trailing arrow or chevron becomes a small inverted dot
+// inside it (.btn-dot in globals.css). Secondary actions are outlined pills
+// that brighten on hover.
 const buttonVariants = cva(
-  "inline-flex items-center border justify-center rounded-lg gap-2 whitespace-nowrap text-xs font-medium font-mono uppercase tracking-[0.15em] transition-all active:translate-y-px motion-reduce:active:translate-y-0 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 [&_svg.lucide-chevron-right]:transition-transform [&_svg.lucide-chevron-right]:duration-200 hover:[&_svg.lucide-chevron-right]:translate-x-0.5 motion-reduce:hover:[&_svg.lucide-chevron-right]:translate-x-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 cursor-pointer dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-transparent text-[15px] font-medium cursor-pointer shrink-0 outline-none transition-[background-color,border-color,color,opacity] duration-200 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive",
   {
     variants: {
       variant: {
-        default: "bg-foreground text-background font-semibold hover:underline",
+        brand: "btn-dot bg-foreground text-background hover:bg-foreground/90",
+        default: "btn-dot bg-foreground text-background hover:bg-foreground/90",
         destructive:
-          "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+          "bg-destructive text-white hover:bg-destructive/90",
         outline:
-          "bg-background text-foreground font-semibold hover:underline border-foreground",
+          "border-stroke bg-transparent text-foreground hover:border-foreground/30 hover:bg-foreground/5",
         secondary:
-          "border bg-background hover:bg-accent hover:text-accent-foreground dark:bg-background/30 dark:border-input dark:hover:bg-input/50",
+          "border-stroke bg-foreground/[0.04] text-foreground hover:bg-foreground/[0.08]",
         ghost:
-          "hover:bg-accent border-none hover:text-accent-foreground dark:hover:bg-accent/50",
-        link: "text-primary underline-offset-4 hover:underline",
+          "hover:bg-foreground/5 hover:text-foreground",
+        link: "rounded-none text-foreground underline decoration-brand/60 underline-offset-4 hover:decoration-brand",
       },
       size: {
-        default: "h-9 px-4 py-2",
-        sm: "h-8 gap-1.5 px-3 has-[>svg]:px-2.5",
-        lg: "h-10 px-6 has-[>svg]:px-4",
-        xl: "h-12 px-8 has-[>svg]:px-8",
-        '2xl': "h-14 px-8 has-[>svg]:px-8",
-        icon: "size-9",
+        default: "h-10 px-5 py-2",
+        sm: "h-8 gap-1.5 px-3.5 text-sm",
+        lg: "h-11 px-6",
+        xl: "h-12 px-7",
+        '2xl': "h-14 px-8 text-base",
+        icon: "size-10",
       },
     },
     defaultVariants: {

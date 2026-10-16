@@ -92,12 +92,12 @@ export default function ClientDownloadButton({ variant = "cli", prominent = true
 
   if (isMobile) {
     return (
-      <div className="inline-flex flex-col items-center gap-2 px-4 py-3 border border-dashed border-border rounded-lg bg-background/40 max-w-xs">
+      <div className="inline-flex max-w-xs flex-col items-start gap-2 rounded-xl border border-stroke bg-card px-4 py-3">
         <div className="flex items-center gap-2 text-foreground">
-          <Smartphone className="size-4 text-brand" />
-          <span className="text-xs font-mono uppercase tracking-[0.15em]">{t("desktopOnly")}</span>
+          <Smartphone className="size-4 text-brand" strokeWidth={1.5} />
+          <span className="text-sm font-medium">{t("desktopOnly")}</span>
         </div>
-        <p className="text-xs text-muted-foreground text-center leading-relaxed">
+        <p className="text-xs leading-relaxed text-muted-foreground">
           {t("desktopOnlyHint")}
         </p>
       </div>
@@ -116,19 +116,24 @@ export default function ClientDownloadButton({ variant = "cli", prominent = true
   return (
     <div className="relative inline-flex flex-col items-center">
       <Button
-        className={prominent ? "brand-gradient text-brand-foreground hover:opacity-90" : undefined}
-        variant={prominent ? undefined : "secondary"}
+        variant={prominent ? "brand" : "outline"}
+        size="lg"
         asChild
       >
         <a href={href} target="_blank" rel="noopener">
-          <Download className="h-5 w-5" />
+          <Download className="size-4" strokeWidth={2} />
           {label}
         </a>
       </Button>
       {ready && (
-        <div className="mt-2 whitespace-nowrap text-[10px] font-mono uppercase tracking-[0.15em] text-muted-foreground">
-          {version && asset ? <span>{version} · </span> : null}
-          <a href={releasesPage} target="_blank" rel="noopener" className="hover:text-foreground transition-colors underline-offset-4 hover:underline">
+        <div className="mt-3 flex items-center gap-2 whitespace-nowrap text-xs text-muted-foreground">
+          {version && asset ? (
+            <>
+              <span className="font-mono text-foreground/80">{version}</span>
+              <span aria-hidden className="text-hairline">/</span>
+            </>
+          ) : null}
+          <a href={releasesPage} target="_blank" rel="noopener" className="underline decoration-stroke underline-offset-4 transition-colors hover:text-foreground hover:decoration-brand">
             {t("otherPlatforms")}
           </a>
         </div>

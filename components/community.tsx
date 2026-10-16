@@ -1,8 +1,8 @@
 'use client'
-import { Button } from "@/components/ui/button"
 import { useTranslations } from "next-intl"
 import { FaBitcoin, FaDiscord, FaGithub, FaReddit, FaTelegram, FaXTwitter } from "react-icons/fa6"
 import { FadeIn } from "./fade-in"
+import { Section, SectionHeading } from "./section"
 
 const channels = [
   { name: "GitHub", href: "https://github.com/ParallaxProtocol", icon: FaGithub },
@@ -16,59 +16,57 @@ const channels = [
 export function Community() {
   const t = useTranslations("home.community")
   return (
-    <section className="py-24 px-6 sm:px-8">
-      <div className="mx-auto max-w-7xl">
-        <FadeIn>
-          <div className="mx-auto max-w-7xl text-center">
-            <p className="text-sm font-mono uppercase tracking-[0.2em] text-muted-foreground mb-4">{t("eyebrow")}</p>
-            <h2 className="text-3xl text-foreground sm:text-4xl">{t("heading")}</h2>
-          </div>
-        </FadeIn>
+    <Section className="border-b-0">
+      <FadeIn>
+        <SectionHeading index="07" eyebrow={t("eyebrow")} title={t("heading")} />
+      </FadeIn>
 
-        {/* Two-column prose */}
-        <FadeIn delay={0.1}>
-          <div className="mt-24 grid grid-cols-1 sm:grid-cols-2 gap-0">
-            <div className="pr-0 sm:pr-10 sm:border-r border-border pb-8 sm:pb-0">
-              <div className="flex items-center gap-3 mb-4">
-                <FaGithub className="size-5 text-brand" />
-                <h3 className="text-xs font-medium font-mono uppercase tracking-[0.15em] text-foreground">{t("openSource.title")}</h3>
-              </div>
-              <p className="text-base text-muted-foreground leading-relaxed">
-                {t("openSource.description")}
-              </p>
-            </div>
-            <div className="pl-0 sm:pl-10 pt-8 sm:pt-0 border-t sm:border-t-0 border-border">
-              <div className="flex items-center gap-3 mb-4">
-                <FaBitcoin className="size-5 text-brand" />
-                <h3 className="text-xs font-medium font-mono uppercase tracking-[0.15em] text-foreground">{t("communityDriven.title")}</h3>
-              </div>
-              <p className="text-base text-muted-foreground leading-relaxed">
-                {t("communityDriven.description")}
-              </p>
-            </div>
-          </div>
-        </FadeIn>
-
-        {/* Community CTA */}
-        <FadeIn delay={0.2}>
-          <div className="mt-16 bg-surface-elevated border border-border rounded-xl p-8 sm:p-12 text-center">
-            <h3 className="text-sm font-medium font-mono uppercase tracking-[0.15em] text-foreground mb-3">{t("join.title")}</h3>
-            <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-              {t("join.description")}
+      {/* Two concept cells */}
+      <FadeIn delay={0.1}>
+        <div className="mt-16 grid grid-cols-1 overflow-hidden rounded-2xl border border-stroke sm:grid-cols-2">
+          <div className="p-8">
+            <FaGithub className="size-7 text-foreground" />
+            <h3 className="mt-10 text-2xl text-foreground">{t("openSource.title")}</h3>
+            <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+              {t("openSource.description")}
             </p>
-            <div className="flex flex-wrap gap-3 justify-center">
+          </div>
+          <div className="border-t border-hairline p-8 sm:border-t-0 sm:border-l">
+            <FaBitcoin className="size-7 text-foreground" />
+            <h3 className="mt-10 text-2xl text-foreground">{t("communityDriven.title")}</h3>
+            <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+              {t("communityDriven.description")}
+            </p>
+          </div>
+        </div>
+      </FadeIn>
+
+      {/* Community CTA */}
+      <FadeIn delay={0.2}>
+        <div className="relative mt-4 overflow-hidden rounded-2xl border border-stroke bg-card p-8 sm:p-12">
+          <div aria-hidden className="aurora" />
+          <div className="relative grid gap-10 lg:grid-cols-12 lg:items-end">
+            <div className="lg:col-span-5">
+              <h3 className="text-4xl leading-tight text-foreground sm:text-5xl">{t("join.title")}</h3>
+              <p className="mt-4 max-w-md text-lg text-muted-foreground">{t("join.description")}</p>
+            </div>
+            <div className="flex flex-wrap gap-3 lg:col-span-7 lg:justify-end">
               {channels.map((channel) => (
-                <Button key={channel.name} variant="secondary" asChild>
-                  <a href={channel.href} target="_blank" rel="noopener">
-                    <channel.icon className="size-4" />
-                    {channel.name}
-                  </a>
-                </Button>
+                <a
+                  key={channel.name}
+                  href={channel.href}
+                  target="_blank"
+                  rel="noopener"
+                  className="inline-flex h-11 items-center gap-2.5 whitespace-nowrap rounded-full border border-stroke bg-background/40 px-5 text-[15px] font-medium text-foreground backdrop-blur-sm transition-colors hover:border-foreground/30 hover:bg-foreground/10"
+                >
+                  <channel.icon className="size-4 shrink-0" />
+                  {channel.name}
+                </a>
               ))}
             </div>
           </div>
-        </FadeIn>
-      </div>
-    </section>
+        </div>
+      </FadeIn>
+    </Section>
   )
 }

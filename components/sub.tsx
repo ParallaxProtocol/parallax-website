@@ -8,7 +8,7 @@ export default function Sub() {
     <section className="relative overflow-visible">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808020_1px,transparent_1px),linear-gradient(to_bottom,#80808020_1px,transparent_1px)] bg-[size:48px_48px] -z-10" />
       {/* Description */}
-      <div className="relative mx-auto max-w-7xl px-6 py-16 lg:px-8 overflow-visible">
+      <div className="relative mx-auto max-w-[90rem] px-5 py-16 overflow-visible">
         <div className="mx-auto max-w-4xl text-center overflow-visible">
           <p className="mt-6 text-lg leading-8 text-muted-foreground max-w-3xl mx-auto text-pretty">
             {`Parallax uses peer-to-peer technology to operate with no central authority or banks; managing transactions and the issuing of coins is carried out collectively by the network. Parallax is open-source; its design is public, nobody owns or controls Parallax and everyone can take part.`}

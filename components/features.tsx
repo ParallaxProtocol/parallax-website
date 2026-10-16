@@ -32,7 +32,7 @@ const features = [
 export function Features() {
   return (
     <section className="relative py-24 z-10 px-6 border-b sm:px-8">
-      <div className="mx-auto max-w-7xl w-fit pt-0">
+      <div className="mx-auto max-w-[90rem] w-fit pt-0">
         <div className="mx-auto w-full text-center">
           <h2 className="text-3xl text-foreground sm:text-4xl">Bridging two Worlds</h2>
           <p className="mt-8 text-base text-muted-foreground text-pretty">
@@ -40,7 +40,7 @@ export function Features() {
           </p>
         </div>
 
-        <div className="mx-auto mt-24 grid max-w-7xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="mx-auto mt-24 grid max-w-[90rem] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature) => (
             <Card key={feature.title}>
               <CardHeader>
@@ -54,7 +54,7 @@ export function Features() {
           ))}
         </div>
 
-        <div className="mx-auto mt-8 grid max-w-7xl grid-cols-1 gap-8 lg:grid-cols-2">
+        <div className="mx-auto mt-8 grid max-w-[90rem] grid-cols-1 gap-8 lg:grid-cols-2">
           <Card className="border-border">
             <CardHeader>
               <div className="flex items-center gap-4">

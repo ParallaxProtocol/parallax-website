@@ -213,7 +213,7 @@ function StatGrid({ items, stats, columns }: { items: StatItem[], stats: Stats, 
   if (visible.length === 0) return null
 
   return (
-    <div className={cn("grid gap-px bg-border", columns)}>
+    <div className={cn("grid border-y border-hairline", columns)}>
       {visible.map((item) => {
         const raw = item.animatable && item.rawValue && item.formatRaw
           ? item.rawValue(stats)
@@ -222,10 +222,10 @@ function StatGrid({ items, stats, columns }: { items: StatItem[], stats: Stats, 
         return (
           <div
             key={item.key}
-            className="bg-background flex flex-col items-center justify-center py-8 px-4"
+            className="flex flex-col items-start justify-center border-hairline py-8 pr-6 [&:not(:first-child)]:lg:border-l lg:pl-8 lg:first:pl-0"
           >
             <div className="flex items-baseline gap-2">
-              <span className="text-xl sm:text-2xl font-semibold text-foreground font-mono tabular-nums">
+              <span className="text-3xl font-light tracking-[-0.03em] text-foreground tabular-nums sm:text-4xl lg:text-5xl">
                 {raw != null && item.formatRaw ? (
                   <AnimatedValue value={raw} formatFn={item.formatRaw} />
                 ) : (
@@ -234,14 +234,14 @@ function StatGrid({ items, stats, columns }: { items: StatItem[], stats: Stats, 
               </span>
               {item.suffix?.(stats)}
             </div>
-            <span className="mt-2 text-xs uppercase tracking-wider text-muted-foreground">
+            <span className="mt-2 text-sm text-foreground/75">
               {t(item.labelKey)}
             </span>
           </div>
         )
       })}
       {/* Fill empty grid cell so bg-border doesn't bleed through */}
-      {visible.length % 2 !== 0 && <div className="bg-background sm:hidden" />}
+      {visible.length % 2 !== 0 && <div className="sm:hidden" />}
     </div>
   )
 }
@@ -298,23 +298,24 @@ export function NetworkStats() {
   }, [])
 
   if (!stats) return (
-    <section className="py-16 px-6 sm:px-8">
-      <div className="mx-auto max-w-7xl space-y-12">
+    <section className="border-b border-hairline py-16">
+      <div className="mx-auto max-w-[90rem] space-y-12 px-5 md:px-10">
         <div>
-          <div className="text-center mb-6">
-            <p className="text-sm font-mono uppercase tracking-[0.2em] text-muted-foreground">
+          <div className="mb-6">
+            <p className="tag">
+              <span aria-hidden className="size-1.5 rounded-full bg-brand animate-pulse motion-reduce:animate-none" />
               {t("liveNetwork")}
             </p>
           </div>
-          <div className="grid gap-px bg-border grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="grid border-y border-hairline grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
             {Array.from({ length: 5 }).map((_, i) => (
-              <div key={i} className="bg-background flex flex-col items-center justify-center py-8 px-4">
-                <div className="h-7 w-24 bg-muted animate-pulse rounded" />
-                <div className="mt-3 h-3 w-16 bg-muted animate-pulse rounded" />
+              <div key={i} className="flex flex-col items-start justify-center border-hairline py-8 pr-6 [&:not(:first-child)]:lg:border-l lg:pl-8 lg:first:pl-0">
+                <div className="h-10 w-32 rounded-md bg-muted animate-pulse" />
+                <div className="mt-3 h-3 w-20 rounded bg-muted animate-pulse" />
               </div>
             ))}
             {/* Fill empty cell on mobile */}
-            <div className="bg-background sm:hidden" />
+            <div className="sm:hidden" />
           </div>
         </div>
       </div>
@@ -327,26 +328,25 @@ export function NetworkStats() {
   const hasMarket = showMarket && marketItems.some((item) => item.format(stats) != null)
 
   return (
-    <section className="py-16 px-6 sm:px-8">
-      <div className="mx-auto max-w-7xl space-y-12">
+    <section className="border-b border-hairline py-16">
+      <div className="mx-auto max-w-[90rem] space-y-12 px-5 md:px-10">
         <FadeIn>
-          <div className="text-center mb-6">
-            <p className="text-sm font-mono uppercase tracking-[0.2em] text-muted-foreground">
+          <div className="mb-6">
+            <p className="tag">
+              <span aria-hidden className="size-1.5 rounded-full bg-brand animate-pulse motion-reduce:animate-none" />
               {t("liveNetwork")}
             </p>
           </div>
           <StatGrid items={networkItems} stats={stats} columns="grid-cols-2 sm:grid-cols-3 lg:grid-cols-5" />
-          <div className="flex justify-center items-center gap-4 mt-4">
-            <a href="https://explorer.parallaxprotocol.org" target="_blank" rel="noopener" className="text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors inline-flex items-center gap-1.5">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-6">
+            <a href="https://explorer.parallaxprotocol.org" target="_blank" rel="noopener" className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1.5">
               {t("blockExplorer")}
               <ExternalLink className="size-3" />
             </a>
-            <span className="text-xs text-muted-foreground/30" aria-hidden="true">·</span>
-            <Link href="/resources/network-atlas" className="text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors">
+            <Link href="/resources/network-atlas" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               {t("networkAtlas")}
             </Link>
-            <span className="text-xs text-muted-foreground/30" aria-hidden="true">·</span>
-            <a href="https://status.parallaxprotocol.org" target="_blank" rel="noopener" className="text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors inline-flex items-center gap-1.5">
+            <a href="https://status.parallaxprotocol.org" target="_blank" rel="noopener" className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1.5">
               {t("networkStatus")}
               <ExternalLink className="size-3" />
             </a>
@@ -355,14 +355,12 @@ export function NetworkStats() {
 
         {hasMarket && (
           <FadeIn delay={0.1}>
-            <div className="text-center mb-6">
-              <p className="text-sm font-mono uppercase tracking-[0.2em] text-muted-foreground">
-                {t("market")}
-              </p>
+            <div className="mb-6">
+              <p className="tag">{t("market")}</p>
             </div>
             <StatGrid items={marketItems} stats={stats} columns="grid-cols-2 lg:grid-cols-4" />
-            <div className="flex justify-center mt-4">
-              <a href="https://www.coingecko.com/en/coins/parallax-2" target="_blank" rel="noopener" className="text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors inline-flex items-center gap-1.5">
+            <div className="flex mt-6">
+              <a href="https://www.coingecko.com/en/coins/parallax-2" target="_blank" rel="noopener" className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1.5">
                 {t("coingecko")}
                 <ExternalLink className="size-3" />
               </a>

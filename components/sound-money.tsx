@@ -1,6 +1,5 @@
 'use client'
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Link } from "@/i18n/navigation"
 import {
   ArrowRight,
@@ -11,13 +10,13 @@ import {
   Users,
   Zap,
 } from "lucide-react"
-import { LucideChevronRight } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { FadeIn } from "./fade-in"
+import { Section, SectionHeading } from "./section"
 
 const primaryFeatures = [
-  { key: "hardCap", icon: Scale },
-  { key: "energySecured", icon: Zap },
+  { key: "hardCap", icon: Scale, glow: "aurora-left" },
+  { key: "energySecured", icon: Zap, glow: "" },
 ] as const
 
 const secondaryFeatures = [
@@ -31,78 +30,65 @@ export function SoundMoney() {
   const t = useTranslations("home.soundMoney")
 
   return (
-    <section className="py-24 px-6 sm:px-8">
-      <div className="mx-auto max-w-7xl">
-        <FadeIn>
-          <div className="mx-auto max-w-7xl text-center">
-            <p className="text-sm font-mono uppercase tracking-[0.2em] text-muted-foreground mb-4">{t("eyebrow")}</p>
-            <h2 className="text-3xl text-foreground sm:text-4xl">{t("heading")}</h2>
-            <p className="mt-8 text-base text-muted-foreground text-pretty">
-              {t("subtitle")}
-            </p>
-          </div>
-        </FadeIn>
+    <Section>
+      <FadeIn>
+        <SectionHeading index="04" eyebrow={t("eyebrow")} title={t("heading")} subtitle={t("subtitle")} />
+      </FadeIn>
 
-        {/* Primary features — large cards with brand accent */}
-        <div className="mx-auto mt-24 grid max-w-7xl grid-cols-1 gap-8 lg:grid-cols-2">
-          {primaryFeatures.map((feature, i) => {
-            const Icon = feature.icon
-            return (
-              <FadeIn key={feature.key} delay={i * 0.1}>
-                <Card className="border-l-2 border-l-brand bg-card/50 backdrop-blur-sm">
-                  <CardHeader>
-                    <div className="flex items-center gap-4">
-                      <Icon className="size-7 text-brand" />
-                      <CardTitle className="text-sm font-medium font-mono uppercase tracking-[0.15em]">
-                        {t(`${feature.key}.title` as "hardCap.title")}
-                      </CardTitle>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="text-base text-muted-foreground leading-relaxed">
+      {/* Primary features — glowing panels */}
+      <div className="mt-16 grid grid-cols-1 gap-4 lg:grid-cols-2">
+        {primaryFeatures.map((feature, i) => {
+          const Icon = feature.icon
+          return (
+            <FadeIn key={feature.key} delay={i * 0.1} className="h-full">
+              <div className="relative h-full overflow-hidden rounded-2xl border border-stroke bg-card p-8 sm:p-10">
+                <div aria-hidden className={`aurora ${feature.glow}`} />
+                <div className="relative">
+                  <Icon className="size-8 text-brand" strokeWidth={1.5} />
+                  <h3 className="mt-16 text-3xl leading-tight text-foreground">
+                    {t(`${feature.key}.title` as "hardCap.title")}
+                  </h3>
+                  <p className="mt-4 max-w-lg text-base leading-relaxed text-muted-foreground">
                     {t(`${feature.key}.description` as "hardCap.description")}
-                  </CardContent>
-                </Card>
-              </FadeIn>
-            )
-          })}
-        </div>
+                  </p>
+                </div>
+              </div>
+            </FadeIn>
+          )
+        })}
+      </div>
 
-        {/* Secondary features — compact list */}
-        <div className="mx-auto mt-12 grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2">
-          {secondaryFeatures.map((feature, i) => {
+      {/* Secondary features — one hairline grid */}
+      <FadeIn delay={0.1}>
+        <div className="mt-4 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-stroke bg-hairline sm:grid-cols-2 lg:grid-cols-4">
+          {secondaryFeatures.map((feature) => {
             const Icon = feature.icon
             return (
-              <FadeIn key={feature.key} delay={i * 0.08}>
-                <div className="flex items-start gap-4 border-l border-border pl-6 py-4">
-                  <Icon className="size-5 text-muted-foreground shrink-0 mt-0.5" />
-                  <div>
-                    <h3 className="text-xs font-medium font-mono uppercase tracking-[0.15em] text-foreground">
-                      {t(`${feature.key}.title` as "fairLaunch.title")}
-                    </h3>
-                    <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
-                      {t(`${feature.key}.description` as "fairLaunch.description")}
-                    </p>
-                  </div>
-                </div>
-              </FadeIn>
+              <div key={feature.key} className="bg-background p-6">
+                <Icon className="size-6 text-foreground" strokeWidth={1.5} />
+                <h3 className="mt-8 text-lg leading-tight text-foreground">
+                  {t(`${feature.key}.title` as "fairLaunch.title")}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {t(`${feature.key}.description` as "fairLaunch.description")}
+                </p>
+              </div>
             )
           })}
         </div>
+      </FadeIn>
 
-        <FadeIn>
-          <div className="mt-16 flex flex-col items-center gap-3">
-
-            <Button className="w-full sm:w-fit brand-gradient text-brand-foreground hover:opacity-90" asChild>
-              <Link href={"/compare"}>
-                {t("cta")}
-                <LucideChevronRight />
-              </Link>
-            </Button>
-
-            <p className="text-xs text-muted-foreground">{t("ctaSubtitle")}</p>
-          </div>
-        </FadeIn>
-      </div>
-    </section>
+      <FadeIn>
+        <div className="mt-12 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
+          <Button variant="brand" size="lg" asChild>
+            <Link href={"/compare"}>
+              {t("cta")}
+              <ArrowRight />
+            </Link>
+          </Button>
+          <p className="text-sm text-muted-foreground">{t("ctaSubtitle")}</p>
+        </div>
+      </FadeIn>
+    </Section>
   )
 }

@@ -1,5 +1,6 @@
 import type { PostSummary } from "@/lib/blog"
 import { formatPostDate, tagSlug } from "@/lib/blog"
+import { Badge } from "@/components/ui/badge"
 import { Link } from "@/i18n/navigation"
 import { cn } from "@/lib/utils"
 import { ArrowRight } from "lucide-react"
@@ -50,16 +51,16 @@ export async function PostMeta({
   return (
     <div
       className={cn(
-        "flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground",
+        "flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground",
         className,
       )}
     >
       <time dateTime={post.date}>{formatPostDate(post.date, locale)}</time>
-      <span aria-hidden className="text-border">/</span>
+      <span aria-hidden className="text-hairline">/</span>
       <span>{t("minRead", { minutes: post.readingMinutes })}</span>
       {post.author && (
         <>
-          <span aria-hidden className="text-border">/</span>
+          <span aria-hidden className="text-hairline">/</span>
           <span>{t("by", { author: post.author })}</span>
         </>
       )}
@@ -67,6 +68,9 @@ export async function PostMeta({
   )
 }
 
+/* News card after solana.com's "Keep up with the latest": a rounded cover
+   with a hairline edge, the title set below it, no plate. Hover brightens
+   the cover's edge and slowly scales the art inside its frame. */
 export async function PostCard({
   post,
   locale,
@@ -79,56 +83,60 @@ export async function PostCard({
   const t = await getTranslations("blog")
 
   return (
-    <article className={cn("group", featured && "md:col-span-2")}>
+    <article className={cn("h-full", featured && "md:col-span-2")}>
       <Link
         href={`/blog/${post.slug}`}
         className={cn(
-          "flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-all duration-300 hover:border-brand/30 hover:shadow-[0_0_20px_-5px_var(--brand-muted)]",
-          featured && "md:flex-row",
+          "group flex h-full flex-col gap-6 rounded-2xl outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50",
+          featured && "md:grid md:grid-cols-12 md:items-center md:gap-10 lg:gap-14",
         )}
       >
         {post.cover && (
           <div
             className={cn(
-              "relative shrink-0 overflow-hidden bg-surface-elevated",
-              featured ? "aspect-video md:aspect-auto md:w-1/2" : "aspect-video",
+              "relative aspect-video shrink-0 overflow-hidden rounded-2xl border border-stroke bg-surface-elevated transition-colors duration-300 group-hover:border-foreground/25",
+              featured && "md:col-span-7",
             )}
           >
             <Cover
               src={post.cover}
               alt={post.coverAlt ?? ""}
               priority={featured}
-              sizes={featured ? "(min-width: 768px) 50vw, 100vw" : "(min-width: 768px) 33vw, 100vw"}
-              className="transition-transform duration-500 group-hover:scale-[1.02]"
+              sizes={featured ? "(min-width: 768px) 58vw, 100vw" : "(min-width: 768px) 50vw, 100vw"}
+              className="transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:transform-none"
             />
           </div>
         )}
 
-        <div className={cn("flex flex-1 flex-col gap-4 p-6", featured && "md:justify-center md:p-8")}>
+        <div className={cn("flex flex-1 flex-col gap-4", featured && "md:col-span-5 md:gap-5")}>
           <PostMeta post={post} locale={locale} />
 
-          <h3 className={cn("text-xl text-foreground text-pretty", featured && "sm:text-3xl")}>
+          <h3
+            className={cn(
+              "text-2xl leading-[1.2] tracking-[-0.01em] text-foreground text-pretty transition-colors group-hover:text-foreground/80",
+              featured && "sm:text-4xl sm:leading-[1.08] sm:tracking-[-0.02em] lg:text-[2.75rem]",
+            )}
+          >
             {post.title}
           </h3>
 
-          <p className="text-muted-foreground leading-relaxed text-pretty">{post.summary}</p>
+          <p className={cn("text-base leading-relaxed text-muted-foreground text-pretty", featured && "sm:text-lg")}>
+            {post.summary}
+          </p>
 
           {post.tags.length > 0 && (
             <ul className="flex flex-wrap gap-2">
               {post.tags.map((tag) => (
-                <li
-                  key={tagSlug(tag)}
-                  className="rounded-full border border-border px-3 py-1 font-mono text-[0.7rem] uppercase tracking-[0.1em] text-muted-foreground"
-                >
-                  {tag}
+                <li key={tagSlug(tag)}>
+                  <Badge variant="outline" className="text-muted-foreground">{tag}</Badge>
                 </li>
               ))}
             </ul>
           )}
 
-          <span className="mt-auto flex items-center gap-2 pt-2 font-mono text-xs font-medium uppercase tracking-[0.15em] text-foreground transition-colors group-hover:text-brand">
+          <span className="mt-auto inline-flex items-center gap-2 pt-1 text-[15px] font-medium text-foreground">
             {t("readPost")}
-            <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="size-4 text-brand transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
           </span>
         </div>
       </Link>

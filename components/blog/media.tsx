@@ -1,20 +1,20 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { Play } from "lucide-react"
+import { Info, Play, TriangleAlert } from "lucide-react"
 import { useState } from "react"
 
 function Caption({ children }: { children?: React.ReactNode }) {
   if (!children) return null
   return (
-    <figcaption className="mt-3 text-center text-sm text-muted-foreground text-pretty">
+    <figcaption className="accent-rule mt-4 pl-4 text-sm leading-relaxed text-muted-foreground text-pretty">
       {children}
     </figcaption>
   )
 }
 
 const frameClass =
-  "overflow-hidden rounded-lg border border-border bg-surface-elevated"
+  "overflow-hidden rounded-xl border border-stroke bg-surface-elevated"
 
 /**
  * Self-hosted video. Put the file in `public/blog/<post>/` and reference it by
@@ -98,11 +98,11 @@ export function YouTube({
               src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
               alt=""
               loading="lazy"
-              className="h-full w-full object-cover transition-opacity duration-300 group-hover:opacity-90"
+              className="h-full w-full object-cover"
             />
-            <span className="absolute inset-0 flex items-center justify-center bg-background/30">
-              <span className="flex size-16 items-center justify-center rounded-full border border-brand/40 bg-background/80 backdrop-blur-sm transition-colors duration-300 group-hover:border-brand group-hover:bg-background">
-                <Play className="size-6 translate-x-0.5 fill-brand text-brand" />
+            <span className="absolute inset-0 flex items-center justify-center">
+              <span className="flex size-16 items-center justify-center rounded-full border border-white/25 bg-black/55 text-white backdrop-blur-md transition-[background-color,border-color] duration-200 group-hover:border-white/50 group-hover:bg-black/70 motion-reduce:transition-none">
+                <Play className="size-5 translate-x-0.5 fill-white" strokeWidth={1.5} />
               </span>
             </span>
           </button>
@@ -162,19 +162,21 @@ export function Callout({
   children: React.ReactNode
 }) {
   return (
-    <aside
-      className={cn(
-        "my-8 rounded-lg border-l-2 bg-surface-elevated px-6 py-5 text-base leading-relaxed",
-        type === "warning" ? "border-l-destructive" : "border-l-brand",
+    <aside className="my-10 flex gap-4 rounded-xl border border-stroke bg-card px-5 py-5 text-base leading-relaxed sm:px-6 sm:py-6">
+      {type === "warning" ? (
+        <TriangleAlert aria-hidden className="mt-0.5 size-5 shrink-0 text-pop-yellow" strokeWidth={1.5} />
+      ) : (
+        <Info aria-hidden className="mt-0.5 size-5 shrink-0 text-brand" strokeWidth={1.5} />
       )}
-    >
-      {title && (
-        <p className="mb-2 font-mono text-xs font-medium uppercase tracking-[0.15em] text-foreground">
-          {title}
-        </p>
-      )}
-      <div className="[&>*:first-child]:mt-0 [&>*:last-child]:mb-0 text-muted-foreground">
-        {children}
+      <div className="min-w-0 flex-1">
+        {title && (
+          <p className="mb-2 font-mono text-xs font-medium uppercase tracking-[0.14em] text-foreground">
+            {title}
+          </p>
+        )}
+        <div className="text-muted-foreground [&_p]:my-3 [&_p]:text-base [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
+          {children}
+        </div>
       </div>
     </aside>
   )

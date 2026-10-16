@@ -1,7 +1,8 @@
 import MainMotion from "@/components/main-motion";
 import PageHeader from "@/components/page-header";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Section, TwoToneTitle } from "@/components/section";
+import { Badge } from "@/components/ui/badge";
 import { AppWindow, CircleSlash, ExternalLink, Hexagon, Info, ShieldCheck, TerminalSquare } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import ClientDownloadButton from "@/components/client-download-button";
@@ -23,99 +24,104 @@ export default async function ParallaxClientPage() {
         title={t("title")}
         subTitle={t("subtitle")}
       />
-      <section className="mx-auto max-w-7xl px-6 py-16 sm:px-8 xl:px-0">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-0">
-          <div className="pr-0 sm:pr-10 sm:border-r border-border pb-8 sm:pb-0">
-            <div className="flex items-center gap-3 mb-4">
-              <Hexagon className="size-5 text-brand" />
-              <h3 className="text-xs font-medium font-mono uppercase tracking-[0.15em] text-foreground">{t("decentralized.heading")}</h3>
-            </div>
-            <p className="text-base text-muted-foreground leading-relaxed">
+      <Section>
+        {/* Two concept cells */}
+        <div className="grid grid-cols-1 overflow-hidden rounded-2xl border border-stroke sm:grid-cols-2">
+          <div className="p-8 sm:p-10">
+            <Hexagon className="size-7 text-brand" strokeWidth={1.5} />
+            <h3 className="mt-10 text-2xl text-foreground">{t("decentralized.heading")}</h3>
+            <p className="mt-3 text-base leading-relaxed text-muted-foreground">
               {t("decentralized.body")}
             </p>
           </div>
-          <div className="pl-0 sm:pl-10 pt-8 sm:pt-0 border-t sm:border-t-0 border-border">
-            <div className="flex items-center gap-3 mb-4">
-              <CircleSlash className="size-5 text-brand" />
-              <h3 className="text-xs font-medium font-mono uppercase tracking-[0.15em] text-foreground">{t("noVoting.heading")}</h3>
-            </div>
-            <p className="text-base text-muted-foreground leading-relaxed">
+          <div className="border-t border-hairline p-8 sm:border-t-0 sm:border-l sm:p-10">
+            <CircleSlash className="size-7 text-brand-2" strokeWidth={1.5} />
+            <h3 className="mt-10 text-2xl text-foreground">{t("noVoting.heading")}</h3>
+            <p className="mt-3 text-base leading-relaxed text-muted-foreground">
               {t("noVoting.body")}
             </p>
           </div>
         </div>
 
-        <blockquote className="my-16 border-l-2 border-brand pl-8 py-2">
-          <p className="text-lg italic text-muted-foreground leading-relaxed">
+        <blockquote className="accent-rule my-20 pl-6 sm:pl-10">
+          <p className="max-w-4xl text-2xl font-light leading-snug tracking-[-0.02em] text-foreground text-balance sm:text-4xl">
             {t("blockquote")}
           </p>
         </blockquote>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((feature, i) => {
             const Icon = FEATURE_ICONS[i];
             return (
-              <Card key={feature.title}>
-                <CardHeader>
-                  <Icon className="size-6 text-brand" />
-                  <CardTitle>{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
+              <div key={feature.title} className="rounded-xl border border-stroke bg-card p-6 sm:p-8">
+                <Icon className="size-7 text-foreground" strokeWidth={1.5} />
+                <h3 className="mt-12 text-xl leading-tight text-foreground">{feature.title}</h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">
                   {feature.description}
-                </CardContent>
-              </Card>
+                </p>
+              </div>
             );
           })}
         </div>
+      </Section>
 
-        <div className="border border-border">
-          <div className="px-6 sm:px-12 pt-10 pb-8 text-center">
-            <h3 className="text-sm font-medium font-mono uppercase tracking-[0.15em] text-foreground mb-3">{t("download.heading")}</h3>
-            <p className="text-muted-foreground max-w-xl mx-auto">
+      <Section className="border-b-0">
+        {/* Download panel */}
+        <div className="relative overflow-hidden rounded-2xl border border-stroke bg-card">
+          <div aria-hidden className="aurora" />
+          <div className="relative grid gap-8 border-b border-hairline px-8 py-12 sm:px-12 sm:py-16 lg:grid-cols-12 lg:items-end">
+            <h2 className="text-4xl leading-[1.05] text-foreground text-balance sm:text-5xl lg:col-span-7">
+              <TwoToneTitle text={t("download.heading")} />
+            </h2>
+            <p className="accent-rule max-w-md pl-6 text-base text-muted-foreground text-pretty sm:text-lg lg:col-span-4 lg:col-start-9">
               {t("download.subtitle")}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border-t border-border">
-            <div className="relative p-8 sm:p-12 border-b md:border-b-0 md:border-r border-border">
-              <div className="absolute top-4 right-4 text-[9px] font-mono uppercase tracking-[0.15em] text-brand border border-brand/40 px-1.5 py-0.5">
-                {t("download.recommended")}
+          <div className="relative grid grid-cols-1 md:grid-cols-2">
+            <div className="flex flex-col p-8 sm:p-12">
+              <div className="flex items-start justify-between gap-4">
+                <AppWindow className="size-7 text-brand" strokeWidth={1.5} />
+                <Badge>{t("download.recommended")}</Badge>
               </div>
-              <AppWindow className="size-6 text-brand mb-4" />
-              <h4 className="text-base text-foreground mb-2">{t("download.desktopTitle")}</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+              <h3 className="mt-10 text-2xl leading-tight text-foreground sm:text-3xl">{t("download.desktopTitle")}</h3>
+              <p className="mt-3 mb-10 text-base leading-relaxed text-muted-foreground">
                 {t("download.desktopDescription")}
               </p>
-              <ClientDownloadButton variant="gui" />
+              <div className="mt-auto">
+                <ClientDownloadButton variant="gui" />
+              </div>
             </div>
 
-            <div className="relative p-8 sm:p-12 bg-surface-elevated/40">
-              <div className="absolute top-4 right-4 text-[9px] font-mono uppercase tracking-[0.15em] text-muted-foreground border border-border px-1.5 py-0.5">
-                {t("download.advanced")}
+            <div className="flex flex-col border-t border-hairline p-8 sm:p-12 md:border-t-0 md:border-l">
+              <div className="flex items-start justify-between gap-4">
+                <TerminalSquare className="size-7 text-foreground" strokeWidth={1.5} />
+                <Badge variant="outline">{t("download.advanced")}</Badge>
               </div>
-              <TerminalSquare className="size-6 text-foreground mb-4" />
-              <h4 className="text-base text-foreground mb-2">{t("download.cliTitle")}</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+              <h3 className="mt-10 text-2xl leading-tight text-foreground sm:text-3xl">{t("download.cliTitle")}</h3>
+              <p className="mt-3 mb-10 text-base leading-relaxed text-muted-foreground">
                 {t("download.cliDescription")}
               </p>
-              <ClientDownloadButton variant="cli" prominent={false} />
+              <div className="mt-auto">
+                <ClientDownloadButton variant="cli" prominent={false} />
+              </div>
             </div>
           </div>
 
-          <div className="px-6 sm:px-12 py-6 border-t border-border flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-center">
-            <Button variant="secondary" asChild>
+          <div className="relative flex flex-col gap-3 border-t border-hairline px-8 py-6 sm:flex-row sm:flex-wrap sm:items-center sm:px-12">
+            <Button variant="secondary" size="sm" asChild>
               <a href="https://docs.parallaxprotocol.org/guides/client/setup" target="_blank" rel="noopener">
                 {t("download.cliSetupGuide")}
                 <ExternalLink />
               </a>
             </Button>
-            <Button variant="secondary" asChild>
+            <Button variant="secondary" size="sm" asChild>
               <a href="https://github.com/ParallaxProtocol/parallax" target="_blank" rel="noopener">
                 <FaGithub />
                 {t("download.cliOnGithub")}
               </a>
             </Button>
-            <Button variant="secondary" asChild>
+            <Button variant="secondary" size="sm" asChild>
               <a href="https://github.com/ParallaxProtocol/parallax-gui" target="_blank" rel="noopener">
                 <FaGithub />
                 {t("download.desktopOnGithub")}
@@ -127,7 +133,7 @@ export default async function ParallaxClientPage() {
         <ClientQuickStart />
 
         <ClientReleases />
-      </section>
+      </Section>
     </MainMotion>
   );
 }

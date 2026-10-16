@@ -33,7 +33,7 @@ function localImageSize(src: string): { width: number; height: number } | null {
 function PostImage({ src, alt, title }: ElementProps<"img">) {
   if (typeof src !== "string" || src === "") return null
 
-  const frame = "rounded-lg border border-border w-full h-auto"
+  const frame = "w-full h-auto rounded-xl border border-stroke bg-surface-elevated"
   const remote = /^https?:\/\//.test(src)
   const size = remote ? null : localImageSize(src)
 
@@ -59,7 +59,7 @@ function PostImage({ src, alt, title }: ElementProps<"img">) {
         />
       )}
       {title && (
-        <figcaption className="mt-3 text-center text-sm text-muted-foreground text-pretty">
+        <figcaption className="accent-rule mt-4 pl-4 text-sm leading-relaxed text-muted-foreground text-pretty">
           {title}
         </figcaption>
       )}
@@ -70,7 +70,7 @@ function PostImage({ src, alt, title }: ElementProps<"img">) {
 function PostLink({ href, children, ...props }: ElementProps<"a">) {
   const target = typeof href === "string" ? href : ""
   const linkClass =
-    "text-foreground underline decoration-brand/40 underline-offset-4 transition-colors hover:decoration-brand"
+    "text-foreground underline decoration-brand/50 underline-offset-4 transition-colors hover:decoration-brand"
 
   // Heading anchors added by rehype-autolink-headings, and in-page jumps.
   if (target.startsWith("#")) {
@@ -100,24 +100,24 @@ function PostLink({ href, children, ...props }: ElementProps<"a">) {
 
 const components = {
   h1: (props: ElementProps<"h1">) => (
-    <h1 className="mt-14 mb-6 text-3xl text-foreground sm:text-4xl" {...props} />
+    <h1 className="mt-16 mb-6 text-4xl leading-[1.05] text-foreground text-balance sm:text-5xl" {...props} />
   ),
   h2: (props: ElementProps<"h2">) => (
-    <h2 className="mt-14 mb-5 text-2xl text-foreground sm:text-3xl" {...props} />
+    <h2 className="mt-16 mb-6 border-t border-hairline pt-10 text-3xl leading-[1.1] tracking-[-0.03em] text-foreground text-balance sm:text-[2.25rem]" {...props} />
   ),
   h3: (props: ElementProps<"h3">) => (
-    <h3 className="mt-10 mb-4 text-xl text-foreground sm:text-2xl" {...props} />
+    <h3 className="mt-12 mb-4 text-2xl leading-tight tracking-[-0.02em] text-foreground" {...props} />
   ),
   h4: (props: ElementProps<"h4">) => (
-    <h4 className="mt-8 mb-3 text-lg text-foreground" {...props} />
+    <h4 className="mt-10 mb-3 text-xl leading-tight tracking-[-0.015em] text-foreground" {...props} />
   ),
   p: (props: ElementProps<"p">) => (
-    <p className="my-6 text-lg leading-relaxed text-muted-foreground text-pretty" {...props} />
+    <p className="my-6 text-lg leading-[1.75] text-muted-foreground text-pretty" {...props} />
   ),
   a: PostLink,
   img: PostImage,
   ul: (props: ElementProps<"ul">) => (
-    <ul className="my-6 ml-5 list-disc space-y-2 text-lg text-muted-foreground marker:text-brand" {...props} />
+    <ul className="my-6 ml-5 list-disc space-y-2.5 text-lg text-muted-foreground marker:text-brand" {...props} />
   ),
   ol: (props: ElementProps<"ol">) => (
     <ol className="my-6 ml-5 list-decimal space-y-2 text-lg text-muted-foreground marker:text-brand" {...props} />
@@ -125,15 +125,15 @@ const components = {
   li: (props: ElementProps<"li">) => <li className="leading-relaxed pl-1" {...props} />,
   blockquote: (props: ElementProps<"blockquote">) => (
     <blockquote
-      className="my-8 border-l-2 border-brand pl-6 text-lg italic text-foreground [&>p]:text-foreground"
+      className="accent-rule my-12 py-1 pl-6 text-2xl font-light leading-[1.35] tracking-[-0.02em] text-foreground sm:pl-8 sm:text-[1.75rem] [&>p]:my-4 [&>p]:text-[length:inherit] [&>p]:leading-[inherit] [&>p]:text-foreground [&>p:first-child]:mt-0 [&>p:last-child]:mb-0"
       {...props}
     />
   ),
   hr: (props: ElementProps<"hr">) => (
-    <hr className="my-12 border-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" {...props} />
+    <hr className="my-16 h-px border-0 bg-hairline" {...props} />
   ),
   strong: (props: ElementProps<"strong">) => (
-    <strong className="font-semibold text-foreground" {...props} />
+    <strong className="font-medium text-foreground" {...props} />
   ),
   code: ({ className, ...props }: ElementProps<"code">) => {
     // Code inside a fenced block is already styled by rehype-pretty-code.
@@ -143,7 +143,7 @@ const components = {
     return (
       <code
         className={cn(
-          "rounded border border-border bg-surface-elevated px-1.5 py-0.5 font-mono text-[0.9em] text-foreground",
+          "rounded-md border border-hairline bg-foreground/[0.05] px-1.5 py-0.5 font-mono text-[0.85em] text-foreground [overflow-wrap:anywhere]",
           className,
         )}
         {...props}
@@ -151,18 +151,18 @@ const components = {
     )
   },
   table: (props: ElementProps<"table">) => (
-    <div className="my-8 overflow-x-auto rounded-lg border border-border">
-      <table className="w-full border-collapse text-left text-sm" {...props} />
+    <div className="my-10 overflow-x-auto rounded-xl border border-stroke bg-card">
+      <table className="w-full border-collapse text-left text-sm [&_tbody_tr:last-child>td]:border-b-0" {...props} />
     </div>
   ),
   th: (props: ElementProps<"th">) => (
     <th
-      className="border-b border-border bg-surface-elevated px-4 py-3 font-mono text-xs font-medium uppercase tracking-[0.15em] text-foreground"
+      className="border-b border-hairline px-4 py-3 font-mono text-xs font-medium uppercase tracking-[0.14em] whitespace-nowrap text-muted-foreground"
       {...props}
     />
   ),
   td: (props: ElementProps<"td">) => (
-    <td className="border-b border-border px-4 py-3 align-top text-muted-foreground" {...props} />
+    <td className="border-b border-hairline px-4 py-3 align-top leading-relaxed text-muted-foreground" {...props} />
   ),
   // Components authors can use directly in a post.
   Video,

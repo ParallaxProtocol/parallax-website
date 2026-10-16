@@ -51,16 +51,16 @@ export default async function BlogTagPage({
         subTitle={t("taggedSubtitle", { count: posts.length })}
       />
 
-      <section className="mx-auto max-w-7xl px-6 pb-24 sm:px-8 xl:px-0">
+      <section className="mx-auto max-w-[90rem] px-5 py-16 md:px-10 md:py-24">
         <Link
           href="/blog"
-          className="mb-10 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:text-brand"
+          className="group mb-14 inline-flex items-center gap-2 text-[15px] font-medium text-foreground"
         >
-          <ArrowLeft className="size-4" />
+          <ArrowLeft className="size-4 text-brand transition-transform group-hover:-translate-x-1 motion-reduce:transition-none" />
           {t("backToBlog")}
         </Link>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2">
           {posts.map((post) => (
             <PostCard key={post.slug} post={post} locale={locale} />
           ))}

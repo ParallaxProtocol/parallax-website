@@ -1,6 +1,7 @@
 'use client'
 
 import { AppWindow, ChevronDown, ExternalLink, TerminalSquare } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { FaGithub } from "react-icons/fa";
@@ -55,14 +56,14 @@ function ReleaseTable({ releases, allReleasesUrl }: { releases: Release[]; allRe
 
   if (visible.length === 0) {
     return (
-      <p className="py-8 text-center text-sm text-muted-foreground italic">{t("noReleases")}</p>
+      <p className="rounded-xl border border-dashed border-stroke bg-card px-6 py-8 text-sm text-muted-foreground">{t("noReleases")}</p>
     );
   }
 
   return (
     <>
-      <div className="border border-border">
-        <div className="hidden sm:grid grid-cols-12 gap-4 px-6 py-3 border-b border-border bg-surface-elevated text-[10px] font-mono uppercase tracking-[0.15em] text-muted-foreground">
+      <div className="overflow-hidden rounded-2xl border border-stroke bg-card">
+        <div className="hidden sm:grid grid-cols-12 gap-4 border-b border-hairline px-6 py-3.5 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
           <div className="col-span-3">{t("columnVersion")}</div>
           <div className="col-span-3">{t("columnReleased")}</div>
           <div className="col-span-4">{t("columnAssets")}</div>
@@ -82,29 +83,25 @@ function ReleaseTable({ releases, allReleasesUrl }: { releases: Release[]; allRe
           return (
             <div
               key={release.tag_name}
-              className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 px-6 py-5 border-b border-border last:border-b-0 hover:bg-surface-elevated/50 transition-colors"
+              className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 px-6 py-5 border-b border-hairline last:border-b-0 hover:bg-foreground/[0.03] transition-colors"
             >
               <div className="sm:col-span-3 flex items-center gap-2">
-                <span className="font-mono text-sm text-foreground">{release.tag_name}</span>
+                <span className="font-mono text-base text-foreground">{release.tag_name}</span>
                 {isLatestStable && (
-                  <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-brand border border-brand/40 px-1.5 py-0.5">
-                    {t("latestBadge")}
-                  </span>
+                  <Badge>{t("latestBadge")}</Badge>
                 )}
                 {release.prerelease && (
-                  <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-brand border border-brand/40 px-1.5 py-0.5">
-                    {t("preBadge")}
-                  </span>
+                  <Badge variant="outline" className="text-muted-foreground">{t("preBadge")}</Badge>
                 )}
               </div>
               <div className="sm:col-span-3 text-sm text-muted-foreground font-mono">
                 {formatDate(release.published_at, locale)}
               </div>
-              <div className="sm:col-span-4 text-xs text-muted-foreground">
+              <div className="sm:col-span-4 text-sm text-muted-foreground">
                 {binaryAssets.length > 0 ? (
                   <span>{t("artifactsCount", { count: binaryAssets.length })}</span>
                 ) : (
-                  <span className="italic">{t("sourceOnly")}</span>
+                  <span>{t("sourceOnly")}</span>
                 )}
               </div>
               <div className="sm:col-span-2 sm:text-right">
@@ -112,14 +109,14 @@ function ReleaseTable({ releases, allReleasesUrl }: { releases: Release[]; allRe
                   href={release.html_url}
                   target="_blank"
                   rel="noopener"
-                  className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.15em] text-muted-foreground hover:text-foreground transition-colors"
+                  className="group inline-flex items-center gap-1.5 text-sm font-medium text-foreground"
                 >
                   {t("view")}
-                  <ExternalLink className="size-3" />
+                  <ExternalLink className="size-3.5 text-brand" />
                 </a>
               </div>
               {binaryAssets.length > 0 && (
-                <div className="sm:col-span-12 sm:pl-0 mt-2 sm:mt-3 sm:border-t sm:border-border/50 sm:pt-3">
+                <div className="sm:col-span-12 mt-2 sm:mt-1 sm:border-t sm:border-hairline sm:pt-3">
                   <div className="flex flex-wrap gap-x-4 gap-y-1.5">
                     {binaryAssets.map((asset) => (
                       <a
@@ -127,7 +124,7 @@ function ReleaseTable({ releases, allReleasesUrl }: { releases: Release[]; allRe
                         href={asset.browser_download_url}
                         target="_blank"
                         rel="noopener"
-                        className="text-[11px] font-mono text-muted-foreground hover:text-brand transition-colors"
+                        className="font-mono text-xs text-muted-foreground underline decoration-transparent underline-offset-4 transition-colors hover:text-foreground hover:decoration-brand"
                       >
                         {asset.name}
                         <span className="text-muted-foreground/60"> · {formatSize(asset.size)}</span>
@@ -141,8 +138,8 @@ function ReleaseTable({ releases, allReleasesUrl }: { releases: Release[]; allRe
         })}
       </div>
 
-      <div className="mt-8 flex justify-center">
-        <Button variant="secondary" asChild>
+      <div className="mt-8 flex">
+        <Button variant="outline" asChild>
           <a href={allReleasesUrl} target="_blank" rel="noopener">
             <FaGithub />
             {t("viewAllReleases")}
@@ -178,15 +175,17 @@ export default function ClientReleases() {
   if (cliReleases !== null && guiReleases !== null && !hasAny) return null;
 
   return (
-    <div className="mt-20">
+    <div className="mt-8">
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="w-full flex items-center gap-3 cursor-pointer group"
+        aria-expanded={open}
+        className="group plate-lift flex w-full cursor-pointer items-center gap-4 rounded-xl border border-stroke bg-card px-5 py-5 text-left sm:px-8"
       >
-        <h3 className="text-sm font-medium font-mono uppercase tracking-[0.15em] text-foreground group-hover:text-brand transition-colors">{t("heading")}</h3>
-        <div className="flex-1 h-px bg-border" />
-        <ChevronDown className={`size-4 text-muted-foreground transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+        <h3 className="text-2xl leading-tight text-foreground sm:text-3xl">{t("heading")}</h3>
+        <span className={`ml-auto flex size-9 items-center justify-center rounded-full border transition-colors ${open ? "border-foreground bg-foreground text-background" : "border-stroke text-foreground group-hover:border-foreground/30"}`}>
+          <ChevronDown className={`size-4 transition-transform duration-200 motion-reduce:transition-none ${open ? "rotate-180" : ""}`} strokeWidth={1.5} />
+        </span>
       </button>
 
       <AnimatePresence initial={false}>
@@ -199,66 +198,72 @@ export default function ClientReleases() {
             transition={{ duration: 0.25, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <p className="text-muted-foreground mb-8 mt-8 max-w-2xl">
-              {t("intro")}
-            </p>
+            <div>
+              <p className="mb-8 mt-10 max-w-2xl text-base text-muted-foreground sm:text-lg">
+                {t("intro")}
+              </p>
 
-            <div className="flex gap-2 bg-surface-elevated border border-border rounded-lg p-2 w-fit mb-8">
-              {/* The active plate is one shared element that glides between
-                  the two buttons (layoutId) instead of snapping. */}
-              <Button
-                onClick={() => setActiveTab("gui")}
-                variant="ghost"
-                className={cn("relative", activeTab === "gui" ? "text-brand-foreground hover:bg-transparent" : "text-muted-foreground")}
-              >
-                {activeTab === "gui" && (
-                  <motion.span
-                    layoutId="releases-tab-plate"
-                    aria-hidden
-                    className="absolute inset-0 rounded-lg brand-gradient"
-                    transition={{ type: "spring", stiffness: 500, damping: 40 }}
-                  />
-                )}
-                <span className="relative flex items-center gap-2">
-                  <AppWindow className="size-3.5" />
-                  {t("desktop")}
-                </span>
-              </Button>
-              <Button
-                onClick={() => setActiveTab("cli")}
-                variant="ghost"
-                className={cn("relative", activeTab === "cli" ? "text-brand-foreground hover:bg-transparent" : "text-muted-foreground")}
-              >
-                {activeTab === "cli" && (
-                  <motion.span
-                    layoutId="releases-tab-plate"
-                    aria-hidden
-                    className="absolute inset-0 rounded-lg brand-gradient"
-                    transition={{ type: "spring", stiffness: 500, damping: 40 }}
-                  />
-                )}
-                <span className="relative flex items-center gap-2">
-                  <TerminalSquare className="size-3.5" />
-                  {t("cli")}
-                </span>
-              </Button>
+              <div className="mb-8 flex w-fit gap-1 rounded-full border border-stroke bg-foreground/[0.04] p-1">
+                {/* The active plate is one shared element that glides between
+                    the two buttons (layoutId) instead of snapping. */}
+                <Button
+                  onClick={() => setActiveTab("gui")}
+                  variant="ghost"
+                  size="sm"
+                  aria-pressed={activeTab === "gui"}
+                  className={cn("relative h-9 px-4 hover:bg-transparent", activeTab === "gui" ? "text-background hover:text-background" : "text-muted-foreground hover:text-foreground")}
+                >
+                  {activeTab === "gui" && (
+                    <motion.span
+                      layoutId="releases-tab-plate"
+                      aria-hidden
+                      className="absolute inset-0 rounded-full bg-foreground"
+                      transition={{ type: "spring", stiffness: 500, damping: 40 }}
+                    />
+                  )}
+                  <span className="relative flex items-center gap-2">
+                    <AppWindow className="size-3.5" />
+                    {t("desktop")}
+                  </span>
+                </Button>
+                <Button
+                  onClick={() => setActiveTab("cli")}
+                  variant="ghost"
+                  size="sm"
+                  aria-pressed={activeTab === "cli"}
+                  className={cn("relative h-9 px-4 hover:bg-transparent", activeTab === "cli" ? "text-background hover:text-background" : "text-muted-foreground hover:text-foreground")}
+                >
+                  {activeTab === "cli" && (
+                    <motion.span
+                      layoutId="releases-tab-plate"
+                      aria-hidden
+                      className="absolute inset-0 rounded-full bg-foreground"
+                      transition={{ type: "spring", stiffness: 500, damping: 40 }}
+                    />
+                  )}
+                  <span className="relative flex items-center gap-2">
+                    <TerminalSquare className="size-3.5" />
+                    {t("cli")}
+                  </span>
+                </Button>
+              </div>
+
+              {activeTab === "gui" && (
+                guiReleases ? (
+                  <ReleaseTable releases={guiReleases} allReleasesUrl={REPOS.gui.allReleases} />
+                ) : (
+                  <p className="py-8 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">{t("loading")}</p>
+                )
+              )}
+
+              {activeTab === "cli" && (
+                cliReleases ? (
+                  <ReleaseTable releases={cliReleases} allReleasesUrl={REPOS.cli.allReleases} />
+                ) : (
+                  <p className="py-8 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">{t("loading")}</p>
+                )
+              )}
             </div>
-
-            {activeTab === "gui" && (
-              guiReleases ? (
-                <ReleaseTable releases={guiReleases} allReleasesUrl={REPOS.gui.allReleases} />
-              ) : (
-                <p className="py-8 text-center text-sm text-muted-foreground">{t("loading")}</p>
-              )
-            )}
-
-            {activeTab === "cli" && (
-              cliReleases ? (
-                <ReleaseTable releases={cliReleases} allReleasesUrl={REPOS.cli.allReleases} />
-              ) : (
-                <p className="py-8 text-center text-sm text-muted-foreground">{t("loading")}</p>
-              )
-            )}
           </motion.div>
         )}
       </AnimatePresence>

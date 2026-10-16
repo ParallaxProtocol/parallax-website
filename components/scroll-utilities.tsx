@@ -10,7 +10,7 @@ export function ScrollProgress() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-0.5 bg-brand z-[60] origin-left"
+      className="fixed top-0 left-0 right-0 h-0.5 brand-gradient z-[60] origin-left"
       style={{ scaleX }}
     />
   )
@@ -32,7 +32,7 @@ export function ScrollToTop() {
     <AnimatePresence>
       {visible && (
         <motion.button
-          className="fixed bottom-6 right-6 z-50 size-10 flex items-center justify-center bg-card/80 backdrop-blur-sm border border-border rounded-lg text-muted-foreground hover:text-foreground hover:border-brand/30 transition-colors cursor-pointer"
+          className="fixed bottom-6 right-6 z-50 size-11 flex items-center justify-center rounded-full border border-stroke bg-background/80 text-foreground backdrop-blur-md hover:bg-foreground/10 transition-colors cursor-pointer"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}

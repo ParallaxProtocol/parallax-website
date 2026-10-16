@@ -1,7 +1,9 @@
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-jsonld"
+import { Badge } from "@/components/ui/badge"
 import { MdxContent } from "@/components/blog/mdx"
 import { Cover, PostMeta } from "@/components/blog/post-card"
 import MainMotion from "@/components/main-motion"
+import { TwoToneTitle } from "@/components/section"
 import { Link } from "@/i18n/navigation"
 import { routing } from "@/i18n/routing"
 import { formatPostDate, getAdjacentPosts, getPost, getPostSlugs, tagSlug } from "@/lib/blog"
@@ -106,83 +108,94 @@ export default async function BlogPostPage({
         ]}
       />
 
-      <article className="mx-auto max-w-3xl px-6 pt-32 sm:px-8">
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:text-brand"
-        >
-          <ArrowLeft className="size-4" />
-          {t("backToBlog")}
-        </Link>
-
-        <header className="mt-8 flex flex-col gap-6 border-b border-border pb-10">
-          <div className="h-0.5 w-12 bg-brand" />
-          <h1 className="text-4xl text-foreground text-pretty sm:text-5xl">{post.title}</h1>
-          <p className="text-xl text-muted-foreground text-pretty">{post.summary}</p>
-          <PostMeta post={post} locale={locale} />
-          {post.tags.length > 0 && (
-            <ul className="flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
-                <li key={tagSlug(tag)}>
-                  <Link
-                    href={`/blog/tag/${tagSlug(tag)}`}
-                    className="rounded-full border border-border px-3 py-1 font-mono text-[0.7rem] uppercase tracking-[0.1em] text-muted-foreground transition-colors hover:border-brand/40 hover:text-foreground"
-                  >
-                    {tag}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
+      {/* Reading column: ~68ch of Geist at text-lg under a full-bleed
+          masthead lit by the same aurora as the inner-page PageHeader. */}
+      <article>
+        <header className="relative mt-16 overflow-hidden border-b border-hairline">
+          <div aria-hidden className="aurora" />
+          <div className="relative mx-auto flex max-w-[46rem] flex-col items-start gap-7 px-6 pt-16 pb-14 sm:px-8 md:pt-24 md:pb-20">
+            <Link
+              href="/blog"
+              className="group inline-flex items-center gap-2 text-[15px] font-medium text-foreground"
+            >
+              <ArrowLeft className="size-4 text-brand transition-transform group-hover:-translate-x-1 motion-reduce:transition-none" />
+              {t("backToBlog")}
+            </Link>
+            <PostMeta post={post} locale={locale} className="mt-6" />
+            <h1 className="text-4xl leading-[1.05] tracking-[-0.025em] text-foreground text-balance sm:text-5xl lg:text-[3.5rem]">
+              <TwoToneTitle text={post.title} />
+            </h1>
+            <p className="accent-rule pl-6 text-lg font-light leading-relaxed text-muted-foreground text-pretty sm:text-xl">{post.summary}</p>
+            {post.tags.length > 0 && (
+              <ul className="flex flex-wrap gap-2">
+                {post.tags.map((tag) => (
+                  <li key={tagSlug(tag)}>
+                    <Badge variant="outline" asChild>
+                      <Link
+                        href={`/blog/tag/${tagSlug(tag)}`}
+                        className="text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
+                      >
+                        {tag}
+                      </Link>
+                    </Badge>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </header>
 
-        {post.cover && (
-          <div className="relative mt-10 aspect-video overflow-hidden rounded-lg border border-border bg-surface-elevated">
-            <Cover
-              src={post.cover}
-              alt={post.coverAlt ?? ""}
-              priority
-              sizes="(min-width: 1024px) 768px, 100vw"
-            />
-          </div>
-        )}
+        <div className="mx-auto max-w-[46rem] px-6 pb-28 sm:px-8">
+          {post.cover && (
+            <div className="relative mt-12 aspect-video overflow-hidden rounded-2xl border border-stroke bg-surface-elevated">
+              <Cover
+                src={post.cover}
+                alt={post.coverAlt ?? ""}
+                priority
+                sizes="(min-width: 1024px) 736px, 100vw"
+              />
+            </div>
+          )}
 
-        <MdxContent source={post.body} />
+          <MdxContent source={post.body} />
 
-        {post.updated && (
-          <p className="mt-12 border-t border-border pt-6 font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
-            {t("updatedOn", { date: formatPostDate(post.updated, locale) })}
-          </p>
-        )}
+          {post.updated && (
+            <p className="mt-16 border-t border-hairline pt-6 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+              {t("updatedOn", { date: formatPostDate(post.updated, locale) })}
+            </p>
+          )}
 
-        {(newer || older) && (
-          <nav className="mt-12 grid grid-cols-1 gap-4 border-t border-border pt-10 sm:grid-cols-2">
-            {older && (
-              <Link
-                href={`/blog/${older.slug}`}
-                className="group flex flex-col gap-2 rounded-lg border border-border p-5 transition-colors hover:border-brand/30"
-              >
-                <span className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
-                  <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />
-                  {t("olderPost")}
-                </span>
-                <span className="text-foreground text-pretty">{older.title}</span>
-              </Link>
-            )}
-            {newer && (
-              <Link
-                href={`/blog/${newer.slug}`}
-                className="group flex flex-col gap-2 rounded-lg border border-border p-5 transition-colors hover:border-brand/30 sm:col-start-2 sm:items-end sm:text-right"
-              >
-                <span className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
-                  {t("newerPost")}
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                </span>
-                <span className="text-foreground text-pretty">{newer.title}</span>
-              </Link>
-            )}
-          </nav>
-        )}
+          {(newer || older) && (
+            <nav className="mt-16 grid grid-cols-1 gap-4 border-t border-hairline pt-12 sm:grid-cols-2">
+              {older && (
+                <Link href={`/blog/${older.slug}`} className="group block rounded-xl outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50">
+                  <div className="plate-lift flex h-full flex-col gap-4 rounded-xl border border-stroke bg-card p-6">
+                    <span className="tag">
+                      <ArrowLeft className="size-4 text-brand transition-transform group-hover:-translate-x-1 motion-reduce:transition-none" />
+                      {t("olderPost")}
+                    </span>
+                    <span className="text-xl leading-snug text-foreground text-pretty">
+                      {older.title}
+                    </span>
+                  </div>
+                </Link>
+              )}
+              {newer && (
+                <Link href={`/blog/${newer.slug}`} className="group block rounded-xl outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 sm:col-start-2">
+                  <div className="plate-lift flex h-full flex-col gap-4 rounded-xl border border-stroke bg-card p-6 sm:items-end sm:text-right">
+                    <span className="tag">
+                      {t("newerPost")}
+                      <ArrowRight className="size-4 text-brand transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
+                    </span>
+                    <span className="text-xl leading-snug text-foreground text-pretty">
+                      {newer.title}
+                    </span>
+                  </div>
+                </Link>
+              )}
+            </nav>
+          )}
+        </div>
       </article>
     </MainMotion>
   )

@@ -8,7 +8,9 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-serif: var(--font-serif);
+  /* One family carries headings and body, as on solana.com: hierarchy comes
+     from weight (medium over light) and size, not from a second face. */
+  --font-display: var(--font-geist-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -41,143 +43,180 @@
   --color-atlas-clearnet: var(--atlas-clearnet);
   --color-atlas-tor: var(--atlas-tor);
   --color-brand: var(--brand);
+  --color-brand-2: var(--brand-2);
   --color-brand-foreground: var(--brand-foreground);
   --color-brand-muted: var(--brand-muted);
   --color-glow-purple: var(--glow-purple);
   --color-surface-elevated: var(--surface-elevated);
-  --radius-sm: calc(var(--radius) - 2px);
-  --radius-md: var(--radius);
+  --color-stroke: var(--stroke);
+  --color-hairline: var(--hairline);
+  --color-pop-green: var(--pop-green);
+  --color-pop-blue: var(--pop-blue);
+  --color-pop-violet: var(--pop-violet);
+  --color-pop-yellow: var(--pop-yellow);
+  --color-pop-orange: var(--pop-orange);
+  --color-pop-ink: var(--pop-ink);
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 4px);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
   --shadow-overlay: var(--elevation-overlay);
+  /* Depth is glow and layering, never an offset block. The brutal/press
+     shadow names survive only so stale classes render as nothing. */
+  --shadow-brutal-sm: 0 0 #0000;
+  --shadow-brutal: 0 0 #0000;
+  --shadow-brutal-lg: 0 0 #0000;
+  --shadow-press-sm: 0 0 #0000;
+  --shadow-press: 0 0 #0000;
 }
 
 :root {
-  /* Machined corners: 4px on interactive controls (buttons, tabs, badges,
-     menu items); structural surfaces — cards, plates, tables — stay square. */
-  --radius: 0.25rem;
-  --background: oklch(0.98 0.005 80);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(0.96 0.005 80);
-  --card-foreground: oklch(0.145 0 0);
-  /* Popovers float, so they separate by being lighter than the ground and
-     casting the overlay shadow — unlike cards, which sit in the page. */
-  --popover: oklch(1 0.002 80);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.5573 0.2543 283.67);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.98 0.005 80);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.94 0.005 80);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.95 0.005 80);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0 0 0 / 10%);
-  --input: oklch(0.922 0 0);
-  /* Focus rings take the brand hue so keyboard focus reads as intent,
-     not as a leftover grey outline. */
+  /* The Solana-style system: a pure black ground, white type, structure
+     drawn in 1px hairlines, 12px panels and pill-shaped controls. Colour
+     arrives as light — the logo's green-to-blue as aurora glows and thin
+     gradient rules — rather than as filled blocks. Light mode mirrors the
+     same structure on white. */
+  --radius: 0.75rem;
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --card: #f6f6f7;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #0a0a0a;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f1f2;
+  --secondary-foreground: #0a0a0a;
+  --muted: #f1f1f2;
+  --muted-foreground: #5f5f66;
+  --accent: #ececee;
+  --accent-foreground: #0a0a0a;
+  --destructive: #d92d20;
+  /* --stroke is the panel and control outline; --hairline the quieter rule
+     between rows and cells. Both are translucent so they sit correctly on
+     any surface, including over the aurora. */
+  --stroke: rgb(10 10 10 / 12%);
+  --hairline: rgb(10 10 10 / 8%);
+  --border: var(--stroke);
+  --input: var(--stroke);
   --ring: var(--brand);
-  /* Floating surfaces (menus, popovers, the add-network popup) cast a
-     two-layer shadow: a tight contact layer plus a wide ambient one — a
-     single blur reads flat. In-page surfaces cast nothing. */
-  --elevation-overlay: 0 4px 8px oklch(0 0 0 / 6%), 0 16px 40px oklch(0 0 0 / 12%);
-  /* The brand accent is sampled from the logo gradient. --brand is the
-     gradient's midpoint hue, for everything alpha modifiers and small text
-     need; --brand-gradient is the gradient itself, reserved for filled brand
-     surfaces.
-
-     The -on-dark trio carries the logo's own stops at full strength. Dark
-     mode takes it as-is, and so do the surfaces that stay dark in both
-     themes. Light mode instead pulls the whole sweep down to a depth that
-     clears 4.5:1 on the background and under white foreground text — the
-     spring green cannot survive that darkening as spring green, so the
-     light rendition reads deep green to deep blue. */
-  --brand-on-dark: #23c9c9;
-  --brand-foreground-on-dark: oklch(0.15 0.03 200);
-  --brand-gradient-on-dark: linear-gradient(135deg, #00ff80 0%, #0080ff 100%);
-  --brand: #007c7d;
-  --brand-foreground: oklch(1 0 0);
-  --brand-gradient: linear-gradient(135deg, #00861d 0%, #0065cd 100%);
+  --shadow-ink: transparent;
+  --press-ink: transparent;
+  --elevation-overlay: 0 12px 40px rgb(0 0 0 / 12%);
+  /* The logo's two stops. --brand (green) and --brand-2 (blue) are solid
+     accents for small text, icons and focus rings, stepped per mode for
+     contrast; --brand-gradient joins them for rules and glows. */
+  --brand-on-dark: #19e68c;
+  --brand-2-on-dark: #3b8bff;
+  --brand-foreground-on-dark: #000000;
+  --brand-gradient-on-dark: linear-gradient(90deg, #00ff80 0%, #0080ff 100%);
+  --brand: #00804a;
+  --brand-2: #0062d1;
+  --brand-foreground: #ffffff;
+  --brand-gradient: linear-gradient(90deg, #00b85c 0%, #0070e0 100%);
+  --aurora-green: rgb(0 220 120 / 28%);
+  --aurora-blue: rgb(0 110 255 / 26%);
+  --aurora-teal: rgb(0 200 200 / 18%);
   /* Network Atlas transport split. Two categorical hues, stepped per mode
      against the surface-elevated tile rather than flipped automatically.
      Teal sits with the brand accent; violet is Tor's own hue. */
   --atlas-clearnet: #0e8f8f;
   --atlas-tor: #4a3aa7;
-  --brand-muted: rgb(0 124 125 / 15%);
-  --glow-purple: oklch(0.5573 0.2543 283.67 / 20%);
-  --surface-elevated: oklch(0.94 0.005 80);
-  --chart-1: oklch(0.646 0.222 41.116);
-
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --brand-muted: rgb(0 128 74 / 10%);
+  --glow-purple: rgb(120 100 255 / 20%);
+  --surface-elevated: #f1f1f2;
+  /* Categorical accents for icons and chart series — tints, not fills. */
+  --pop-green: #00a35c;
+  --pop-blue: #1f6fe0;
+  --pop-violet: #6d55e6;
+  --pop-yellow: #b88a00;
+  --pop-orange: #d9592b;
+  --pop-ink: #0a0a0a;
+  --chart-1: #00a35c;
+  --chart-2: #1f6fe0;
+  --chart-3: #6d55e6;
+  --chart-4: #b88a00;
+  --chart-5: #d9592b;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0a0a0a;
+  --sidebar-primary: #0a0a0a;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f1f1f2;
+  --sidebar-accent-foreground: #0a0a0a;
+  --sidebar-border: rgb(10 10 10 / 12%);
+  --sidebar-ring: var(--brand);
 }
 
 .dark {
-  --background: oklch(0.06 0.015 265);
-  --foreground: oklch(0.93 0.005 80);
-  --card: oklch(0.12 0.012 265);
-  --card-foreground: oklch(0.93 0.005 80);
-  --popover: oklch(0.14 0.015 265);
-  --popover-foreground: oklch(0.93 0.005 80);
-  --primary: oklch(0.5573 0.2543 283.67);
-  --primary-foreground: oklch(0.95 0 0);
-  --secondary: oklch(0.16 0.012 265);
-  --secondary-foreground: oklch(0.93 0.005 80);
-  --muted: oklch(0.15 0.015 265);
-  --muted-foreground: oklch(0.6 0.01 265);
-  --accent: oklch(0.25 0.02 265);
-  --accent-foreground: oklch(0.93 0.005 80);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: var(--brand);
-  /* Shadows barely register on a near-black ground, so the dark overlay
-     leans on stronger opacities; the lighter popover surface still does
-     most of the separating. */
-  --elevation-overlay: 0 4px 10px oklch(0 0 0 / 55%), 0 20px 48px oklch(0 0 0 / 55%);
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #0b0b0c;
+  --card-foreground: #ffffff;
+  --popover: #0e0e10;
+  --popover-foreground: #ffffff;
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --secondary: #141416;
+  --secondary-foreground: #ffffff;
+  --muted: #141416;
+  --muted-foreground: #a1a1a6;
+  --accent: #1a1a1d;
+  --accent-foreground: #ffffff;
+  --destructive: #ff6b5b;
+  --stroke: rgb(255 255 255 / 12%);
+  --hairline: rgb(255 255 255 / 8%);
+  --elevation-overlay: 0 16px 48px rgb(0 0 0 / 60%);
   --brand: var(--brand-on-dark);
+  --brand-2: var(--brand-2-on-dark);
   --brand-foreground: var(--brand-foreground-on-dark);
   --brand-gradient: var(--brand-gradient-on-dark);
+  --aurora-green: rgb(0 255 128 / 22%);
+  --aurora-blue: rgb(0 128 255 / 24%);
+  --aurora-teal: rgb(0 220 220 / 14%);
   --atlas-clearnet: #2bbfbf;
   --atlas-tor: #9085e9;
-  --brand-muted: rgb(35 201 201 / 15%);
-  --glow-purple: oklch(0.5573 0.2543 283.67 / 20%);
-  --surface-elevated: oklch(0.14 0.015 265);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --brand-muted: rgb(25 230 140 / 12%);
+  --surface-elevated: #111113;
+  --pop-green: #19e68c;
+  --pop-blue: #3b8bff;
+  --pop-violet: #9b87f5;
+  --pop-yellow: #f5d547;
+  --pop-orange: #ff8a5b;
+  --chart-1: #19e68c;
+  --chart-2: #3b8bff;
+  --chart-3: #9b87f5;
+  --chart-4: #f5d547;
+  --chart-5: #ff8a5b;
+  --sidebar: #000000;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ffffff;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #141416;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgb(255 255 255 / 12%);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  /* font-family goes on body, not html: next/font defines the Geist
+     variable on body, so html's default family would resolve to the
+     fallback. */
   body {
     @apply bg-background text-foreground overflow-x-hidden;
+    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   }
   h1, h2, h3, h4 {
-    font-family: var(--font-serif);
+    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.035em;
+  }
+  ::selection {
+    background: var(--brand);
+    color: var(--brand-foreground);
   }
 }
 
@@ -194,55 +233,142 @@
 }
 
 /* Surfaces that stay dark whatever the theme — the hero, and the navigation
-   while it overlays the hero — take the full-strength stops rather than light
-   mode's darkened ones. */
+   while it overlays the hero — take the dark-mode values. */
 .on-dark-surface,
 .nav-hero-overlay {
+  --foreground: #ffffff;
+  --background: #000000;
+  --muted-foreground: #a1a1a6;
+  --stroke: rgb(255 255 255 / 14%);
+  --hairline: rgb(255 255 255 / 8%);
   --brand: var(--brand-on-dark);
+  --brand-2: var(--brand-2-on-dark);
   --brand-foreground: var(--brand-foreground-on-dark);
   --brand-gradient: var(--brand-gradient-on-dark);
 }
 
-/* The logo's own gradient, for filled brand surfaces (primary buttons, the
-   page-header rule). Everything else takes the solid --brand. */
+/* The logo's gradient as a fill, for thin rules and small marks. */
 .brand-gradient {
   background-image: var(--brand-gradient);
 }
 
-/* Instrument corner brackets: four brand ticks that surface over a plate's
-   corners on hover — the observatory "target acquired" mark. Rendered as a
-   decorative overlay by ui/card.tsx; inset -1px sits them on the border. */
-.plate-brackets {
+/* The logo's gradient as text colour, for a highlighted word or figure. */
+.text-gradient {
+  background-image: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Aurora: the logo's colours as soft light behind a section — two or
+   three wide blurred ellipses anchored to a corner, over a faint pixel
+   lattice that fades out with them. Decorative and static (no motion). */
+.aurora {
   position: absolute;
-  inset: -1px;
+  inset: 0;
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 300ms ease;
+  overflow: hidden;
+  z-index: 0;
+}
+.aurora::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(40% 35% at 85% 85%, var(--aurora-blue), transparent 70%),
+    radial-gradient(35% 30% at 65% 95%, var(--aurora-green), transparent 70%),
+    radial-gradient(30% 25% at 95% 60%, var(--aurora-teal), transparent 70%);
+  filter: blur(40px);
+}
+.aurora::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   background-image:
-    linear-gradient(var(--brand), var(--brand)),
-    linear-gradient(var(--brand), var(--brand)),
-    linear-gradient(var(--brand), var(--brand)),
-    linear-gradient(var(--brand), var(--brand)),
-    linear-gradient(var(--brand), var(--brand)),
-    linear-gradient(var(--brand), var(--brand)),
-    linear-gradient(var(--brand), var(--brand)),
-    linear-gradient(var(--brand), var(--brand));
-  background-repeat: no-repeat;
-  background-size:
-    10px 1px, 1px 10px,
-    10px 1px, 1px 10px,
-    10px 1px, 1px 10px,
-    10px 1px, 1px 10px;
-  background-position:
-    left top, left top,
-    right top, right top,
-    left bottom, left bottom,
-    right bottom, right bottom;
+    linear-gradient(to right, rgb(255 255 255 / 4%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 4%) 1px, transparent 1px);
+  background-size: 6px 6px;
+  mask-image: radial-gradient(60% 60% at 85% 90%, black, transparent 75%);
+}
+.aurora-left::before {
+  background:
+    radial-gradient(40% 35% at 10% 90%, var(--aurora-green), transparent 70%),
+    radial-gradient(35% 30% at 30% 100%, var(--aurora-blue), transparent 70%);
+}
+.aurora-left::after {
+  mask-image: radial-gradient(60% 60% at 15% 95%, black, transparent 75%);
+}
+
+/* Interactive panels: a card that is a link brightens its outline and
+   surface on hover — no lift, no shadow. */
+.plate-lift,
+a > [data-slot="card"] {
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease;
+}
+.plate-lift:hover,
+.group:hover > .plate-lift,
+.group:focus-visible > .plate-lift,
+a:hover > [data-slot="card"],
+a:focus-visible > [data-slot="card"] {
+  border-color: color-mix(in oklab, var(--foreground) 24%, transparent);
+  background-color: color-mix(in oklab, var(--foreground) 5%, var(--card));
+}
+
+/* Faint pixel lattice for headers and CTA panels, fading out from one
+   corner like the texture inside solana.com's glows. */
+.grid-paper {
+  background-image:
+    linear-gradient(to right, var(--hairline) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--hairline) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black, transparent 90%);
+}
+
+@layer components {
+  /* Mono label — the small uppercase kicker above a heading ("01 · GENESIS").
+     Layered so utilities (text-brand, mb-6…) can override it. */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    color: var(--muted-foreground);
+  }
+}
+
+/* Primary pills end in an arrow set inside an inverted dot. */
+.btn-dot:has(> svg:is(.lucide-arrow-right, .lucide-chevron-right)) {
+  padding-right: 0.375rem;
+}
+.btn-dot > svg:is(.lucide-arrow-right, .lucide-chevron-right) {
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0.375rem;
+  border-radius: 9999px;
+  background: var(--background);
+  color: var(--foreground);
+  transition: transform 200ms ease;
+}
+.btn-dot:hover > svg:is(.lucide-arrow-right, .lucide-chevron-right) {
+  transform: translateX(2px);
 }
 @media (prefers-reduced-motion: reduce) {
-  .plate-brackets {
-    transition: none;
+  .btn-dot:hover > svg:is(.lucide-arrow-right, .lucide-chevron-right) {
+    transform: none;
   }
+}
+
+/* The thin vertical gradient rule that sits beside a standfirst. */
+.accent-rule {
+  border-left: 1px solid transparent;
+  border-image: linear-gradient(to bottom, var(--brand), var(--brand-2)) 1;
 }
 
 /* --- Entrance animations ---------------------------------------------

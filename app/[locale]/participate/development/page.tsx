@@ -24,21 +24,25 @@ export default function DevelopersPage() {
       <PageHeader
         title={t("title")}
         subTitle={t("subtitle")}
-      />
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mx-auto mb-16 px-6">
-        <Button variant={"secondary"} className="w-full sm:w-fit" size={'xl'} asChild>
-          <a href="https://github.com/ParallaxProtocol" target="_blank" rel="noopener">
-            <FaGithub />
-            {t("exploreGithub")}
-          </a>
-        </Button>
-        <Button variant={"secondary"} className="w-full sm:w-fit" size={'xl'} asChild>
-          <Link href={"/resources/technical-documentation"}>
-            <BookOpen />
-            {t("readDocumentation")}
-          </Link>
-        </Button>
-      </div>
+      >
+        <div
+          className="flex w-full flex-col gap-4 sm:w-auto sm:flex-row enter-fade-up"
+          style={{ "--enter-delay": "0.35s" } as React.CSSProperties}
+        >
+          <Button variant="brand" className="w-full sm:w-fit" size={'xl'} asChild>
+            <a href="https://github.com/ParallaxProtocol" target="_blank" rel="noopener">
+              <FaGithub />
+              {t("exploreGithub")}
+            </a>
+          </Button>
+          <Button variant="outline" className="w-full sm:w-fit" size={'xl'} asChild>
+            <Link href={"/resources/technical-documentation"}>
+              <BookOpen />
+              {t("readDocumentation")}
+            </Link>
+          </Button>
+        </div>
+      </PageHeader>
       <GridView
         items={topics}
       />

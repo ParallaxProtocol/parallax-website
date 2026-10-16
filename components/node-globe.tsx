@@ -65,18 +65,21 @@ const DARK_PALETTE = {
   sphereColor: "#0b0d15",
   sphereOpacity: 0.94,
   landColor: "rgba(148, 163, 184, 0.55)",
-  tooltipBg: "rgba(8, 10, 18, 0.92)",
-  tooltipBorder: "rgba(148, 163, 184, 0.25)",
-  tooltipColor: "#e6e8ee",
+  // Tooltip is a small panel: near-black card, 1px hairline, soft depth.
+  tooltipBg: "rgba(11, 11, 12, 0.94)",
+  tooltipBorder: "rgba(255, 255, 255, 0.14)",
+  tooltipColor: "#ffffff",
+  tooltipShadow: "rgba(0, 0, 0, 0.45)",
 }
 
 const LIGHT_PALETTE = {
   sphereColor: "#edeae2",
   sphereOpacity: 1,
   landColor: "rgba(71, 85, 105, 0.55)",
-  tooltipBg: "rgba(255, 255, 255, 0.95)",
-  tooltipBorder: "rgba(71, 85, 105, 0.3)",
-  tooltipColor: "#1c2130",
+  tooltipBg: "rgba(255, 255, 255, 0.96)",
+  tooltipBorder: "rgba(10, 10, 10, 0.12)",
+  tooltipColor: "#0a0a0a",
+  tooltipShadow: "rgba(10, 10, 10, 0.12)",
 }
 
 type Ring = number[][]
@@ -398,13 +401,20 @@ export default function NodeGlobe({
         p.locations.length === 1
           ? `<div style="opacity:0.7">${escapeHtml(p.locations[0])}</div>`
           : ""
-      return `<div style="font-family:var(--font-mono, monospace);font-size:12px;color:${palette.tooltipColor};background:${palette.tooltipBg};border:1px solid ${palette.tooltipBorder};padding:6px 9px;white-space:nowrap"><div>${p.count} ${escapeHtml(noun)}</div>${where}</div>`
+      return `<div style="font-family:var(--font-mono, monospace);font-size:12px;color:${palette.tooltipColor};background:${palette.tooltipBg};border:1px solid ${palette.tooltipBorder};border-radius:8px;box-shadow:0 8px 24px ${palette.tooltipShadow};backdrop-filter:blur(8px);padding:7px 11px;line-height:1.5;white-space:nowrap"><div>${p.count} ${escapeHtml(noun)}</div>${where}</div>`
     }
   }, [showTooltips, labels, palette])
 
   const handleGlobeReady = () => {
     const globe = globeRef.current
     if (!globe) return
+    // globe.gl wraps pointLabel in its own translucent, rounded box; strip it
+    // so the label's own panel styling is the only chrome.
+    containerRef.current?.querySelectorAll<HTMLElement>(".float-tooltip-kap").forEach((el) => {
+      el.style.padding = "0"
+      el.style.background = "transparent"
+      el.style.borderRadius = "0"
+    })
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     const controls = globe.controls()
     controls.autoRotate = !prefersReducedMotion

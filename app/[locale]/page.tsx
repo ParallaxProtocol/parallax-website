@@ -8,11 +8,6 @@ import { Hero } from "@/components/hero";
 import { Parallax } from "@/components/parallax";
 import { NetworkStats } from "@/components/network-stats";
 import { SoundMoney } from "@/components/sound-money";
-import { Hairline } from "@/components/fade-in";
-
-function SectionDivider() {
-  return <Hairline />
-}
 
 export default function Home() {
   return (
@@ -23,19 +18,12 @@ export default function Home() {
       <div className="flex flex-col gap-0 overflow-x-hidden">
         <Hero />
         <NetworkStats />
-        <SectionDivider />
         <GenesisProof />
-        <SectionDivider />
         <AudienceRouter />
-        <SectionDivider />
         <Parallax />
-        <SectionDivider />
         <SoundMoney />
-        <SectionDivider />
         <Client />
-        <SectionDivider />
         <Documentation />
-        <SectionDivider />
         <Community />
       </div>
     </>

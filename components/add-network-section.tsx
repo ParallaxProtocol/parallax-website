@@ -38,44 +38,53 @@ export default function AddNetworkSection() {
 
   if (state === "added" && status !== "success") {
     return (
-      <div className="bg-surface-elevated border border-border p-8 sm:p-12 text-center mb-8">
-        <div className="flex items-center justify-center gap-2 mb-2">
-          <Check className="h-5 w-5 text-brand" />
-          <h3 className="text-sm font-medium font-mono uppercase tracking-[0.15em] text-foreground">
+      <div className="mb-8 flex flex-col gap-5 rounded-xl border border-stroke bg-card p-6 sm:flex-row sm:items-center sm:gap-6 sm:p-8">
+        <span className="flex size-11 shrink-0 items-center justify-center rounded-full border border-brand/30 bg-brand-muted">
+          <Check className="size-5 text-brand" strokeWidth={1.5} />
+        </span>
+        <div>
+          <h3 className="text-xl leading-tight text-foreground sm:text-2xl">
             {t("connectedTitle")}
           </h3>
+          <p className="mt-2 text-sm text-muted-foreground">
+            {t("connectedDescription")}
+          </p>
         </div>
-        <p className="text-sm text-muted-foreground max-w-xl mx-auto">
-          {t("connectedDescription")}
-        </p>
       </div>
     );
   }
 
   return (
-    <div className="bg-surface-elevated border border-border p-8 sm:p-12 text-center mb-8">
-      <h3 className="text-sm font-medium font-mono uppercase tracking-[0.15em] text-foreground mb-3">
-        {t("title")}
-      </h3>
-      <p className="text-sm text-muted-foreground mb-6 max-w-xl mx-auto">
-        {t("description")}
-      </p>
-      <div className="flex flex-col items-center gap-3">
-        <Button
-          className="brand-gradient text-brand-foreground hover:opacity-90"
-          onClick={handleAdd}
-          disabled={status === "adding" || status === "success"}
-        >
-          <Plus className="mr-2 h-5 w-5" />
-          {status === "adding"
-            ? t("adding")
-            : status === "success"
-              ? t("added")
-              : t("add")}
-        </Button>
-        {status === "error" && (
-          <p className="text-sm text-destructive">{t("error")}</p>
-        )}
+    <div className="relative mb-8 overflow-hidden rounded-2xl border border-stroke bg-card">
+      <div aria-hidden className="aurora aurora-left" />
+      <div className="relative grid gap-8 p-8 sm:p-10 md:grid-cols-12 md:items-center">
+        <div className="md:col-span-7">
+          <h3 className="text-2xl leading-tight text-foreground sm:text-3xl">
+            {t("title")}
+          </h3>
+          <p className="mt-3 max-w-xl text-base text-muted-foreground">
+            {t("description")}
+          </p>
+        </div>
+        <div className="flex flex-col items-start gap-3 md:col-span-5 md:items-end">
+          <Button
+            variant="brand"
+            size="lg"
+            className="w-full sm:w-fit"
+            onClick={handleAdd}
+            disabled={status === "adding" || status === "success"}
+          >
+            <Plus strokeWidth={2} />
+            {status === "adding"
+              ? t("adding")
+              : status === "success"
+                ? t("added")
+                : t("add")}
+          </Button>
+          {status === "error" && (
+            <p className="text-sm text-destructive">{t("error")}</p>
+          )}
+        </div>
       </div>
     </div>
   );

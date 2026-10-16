@@ -1,13 +1,15 @@
 'use client'
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Link } from "@/i18n/navigation"
 import { ArrowRight, Bitcoin, Code2 } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { FadeIn } from "./fade-in"
+import { Section, SectionHeading } from "./section"
 
+// Each briefing carries its own glow corner so the two doors read as two
+// distinct entrances, not two copies of one card.
 const audiences = [
-  { key: "parallaxForBitcoiners", icon: Bitcoin, href: "/introduction/parallax-for-bitcoiners" },
-  { key: "parallaxForDevelopers", icon: Code2, href: "/introduction/parallax-for-developers" },
+  { key: "parallaxForBitcoiners", icon: Bitcoin, href: "/introduction/parallax-for-bitcoiners", glow: "aurora-left" },
+  { key: "parallaxForDevelopers", icon: Code2, href: "/introduction/parallax-for-developers", glow: "" },
 ] as const
 
 export function AudienceRouter() {
@@ -16,47 +18,38 @@ export function AudienceRouter() {
   const tCommon = useTranslations("common")
 
   return (
-    <section className="py-24 px-6 sm:px-8">
-      <div className="mx-auto max-w-7xl">
-        <FadeIn>
-          <div className="text-center">
-            <p className="text-sm font-mono uppercase tracking-[0.2em] text-muted-foreground mb-4">{t("eyebrow")}</p>
-            <h2 className="text-3xl text-foreground sm:text-4xl">{t("heading")}</h2>
-            <p className="mx-auto mt-8 max-w-2xl text-base text-muted-foreground text-pretty">
-              {t("subtitle")}
-            </p>
-          </div>
-        </FadeIn>
+    <Section>
+      <FadeIn>
+        <SectionHeading index="02" eyebrow={t("eyebrow")} title={t("heading")} subtitle={t("subtitle")} />
+      </FadeIn>
 
-        <div className="mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-8 lg:grid-cols-2">
-          {audiences.map((audience, i) => {
-            const Icon = audience.icon
-            return (
-              <FadeIn key={audience.key} delay={i * 0.1}>
-                <Link href={audience.href} className="group block h-full">
-                  <Card className="h-full transition-[border-color,box-shadow] duration-300 hover:border-brand/30 hover:shadow-[0_0_20px_-5px_var(--brand-muted)]">
-                    <CardHeader>
-                      <div className="flex items-center gap-4">
-                        <Icon className="size-6 shrink-0 text-muted-foreground group-hover:text-brand transition-colors" />
-                        <CardTitle>{tIntro(`${audience.key}.pageTitle` as "parallaxForBitcoiners.pageTitle")}</CardTitle>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="flex flex-col justify-between flex-1">
-                      <p className="text-base text-muted-foreground">
-                        {tIntro(`${audience.key}.pageSubtitle` as "parallaxForBitcoiners.pageSubtitle")}
-                      </p>
-                      <div className="flex items-center gap-2 mt-6 text-sm font-medium text-foreground group-hover:text-brand transition-colors">
-                        {tCommon("readMore")}
-                        <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </FadeIn>
-            )
-          })}
-        </div>
+      <div className="mt-16 grid grid-cols-1 gap-4 lg:grid-cols-2">
+        {audiences.map((audience, i) => {
+          const Icon = audience.icon
+          return (
+            <FadeIn key={audience.key} delay={i * 0.1} className="h-full">
+              <Link href={audience.href} className="group block h-full outline-none">
+                <div className="plate-lift relative flex h-full min-h-80 flex-col justify-between overflow-hidden rounded-2xl border border-stroke bg-card p-8 sm:p-10">
+                  <div aria-hidden className={`aurora opacity-70 transition-opacity duration-300 group-hover:opacity-100 ${audience.glow}`} />
+                  <div className="relative">
+                    <Icon className="size-8 text-foreground" strokeWidth={1.5} />
+                    <h3 className="mt-10 text-3xl leading-tight text-foreground sm:text-4xl">
+                      {tIntro(`${audience.key}.pageTitle` as "parallaxForBitcoiners.pageTitle")}
+                    </h3>
+                    <p className="mt-4 max-w-lg text-base text-muted-foreground">
+                      {tIntro(`${audience.key}.pageSubtitle` as "parallaxForBitcoiners.pageSubtitle")}
+                    </p>
+                  </div>
+                  <span className="relative mt-10 inline-flex items-center gap-2 text-[15px] font-medium text-foreground">
+                    {tCommon("readMore")}
+                    <ArrowRight className="size-4 text-brand transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
+                  </span>
+                </div>
+              </Link>
+            </FadeIn>
+          )
+        })}
       </div>
-    </section>
+    </Section>
   )
 }

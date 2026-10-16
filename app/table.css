@@ -26,11 +26,11 @@
     position: absolute;
     top: -9999px;
     left: -9999px;
-    border-bottom: 2px solid #333;
+    border-bottom: 2px solid var(--stroke);
   }
 
   .responsiveTable tbody tr {
-    border-bottom: 1px solid #27272A;
+    border-bottom: 1px solid var(--hairline);
     padding: .25em;
   }
 

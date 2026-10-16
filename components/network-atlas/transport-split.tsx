@@ -1,4 +1,3 @@
-import { Card, CardContent } from "@/components/ui/card"
 import { getTranslations } from "next-intl/server"
 
 type Props = {
@@ -24,7 +23,7 @@ function LegendRow({
     <div className="flex items-baseline gap-2">
       <span
         aria-hidden
-        className="size-2.5 shrink-0 translate-y-px rounded-[2px]"
+        className="size-2 shrink-0 -translate-y-px rounded-full"
         style={{ backgroundColor: color }}
       />
       <span className="text-sm text-foreground tabular-nums">{count.toLocaleString()}</span>
@@ -38,8 +37,8 @@ function LegendRow({
  * Share of peers reached over Tor versus clearnet, as a single stacked bar.
  *
  * Part-to-whole across two categories, so the segments are separated by a 2px
- * gap in the surface colour rather than by a stroke, and only the bar's outer
- * ends are rounded. The counts never sit inside the segments — a narrow tile
+ * gap in the surface colour rather than by a stroke. The track is pill-ended
+ * like the site's other meters. The counts never sit inside the segments — a narrow tile
  * can't guarantee they fit — so the legend carries them.
  *
  * The colours (--atlas-clearnet, --atlas-tor) are stepped per theme in
@@ -61,9 +60,8 @@ export default async function TransportSplit({ clearnet, tor }: Props) {
   const clearnetWidth = total > 0 ? (clearnet / total) * 100 : 0
 
   return (
-    <Card className="bg-surface-elevated border-border">
-      <CardContent className="flex flex-col gap-3 py-6">
-        <span className="text-xs font-mono uppercase tracking-[0.15em] text-muted-foreground">
+    <div className="flex flex-col gap-4 bg-background p-6 sm:p-8">
+        <span className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
           {t("transport")}
         </span>
 
@@ -73,10 +71,10 @@ export default async function TransportSplit({ clearnet, tor }: Props) {
             clearnet: clearnet.toLocaleString(),
             tor: tor.toLocaleString(),
           })}
-          className="flex h-2.5 w-full gap-0.5 overflow-hidden rounded-[4px]"
+          className="mt-auto flex h-2 w-full gap-0.5 overflow-hidden rounded-full"
         >
           {total === 0 ? (
-            <div className="w-full bg-muted" />
+            <div className="w-full bg-foreground/10" />
           ) : (
             <>
               {clearnet > 0 && (
@@ -119,7 +117,6 @@ export default async function TransportSplit({ clearnet, tor }: Props) {
             percent={fmt(torPct)}
           />
         </div>
-      </CardContent>
-    </Card>
+    </div>
   )
 }

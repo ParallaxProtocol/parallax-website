@@ -4,6 +4,7 @@ import CountriesTable from "@/components/network-atlas/countries-table"
 import NodesSummary from "@/components/network-atlas/nodes-summary"
 import AtlasGlobe from "@/components/network-atlas/atlas-globe"
 import { getNodes, type NodesPayload } from "@/lib/nodes"
+import { TriangleAlert } from "lucide-react"
 import { getTranslations } from "next-intl/server"
 
 export const revalidate = 300
@@ -24,10 +25,11 @@ export default async function NetworkAtlasPage() {
         title={t("title")}
         subTitle={t("subtitle")}
       />
-      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-16">
+      <section className="mx-auto max-w-[90rem] px-5 pt-20 md:px-10 md:pt-28">
         {errored || !data ? (
-          <div className="bg-surface-elevated border border-border p-8 text-center">
-            <p className="text-sm font-mono uppercase tracking-[0.15em] text-muted-foreground">
+          <div className="max-w-3xl rounded-xl border border-stroke bg-card p-6 sm:p-8">
+            <p className="tag text-foreground">
+              <TriangleAlert className="size-4 text-pop-yellow" />
               {t("errorTitle")}
             </p>
             <p className="text-muted-foreground mt-3">
@@ -46,7 +48,7 @@ export default async function NetworkAtlasPage() {
               />
               <CountriesTable nodes={data.nodes} />
             </div>
-            <p className="text-xs text-muted-foreground text-center">
+            <p className="relative z-10 font-mono text-xs uppercase leading-relaxed tracking-[0.14em] text-muted-foreground">
               {t("footer")}
             </p>
           </div>
