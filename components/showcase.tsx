@@ -7,14 +7,14 @@ import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { FadeIn } from "./fade-in"
 import { Section, SectionHeading, TwoToneTitle } from "./section"
+import { AppScreenshot } from "./wallet-app/app-screenshot"
 
 const STATUS_URL = "https://status.parallaxprotocol.org"
 const EXPLORER_URL = "https://explorer.parallaxprotocol.org"
 const MCP_GUIDE_URL = "https://docs.parallaxprotocol.org"
 const MCP_ADD_COMMAND = "claude mcp add --transport http parallax https://mcp.parallaxprotocol.org/mcp"
 
-/* Three dots and a centred title — the chrome shared by the browser shots
-   and the app-window placeholder. */
+/* Three dots and a centred title — the browser shots' chrome. */
 function WindowBar({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-3 border-b border-hairline px-4 py-3">
@@ -66,6 +66,7 @@ function ProductPanel({
   host,
   live,
   reverse,
+  note,
 }: {
   label: string
   title: string
@@ -76,6 +77,7 @@ function ProductPanel({
   host: string
   live?: boolean
   reverse?: boolean
+  note?: string
 }) {
   return (
     <div className="relative overflow-hidden rounded-2xl border border-stroke bg-card">
@@ -90,7 +92,10 @@ function ProductPanel({
             <h3 className="mt-6 text-3xl leading-tight text-foreground sm:text-4xl">{title}</h3>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground">{description}</p>
           </div>
-          <OutboundLink href={href}>{cta}</OutboundLink>
+          <div>
+            <OutboundLink href={href}>{cta}</OutboundLink>
+            {note && <p className="mt-3 font-mono text-[11px] leading-relaxed text-muted-foreground/80">{note}</p>}
+          </div>
         </div>
         <div className={`lg:col-span-8 lg:pt-10 ${reverse ? "pr-8 sm:pr-10 lg:order-1 lg:pr-0" : "pl-8 sm:pl-10 lg:pl-0"}`}>
           <div className={`-mb-20 ${reverse ? "-translate-x-8 lg:-translate-x-10" : "translate-x-8 lg:translate-x-10"}`}>
@@ -121,7 +126,8 @@ export function ToolsShowcase() {
             description={t("status.description")}
             cta={t("status.cta")}
             href={STATUS_URL}
-            src="/showcase/status.webp"
+            note={t("status.note")}
+            src="/showcase/status-dashboard.webp"
             host="status.parallaxprotocol.org"
           />
         </FadeIn>
@@ -246,24 +252,26 @@ export function WalletShowcase() {
               <TwoToneTitle text={t("heading")} />
             </h2>
           </div>
-          <p className="accent-rule max-w-md pl-6 text-base text-muted-foreground text-pretty sm:text-lg lg:col-span-4 lg:col-start-9">
-            {t("subtitle")}
-          </p>
+          <div className="flex flex-col items-start gap-6 lg:col-span-4 lg:col-start-9">
+            <p className="accent-rule max-w-md pl-6 text-base text-muted-foreground text-pretty sm:text-lg">
+              {t("subtitle")}
+            </p>
+            <Button variant="outline" asChild>
+              <Link href="/parallax-wallet">
+                {t("cta")}
+                <ArrowRight className="text-brand" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </FadeIn>
 
       <FadeIn delay={0.1} className="mt-16">
-        <div className="relative overflow-hidden rounded-2xl border border-stroke bg-card px-6 pt-10 sm:px-12 sm:pt-14">
+        <div className="relative overflow-hidden rounded-2xl border border-stroke bg-card p-4 sm:p-12">
           <div aria-hidden className="aurora" />
           <div aria-hidden className="aurora aurora-left opacity-70" />
           <div className="relative mx-auto max-w-5xl">
-            <AppWindowPlaceholder
-              title={t("mock.title")}
-              assistant={t("mock.assistant")}
-              request={t("mock.request")}
-              approve={t("mock.approve")}
-              decline={t("mock.decline")}
-            />
+            <AppScreenshot shot="assistantSend" alt={t("shotAlt")} sizes="(max-width: 1024px) 100vw, 1024px" />
           </div>
         </div>
       </FadeIn>
@@ -297,76 +305,5 @@ export function WalletShowcase() {
         </div>
       </FadeIn>
     </Section>
-  )
-}
-
-/* A desktop app window cropped by the panel floor: sidebar, balance, two
-   actions, an activity list, and over it the card the app shows when an AI
-   assistant asks to send — the feature the wallet's MCP server is built
-   around. Decorative; the copy beside it carries the meaning. */
-function AppWindowPlaceholder({
-  title,
-  assistant,
-  request,
-  approve,
-  decline,
-}: {
-  title: string
-  assistant: string
-  request: string
-  approve: string
-  decline: string
-}) {
-  return (
-    <div aria-hidden className="relative">
-      <div className="overflow-hidden rounded-t-xl border border-b-0 border-stroke bg-background shadow-[0_-12px_80px_-24px_rgb(0_0_0/0.5)]">
-        <WindowBar>
-          <span className="font-mono text-[11px] text-muted-foreground">{title}</span>
-        </WindowBar>
-        <div className="grid h-72 grid-cols-[9rem_1fr] sm:h-96 sm:grid-cols-[13rem_1fr]">
-          <div className="space-y-3 border-r border-hairline p-4 sm:p-5">
-            <Image src="/new_parallax_logo_transparent.svg" alt="" width={28} height={28} className="mb-6 size-7" />
-            {[24, 18, 21, 15].map((w, i) => (
-              <div key={i} className={`flex h-7 items-center rounded-lg px-2.5 ${i === 0 ? "bg-foreground/[0.07]" : ""}`}>
-                <div className="h-2 rounded-full bg-foreground/15" style={{ width: `${w * 4}px`, maxWidth: "100%" }} />
-              </div>
-            ))}
-          </div>
-          <div className="relative overflow-hidden p-5 sm:p-8">
-            <div className="h-2.5 w-24 rounded-full bg-foreground/10" />
-            <div className="mt-3 h-10 w-40 rounded-lg bg-foreground/15 sm:w-56" />
-            <div className="mt-6 flex gap-3">
-              <div className="h-10 w-24 rounded-full bg-foreground/90 sm:w-28" />
-              <div className="h-10 w-24 rounded-full border border-stroke sm:w-28" />
-            </div>
-            <div className="mt-10 space-y-5">
-              {[0, 1, 2].map((i) => (
-                <div key={i} className="flex items-center gap-4">
-                  <div className="size-9 shrink-0 rounded-full bg-foreground/10" />
-                  <div className="flex-1 space-y-2">
-                    <div className="h-2 w-32 max-w-full rounded-full bg-foreground/10 sm:w-40" />
-                    <div className="h-2 w-20 rounded-full bg-foreground/[0.06]" />
-                  </div>
-                  <div className="hidden h-2.5 w-16 rounded-full bg-foreground/10 sm:block" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* The assistant's request, floating over the window's corner */}
-      <div className="absolute right-3 bottom-4 w-52 rounded-xl border border-stroke bg-popover/95 p-3 sm:p-4 shadow-[0_24px_60px_-12px_rgb(0_0_0/0.6)] backdrop-blur-md sm:right-8 sm:bottom-10 sm:w-72">
-        <p className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-          <Sparkles className="size-3.5 text-brand" />
-          {assistant}
-        </p>
-        <p className="mt-2 text-sm text-foreground sm:mt-3 sm:text-[15px]">{request}</p>
-        <div className="mt-4 flex gap-2">
-          <span className="flex h-8 flex-1 items-center justify-center rounded-full bg-foreground text-[13px] font-medium text-background">{approve}</span>
-          <span className="flex h-8 flex-1 items-center justify-center rounded-full border border-stroke text-[13px] text-foreground">{decline}</span>
-        </div>
-      </div>
-    </div>
   )
 }

@@ -8,10 +8,10 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const { locale } = await params
-  const t = await getTranslations({ locale, namespace: "metadata.participate.development" })
+  const t = await getTranslations({ locale, namespace: "metadata.parallaxWallet" })
   return pageMetadata({
     locale,
-    path: "/participate/development",
+    path: "/parallax-wallet",
     title: t("title"),
     description: t("description"),
   })

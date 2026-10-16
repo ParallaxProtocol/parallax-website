@@ -5,7 +5,7 @@ import PageHeader from "@/components/page-header"
 import { Section, TwoToneTitle } from "@/components/section"
 import { Button } from "@/components/ui/button"
 import { Link } from "@/i18n/navigation"
-import { ArrowRight, ChevronRight, Cpu, ExternalLink, Scale } from "lucide-react"
+import { ArrowRight, Cpu, ExternalLink, Scale } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 type FactRow = { label: string; value: string }
@@ -140,10 +140,10 @@ export default function MiningPage() {
             </a>
           </Button>
           <Button variant="outline" size="lg" className="w-full sm:w-fit" asChild>
-            <Link href={"/resources/beginner-guides"}>
+            <a href="https://docs.parallaxprotocol.org/guides/mining/introduction" target="_blank" rel="noopener">
               {t("ctas.guides")}
-              <ChevronRight />
-            </Link>
+              <ExternalLink />
+            </a>
           </Button>
         </div>
       </Section>

@@ -5,16 +5,8 @@ import { Download, Smartphone } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
-const REPO = {
-  cli: {
-    releasesPage: "https://github.com/ParallaxProtocol/parallax/releases/latest",
-    latestApi: "https://api.github.com/repos/ParallaxProtocol/parallax/releases/latest",
-  },
-  gui: {
-    releasesPage: "https://github.com/ParallaxProtocol/parallax-gui/releases/latest",
-    latestApi: "https://api.github.com/repos/ParallaxProtocol/parallax-gui/releases/latest",
-  },
-} as const;
+const RELEASES_PAGE = "https://github.com/ParallaxProtocol/parallax/releases/latest";
+const LATEST_API = "https://api.github.com/repos/ParallaxProtocol/parallax/releases/latest";
 
 type ReleaseAsset = {
   name: string;
@@ -26,52 +18,33 @@ type Release = {
   assets: ReleaseAsset[];
 };
 
-export type ClientVariant = "cli" | "gui";
-
-/** Map internal platform values to the GUI artifact naming convention. */
-const GUI_OS: Record<string, string> = { darwin: "macos", linux: "linux", windows: "windows" };
-const GUI_ARCH: Record<string, string> = { amd64: "x86_64", arm64: "arm64", "386": "x86", armv7: "armv7" };
-const GUI_EXT: Record<string, string> = { darwin: ".dmg", linux: ".AppImage", windows: "-setup.exe" };
-
-function findAsset(release: Release, platform: Platform, variant: ClientVariant): ReleaseAsset | null {
-  if (variant === "gui") {
-    // GUI artifacts follow: Parallax-Client-{version}-{os}-{arch}.{ext}
-    const os = GUI_OS[platform.os] ?? platform.os;
-    const arch = GUI_ARCH[platform.arch] ?? platform.arch;
-    const ext = GUI_EXT[platform.os] ?? "";
-    const version = release.tag_name.replace(/^v/, "");
-    const exact = `Parallax-Client-${version}-${os}-${arch}${ext}`;
-    return release.assets.find((a) => a.name === exact)
-      // Fallback: match os + arch substring in case the version format changes slightly.
-      ?? release.assets.find((a) => a.name.includes(`-${os}-${arch}`) && a.name.endsWith(ext) && !a.name.endsWith(".txt"))
-      ?? null;
-  }
+/* The command-line client's archives: parallax-<os>-<arch>.tar.gz, or .zip
+   on Windows. The desktop app has its own button (wallet-app/). */
+function findAsset(release: Release, platform: Platform): ReleaseAsset | null {
   const ext = platform.os === "windows" ? "zip" : "tar.gz";
   const exact = `parallax-${platform.os}-${platform.arch}.${ext}`;
-  const match = release.assets.find((a) => a.name === exact);
-  if (match) return match;
-  // Lenient OS-only fallback for CLI — but exclude GUI assets so we don't grab one by accident.
-  return release.assets.find(
-    (a) => !a.name.startsWith("parallax-gui-") && a.name.includes(`-${platform.os}-`),
-  ) ?? null;
+  return release.assets.find((a) => a.name === exact)
+    ?? release.assets.find((a) => a.name.startsWith(`parallax-${platform.os}-`) && a.name.endsWith(`.${ext}`))
+    ?? null;
 }
 
 type Props = {
-  variant?: ClientVariant;
   prominent?: boolean;
+  /** Where the version and "other platforms" line sits under the button. */
+  align?: "start" | "center";
 };
 
-export default function ClientDownloadButton({ variant = "cli", prominent = true }: Props) {
+/** Downloads the Parallax Client (parallaxd and the CLI tools) for the
+    visitor's platform from the latest GitHub release. */
+export default function ClientDownloadButton({ prominent = true, align = "center" }: Props) {
   const t = useTranslations("common");
   const { platform, ready: platformReady } = usePlatform();
   const [release, setRelease] = useState<Release | null>(null);
   const [releaseReady, setReleaseReady] = useState(false);
 
-  const { releasesPage, latestApi } = REPO[variant];
-
   useEffect(() => {
     let cancelled = false;
-    fetch(latestApi, { headers: { Accept: "application/vnd.github+json" } })
+    fetch(LATEST_API, { headers: { Accept: "application/vnd.github+json" } })
       .then((r) => (r.ok ? (r.json() as Promise<Release>) : null))
       .catch(() => null)
       .then((rel) => {
@@ -82,12 +55,12 @@ export default function ClientDownloadButton({ variant = "cli", prominent = true
     return () => {
       cancelled = true;
     };
-  }, [latestApi]);
+  }, []);
 
   const ready = platformReady && releaseReady;
   const isMobile = ready && platform?.isMobile === true;
-  const asset = ready && platform && !isMobile && release ? findAsset(release, platform, variant) : null;
-  const href = asset?.browser_download_url ?? releasesPage;
+  const asset = ready && platform && !isMobile && release ? findAsset(release, platform) : null;
+  const href = asset?.browser_download_url ?? RELEASES_PAGE;
   const version = release?.tag_name;
 
   if (isMobile) {
@@ -104,17 +77,10 @@ export default function ClientDownloadButton({ variant = "cli", prominent = true
     );
   }
 
-  const fallbackLabel = variant === "gui" ? t("downloadDesktopApp") : t("downloadCli");
-  const label = !ready
-    ? fallbackLabel
-    : asset && platform
-      ? t("downloadFor", { platform: platform.label })
-      : variant === "gui"
-        ? t("viewDesktopBuilds")
-        : fallbackLabel;
+  const label = ready && asset && platform ? t("downloadFor", { platform: platform.label }) : t("downloadCli");
 
   return (
-    <div className="relative inline-flex flex-col items-center">
+    <div className={`relative inline-flex flex-col ${align === "start" ? "items-start" : "items-center"}`}>
       <Button
         variant={prominent ? "brand" : "outline"}
         size="lg"
@@ -133,7 +99,7 @@ export default function ClientDownloadButton({ variant = "cli", prominent = true
               <span aria-hidden className="text-hairline">/</span>
             </>
           ) : null}
-          <a href={releasesPage} target="_blank" rel="noopener" className="underline decoration-stroke underline-offset-4 transition-colors hover:text-foreground hover:decoration-brand">
+          <a href={RELEASES_PAGE} target="_blank" rel="noopener" className="underline decoration-stroke underline-offset-4 transition-colors hover:text-foreground hover:decoration-brand">
             {t("otherPlatforms")}
           </a>
         </div>

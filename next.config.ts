@@ -39,6 +39,18 @@ const nextConfig: NextConfig = {
         destination: '/parallax.pdf',
         permanent: true,
       },
+      // The inner-pages consolidation (2026-10): thin pages merged into the
+      // pages that cover the same ground, the docs hubs replaced by the docs.
+      ...[
+        ['/participate/running-a-full-node', '/:locale/resources/parallax-client'],
+        ['/participate/development', '/:locale/resources/community#contribute'],
+        ['/participate/support-parallax', '/:locale/resources/community#support'],
+        ['/resources/beginner-guides', 'https://docs.parallaxprotocol.org/guides'],
+        ['/resources/technical-documentation', 'https://docs.parallaxprotocol.org'],
+      ].flatMap(([from, to]) => [
+        { source: `/:locale(en)${from}`, destination: to, permanent: true },
+        { source: from, destination: to.replace('/:locale', '/en'), permanent: true },
+      ]),
       // The bitcoin.org-style audience pages were replaced by pages targeting
       // the protocol's actual audiences.
       {

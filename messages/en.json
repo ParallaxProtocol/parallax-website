@@ -19,11 +19,11 @@
     },
     "faq": {
       "title": "Frequently Asked Questions",
-      "description": "Find answers to recurring questions about Parallax"
+      "description": "Short answers to common questions about Parallax: supply, mining, fees, confirmations, wallets and development."
     },
     "wallets": {
       "title": "Wallets",
-      "description": "Wallets that support the Parallax network."
+      "description": "Wallets that work with Parallax, the network settings to add LAX to any EVM wallet, and the official Parallax Wallet."
     },
     "exchanges": {
       "title": "Exchanges",
@@ -35,12 +35,12 @@
         "description": "Axioms and commentary defining the constraints under which Parallax exists, independent of adoption, relevance, or success."
       },
       "howItWorks": {
-        "title": "How It Works",
-        "description": "A quick explanation of how Parallax works — wallets, transactions, mining, and blockchain basics."
+        "title": "How Parallax Works",
+        "description": "A plain-language guide to Parallax: keys and addresses, what happens when you send LAX, XHash mining and ASERT difficulty, the 21M supply schedule, smart contracts and full nodes."
       },
       "gettingStarted": {
         "title": "Getting Started",
-        "description": "Getting started with Parallax is easy. Learn how to use Parallax and how to accept it as a merchant."
+        "description": "Start using Parallax in four steps: pick a wallet, add the network (chain ID 2110), get LAX by mining or from an exchange, and make your first transaction."
       },
       "parallaxForBitcoiners": {
         "title": "Parallax for Bitcoiners",
@@ -59,49 +59,33 @@
       "mining": {
         "title": "Mining",
         "description": "Mine LAX with XHash — memory-hard, Ethash-derived proof-of-work. Ethash-class GPU rigs work. Pools, solo mining, and the full reward schedule."
-      },
-      "development": {
-        "title": "Development",
-        "description": "Contribute to Parallax as a developer. Build smart contracts and dApps on the Parallax EVM, improve the protocol, or integrate Parallax into your projects."
-      },
-      "runningAFullNode": {
-        "title": "Running a Full Node",
-        "description": "Run a Parallax full node to help secure the network, improve privacy, and strengthen decentralization."
-      },
-      "supportParallax": {
-        "title": "Support Parallax",
-        "description": "Ways to support Parallax: run a node, mine, build, donate, and help the community grow."
       }
     },
     "resources": {
-      "beginnerGuides": {
-        "title": "Beginner Guides",
-        "description": "Step-by-step guides to run a Parallax node, connect wallets, and start mining."
-      },
       "branding": {
         "title": "Branding",
-        "description": "Official Parallax logos and brand assets for media, presentations, and integrations."
+        "description": "Official Parallax logos, brand colors and usage notes for media, presentations and integrations."
       },
       "community": {
-        "title": "Community",
-        "description": "Join the Parallax community across official and community-run channels."
+        "title": "Get involved",
+        "description": "Join the Parallax channels, run a node or mine, build on the EVM, contribute to the client and docs, or donate. No company, no premine — Parallax is built by whoever shows up."
       },
       "networkAtlas": {
         "title": "Network Atlas",
         "description": "Live world map and country breakdown of Parallax nodes discovered through peer connections."
       },
       "parallaxClient": {
-        "title": "Parallax Client",
-        "description": "Download and run the official Parallax full node software. Desktop App and CLI builds."
-      },
-      "technicalDocumentation": {
-        "title": "Technical Documentation",
-        "description": "Explore the Parallax protocol, architecture, APIs, and developer guides."
+        "title": "Parallax Client: Run a Node",
+        "description": "Download parallaxd, the reference Parallax full node, with parallax-cli and the parallax-wallet tool. For Linux, macOS, Windows and Docker. Verify every block yourself."
       }
     },
     "privacy": {
       "title": "Privacy",
       "description": "How parallaxprotocol.org handles data: no accounts, no analytics, no tracking — one functional cookie."
+    },
+    "parallaxWallet": {
+      "title": "Parallax Wallet",
+      "description": "The desktop Parallax wallet with a full node built in: keys sealed under one password, Ledger and Trezor, offline signing by QR code, and an AI assistant that never touches a key. For Linux, macOS and Windows."
     }
   },
   "common": {
@@ -114,88 +98,139 @@
     "otherPlatforms": "Other platforms",
     "desktopOnly": "Desktop only",
     "desktopOnlyHint": "Open this page on Linux, Windows, or macOS to download.",
-    "downloadDesktopApp": "Download Desktop App",
     "downloadCli": "Download CLI",
     "downloadFor": "Download for {platform}",
-    "viewDesktopBuilds": "View Desktop App builds",
     "new": "New",
     "dismiss": "Dismiss",
     "scrollToTop": "Scroll to top"
   },
   "nav": {
-    "introduction": "Introduction",
-    "resources": "Resources",
-    "participate": "Participate",
-    "faq": "FAQ",
-    "blog": "Blog",
     "getStarted": "Get Started",
     "toggleTheme": "Toggle theme",
     "lightMode": "Light mode",
     "darkMode": "Dark mode",
     "language": "Language",
-    "introductionSub": {
-      "doctrine": "The Parallax Doctrine",
-      "howItWorks": "How it works",
-      "compare": "vs Bitcoin & Ethereum",
-      "bitcoiners": "For Bitcoiners",
-      "developers": "For Ethereum Developers",
-      "verify": "Verify It Yourself",
-      "whitepaper": "White paper",
-      "gettingStarted": "Getting Started"
+    "menus": {
+      "learn": "Learn",
+      "use": "Use",
+      "run": "Run",
+      "network": "Network",
+      "community": "Community"
     },
-    "resourcesSub": {
-      "beginnerGuides": "Beginner Guides",
-      "technicalDocumentation": "Technical Documentation",
-      "parallaxClient": "Parallax Client",
-      "wallets": "Wallets",
-      "exchanges": "Exchanges",
-      "community": "Community",
-      "brandAssets": "Brand Assets",
-      "blockExplorer": "Block Explorer",
-      "faucet": "Faucet",
-      "networkAtlas": "Network Atlas",
-      "networkStatus": "Network Status"
-    },
-    "participateSub": {
-      "supportParallax": "Support Parallax",
-      "runningAFullNode": "Running a full node",
-      "mining": "Mining",
-      "development": "Development"
+    "items": {
+      "howItWorks": {
+        "title": "How Parallax works",
+        "description": "Wallets, blocks and mining, explained plainly"
+      },
+      "compare": {
+        "title": "vs Bitcoin & Ethereum",
+        "description": "Feature by feature, side by side"
+      },
+      "bitcoiners": {
+        "title": "For Bitcoiners",
+        "description": "What's identical, what changed, and why"
+      },
+      "developers": {
+        "title": "For developers",
+        "description": "Your EVM stack on a proof-of-work base"
+      },
+      "verify": {
+        "title": "Verify it yourself",
+        "description": "Check every claim against the chain"
+      },
+      "doctrine": {
+        "title": "The Doctrine",
+        "description": "The axioms Parallax holds itself to"
+      },
+      "whitepaper": {
+        "title": "Whitepaper",
+        "description": "The technical specification, as a PDF"
+      },
+      "faq": {
+        "title": "FAQ",
+        "description": "Short answers to common questions"
+      },
+      "gettingStarted": {
+        "title": "Get started",
+        "description": "Set up a wallet and get your first LAX"
+      },
+      "parallaxWallet": {
+        "title": "Parallax Wallet",
+        "description": "The official desktop wallet, with a full node inside"
+      },
+      "wallets": {
+        "title": "Wallets",
+        "description": "Mobile and browser wallets that work with LAX"
+      },
+      "exchanges": {
+        "title": "Exchanges",
+        "description": "Live markets where LAX trades"
+      },
+      "client": {
+        "title": "Run a node",
+        "description": "Parallax Client, the reference node software"
+      },
+      "mining": {
+        "title": "Mining",
+        "description": "Mine LAX with the GPUs you already have"
+      },
+      "explorer": {
+        "title": "Block explorer",
+        "description": "Every block and transaction since genesis"
+      },
+      "status": {
+        "title": "Network status",
+        "description": "The network's health, stated plainly"
+      },
+      "atlas": {
+        "title": "Network Atlas",
+        "description": "Nodes around the world, live"
+      },
+      "docs": {
+        "title": "Documentation",
+        "description": "Guides and technical reference"
+      },
+      "getInvolved": {
+        "title": "Get involved",
+        "description": "Channels, contributing and donations"
+      },
+      "blog": {
+        "title": "Blog",
+        "description": "Releases, essays and announcements"
+      }
     }
   },
   "footer": {
     "tagline": "A peer-to-peer programmable cash system. Secured by physics, governed by no one.",
     "sections": {
-      "protocol": "Protocol",
-      "resources": "Resources",
-      "participate": "Participate",
+      "learn": "Learn",
+      "use": "Use",
+      "run": "Run",
+      "network": "Network",
       "community": "Community"
     },
     "links": {
-      "doctrine": "Doctrine",
-      "howItWorks": "How It Works",
+      "howItWorks": "How it works",
       "compare": "vs Bitcoin & Ethereum",
       "bitcoiners": "For Bitcoiners",
-      "developers": "For Ethereum Developers",
-      "verify": "Verify It Yourself",
+      "developers": "For developers",
+      "verify": "Verify it yourself",
+      "doctrine": "The Doctrine",
       "whitepaper": "Whitepaper",
-      "gettingStarted": "Getting Started",
-      "beginnerGuides": "Beginner Guides",
-      "technicalDocumentation": "Technical Documentation",
-      "parallaxClient": "Parallax Client",
+      "faq": "FAQ",
+      "gettingStarted": "Get started",
+      "parallaxWallet": "Parallax Wallet",
       "wallets": "Wallets",
       "exchanges": "Exchanges",
-      "community": "Community",
-      "brandAssets": "Brand Assets",
-      "blockExplorer": "Block Explorer",
-      "networkAtlas": "Network Atlas",
-      "networkStatus": "Network Status",
-      "faq": "FAQ",
-      "blog": "Blog",
-      "supportParallax": "Support Parallax",
-      "runningAFullNode": "Running a full node",
+      "client": "Run a node",
       "mining": "Mining",
-      "development": "Development",
+      "blockExplorer": "Block explorer",
+      "networkStatus": "Network status",
+      "networkAtlas": "Network Atlas",
+      "docs": "Documentation",
+      "getInvolved": "Get involved",
+      "blog": "Blog",
+      "brandAssets": "Brand assets",
       "github": "GitHub",
       "bitcointalk": "BitcoinTalk",
       "twitter": "X / Twitter",
@@ -299,7 +334,7 @@
     "client": {
       "eyebrow": "Software",
       "heading": "The Parallax Client",
-      "subtitle": "Download and run the reference Parallax node software. Help secure the network and participate in consensus.",
+      "subtitle": "The reference node software, for the command line. Run it and check every block against Parallax's rules yourself.",
       "decentralized": {
         "title": "Decentralized",
         "description": "Users running a node are the ones keeping Parallax decentralized. They individually run their own Parallax full nodes, and each of those full nodes separately follows the exact same rules to decide which block chain is valid.",
@@ -311,12 +346,16 @@
       },
       "blockquote": "This shared agreement (called consensus) allows people like you to only accept valid transactions, enforcing Parallax's rules against even the most powerful miners.",
       "runNode": {
-        "title": "Run a Parallax Node",
-        "description": "The Parallax Desktop App is the easiest way to join the network — install, launch, and start syncing. Available for Linux, Windows, and macOS."
+        "title": "Run a Parallax node",
+        "description": "parallaxd, parallax-cli and the parallax-wallet tool, prebuilt for Linux, macOS and Windows, or as a Docker image."
       },
-      "cli": "Parallax CLI",
       "quickStart": "Quick start",
-      "github": "GitHub"
+      "github": "GitHub",
+      "wallet": {
+        "prompt": "Want a desktop app?",
+        "description": "Parallax Wallet runs a full node too.",
+        "cta": "Explore Parallax Wallet"
+      }
     },
     "showcase": {
       "eyebrow": "Tools",
@@ -326,7 +365,8 @@
         "label": "Network status",
         "title": "The network's health, stated plainly",
         "description": "Block times, hashrate, mining concentration, supply and nodes, refreshed live. It leads with whatever is wrong, because a status page that hides problems is a press release.",
-        "cta": "Open the status page"
+        "cta": "Open the status page",
+        "note": "Screenshot shows illustrative data. The live page shows the network as it is right now."
       },
       "explorer": {
         "label": "Block explorer",
@@ -392,13 +432,8 @@
           "description": "Instant LAX payments signed off-chain and carried end-to-end encrypted over Nostr relays, with no payment servers. They even work with no internet, in three QR scans."
         }
       },
-      "mock": {
-        "title": "Parallax Wallet",
-        "assistant": "Assistant request",
-        "request": "Send 2.5 LAX to a saved contact",
-        "approve": "Approve",
-        "decline": "Decline"
-      }
+      "cta": "Explore Parallax Wallet",
+      "shotAlt": "Parallax Wallet with an AI assistant's request to send 100 LAX, waiting for review and the wallet password"
     },
     "mobileWallets": {
       "eyebrow": "On your phone",
@@ -685,7 +720,7 @@
   },
   "faq": {
     "title": "Frequently Asked Questions",
-    "subtitle": "Find answers to recurring questions about Parallax",
+    "subtitle": "Short, direct answers to the questions people ask most about Parallax.",
     "search": {
       "placeholder": "Search questions...",
       "resultsOne": "{count} result",
@@ -705,7 +740,7 @@
       "general": [
         {
           "question": "What is Parallax?",
-          "answer": "Parallax is a blockchain protocol that combines Bitcoin's proven monetary discipline with Ethereum's programmability. It maintains Bitcoin's fixed 21M coin supply, 10-minute blocks, and Proof of Work consensus while adding full EVM compatibility for smart contracts."
+          "answer": "Parallax is a proof-of-work blockchain with Bitcoin's monetary rules and the Ethereum Virtual Machine. Supply is capped at 21 million LAX, a block arrives about every 10 minutes, and the block subsidy halves every 210,000 blocks. Smart contracts written for Ethereum run on it, up to the Paris fork."
         },
         {
           "question": "Who created Parallax?",
@@ -713,17 +748,21 @@
         },
         {
           "question": "How is Parallax different from Bitcoin and Ethereum?",
-          "answer": "Parallax uniquely combines the best of both worlds: Bitcoin's monetary policy (21M fixed supply, halving cycles, PoW) with Ethereum's programmability (EVM compatibility, smart contracts). Unlike Bitcoin, it supports complex applications. Unlike Ethereum, it maintains a fixed supply and doesn't burn fees."
+          "answer": "It takes its monetary policy from Bitcoin: a 21 million cap, 10-minute blocks, halvings every 210,000 blocks and proof of work. It takes the EVM from Ethereum, so it runs smart contracts that Bitcoin can't. Unlike today's Ethereum, it is mined rather than staked, its supply is fixed, and no fees are burned: the miner keeps the whole fee."
         },
         {
           "question": "Why Proof of Work instead of Proof of Stake?",
-          "answer": "Proof of Work anchors security to an external, objective cost — energy — that cannot be simulated, voted into existence, or socially negotiated. Proof of Stake systems replace one set of trusted intermediaries with another (validators/committees), merely relocating trust rather than removing it. PoW ensures that influence is earned only through work, never through privilege or identity, making it the only consensus mechanism compatible with true permissionlessness."
+          "answer": "Proof of work ties security to an external cost, energy, that can't be simulated, voted into existence or negotiated. Proof of stake hands control to whoever holds the most coins, which moves trust to validators instead of removing it. Under proof of work, influence over the chain has to be paid for with work. It can't be granted by holdings or identity."
+        },
+        {
+          "question": "How do I add Parallax to MetaMask?",
+          "answer": "Add a custom network in MetaMask with these values: network name Parallax, RPC URL https://rpc.parallaxprotocol.org, chain ID 2110, currency symbol LAX, block explorer https://explorer.parallaxprotocol.org. The Wallets page can also add it in one click. Other EVM wallets take the same values."
         }
       ],
       "technical": [
         {
           "question": "What consensus mechanism does Parallax use?",
-          "answer": "Parallax uses Proof of Work (PoW) consensus with XHash mining algorithm, making it GPU-friendly unlike Bitcoin's ASIC-dominated SHA-256. This ensures broader mining participation while maintaining the security benefits of PoW."
+          "answer": "Proof of work, with the XHash algorithm. XHash is memory-hard and mined on GPUs, unlike Bitcoin's SHA-256, which is dominated by ASICs."
         },
         {
           "question": "What is XHash and why was it chosen?",
@@ -735,37 +774,41 @@
         },
         {
           "question": "What are the block times and transaction fees?",
-          "answer": "Parallax maintains 10-minute block intervals like Bitcoin for stability and predictability. Transaction fees use a first-price auction model where fees go directly to miners, ensuring sustainable mining incentives without fee burning."
+          "answer": "A block arrives about every 10 minutes. Difficulty is retargeted every block with ASERT (two-day half-life), so the interval stays close to 10 minutes as hashrate comes and goes. Fees are a plain gas-price auction: there is no EIP-1559 base fee, miners include the highest-paying transactions first, and the whole fee goes to the miner."
+        },
+        {
+          "question": "How many confirmations should I wait for?",
+          "answer": "It depends on the amount. Each confirmation adds about 10 minutes of work that an attacker would have to redo. One or two confirmations is usually enough for small payments; Bitcoin's convention of six (about an hour) is a sensible default for larger ones. Parallax is a young proof-of-work network with far less hashrate than Bitcoin, so wait longer for large transfers, and check status.parallaxprotocol.org for reorgs or incidents before you treat a payment as final."
         },
         {
           "question": "Why 10-minute blocks instead of faster?",
-          "answer": "Global agreement requires physical delay. Systems that minimize time-to-finality below physical limits introduce hidden advantages — proximity to validators, specialized networking, privileged transaction ordering — all of which centralize consensus. Parallax treats time as a stabilizing force. Finality earned slowly through accumulated work is more robust than finality declared quickly through social agreement."
+          "answer": "Global agreement takes physical time. Systems that push time-to-finality below physical limits create hidden advantages: proximity to other miners, specialized networking, privileged transaction ordering. Each of these centralizes consensus. Parallax treats time as a stabilizing force: finality earned slowly through accumulated work is more robust than finality declared quickly by agreement."
         },
         {
           "question": "What is the block gas limit?",
-          "answer": "Parallax uses a conservative block gas limit of 600 million gas, approximately half of Ethereum's throughput at roughly 1 million gas per second. This is a deliberate design choice: keeping the base layer conservative in throughput ensures full nodes remain accessible to individuals running commodity hardware, prioritizing decentralization over raw speed."
+          "answer": "600 million gas per block. At one block every 10 minutes that is about 1 million gas per second, less than Ethereum's mainnet. The limit is kept low on purpose so that a full node stays cheap to run on ordinary hardware."
         },
         {
           "question": "How does Parallax handle 51% attacks?",
-          "answer": "Parallax's security model combines Proof of Work, 10-minute block intervals, and XHash mining to make attacks prohibitively expensive. Rewriting history requires accumulating more work than the honest chain — a cost that grows with every block. XHash's accessibility promotes a diverse, distributed mining base, making it harder for any single entity to accumulate majority hash power. The 100-block coinbase maturity period also prevents attackers from immediately spending mined rewards during a reorganization attempt."
+          "answer": "Like any proof-of-work chain, Parallax can be reorganized by someone with a majority of the hashrate. What stands in the way is cost: rewriting history means redoing more work than the honest chain, and that cost grows with every block. XHash keeps mining on widely owned GPUs and locks out existing Ethash ASICs, and ASERT adjusts difficulty every block, so a sudden swing in hashrate can't distort it for long. Mined rewards can't be spent for 100 blocks, which stops a miner spending coins a reorg could erase. For large amounts, wait for more confirmations."
         },
         {
           "question": "What is coinbase maturity?",
-          "answer": "Coinbase maturity is a 100-block lockup period (approximately 17 hours) before newly mined block rewards can be spent. This prevents miners from spending rewards from blocks that might later be reorganized out of the chain, adding an additional layer of security against chain reorganization attacks."
+          "answer": "Newly mined LAX can't be spent until 100 more blocks have been built on top of it, about 17 hours. If a block is reorganized out of the chain, its reward disappears with it; the wait makes sure nobody has spent that reward in the meantime."
         },
         {
           "question": "What are the hardware requirements for running a full node?",
-          "answer": "Parallax is designed so that full nodes can run on commodity hardware accessible to individuals. The conservative block gas limit of 600M gas and 10-minute block intervals keep storage growth, bandwidth, and computation requirements manageable. Any modern computer with a broadband connection can participate in validating the network."
+          "answer": "A full node runs on an ordinary computer: 2 or more CPU cores (4 recommended), at least 4 GB of RAM (16 GB recommended), an SSD with 200 GB free (500 GB or more for an archive node) and a stable connection of about 25 Mbit/s. The SSD matters most; hard drives struggle to sync."
         }
       ],
       "mining": [
         {
           "question": "How can I mine Parallax?",
-          "answer": "Parallax uses the XHash mining algorithm. You can mine with a CPU via the built-in client miner, or with GPUs using Hashwarp — the official open-source miner — or SRBMiner-Multi. Point your miner at a Parallax pool, or at your own node for solo mining."
+          "answer": "Mine on a GPU with Hashwarp, the official open-source miner, or with SRBMiner-Multi. Point it at a Parallax pool, or at your own node to mine solo. Other Ethash miners such as ethminer do not work. The client also has a built-in CPU miner, but it is only useful for testing."
         },
         {
           "question": "What is the mining reward schedule?",
-          "answer": "Parallax follows Bitcoin's halving schedule. The initial block reward starts at 50 LAX per block and halves approximately every 4 years (210,000 blocks). This ensures the same scarcity model that has proven successful with Bitcoin."
+          "answer": "The block subsidy started at 50 LAX and halves every 210,000 blocks, roughly every four years at 10-minute blocks: the same schedule as Bitcoin. The miner also collects every fee in the block. Mined LAX can be spent after 100 blocks."
         },
         {
           "question": "Can I use my Ethereum mining rig?",
@@ -775,29 +818,33 @@
       "economics": [
         {
           "question": "What is the total supply of Parallax?",
-          "answer": "Parallax has a fixed maximum supply of 21 million coins, identical to Bitcoin. This hard cap ensures scarcity and deflationary monetary policy, making LAX a store of value while enabling programmable functionality."
+          "answer": "21 million LAX, the same cap as Bitcoin. New supply comes only from the block subsidy, which halves every 210,000 blocks. There was no premine, and there is no governance body that could raise the cap."
         },
         {
           "question": "How are transaction fees handled?",
-          "answer": "Unlike Ethereum's fee burning mechanism, Parallax uses a first-price auction model where all transaction fees go directly to miners. This ensures sustainable mining incentives and maintains the economic security of the network."
+          "answer": "Fees are a first-price auction on gas price. There is no EIP-1559 base fee and nothing is burned: the miner who includes a transaction receives its entire fee."
         },
         {
           "question": "Why doesn't Parallax burn fees like Ethereum?",
-          "answer": "Fee burning reduces miner revenue and creates a dependency on transaction volume for economic security. In Parallax, all fees go directly to miners, ensuring they remain economically incentivized to secure the network regardless of block subsidy levels. This is especially important as block rewards diminish through halving cycles — transaction fees become the primary incentive for miners, and burning any portion of them would undermine long-term network security."
+          "answer": "Burning fees takes income away from the people securing the chain. As halvings shrink the block subsidy, fees become miners' main income, and the network's long-term security depends on them. Paying the whole fee to miners keeps that link intact."
         },
         {
           "question": "What happens when all 21 million coins are mined?",
-          "answer": "Once all 21 million coins have been mined (estimated to take over a century following the halving schedule), miners will be sustained entirely by transaction fees. Because Parallax does not burn fees, all transaction fees flow directly to miners, providing a long-term economic incentive to continue securing the network. This model mirrors Bitcoin's design and ensures the network remains viable without relying on perpetual coin issuance."
+          "answer": "Miners are then paid by fees alone, as in Bitcoin. The subsidy shrinks with every halving, so it takes more than a century to reach zero. Because no fees are burned, all of that fee income goes to the miners securing the chain."
         },
         {
           "question": "Is there a premine or ICO?",
-          "answer": "No. Parallax follows a fair launch model with no premine, no ICO, and no privileged allocations. All coins are distributed through mining rewards, ensuring decentralized and equitable distribution from day one."
+          "answer": "No. There was no premine, no ICO, no presale and no allocation to developers. The genesis block held zero LAX, the launch date was announced in advance, and every coin in circulation was mined."
+        },
+        {
+          "question": "Where can I get LAX?",
+          "answer": "Mine it, or buy it on one of the exchanges listed on the Exchanges page. Exchanges are independent businesses: once you've bought, withdraw to a wallet you control."
         }
       ],
       "governance": [
         {
           "question": "How are protocol upgrades decided?",
-          "answer": "Parallax follows a minimal governance philosophy. The protocol's monetary policy — the 21 million supply cap, halving schedule, and PoW consensus — is considered immutable and not subject to governance. Protocol upgrades are limited to technical improvements and bug fixes, and are driven by community consensus rather than any central foundation or company. Any rule that requires interpretation introduces discretion, and discretion introduces capture; Parallax favors deterministically evaluable rules."
+          "answer": "There is no roadmap and no schedule of hard forks. The monetary rules (the 21 million cap, the halving schedule and proof of work) are not up for change. Consensus rules are meant to ossify: changes are limited to fixing real defects, and a fix takes effect only if node operators choose to run it. The one consensus change so far, the switch to ASERT difficulty at block 17,560, fixed a retargeting window that miners were manipulating. Ongoing development happens in the client, tooling and contracts, not in the consensus rules."
         },
         {
           "question": "Is there a foundation or company behind Parallax?",
@@ -805,11 +852,11 @@
         },
         {
           "question": "Will Parallax support Layer 2 solutions?",
-          "answer": "Yes. The base layer is intentionally conservative — it exists to settle, not to impress. Maximizing throughput and expressiveness at the base layer increases complexity and attack surface. Parallax confines experimentation to higher layers where failure doesn't threaten settlement. Layer 2 solutions such as rollups and sidechains can anchor to Parallax's secure base layer for scalability while preserving the security guarantees of PoW settlement."
+          "answer": "The base layer is kept conservative on purpose: it exists to settle, not to impress. Experiments belong on higher layers, where failure doesn't threaten settlement. Because Parallax runs the EVM, rollups and sidechains can anchor to it with ordinary contracts, and building one needs no change to the protocol."
         },
         {
           "question": "Are there bridges to other blockchains?",
-          "answer": "As a fully EVM-compatible chain, Parallax is architecturally compatible with existing cross-chain bridge protocols. Bridge development is driven by the community and ecosystem participants. Since Parallax uses standard Ethereum tooling and interfaces, integrating with bridge infrastructure follows the same patterns as any EVM chain."
+          "answer": "Bridges are built by independent teams, not by the protocol. Parallax is a standard EVM chain, so existing bridge designs can be deployed on it the same way as on any other. Before you use a bridge, check who controls its contracts and what happens to your funds if it fails."
         }
       ],
       "development": [
@@ -818,12 +865,16 @@
           "answer": "Building on Parallax works like building on Ethereum. Use Solidity, Remix, Hardhat, or Foundry, and deploy with MetaMask or any Web3 wallet connected to the Parallax network (chain ID 2110). Set evmVersion to \"paris\" in your compiler config — the execution layer is complete through the Paris fork, and Solidity 0.8.20+ otherwise emits PUSH0, which Parallax does not support."
         },
         {
+          "question": "Is there a testnet?",
+          "answer": "There is no public testnet. For contract development, start the client with --dev, which runs a local single-node chain, then deploy to mainnet when you're ready."
+        },
+        {
           "question": "Are there development grants available?",
-          "answer": "The Parallax ecosystem encourages community-driven development. While there's no central foundation distributing grants, the community actively supports promising projects through various mechanisms and partnerships."
+          "answer": "No. There is no foundation or treasury, so there is no grant program. Projects are funded by the people who build and use them."
         },
         {
           "question": "What tools and libraries are supported?",
-          "answer": "All Ethereum development tools work with Parallax: Web3.js, Ethers.js, MetaMask, Remix, Hardhat, Foundry, OpenZeppelin contracts, and more. Compile with EVM version \"paris\" — the execution layer does not include post-Paris opcodes."
+          "answer": "The usual Ethereum tools work: ethers.js, web3.js, viem, MetaMask, Remix, Hardhat, Foundry and OpenZeppelin contracts. Compile with EVM version \"paris\"; the execution layer does not include post-Paris opcodes."
         }
       ]
     }
@@ -952,88 +1003,327 @@
       }
     },
     "howItWorks": {
-      "pageTitle": "How does Parallax work?",
-      "pageSubtitle": "A plain explanation of wallets, transactions, mining, and the chain that ties them together.",
-      "topics": [
-        {
-          "title": "The Basics",
-          "description": "Install a wallet, generate an address, send or receive funds. No account, no signup, no permission — if you can use email, you can use this."
+      "pageTitle": "How Parallax works",
+      "pageSubtitle": "What actually happens when you hold, send and mine LAX, explained without the jargon and with the real numbers.",
+      "contents": "On this page",
+      "keys": {
+        "eyebrow": "Wallets",
+        "heading": "Your wallet is a key, not an account",
+        "subtitle": "No company holds your balance. Your coins sit on a public ledger, and only the holder of one secret number can move them.",
+        "example": "Example values",
+        "oneWay": "Easy to compute this way. Infeasible to reverse.",
+        "privateKey": {
+          "label": "Private key",
+          "note": "A random 256-bit number. Whoever knows it controls the coins. Never share it."
         },
-        {
-          "title": "Balances & Blockchain",
-          "description": "All transactions are recorded on the Parallax blockchain. Wallets compute your spendable balance and cryptography keeps everything secure and transparent."
+        "publicKey": {
+          "label": "Public key",
+          "note": "Derived from the private key. Lets anyone check your signatures."
         },
-        {
-          "title": "Transactions & Private Keys",
-          "description": "Transactions transfer value between wallets and are signed with your private key. This proves ownership and keeps your funds safe."
+        "address": {
+          "label": "Address",
+          "note": "A short fingerprint of the public key. Share it to get paid."
         },
-        {
-          "title": "Processing & Mining",
-          "description": "Miners secure Parallax by packaging transactions into blocks and competing with XHash Proof-of-Work. This keeps the network fair and decentralized."
+        "points": [
+          {
+            "title": "Nobody issues it",
+            "description": "Your wallet generates the key on your own device. No signup, no approval, no account that someone can close."
+          },
+          {
+            "title": "The recovery phrase is the key",
+            "description": "Most wallets write the key out as 12 or 24 words. Lose them and the coins are gone for good; anyone who sees them can take the coins."
+          },
+          {
+            "title": "Same format as Ethereum",
+            "description": "Addresses look like Ethereum's 0x… addresses, so existing wallets and hardware signers work. The same key controls the same address on both chains, so check which network you are on before sending."
+          }
+        ]
+      },
+      "tx": {
+        "eyebrow": "Transactions",
+        "heading": "What happens when you press Send",
+        "subtitle": "A payment reaches every node on the network in seconds, then waits for a miner to write it into the chain.",
+        "steps": [
+          {
+            "title": "Sign",
+            "time": "Instant",
+            "description": "Your wallet builds the transaction (recipient, amount, fee) and signs it with your private key. The key never leaves your device."
+          },
+          {
+            "title": "Broadcast",
+            "time": "Seconds",
+            "description": "The signed transaction goes to a node, which passes it to its peers. Within seconds the whole network has it."
+          },
+          {
+            "title": "Mempool",
+            "time": "Until mined",
+            "description": "Each node checks the signature and the balance, then holds the transaction in its waiting room: the mempool."
+          },
+          {
+            "title": "Mined into a block",
+            "time": "~10 minutes on average",
+            "description": "A miner picks transactions, highest fee first, and finds a valid proof-of-work. The new block goes out to every node."
+          },
+          {
+            "title": "Confirmed",
+            "time": "+1 per block",
+            "description": "Every block built on top adds a confirmation. The deeper a transaction sits, the harder it is to undo."
+          }
+        ],
+        "feeTitle": "Fees are a plain auction",
+        "feeBody": "You choose a gas price. Miners fill blocks with the best-paying transactions first, and the whole fee goes to the miner. There is no base fee and nothing is burned. When blocks have room, a low fee gets in.",
+        "confirmTitle": "Why wait for confirmations",
+        "confirmBody": "Blocks average ten minutes but don't arrive like clockwork: some come after one minute, some after twenty. Now and then two miners find a block at the same moment and the network briefly splits. It settles on the branch that gets more work on top, and transactions in the losing block go back to the mempool. Every block stacked on yours makes reversing it more expensive.",
+        "yourBlock": "Your tx",
+        "confirmations": "{n, plural, one {# confirmation} other {# confirmations}}",
+        "minutes": "{n} min",
+        "guide": [
+          {
+            "label": "Small, everyday amounts",
+            "value": "1–2 confirmations"
+          },
+          {
+            "label": "Large amounts",
+            "value": "6 confirmations, about an hour"
+          },
+          {
+            "label": "Exchanges and merchants",
+            "value": "Set their own threshold"
+          }
+        ],
+        "feeLabel": "Gas price",
+        "mempoolLabel": "Mempool, by gas price",
+        "nextBlock": "Into the next block",
+        "waiting": "Waiting for a later block"
+      },
+      "mining": {
+        "eyebrow": "Mining",
+        "heading": "Miners compete to write the next block",
+        "subtitle": "Miners repeat one computation over and over, looking for a rare lucky result. Finding one takes enormous work; checking it takes any node a fraction of a second.",
+        "loop": {
+          "title": "The mining loop",
+          "note": "Illustration",
+          "target": "Target",
+          "nonce": "Nonce",
+          "hash": "XHash result",
+          "no": "No: change the nonce, try again",
+          "yes": "Yes: block found, broadcast it"
         },
-        {
-          "title": "Going Down the Rabbit Hole",
-          "description": "This page is just the surface. To dive deeper, check out the Parallax white paper, developer docs, and community resources."
+        "reward": "The winner collects the block subsidy plus every fee in the block, spendable after 100 more blocks.",
+        "xhashTitle": "XHash",
+        "xhashBody": "Parallax's proof-of-work. Memory-hard and derived from Ethash, but changed so existing Ethash ASICs can't run it. It runs on ordinary GPUs with Hashwarp, the official miner, or SRBMiner-Multi.",
+        "asertTitle": "ASERT keeps the clock",
+        "asertBody": "When miners join, blocks come faster; when they leave, slower. After every block, ASERT compares the chain with its ten-minute schedule and re-tunes the difficulty. For every two days the chain runs ahead of schedule, difficulty doubles; for every two days behind, it halves. Small drift gets small corrections, so block times stay near ten minutes whatever the hashrate does.",
+        "chartLabel": "Illustration",
+        "chartTitle": "Hashrate doubles overnight",
+        "hashrate": "Hashrate",
+        "blockTime": "Block time",
+        "target": "10-minute target",
+        "chartNote": "Blocks speed up for a while, then ASERT raises the difficulty until they are back on schedule.",
+        "cta": "Mine Parallax"
+      },
+      "supply": {
+        "eyebrow": "Supply",
+        "heading": "Where new LAX comes from",
+        "subtitle": "Every LAX in existence was paid to a miner for a block. There was no premine and no sale: supply at genesis was zero.",
+        "chartTitle": "Issuance schedule",
+        "subsidy": "Block subsidy",
+        "total": "Total supply",
+        "cap": "21,000,000 cap",
+        "axis": "Block height",
+        "facts": [
+          {
+            "value": "50 LAX",
+            "label": "Subsidy per block in the first era"
+          },
+          {
+            "value": "210,000",
+            "label": "Blocks between halvings, about four years"
+          },
+          {
+            "value": "21M",
+            "label": "Maximum supply, ever"
+          },
+          {
+            "value": "100",
+            "label": "Blocks before newly mined coins can move"
+          }
+        ],
+        "fees": "As the subsidy shrinks, fees take over. Miners keep every fee in full, so in the long run the network's security is paid for by the people using it, not by new coins.",
+        "cta": "Verify the supply"
+      },
+      "contracts": {
+        "eyebrow": "Smart contracts",
+        "heading": "Programs that hold money",
+        "subtitle": "Parallax runs the Ethereum Virtual Machine. A contract is code stored on the chain that can hold LAX and moves it only by its own rules.",
+        "exampleLabel": "Example",
+        "exampleTitle": "An escrow",
+        "buyer": "Buyer",
+        "seller": "Seller",
+        "contract": "Escrow contract",
+        "rules": [
+          "Hold the payment",
+          "Release it to the seller when the buyer confirms delivery",
+          "Refund the buyer if nothing happens in 30 days"
+        ],
+        "points": [
+          {
+            "title": "Runs exactly as written",
+            "description": "Every node runs the same code and must get the same result. Nobody can change a deployed contract unless its own code allows it."
+          },
+          {
+            "title": "Paid for in gas",
+            "description": "Each step of computation costs gas, paid in LAX at the gas price you choose, like any other transaction."
+          },
+          {
+            "title": "Ethereum's tools",
+            "description": "Solidity, Hardhat, Foundry and MetaMask all work. The EVM matches Ethereum's through the Paris upgrade."
+          }
+        ]
+      },
+      "nodes": {
+        "eyebrow": "Full nodes",
+        "heading": "Every node checks everything",
+        "subtitle": "A full node downloads every block and re-checks every rule itself. It doesn't trust miners, other nodes, or this website.",
+        "incoming": "Incoming block",
+        "checks": [
+          "The proof-of-work meets the difficulty",
+          "Every signature is valid",
+          "No coin is spent twice",
+          "The miner took no more than the subsidy plus fees",
+          "Every contract call gives the same result"
+        ],
+        "valid": "All pass: added to the chain",
+        "invalid": "Any fail: rejected, however much work went into it",
+        "noVoteTitle": "No voting",
+        "noVoteBody": "Nodes don't vote and miners don't set the rules. Each node follows the valid chain with the most work behind it. A block that breaks a rule is rejected by every node that checks it, no matter how much hashpower produced it. That is why a majority can't change the rules.",
+        "cta": "Run a node",
+        "ctaNote": "The client runs on an ordinary computer."
+      },
+      "next": {
+        "heading": "Where to go next",
+        "items": {
+          "start": {
+            "title": "Get started",
+            "description": "Pick a wallet, add the network and make your first transaction."
+          },
+          "verify": {
+            "title": "Verify it yourself",
+            "description": "Check the genesis block, the supply and the rules with a few commands."
+          },
+          "developers": {
+            "title": "For developers",
+            "description": "Chain ID 2110, the EVM through Paris, and what differs from Ethereum."
+          },
+          "whitepaper": {
+            "title": "Read the whitepaper",
+            "description": "The full design, in the protocol's own terms."
+          }
         }
-      ]
+      }
     },
     "gettingStarted": {
-      "pageTitle": "Getting Started with Parallax",
-      "pageSubtitle": "Hold it, spend it, mine it, or accept it. Bitcoin's monetary rules with Ethereum's programmability — here is how to start, honestly stated.",
-      "tabs": {
-        "use": "How to use Parallax",
-        "accept": "How to accept Parallax"
+      "pageTitle": "Getting started with Parallax",
+      "pageSubtitle": "Four steps: a wallet, the network, some LAX, and your first transaction. No account, no signup, about ten minutes.",
+      "step": "Step",
+      "wallet": {
+        "title": "Pick a wallet",
+        "description": "A wallet creates your key and signs your transactions. Any Ethereum-compatible wallet works with Parallax; these are good places to start.",
+        "recommended": "Recommended",
+        "parallaxWallet": {
+          "label": "Desktop",
+          "title": "Parallax Wallet",
+          "description": "The desktop app runs its own full node, so it checks every payment itself, and it is set up for Parallax out of the box.",
+          "cta": "About Parallax Wallet"
+        },
+        "all": "All wallets that work with Parallax",
+        "backupTitle": "Write down your recovery phrase",
+        "backupBody": "When the wallet shows you 12 or 24 words, write them on paper and keep them offline. They are the only way to restore your coins. Anyone asking for them is not helping you."
+      },
+      "network": {
+        "title": "Add the Parallax network",
+        "description": "Parallax Wallet needs no setup. Other wallets need the network added once: use the button if your browser has a wallet extension, or enter these settings by hand.",
+        "panel": "Network settings",
+        "rows": {
+          "name": "Network name",
+          "rpc": "RPC URL",
+          "chainId": "Chain ID",
+          "currency": "Currency symbol",
+          "explorer": "Block explorer"
+        },
+        "copy": "Copy",
+        "copied": "Copied",
+        "hint": "On mobile, open your wallet's network settings and look for “Add network” or “Custom network”, then fill in the fields above."
+      },
+      "get": {
+        "title": "Get some LAX",
+        "description": "Earn it by mining, buy it from someone who has it, or ask to be paid in it.",
+        "mine": {
+          "title": "Mine it",
+          "description": "Point a GPU at the network with Hashwarp or SRBMiner-Multi, solo or through a pool. Newly mined LAX becomes spendable after 100 blocks, about 17 hours.",
+          "cta": "How to mine"
+        },
+        "buy": {
+          "title": "Buy it",
+          "description": "LAX trades on a handful of exchanges. Withdraw to your own wallet afterwards: coins left on an exchange are in the exchange's custody.",
+          "cta": "See live markets"
+        },
+        "paid": "Or simply get paid in it: anyone can send LAX to your address."
       },
       "use": {
-        "inform": {
-          "title": "1. Inform Yourself",
-          "description": "Parallax combines Bitcoin's proven monetary policy with Ethereum's smart contract capabilities. Before you start using Parallax, learn about its unique features and security considerations.",
-          "cta": "Learn More"
+        "title": "Use it",
+        "description": "Your wallet handles the details. Here is what to expect.",
+        "items": {
+          "receive": {
+            "title": "Receive",
+            "description": "Share your address or its QR code. The payment shows as pending, then confirmed once it's in a block."
+          },
+          "send": {
+            "title": "Send",
+            "description": "Paste the address, enter the amount and review the fee. Check the address twice: transactions can't be reversed."
+          },
+          "check": {
+            "title": "Look it up",
+            "description": "Paste any address or transaction hash into the block explorer to see its status and confirmations."
+          },
+          "wait": {
+            "title": "Allow ten minutes",
+            "description": "Blocks come about every ten minutes. Wait for one or two confirmations on small amounts, six on large ones."
+          }
         },
-        "wallet": {
-          "title": "2. Choose Your Wallet",
-          "description": "Free Parallax wallets are available for all major operating systems and devices. Choose from mobile apps for everyday use or desktop wallets for advanced features.",
-          "cta": "Choose a Wallet"
-        },
-        "get": {
-          "title": "3. Get Parallax",
-          "description": "You can get Parallax by accepting it as payment, mining it, or purchasing it from exchanges. Multiple options are available to suit your needs.",
-          "mining": "Mining",
-          "exchanges": "Exchanges"
-        },
-        "spend": {
-          "title": "4. Spend Parallax",
-          "description": "The merchant ecosystem is young — the network launched in October 2025 — and grows with adoption. Smart contracts let you automate payments and complex transactions without an intermediary. Ask in the community channels to find merchants accepting LAX today.",
-          "cta": "Ask the Community"
-        }
+        "explorerCta": "Open the explorer",
+        "honestTitle": "An honest note",
+        "honestBody": "The network launched in October 2025 and the merchant ecosystem is young. Few shops take LAX yet. Ask in the community channels to find the ones that do.",
+        "honestCta": "Ask the community"
       },
       "accept": {
-        "inform": {
-          "title": "1. Inform Yourself",
-          "description": "Parallax doesn't require merchants to change their habits significantly. However, understanding its unique features will help you leverage its full potential for your business.",
-          "cta": "Learn More"
+        "eyebrow": "For merchants",
+        "heading": "Accepting Parallax",
+        "subtitle": "Accepting LAX takes nothing but an address: no processor, no approval, no chargebacks.",
+        "items": {
+          "address": {
+            "title": "Share an address",
+            "description": "Show an address or QR code at checkout. A fresh address per customer keeps your sales from being linked together."
+          },
+          "verify": {
+            "title": "Verify payments yourself",
+            "description": "Watch incoming payments on the explorer, or run your own node and rely on no one."
+          },
+          "taxes": {
+            "title": "Keep records",
+            "description": "Accepting crypto has accounting and tax consequences that depend on where you are.",
+            "cta": "Tax resources"
+          },
+          "visibility": {
+            "title": "Tell people",
+            "description": "Announce in the community channels that you accept LAX. That's where the people looking to spend it are."
+          }
         },
-        "processing": {
-          "title": "2. Processing Payments",
-          "description": "Accepting LAX requires nothing but an address: no processor, no approval, no chargebacks. Generate a wallet, share the address or a QR code, and verify incoming payments yourself — with your own node if you want no intermediary at all.",
-          "cta": "Choose a Wallet"
-        },
-        "taxes": {
-          "title": "3. Accounting & Taxes",
-          "description": "Understand the accounting and tax implications of accepting Parallax. Access tools and resources for proper financial management.",
-          "cta": "Tax Resources"
-        },
-        "visibility": {
-          "title": "4. Gain Visibility",
-          "description": "Tell the community you accept LAX. Merchants who announce themselves in the community channels reach the users most motivated to spend the coin they mine and hold.",
-          "cta": "Join the Community"
-        }
+        "cta": "Integrate payments on the EVM"
       },
-      "ready": {
-        "heading": "Ready to Start?",
-        "description": "A wallet takes a minute to set up and asks nothing about you. From there: receive, send, mine, or build — the network cannot tell the difference between you and anyone else, which is the point.",
-        "chooseWallet": "Choose a Wallet",
-        "setupGuide": "Wallet Setup Guide"
+      "next": {
+        "heading": "Want to know what's happening under the hood?",
+        "cta": "How Parallax works"
       }
     },
     "parallaxForBitcoiners": {
@@ -1205,9 +1495,9 @@
       "supply": {
         "heading": "The supply",
         "body1": "Supply at genesis was zero. Every LAX in existence was mined afterward at 50 per block, halving every 210,000 blocks — so the correct total supply at any height is computable by hand, and any deviation would be a consensus violation every node rejects.",
-        "body2": "This site exposes the computation as an API for convenience; the chain remains the source of truth:",
-        "cmdSupplyLabel": "Circulating supply at the current height",
-        "cmdEmissionsLabel": "Full emission schedule"
+        "body2": "Nothing here needs this website. Compute the supply from any node's block height, or ask your own node, which keeps the same sum itself. Start it with --http --http.api eth,net,web3,xhash for the second command; the public RPC doesn't expose that namespace.",
+        "cmdComputedLabel": "Compute it from the block height (any node, including the public RPC)",
+        "cmdNodeLabel": "Ask your own node (total supply in wei)"
       },
       "rules": {
         "heading": "The rules",
@@ -1293,131 +1583,74 @@
         "guides": "Mining guides",
         "client": "Download the client"
       }
-    },
-    "development": {
-      "title": "Developers",
-      "subtitle": "Parallax is fully open source and welcomes contributions from developers of all backgrounds",
-      "exploreGithub": "Explore our GitHub",
-      "readDocumentation": "Read Documentation",
-      "topics": [
-        {
-          "title": "Build smart contracts and dApps",
-          "description": "Leverage the Parallax EVM to create decentralized applications, automate payments, and unlock new financial primitives."
-        },
-        {
-          "title": "Contribute to protocol development",
-          "description": "Help improve the Parallax protocol itself — security, performance, tooling. Development happens in the open, and contributions are judged on correctness, not credentials."
-        },
-        {
-          "title": "Integrate Parallax into your projects",
-          "description": "Connect your apps, wallets, or services to Parallax. Use our APIs and libraries to bring programmable cash to your users."
-        },
-        {
-          "title": "Help improve documentation",
-          "description": "Write guides, tutorials, and documentation to help others learn and build. Make Parallax accessible to everyone."
-        },
-        {
-          "title": "Join community discussions",
-          "description": "Share ideas, ask questions, and collaborate with other developers in our forums, and GitHub discussions."
-        }
-      ]
-    },
-    "runningAFullNode": {
-      "title": "Running a Full Node",
-      "subtitle": "Help secure Parallax and participate in the network by running your own node.",
-      "topics": [
-        {
-          "title": "What is a Full Node?",
-          "description": "A full node independently verifies all transactions and blocks, helping secure the Parallax network and maintain decentralization."
-        },
-        {
-          "title": "Why Run a Node?",
-          "description": "Running a node gives you direct access to the network, improves privacy, and strengthens Parallax against censorship and attacks."
-        },
-        {
-          "title": "Get the Parallax Client",
-          "description": "Download the official Parallax Client for Linux, Windows, or macOS. Follow the instructions to install and start your node."
-        },
-        {
-          "title": "Need Help?",
-          "description": "Find setup guides, troubleshooting tips, and community support in our documentation and Discord."
-        }
-      ],
-      "getStarted": {
-        "eyebrow": "Get started",
-        "description": "Ready to run a full node? Download the Parallax Client and follow our step-by-step guide.",
-        "download": "Download Parallax Client",
-        "setupGuide": "Setup Guide"
-      }
-    },
-    "supportParallax": {
-      "title": "Support Parallax",
-      "subtitle": "Parallax was born from a small community and it is still in its infancy phase. There are lots of things you can do to support it and help others learn more",
-      "topics": [
-        {
-          "title": "Using Parallax",
-          "description": "The simplest way to support the network is to use it. Send and receive transactions, explore dApps, and treat Parallax like real money. Every interaction strengthens the ecosystem and builds trust in the protocol."
-        },
-        {
-          "title": "Be the network",
-          "description": "Help secure and decentralize Parallax by running a full node. By doing so, you contribute to verifying blocks, propagating transactions, and ensuring the network remains censorship-resistant and resilient. Open port 32110 TCP/UDP in your router and firewall so that other nodes can connect to you."
-        },
-        {
-          "title": "Mining",
-          "description": "Join as a miner and provide the computing power that secures Parallax. Mining protects the network, distributes new coins, and gives you a direct stake in its growth and security."
-        },
-        {
-          "title": "Development",
-          "description": "Contribute to the open-source codebase. Whether it's core protocol improvements, tooling, or dApp development, your skills can shape the future of Parallax. We welcome contributions in Go, TypeScript, and beyond."
-        },
-        {
-          "title": "Spread",
-          "description": "Tell people about Parallax. Share articles, make videos, write posts, or host discussions. The more people know about Parallax, the stronger the community becomes."
-        },
-        {
-          "title": "Documentation",
-          "description": "Good documentation empowers new users and developers. Help us write, translate, and improve guides so anyone can learn how to run nodes, mine, or build on Parallax with ease."
-        },
-        {
-          "title": "Meet the communities",
-          "description": "Parallax thrives on community. Join our forums, Telegram, and social channels to connect with others, exchange knowledge, and coordinate initiatives that strengthen the ecosystem."
-        },
-        {
-          "title": "Run a bootnode",
-          "description": "Bootnodes are entry points for new participants joining the network. By operating one, you help ensure stable connectivity and contribute to the health of the peer-to-peer layer."
-        },
-        {
-          "title": "Run a public RPC",
-          "description": "Public RPC endpoints make Parallax accessible to developers, wallets, and applications. Hosting one helps the ecosystem grow by lowering the barrier to entry for anyone building on Parallax."
-        }
-      ],
-      "donations": {
-        "heading": "Donate to Support Parallax",
-        "intro": "Parallax is a community-driven project with no VC funding, no premine, and no company behind it. Donations help us keep the website online, maintain public infrastructure, and continue active protocol development.",
-        "btc": {
-          "title": "Bitcoin (BTC)",
-          "description": "Bitcoin donations"
-        },
-        "evm": {
-          "title": "EVM Address",
-          "description": "Any token on EVM-compatible networks"
-        },
-        "patreonIntro": "Prefer not to use crypto?",
-        "patreonIntroLine2": "You can support Parallax via Patreon and contribute using traditional payment methods.",
-        "patreonCta": "Support on Patreon"
-      }
     }
   },
   "wallets": {
     "title": "Wallets on Parallax",
-    "subtitle": "Choose the right wallet to manage your LAX, connect to dapps, and explore the Parallax ecosystem securely.",
-    "beginnerFriendly": "Beginner friendly",
-    "getWallet": "Get {name}",
+    "subtitle": "Parallax addresses are Ethereum addresses. The wallet you already use can hold LAX once you add the network.",
+    "choose": {
+      "eyebrow": "Choosing a wallet",
+      "heading": "Any EVM wallet works once the network is added",
+      "points": {
+        "address": {
+          "title": "Same address as on Ethereum",
+          "description": "Parallax uses Ethereum-format 0x addresses and the same keys. Import a recovery phrase and you get the same address, now on chain ID 2110."
+        },
+        "hardware": {
+          "title": "Hardware wallets",
+          "description": "Ledger and Trezor sign Parallax transactions with their stock Ethereum apps. No extra firmware or app is needed."
+        },
+        "replay": {
+          "title": "Signed for one chain",
+          "description": "Every transaction commits to chain ID 2110 (EIP-155), so one signed for Parallax can't be replayed on Ethereum, and the reverse."
+        }
+      }
+    },
+    "network": {
+      "label": "Network settings",
+      "hint": "Enter these under “Add a custom network” in your wallet.",
+      "fields": {
+        "name": "Network name",
+        "rpc": "RPC URL",
+        "chainId": "Chain ID",
+        "chainIdHex": "Chain ID (hex)",
+        "currency": "Currency symbol",
+        "decimals": "Decimals",
+        "explorer": "Block explorer"
+      },
+      "copy": "Copy",
+      "copied": "Copied"
+    },
+    "official": {
+      "eyebrow": "Official desktop app",
+      "badge": "Coming soon",
+      "title": "Parallax Wallet",
+      "description": "The official wallet for Linux, macOS and Windows. It runs a full Parallax node inside the app, so your balances and history come from your own copy of the chain, not someone else's server.",
+      "features": [
+        "A full node, built in",
+        "Keys encrypted under one password",
+        "Ledger, Trezor and offline QR signing"
+      ],
+      "cta": "About Parallax Wallet"
+    },
+    "list": {
+      "eyebrow": "Third-party wallets",
+      "heading": "Wallets that already work with Parallax",
+      "subtitle": "Independent wallets, not run by Parallax. Add the network with the settings above, then send and receive LAX as you would ETH.",
+      "beginnerFriendly": "Beginner friendly",
+      "mobile": "Mobile app",
+      "desktopOnly": "Desktop only",
+      "getWallet": "Get {name}",
+      "other": {
+        "title": "Using another wallet?",
+        "description": "Any wallet that lets you add a custom EVM network works the same way."
+      }
+    },
     "runClient": {
       "eyebrow": "Run your own Parallax client",
-      "description": "For optimal privacy we recommend that you run your own Parallax client for wallet interactions.",
+      "description": "A wallet connected to a public RPC tells that server your addresses and your IP address. For privacy, run your own client with its RPC enabled (--http) and point your wallet at http://localhost:8545.",
       "download": "Download Parallax Client",
-      "setupGuide": "Setup Guide"
+      "setupGuide": "Setup guide"
     }
   },
   "exchanges": {
@@ -1473,104 +1706,287 @@
     "common": {
       "readMore": "Read more"
     },
-    "beginnerGuides": {
-      "title": "Beginner Guides",
-      "subtitle": "Explore the user-friendly guides on how to run a Parallax node, connect wallets, and start mining.",
-      "guides": [
-        {
-          "title": "Run a Parallax node",
-          "description": "Step-by-step guides on downloading and running the Parallax client on your machine. Learn how to connect MetaMask to your local node so you can create addresses, manage your LAX, and interact with the network directly."
-        },
-        {
-          "title": "Wallets",
-          "description": "Learn how to set up and use wallets on Parallax. These guides cover creating and managing accounts, connecting MetaMask, sending and receiving LAX, verifying transactions, and keeping your wallet safe."
-        },
-        {
-          "title": "Mining",
-          "description": "Learn how to mine LAX with our beginner guides. Get started with the built-in CPU miner, set up GPU mining with Hashwarp or SRBMiner-Multi, and join a mining pool to combine your hashpower with others for more consistent rewards."
-        }
-      ]
-    },
     "branding": {
       "title": "Parallax Branding",
-      "subtitle": "Download official Parallax logos for use in media, presentations, and integrations.",
+      "subtitle": "Official logos, colors and a few rules for using them in media, presentations and integrations.",
+      "logosSection": {
+        "eyebrow": "Logo",
+        "heading": "Download the mark",
+        "subtitle": "SVG for anything that scales, PNG where SVG isn't accepted. Every file is the same mark; pick the one that fits the background."
+      },
       "logos": [
         {
-          "name": "Parallax Logo - Square"
+          "name": "Square",
+          "use": "Gradient mark on a black tile. Works on any background."
         },
         {
-          "name": "Parallax Logo - Square White"
+          "name": "Square, white",
+          "use": "White mark on a black tile, for one-color printing and monochrome layouts."
         },
         {
-          "name": "Parallax Logo - Rounded"
+          "name": "Rounded",
+          "use": "Gradient mark on a black circle, for avatars, app icons and token lists."
         },
         {
-          "name": "Parallax Logo - Rounded White"
+          "name": "Rounded, white",
+          "use": "White mark on a black circle, the one-color version of the avatar."
         },
         {
-          "name": "Parallax Logo - Transparent"
+          "name": "Transparent",
+          "use": "Gradient mark with no background. Use it on black or very dark backgrounds only."
         }
-      ]
+      ],
+      "colorsSection": {
+        "eyebrow": "Color",
+        "heading": "One gradient, then black and white",
+        "subtitle": "The mark's gradient runs from green to blue. Everything around it is black and white."
+      },
+      "colors": {
+        "green": {
+          "name": "Parallax Green",
+          "role": "Gradient start"
+        },
+        "blue": {
+          "name": "Parallax Blue",
+          "role": "Gradient end"
+        },
+        "black": {
+          "name": "Black",
+          "role": "Ground"
+        },
+        "white": {
+          "name": "White",
+          "role": "Type"
+        }
+      },
+      "gradient": {
+        "label": "Logo gradient",
+        "note": "In the mark, green sits at the top left and blue at the bottom right."
+      },
+      "copy": "Copy",
+      "copied": "Copied",
+      "usageSection": {
+        "eyebrow": "Usage",
+        "heading": "A few rules",
+        "subtitle": "Short enough to follow. If in doubt, use the square logo on its own."
+      },
+      "usage": {
+        "space": {
+          "title": "Give it room",
+          "description": "Keep clear space around the mark of at least a quarter of its width. Don't crowd it with text or other logos."
+        },
+        "recolor": {
+          "title": "Don't recolor it",
+          "description": "Use the green-to-blue gradient or plain white. No other colors, gradients, outlines or effects."
+        },
+        "stretch": {
+          "title": "Don't stretch or rotate it",
+          "description": "Scale it proportionally and keep it upright. Don't redraw, crop or rearrange its parts."
+        },
+        "contrast": {
+          "title": "Light and dark backgrounds",
+          "description": "The gradient mark is drawn for dark grounds. On white or busy backgrounds, use a version with its black tile or circle."
+        },
+        "name": {
+          "title": "The name",
+          "description": "Write Parallax with a capital P. The currency is LAX, in capitals."
+        }
+      },
+      "dont": {
+        "label": "Don't",
+        "stretched": "Stretched",
+        "recolored": "Recolored",
+        "rotated": "Rotated",
+        "lowContrast": "Gradient mark on white"
+      }
     },
     "community": {
-      "title": "Parallax Community",
-      "subtitle": "Neutral, open, and built by everyone. The protocol's rules do not change by popular demand — everything around them is yours to build.",
-      "officialChannelsHeading": "Official Channels",
-      "communityChannelsHeading": "Community Channels",
-      "officialChannels": [
-        {
-          "name": "@prlxchain",
-          "description": "Follow for updates and announcements."
-        },
-        {
-          "name": "BitcoinTalk",
-          "description": "Engage with our BitcoinTalk thread."
-        },
-        {
-          "name": "GitHub",
-          "description": "Code, issues, and development."
+      "title": "Get involved",
+      "subtitle": "No foundation, no company, no CEO. Parallax is kept alive by the people who run nodes, mine blocks, write code and explain it to others.",
+      "ctaContribute": "Ways to contribute",
+      "ctaSupport": "Donate",
+      "channels": {
+        "eyebrow": "Channels",
+        "heading": "Where the conversation happens",
+        "subtitle": "Official channels are run by the project: announcements, the BitcoinTalk thread and the code. Community channels are run by people who use Parallax.",
+        "officialLabel": "Official",
+        "communityLabel": "Community",
+        "official": [
+          {
+            "name": "X",
+            "handle": "@prlxchain",
+            "description": "Announcements and updates."
+          },
+          {
+            "name": "BitcoinTalk",
+            "handle": "bitcointalk.org",
+            "description": "The original announcement thread and long-form discussion."
+          },
+          {
+            "name": "GitHub",
+            "handle": "github.com/ParallaxProtocol",
+            "description": "Code, issues, releases and pull requests."
+          }
+        ],
+        "community": [
+          {
+            "name": "Telegram",
+            "handle": "t.me/parallaxchain",
+            "description": "Live chat. The fastest place to get help."
+          },
+          {
+            "name": "Reddit",
+            "handle": "r/ParallaxProtocol",
+            "description": "Questions, guides and longer threads."
+          },
+          {
+            "name": "Discord",
+            "handle": "discord.gg/85SvRxWEja",
+            "description": "Chat with other people who use Parallax."
+          }
+        ]
+      },
+      "contribute": {
+        "eyebrow": "Contribute",
+        "heading": "The rules are fixed. Everything else is yours to build.",
+        "subtitle": "The protocol's rules do not change by popular demand — that is what makes building on it worthwhile. The client, tools, docs, apps and education are shaped by whoever does the work.",
+        "groups": {
+          "network": {
+            "title": "Secure the network",
+            "description": "Every node checks every block for itself. More nodes and more miners, in more places, make Parallax harder to stop.",
+            "items": {
+              "node": {
+                "title": "Run a full node",
+                "description": "Download parallaxd and start it. It syncs mainnet and verifies every block from genesis. Open port 32110 TCP/UDP in your router and firewall so other nodes can connect to you — a node that accepts inbound peers helps the network more than one that only dials out.",
+                "meta": [
+                  "Port 32110 TCP/UDP",
+                  "Verifies from genesis"
+                ],
+                "cta": "Get the client",
+                "portLabel": "peer-to-peer"
+              },
+              "mine": {
+                "title": "Mine LAX",
+                "description": "Blocks are found with XHash, a GPU proof of work. Use Hashwarp, the official miner, or SRBMiner-Multi — ethminer and other legacy Ethash miners will not work. Every transaction fee goes to the miner who finds the block.",
+                "meta": [
+                  "XHash",
+                  "Hashwarp",
+                  "SRBMiner-Multi"
+                ],
+                "cta": "Start mining"
+              },
+              "bootnode": {
+                "title": "Run a bootnode",
+                "description": "Bootnodes introduce new nodes to their first peers. A good one is always on, has a stable public IP and keeps port 32110 TCP/UDP open. Share its enode address (admin.nodeInfo in the console) so others can pass it to --bootnodes.",
+                "meta": [
+                  "Stable public IP",
+                  "Port 32110 TCP/UDP",
+                  "--bootnodes"
+                ],
+                "cta": "Connecting to peers"
+              },
+              "rpc": {
+                "title": "Run a public RPC",
+                "description": "Wallets and apps need an endpoint to talk to. Start the node with --http, expose only the eth, net and web3 namespaces, put it behind a reverse proxy with rate limits, and never keep an unlocked account on it.",
+                "meta": [
+                  "--http",
+                  "eth, net, web3"
+                ],
+                "cta": "JSON-RPC server docs"
+              }
+            }
+          },
+          "build": {
+            "title": "Build",
+            "description": "Parallax runs the EVM through Paris, with Ethereum-format addresses. The tools you already use work.",
+            "items": {
+              "evm": {
+                "title": "Build on the EVM",
+                "description": "Deploy with Solidity, Hardhat, Foundry and MetaMask against chain ID 2110 and https://rpc.parallaxprotocol.org. Pin the compiler's EVM version to paris — Solidity 0.8.20+ emits PUSH0 by default. There is no EIP-1559: set a legacy gas price.",
+                "meta": [
+                  "Chain ID 2110",
+                  "EVM: Paris",
+                  "Legacy gas price"
+                ],
+                "cta": "Parallax for developers",
+                "ctaDocs": "Documentation"
+              },
+              "client": {
+                "title": "Contribute to the client",
+                "description": "The node, the miner and the tooling are developed in the open. Pick an issue, open a pull request, or review someone else's. Contributions are judged on correctness, not credentials.",
+                "reposLabel": "Repositories",
+                "cta": "ParallaxProtocol on GitHub",
+                "repos": [
+                  {
+                    "name": "parallax",
+                    "description": "Reference client, Go"
+                  },
+                  {
+                    "name": "hashwarp",
+                    "description": "Official XHash GPU miner"
+                  },
+                  {
+                    "name": "xhash",
+                    "description": "XHash proof of work, C/C++"
+                  },
+                  {
+                    "name": "parallax-gui",
+                    "description": "Desktop wallet"
+                  },
+                  {
+                    "name": "parallax-mcp",
+                    "description": "Read-only MCP server for AI agents"
+                  }
+                ]
+              },
+              "docs": {
+                "title": "Improve the docs",
+                "description": "docs.parallaxprotocol.org is built from a public repository. Fix what is wrong or missing, write up something you had to figure out yourself, or rewrite a page that confused you.",
+                "meta": [
+                  "Markdown",
+                  "Pull requests welcome"
+                ],
+                "cta": "parallax-docs on GitHub"
+              }
+            }
+          },
+          "word": {
+            "title": "Spread the word",
+            "description": "Most people find Parallax because someone explained it to them.",
+            "items": {
+              "use": {
+                "title": "Use it",
+                "description": "The simplest support is to treat LAX as money: hold it in a wallet you control, send it, accept it.",
+                "cta": "Getting started"
+              },
+              "spread": {
+                "title": "Explain it",
+                "description": "Write posts, make videos, answer questions on BitcoinTalk and Reddit, help newcomers in Telegram. Say plainly what Parallax is and what it is not. Logos and brand assets are on the branding page.",
+                "cta": "Brand assets"
+              }
+            }
+          }
         }
-      ],
-      "communityChannels": [
-        {
-          "name": "Telegram",
-          "description": "Chat with the community on our TG."
+      },
+      "support": {
+        "eyebrow": "Support",
+        "heading": "Fund the work directly",
+        "intro": "Parallax has no VC funding, no premine and no company behind it. Donations keep the website online, pay for public infrastructure, and fund work on the client and tools.",
+        "btc": {
+          "title": "Bitcoin",
+          "network": "BTC · native SegWit"
         },
-        {
-          "name": "r/ParallaxProtocol",
-          "description": "Join our Reddit community."
+        "evm": {
+          "title": "EVM address",
+          "network": "LAX or any token on an EVM network"
         },
-        {
-          "name": "Discord",
-          "description": "Engage with our Discord channel."
-        }
-      ],
-      "topics": [
-        {
-          "title": "Open & Neutral",
-          "description": "Parallax is not owned by anyone. No foundation, no company, no CEO, no privileged allocations—just sound money and open participation."
-        },
-        {
-          "title": "Join the Conversation",
-          "description": "Discuss ideas, ask questions, and help others. The ecosystem — tooling, docs, apps, education — is shaped by whoever shows up. The protocol itself is the part no one's voice can bend; that is what makes building on it worthwhile."
-        },
-        {
-          "title": "Contribute Code",
-          "description": "Develop the protocol, build dApps, or improve documentation. All skill levels welcome—every contribution matters."
-        },
-        {
-          "title": "Run a Node or Mine",
-          "description": "Help secure the network by running a node or mining with commodity hardware. Decentralization starts with you."
-        },
-        {
-          "title": "Grow the Ecosystem",
-          "description": "Share Parallax, educate others, and help build a fair, permissionless financial system."
-        },
-        {
-          "title": "Learn & Educate",
-          "description": "Explore the whitepaper, join workshops, or create educational content. Knowledge empowers the community."
-        }
-      ]
+        "copy": "Copy address",
+        "copied": "Copied",
+        "checkNote": "Paste, then compare the first and last characters with the address shown here before you send.",
+        "patreonIntro": "Prefer not to use crypto?",
+        "patreonIntroLine2": "Support Parallax on Patreon with a card or other traditional payment methods.",
+        "patreonCta": "Support on Patreon"
+      }
     },
     "networkAtlas": {
       "title": "Network Atlas",
@@ -1604,48 +2020,104 @@
       }
     },
     "parallaxClient": {
-      "title": "Parallax Client",
-      "subtitle": "Download and run the official Parallax node software. Help secure the network and participate in consensus.",
-      "decentralized": {
-        "heading": "Decentralized",
-        "body": "It is these users who keep Parallax decentralized. They individually run their own Parallax full nodes, and each of those full nodes separately follows the exact same rules to decide which block chain is valid."
+      "title": "Run a Parallax node",
+      "subtitle": "The Parallax Client is the reference node software. Run parallaxd and check every block against Parallax's rules yourself, on Linux, macOS, Windows or in Docker.",
+      "header": {
+        "setupGuide": "Setup guide",
+        "walletPrompt": "Want a desktop app?",
+        "walletLink": "Parallax Wallet runs a full node too"
       },
-      "noVoting": {
-        "heading": "No voting",
-        "body": "There's no voting or other corruptible process involved: there's just individual software following identical rules—\"math\"—to evaluate identical blocks and coming to identical conclusions about which block chain is valid."
+      "fullNode": {
+        "eyebrow": "Full node",
+        "heading": "What a full node does",
+        "subtitle": "A full node downloads every block and checks every transaction against the rules itself. It trusts no one, miners included.",
+        "decentralized": {
+          "heading": "Decentralized",
+          "body": "Node operators keep Parallax decentralized. They individually run their own Parallax full nodes, and each of those full nodes separately follows the exact same rules to decide which block chain is valid."
+        },
+        "noVoting": {
+          "heading": "No voting",
+          "body": "There's no voting or other corruptible process involved: there's just individual software following identical rules—\"math\"—to evaluate identical blocks and coming to identical conclusions about which block chain is valid."
+        },
+        "blockquote": "This shared agreement (called consensus) allows people like you to only accept valid transactions, enforcing Parallax's rules against even the most powerful miners."
       },
-      "blockquote": "This shared agreement (called consensus) allows people like you to only accept valid transactions, enforcing Parallax's rules against even the most powerful miners.",
-      "features": [
-        {
-          "title": "Security & Privacy",
-          "description": "The Parallax Client is designed for robust security and privacy, using cryptographic signatures and decentralized consensus."
-        },
-        {
-          "title": "Full Node",
-          "description": "Run a full node to validate transactions, mine blocks, and help secure the Parallax network."
-        },
-        {
-          "title": "Open Source",
-          "description": "The client is fully open source. Review, audit, and contribute to the codebase on GitHub."
+      "why": {
+        "eyebrow": "Why run one",
+        "heading": "Why run your own node",
+        "items": {
+          "verify": {
+            "title": "Verify, don't trust",
+            "description": "Your node checks every block, signature and proof of work against the rules, the 21,000,000 LAX cap among them. A wallet pointed at it sees the chain as it is, not as a server reports it."
+          },
+          "privacy": {
+            "title": "Keep your lookups private",
+            "description": "A public RPC sees which addresses you ask about. Point your wallet at your own node and those questions never leave your computer."
+          },
+          "network": {
+            "title": "Strengthen the network",
+            "description": "Every independent node is one more copy of the rules that a bad block has to get past. Open port 32110 (TCP and UDP) and your node also serves the chain to new peers."
+          },
+          "build": {
+            "title": "Build on it",
+            "description": "parallaxd serves JSON-RPC over HTTP, WebSocket and IPC for your own apps and scripts. Keep it on your machine or network; never expose an unauthenticated RPC port to the internet."
+          }
         }
-      ],
+      },
+      "binaries": {
+        "eyebrow": "In the download",
+        "heading": "Four programs in every archive",
+        "subtitle": "Every release archive holds the same command-line tools. Each does one job.",
+        "items": {
+          "parallaxd": "The full-node daemon. Runs a full or archive node and serves JSON-RPC over HTTP, WebSocket and IPC.",
+          "parallax-cli": "The command-line RPC client, with short commands like info, peers, balance and sendraw. It finds your node's IPC socket on its own.",
+          "parallax-wallet": "An offline wallet tool: create, list and import accounts, and sign messages and transactions. It never talks to a running node.",
+          "parallax": "A multi-call wrapper: parallax node, parallax rpc and parallax wallet run the three above."
+        },
+        "hardware": {
+          "heading": "Hardware",
+          "minimum": "Minimum",
+          "recommended": "Recommended",
+          "cpu": "CPU",
+          "ram": "Memory",
+          "storage": "Storage",
+          "network": "Network",
+          "cpuMin": "1 core",
+          "cpuRec": "2+ cores",
+          "ramMin": "2 GB",
+          "ramRec": "4+ GB",
+          "networkMin": "1 Mbps",
+          "networkRec": "10+ Mbps",
+          "storageMin": "50 GB SSD",
+          "storageRec": "100 GB SSD"
+        }
+      },
       "download": {
-        "heading": "Download Parallax Client",
-        "subtitle": "Two ways to run a Parallax full node — pick whichever fits how you work. Both connect to the same network.",
-        "recommended": "Recommended",
-        "advanced": "Advanced",
-        "desktopTitle": "Desktop App",
-        "desktopDescription": "A graphical interface for running a full node. The easiest way to participate — install, launch, and watch the chain sync. No terminal required.",
-        "cliTitle": "Command-Line Client",
-        "cliDescription": "The terminal binary for developers, miners, and operators running headless servers. Configurable, scriptable, and ideal for automation.",
-        "cliSetupGuide": "CLI setup guide",
-        "cliOnGithub": "CLI on GitHub",
-        "desktopOnGithub": "Desktop on GitHub"
+        "eyebrow": "Download",
+        "heading": "Download the Parallax Client",
+        "subtitle": "Prebuilt archives from the open-source repository, published with SHA-256 checksums.",
+        "platforms": {
+          "linux": "x86_64, ARM64, ARMv7, x86",
+          "macos": "Apple silicon, Intel",
+          "windows": "x64, x86"
+        },
+        "cliSetupGuide": "Setup guide",
+        "cliOnGithub": "Source on GitHub",
+        "docker": {
+          "heading": "Or run it in Docker",
+          "body": "Multi-arch images (amd64 and arm64) are published to Docker Hub with every release. The image runs as an unprivileged user and keeps its state in the volume you mount.",
+          "note": "Stop it with a 60-second timeout so the database shuts down cleanly."
+        }
+      },
+      "walletCta": {
+        "eyebrow": "Parallax Wallet",
+        "heading": "Want a desktop app?",
+        "body": "Parallax Wallet runs a full node too, with a wallet, hardware and offline signing, and an AI assistant built in.",
+        "cta": "Explore Parallax Wallet"
       },
       "quickStart": {
-        "heading": "CLI Quick Start",
+        "heading": "Quick start",
         "detected": "Detected",
-        "intro": "For the command-line client. Three steps get you connected to the network — no configuration required. Desktop App users can skip this section: just install and launch.",
+        "intro": "Three steps from download to a syncing node. No configuration required.",
         "step1Label": "01 / EXTRACT",
         "step2Label": "02 / RUN",
         "step3Label": "03 / SYNC",
@@ -1680,10 +2152,8 @@
         "copyCommand": "Copy command"
       },
       "releases": {
-        "heading": "Recent Releases",
-        "intro": "Recent versions of the Parallax client. Always prefer the latest release unless you have a specific reason to run an older build.",
-        "desktop": "Desktop",
-        "cli": "CLI",
+        "heading": "Recent releases",
+        "intro": "Recent versions of the Parallax Client. Prefer the latest release unless you have a reason to run an older build.",
         "loading": "Loading…",
         "noReleases": "No releases found.",
         "columnVersion": "Version",
@@ -1697,28 +2167,6 @@
         "view": "View",
         "viewAllReleases": "View all releases"
       }
-    },
-    "technicalDocumentation": {
-      "title": "Technical Documentation",
-      "subtitle": "Explore the Parallax protocol, architecture, APIs, and developer guides.",
-      "docs": [
-        {
-          "title": "Foundational Topics",
-          "description": "Explore the core building blocks of Parallax: an introduction to the protocol and LAX, the basics of dapps, the shift from Web2 to Web3, and the mechanics of blocks, transactions, and accounts. Learn how the Parallax Virtual Machine works, how gas and fees are calculated, the role of nodes and clients, and the consensus mechanisms that secure the network."
-        },
-        {
-          "title": "Parallax Stack",
-          "description": "Dive into the Parallax developer stack: learn how smart contracts are built and deployed, explore development networks and frameworks, interact with Parallax client APIs, and manage storage. This section also covers IDE setup and best practices to help you build, test, and scale dapps on Parallax."
-        },
-        {
-          "title": "Advanced",
-          "description": "Go beyond the basics with in-depth technical topics: cross-chain bridges, standards that guide interoperability, oracle integrations, the networking layer that powers peer-to-peer communication, and the core data structures and encoding formats that define how information flows through Parallax."
-        },
-        {
-          "title": "Parallax Client",
-          "description": "Learn how to run, configure, and interact with the Parallax client. This section covers getting started, core fundamentals, developer tools, monitoring, and FAQs — everything you need to operate a secure and reliable Parallax node."
-        }
-      ]
     }
   },
   "blog": {
@@ -1736,7 +2184,9 @@
     "newerPost": "Newer post",
     "rss": "RSS feed",
     "taggedWith": "Tagged: {tag}",
-    "taggedSubtitle": "{count, plural, =0 {No posts} one {# post} other {# posts}}"
+    "taggedSubtitle": "{count, plural, =0 {No posts} one {# post} other {# posts}}",
+    "morePosts": "More posts",
+    "allPosts": "All posts"
   },
   "privacy": {
     "title": "Privacy",
@@ -1760,6 +2210,316 @@
       "contact": {
         "title": "Questions",
         "body": "If you have questions about this notice, reach out through any of the <link>community channels</link>."
+      }
+    }
+  },
+  "parallaxWallet": {
+    "hero": {
+      "eyebrow": "Parallax Wallet",
+      "badge": "Open source",
+      "title": "Your own node and your own keys, in one app",
+      "subtitle": "Parallax Wallet runs a complete Parallax node, keeps your keys sealed under one password, signs on a Ledger, a Trezor or an air-gapped computer, and lets an AI assistant help without ever touching a key.",
+      "platforms": "Linux, macOS and Windows",
+      "source": "View the source"
+    },
+    "node": {
+      "eyebrow": "Full node",
+      "heading": "A full node, built in",
+      "subtitle": "The app runs a complete Parallax node inside its own process. No separate install, no sidecar, and no server between you and the chain.",
+      "points": {
+        "own": {
+          "title": "Balances from your own chain",
+          "description": "Balances, history and fees come from your own copy of the chain, checked block by block, not from someone else's server."
+        },
+        "history": {
+          "title": "Every transaction, indexed on your disk",
+          "description": "The app keeps its own index of the chain, so an account's whole history loads in a few lookups, and an account you import has its history at once, with no rescan."
+        },
+        "network": {
+          "title": "The network at a glance",
+          "description": "A block clock against the 10-minute target, sync progress, the latest blocks, your connected peers and the mempool."
+        },
+        "inbound": {
+          "title": "It helps the network",
+          "description": "By default the node accepts connections from other peers on port 32110 and maps it on your router by UPnP or NAT-PMP. Prefer outbound only? It's one switch."
+        }
+      },
+      "diagram": {
+        "process": "Parallax Wallet · one process",
+        "network": "Parallax network",
+        "nodeTitle": "Full node",
+        "nodeMeta": "P2P on port 32110",
+        "walletTitle": "Wallet",
+        "walletMeta": "Keystore and sealed files",
+        "historyTitle": "History index",
+        "historyMeta": "Every address, on disk",
+        "assistantTitle": "Assistant server",
+        "assistantMeta": "127.0.0.1:8549",
+        "rpc": "Local HTTP-RPC on 127.0.0.1, for your own tools. Never exposed to the network, and the wallet doesn't need it."
+      }
+    },
+    "security": {
+      "eyebrow": "Security",
+      "heading": "Sealed by default",
+      "subtitle": "Built on the node's own key management and established libraries, not new cryptography.",
+      "items": {
+        "password": {
+          "title": "One password",
+          "description": "Every key and recovery phrase is encrypted with your wallet password. Unlock once; the wallet locks itself after 15 idle minutes by default, and whenever the computer sleeps."
+        },
+        "keystore": {
+          "title": "Standard keystore files",
+          "description": "One Web3 Secret Storage file per key (scrypt, AES-128-CTR), the format parallaxd and the parallax-wallet tool use. Kept apart from the chain data and never attached to the node, so nothing that connects to its RPC can use them."
+        },
+        "sealed": {
+          "title": "Everything else, sealed",
+          "description": "Account names, contacts, watch-only accounts, signing records and pending sends are sealed with XChaCha20-Poly1305, each file bound to its name. A locked wallet doesn't even reveal how many accounts it holds."
+        },
+        "moment": {
+          "title": "A key only for the moment",
+          "description": "A key is decrypted for the one action that needs it, then wiped. While the wallet is unlocked, the password is held sealed in memory kept out of swap and core dumps."
+        },
+        "confirm": {
+          "title": "The dangerous steps ask again",
+          "description": "Revealing a recovery phrase, saving a backup, removing a key and changing the password always take the password typed again. A new phrase is confirmed by retyping three of its words."
+        },
+        "local": {
+          "title": "Crash reports stay on your disk",
+          "description": "Crash reports are written to your own config folder and never sent anywhere. Fonts ship with the app, so it makes no third-party requests to draw itself."
+        }
+      },
+      "platform": {
+        "heading": "Memory protection, by platform",
+        "columnProtection": "Protection",
+        "rows": {
+          "guarded": "The password and wallet key are held in locked, guarded memory while the wallet is unlocked",
+          "dumps": "No core dump is written if the app crashes",
+          "attach": "Other programs running as you can't read the app's memory",
+          "erase": "Memory used while signing is wiped afterwards"
+        },
+        "yes": "Yes",
+        "no": "No",
+        "notApplicable": "Not applicable",
+        "hardenedRuntime": "Hardened runtime",
+        "linuxErase": "x86_64, ARM64",
+        "note": "Windows has nothing like Linux's non-dumpable flag. There, your keys are protected by the encryption and the locked memory above."
+      }
+    },
+    "signing": {
+      "eyebrow": "Cold signing",
+      "heading": "Keys that never touch this computer",
+      "subtitle": "Keep a key on a hardware wallet, or on a computer that never goes online. The app prepares the transaction; the key signs where it lives.",
+      "hardware": {
+        "label": "Hardware wallets",
+        "title": "Ledger and Trezor",
+        "description": "Accounts whose keys stay on the device. Every send, signed message and assistant request is confirmed on the device's own screen, with no wallet password.",
+        "points": [
+          "Bring accounts in from Settings: the app finds them along the standard and Ledger Live paths.",
+          "A replacement restored from the same recovery phrase signs too. A device holding a different wallet is caught before it's asked to sign.",
+          "Check a receiving address on the device's screen.",
+          "On Linux, the app installs the USB rules the devices need."
+        ]
+      },
+      "offline": {
+        "label": "Air-gapped",
+        "title": "Offline signing, by QR code or file",
+        "description": "Run Parallax Wallet as an offline signer on a computer that never connects: its node never starts and it never checks for updates. Your everyday wallet follows the same accounts as watch-only.",
+        "steps": {
+          "prepare": {
+            "title": "Prepare",
+            "description": "The online wallet builds a signing request with the nonce, fee and gas only its node knows."
+          },
+          "sign": {
+            "title": "Sign",
+            "description": "The offline signer scans the QR code or opens the file, shows exactly what would be signed, and signs. A fee cap, 1 LAX by default, refuses anything above it."
+          },
+          "broadcast": {
+            "title": "Broadcast",
+            "description": "The signed transaction comes back the same way and is checked against the request before it's broadcast."
+          }
+        },
+        "note": "Messages can be signed offline too. The request format is shared with the parallax-wallet command-line tool."
+      }
+    },
+    "assistant": {
+      "eyebrow": "AI assistant",
+      "heading": "An assistant that never touches a key",
+      "subtitle": "Parallax Wallet runs its own MCP server, so Claude or any MCP client can read the chain through your node and, as far as you allow, help with your wallet.",
+      "points": {
+        "permissions": {
+          "title": "You decide what it may do",
+          "description": "Every feature is set to Allow, Ask or Block: node status and logs, your accounts and activity, contacts, starting or stopping the node, settings, new accounts and sends. Ask is the default for nearly all of them."
+        },
+        "sends": {
+          "title": "Every send approved by you",
+          "description": "An assistant can prepare a send. It goes only after you review it in the app and enter your wallet password, or confirm it on your hardware wallet."
+        },
+        "local": {
+          "title": "Answered by your own node",
+          "description": "Chain data comes from your node, not a public RPC. The server listens on 127.0.0.1 only, needs its access token, and refuses requests from web pages. The public explorer and status page stay off unless you turn them on."
+        },
+        "lock": {
+          "title": "It can lock, never unlock",
+          "description": "An assistant can lock the app, as its lock button does. Only you can unlock it, and while it's locked the assistant can do nothing."
+        }
+      },
+      "permissionsPanel": {
+        "label": "Permissions · defaults",
+        "allow": "Allow",
+        "ask": "Ask",
+        "block": "Block",
+        "rows": {
+          "nodeStatus": "Node status",
+          "wallet": "Accounts and activity",
+          "contacts": "Contacts",
+          "lockApp": "Lock the app",
+          "sendTransactions": "Send transactions"
+        }
+      },
+      "never": {
+        "heading": "No assistant can, whatever you allow",
+        "items": [
+          "See recovery phrases",
+          "Export, import or back up keys",
+          "Remove accounts, phrases or contacts",
+          "See or change the wallet password",
+          "Unlock the app",
+          "Sign or send without your approval",
+          "Open the node to the network",
+          "Change what assistants may do"
+        ]
+      },
+      "connect": {
+        "label": "Connect Claude Code",
+        "note": "Settings › AI assistants shows the address and your token, and a JSON config for any other MCP client."
+      }
+    },
+    "everyday": {
+      "eyebrow": "Everyday",
+      "heading": "Everything else a wallet should do",
+      "subtitle": "The daily work, done carefully.",
+      "items": {
+        "send": {
+          "title": "Send, with a full review",
+          "description": "The whole recipient address, the amount, the fee and the total before you sign. Your contacts and your own accounts are named. Speed up or cancel a send that's still waiting."
+        },
+        "receive": {
+          "title": "Receive with a QR code",
+          "description": "Your address and its QR code, which you can check on a hardware wallet's screen."
+        },
+        "history": {
+          "title": "Complete history",
+          "description": "Every transaction and mined block of every account. Search, filter by received, sent, mined or failed, jump to a date or a block, and export to CSV."
+        },
+        "contacts": {
+          "title": "Contacts",
+          "description": "Names for the addresses you pay, sealed like the rest. Each name and address is unique, so a look-alike entry can't hide behind a familiar one."
+        },
+        "messages": {
+          "title": "Sign and verify messages",
+          "description": "Prove you control an address with a standard EIP-191 signature, and check anyone else's."
+        },
+        "phrases": {
+          "title": "Several recovery phrases",
+          "description": "24 words by default, with an optional passphrase. Accounts follow MetaMask's derivation path, so the same words restore the same accounts there; imports also scan the Ledger Live and legacy paths."
+        },
+        "watchOnly": {
+          "title": "Watch-only accounts",
+          "description": "Follow any address's balance and history, or pair it with an offline signer to send from it."
+        },
+        "mining": {
+          "title": "Mining rewards",
+          "description": "Blocks you mined show in your history with their reward, their fees and when they can be spent."
+        },
+        "notifications": {
+          "title": "Notifications",
+          "description": "When LAX arrives, when a send confirms or fails, when a long sync finishes, and if the node stops because the disk is nearly full."
+        },
+        "updates": {
+          "title": "Verified updates",
+          "description": "The app checks for new releases and verifies each download's SHA-256 checksum before installing it. Background checks can be turned off."
+        },
+        "languages": {
+          "title": "Seven languages",
+          "description": "English, Deutsch, Français, Português (Brasil), Русский, 中文（新加坡） and 中文（繁體）."
+        },
+        "themes": {
+          "title": "Light and dark",
+          "description": "Follows your system, or pick one."
+        }
+      }
+    },
+    "upcoming": {
+      "eyebrow": "In development",
+      "heading": "What's being built",
+      "subtitle": "Not in the app yet. Both are being built for Parallax Wallet now.",
+      "badge": "In development",
+      "stealth": {
+        "title": "Stealth addresses",
+        "description": "Share one address publicly while every payment lands at a fresh one that outside observers can't link back to you."
+      },
+      "channels": {
+        "title": "Payment channels",
+        "description": "Instant LAX payments signed off-chain and carried end-to-end encrypted over Nostr relays, with no payment servers. They even work with no internet, in three QR scans."
+      }
+    },
+    "downloadSection": {
+      "eyebrow": "Download",
+      "heading": "Get Parallax Wallet",
+      "subtitle": "Free and open source, for Linux, macOS and Windows.",
+      "cliPrompt": "Prefer the command line?",
+      "cliDescription": "The Parallax Client is the node software for terminals and servers.",
+      "cliCta": "Parallax Client"
+    },
+    "download": {
+      "getIt": "Get Parallax Wallet",
+      "allPlatforms": "Linux, macOS and Windows",
+      "comingSoon": "Coming soon",
+      "comingSoonHint": "The first release is on its way. Builds will appear on this page.",
+      "soon": "Soon",
+      "latest": "Latest",
+      "yourSystem": "Your system",
+      "notInRelease": "Not in this release",
+      "notes": {
+        "macos": "A disk image for Apple silicon or Intel Macs, macOS 12 or newer.",
+        "windows": "For 64-bit Windows. Install it, or run the portable version without installing.",
+        "linux": "A single AppImage file. Make it executable and run it."
+      },
+      "kinds": {
+        "appimage": "AppImage",
+        "dmg": "Disk image (.dmg)",
+        "installer": "Installer (.exe)",
+        "portable": "Portable (.exe)"
+      },
+      "downloadAsset": "Download {name}",
+      "source": "Source on GitHub",
+      "releaseNotes": "Release notes",
+      "checksums": "SHA256SUMS.txt",
+      "watchReleases": "Follow releases on GitHub"
+    },
+    "shots": {
+      "overview": {
+        "alt": "Parallax Wallet's overview: an account's balance at the latest block, recent activity, and the built-in node synced with 9 peers"
+      },
+      "ledger": {
+        "alt": "A send waiting for confirmation on a Ledger, with the amount, recipient and fee to check on the device",
+        "caption": "Signing with a Ledger: the app shows exactly what the device will ask you to approve, and waits for it."
+      },
+      "assistantPermission": {
+        "alt": "An AI assistant asking to see the wallet's accounts, with Don't allow, Always allow and Allow once",
+        "caption": "An assistant asks before it sees anything. Allow it once, always, or not at all."
+      },
+      "assistantSend": {
+        "alt": "An AI assistant's request to send 100 LAX, reviewed in the app with the fee, the balance after, and the wallet password",
+        "caption": "A send an assistant prepares still needs your review and your password. It never sees either."
+      },
+      "sendReview": {
+        "alt": "The send review screen: amount, recipient, network fee and total before signing",
+        "caption": "Every send ends on a review of exactly what will be signed."
+      },
+      "history": {
+        "alt": "The full transaction history, grouped by day, with search and filters for received, sent, mined and failed",
+        "caption": "Your full history, indexed by your own node: search it, filter it, export it."
       }
     }
   }

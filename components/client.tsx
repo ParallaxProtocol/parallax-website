@@ -1,6 +1,6 @@
 'use client'
 import { Link } from "@/i18n/navigation"
-import { ArrowRight, CircleSlash, Hexagon } from "lucide-react"
+import { AppWindow, ArrowRight, CircleSlash, Hexagon } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { FaGithub } from "react-icons/fa"
 import ClientDownloadButton from "./client-download-button"
@@ -51,7 +51,8 @@ export default function Client() {
         </blockquote>
       </FadeIn>
 
-      {/* Download CTA panel */}
+      {/* Download CTA panel: the command-line node software, with the
+          desktop app one link away */}
       <FadeIn delay={0.2}>
         <div className="relative overflow-hidden rounded-2xl border border-stroke bg-card px-8 py-14 text-center sm:px-12 sm:py-20">
           <div aria-hidden className="aurora" />
@@ -61,26 +62,17 @@ export default function Client() {
               {t("runNode.description")}
             </p>
             <div className="flex flex-col items-center">
-              <ClientDownloadButton variant="gui" />
+              <ClientDownloadButton />
             </div>
             <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm text-muted-foreground">
-              <Link
-                href="/resources/parallax-client"
-                className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors"
-              >
-                {t("cli")}
-              </Link>
-              <Link
-                href="/resources/parallax-client"
-                className="hover:text-foreground transition-colors"
-              >
+              <Link href="/resources/parallax-client" className="transition-colors hover:text-foreground">
                 {t("quickStart")}
               </Link>
               <a
-                href="https://github.com/ParallaxProtocol"
+                href="https://github.com/ParallaxProtocol/parallax"
                 target="_blank"
                 rel="noopener"
-                className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors"
+                className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
               >
                 <FaGithub className="size-3.5" />
                 {t("github")}
@@ -88,6 +80,22 @@ export default function Client() {
             </div>
           </div>
         </div>
+      </FadeIn>
+
+      <FadeIn delay={0.25}>
+        <Link
+          href="/parallax-wallet"
+          className="group plate-lift mt-4 flex flex-col gap-4 rounded-2xl border border-stroke bg-card p-6 sm:flex-row sm:items-center sm:gap-6 sm:px-8"
+        >
+          <AppWindow className="size-7 shrink-0 text-brand" strokeWidth={1.5} aria-hidden />
+          <p className="text-base text-muted-foreground">
+            <span className="text-foreground">{t("wallet.prompt")}</span> {t("wallet.description")}
+          </p>
+          <span className="inline-flex shrink-0 items-center gap-2 text-[15px] font-medium text-foreground sm:ml-auto">
+            {t("wallet.cta")}
+            <ArrowRight className="size-4 text-brand transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
+          </span>
+        </Link>
       </FadeIn>
     </Section>
   )

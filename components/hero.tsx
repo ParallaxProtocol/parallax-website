@@ -86,7 +86,7 @@ export function Hero() {
           style={{ "--enter-delay": "0.6s" } as React.CSSProperties}
         >
           <Button size="xl" variant="brand" className="w-full sm:w-auto" asChild>
-            <Link href={"/participate/running-a-full-node"}>
+            <Link href={"/resources/parallax-client"}>
               {t("runNode")}
               <ArrowRight />
             </Link>

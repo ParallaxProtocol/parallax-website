@@ -20,13 +20,9 @@ const routes = [
   "/resources/community",
   "/resources/branding",
   "/resources/parallax-client",
-  "/resources/technical-documentation",
-  "/resources/beginner-guides",
+  "/parallax-wallet",
   "/resources/network-atlas",
-  "/participate/running-a-full-node",
   "/participate/mining",
-  "/participate/development",
-  "/participate/support-parallax",
   "/blog",
 ]
 

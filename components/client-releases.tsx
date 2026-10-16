@@ -1,24 +1,17 @@
 'use client'
 
-import { AppWindow, ChevronDown, ExternalLink, TerminalSquare } from "lucide-react";
+import { ChevronDown, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { FaGithub } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 
-const REPOS = {
-  cli: {
-    api: "https://api.github.com/repos/ParallaxProtocol/parallax/releases?per_page=10",
-    allReleases: "https://github.com/ParallaxProtocol/parallax/releases",
-  },
-  gui: {
-    api: "https://api.github.com/repos/ParallaxProtocol/parallax-gui/releases?per_page=10",
-    allReleases: "https://github.com/ParallaxProtocol/parallax-gui/releases",
-  },
-} as const;
+/* The command-line client's releases. Parallax Wallet's are on its own
+   page (wallet-app/). */
+const RELEASES_API = "https://api.github.com/repos/ParallaxProtocol/parallax/releases?per_page=10";
+const ALL_RELEASES = "https://github.com/ParallaxProtocol/parallax/releases";
 
 const MAX_RELEASES = 4;
 
@@ -74,10 +67,7 @@ function ReleaseTable({ releases, allReleasesUrl }: { releases: Release[]; allRe
           const binaryAssets = release.assets.filter(
             (a) =>
               a.name.endsWith(".tar.gz") ||
-              a.name.endsWith(".zip") ||
-              a.name.endsWith(".dmg") ||
-              a.name.endsWith(".AppImage") ||
-              a.name.endsWith(".exe"),
+              a.name.endsWith(".zip"),
           );
           const isLatestStable = releases.indexOf(release) === latestStableIndex;
           return (
@@ -153,26 +143,16 @@ function ReleaseTable({ releases, allReleasesUrl }: { releases: Release[]; allRe
 export default function ClientReleases() {
   const t = useTranslations("resources.parallaxClient.releases");
   const [open, setOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<"gui" | "cli">("gui");
-  const [cliReleases, setCliReleases] = useState<Release[] | null>(null);
-  const [guiReleases, setGuiReleases] = useState<Release[] | null>(null);
+  const [releases, setReleases] = useState<Release[] | null>(null);
 
   useEffect(() => {
-    const headers = { Accept: "application/vnd.github+json" };
-    fetch(REPOS.cli.api, { headers })
+    fetch(RELEASES_API, { headers: { Accept: "application/vnd.github+json" } })
       .then((r) => (r.ok ? (r.json() as Promise<Release[]>) : null))
       .catch(() => null)
-      .then(setCliReleases);
-    fetch(REPOS.gui.api, { headers })
-      .then((r) => (r.ok ? (r.json() as Promise<Release[]>) : null))
-      .catch(() => null)
-      .then(setGuiReleases);
+      .then((r) => setReleases(r ?? []));
   }, []);
 
-  const hasAny =
-    (cliReleases && cliReleases.length > 0) || (guiReleases && guiReleases.length > 0);
-
-  if (cliReleases !== null && guiReleases !== null && !hasAny) return null;
+  if (releases !== null && releases.length === 0) return null;
 
   return (
     <div className="mt-8">
@@ -198,72 +178,14 @@ export default function ClientReleases() {
             transition={{ duration: 0.25, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div>
-              <p className="mb-8 mt-10 max-w-2xl text-base text-muted-foreground sm:text-lg">
-                {t("intro")}
-              </p>
-
-              <div className="mb-8 flex w-fit gap-1 rounded-full border border-stroke bg-foreground/[0.04] p-1">
-                {/* The active plate is one shared element that glides between
-                    the two buttons (layoutId) instead of snapping. */}
-                <Button
-                  onClick={() => setActiveTab("gui")}
-                  variant="ghost"
-                  size="sm"
-                  aria-pressed={activeTab === "gui"}
-                  className={cn("relative h-9 px-4 hover:bg-transparent", activeTab === "gui" ? "text-background hover:text-background" : "text-muted-foreground hover:text-foreground")}
-                >
-                  {activeTab === "gui" && (
-                    <motion.span
-                      layoutId="releases-tab-plate"
-                      aria-hidden
-                      className="absolute inset-0 rounded-full bg-foreground"
-                      transition={{ type: "spring", stiffness: 500, damping: 40 }}
-                    />
-                  )}
-                  <span className="relative flex items-center gap-2">
-                    <AppWindow className="size-3.5" />
-                    {t("desktop")}
-                  </span>
-                </Button>
-                <Button
-                  onClick={() => setActiveTab("cli")}
-                  variant="ghost"
-                  size="sm"
-                  aria-pressed={activeTab === "cli"}
-                  className={cn("relative h-9 px-4 hover:bg-transparent", activeTab === "cli" ? "text-background hover:text-background" : "text-muted-foreground hover:text-foreground")}
-                >
-                  {activeTab === "cli" && (
-                    <motion.span
-                      layoutId="releases-tab-plate"
-                      aria-hidden
-                      className="absolute inset-0 rounded-full bg-foreground"
-                      transition={{ type: "spring", stiffness: 500, damping: 40 }}
-                    />
-                  )}
-                  <span className="relative flex items-center gap-2">
-                    <TerminalSquare className="size-3.5" />
-                    {t("cli")}
-                  </span>
-                </Button>
-              </div>
-
-              {activeTab === "gui" && (
-                guiReleases ? (
-                  <ReleaseTable releases={guiReleases} allReleasesUrl={REPOS.gui.allReleases} />
-                ) : (
-                  <p className="py-8 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">{t("loading")}</p>
-                )
-              )}
-
-              {activeTab === "cli" && (
-                cliReleases ? (
-                  <ReleaseTable releases={cliReleases} allReleasesUrl={REPOS.cli.allReleases} />
-                ) : (
-                  <p className="py-8 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">{t("loading")}</p>
-                )
-              )}
-            </div>
+            <p className="mb-8 mt-10 max-w-2xl text-base text-muted-foreground sm:text-lg">
+              {t("intro")}
+            </p>
+            {releases ? (
+              <ReleaseTable releases={releases} allReleasesUrl={ALL_RELEASES} />
+            ) : (
+              <p className="py-8 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">{t("loading")}</p>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

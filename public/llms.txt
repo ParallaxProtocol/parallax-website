@@ -52,15 +52,14 @@ Introduction:
 
 Using and running Parallax:
 
-- [Parallax client](https://parallaxprotocol.org/en/resources/parallax-client): Download page for both clients — the desktop app (GUI, Linux/Windows/macOS) and the CLI reference client for servers, miners, and technical operators.
-- [Running a full node](https://parallaxprotocol.org/en/participate/running-a-full-node): Why and how to run one.
+- [Get started](https://parallaxprotocol.org/en/introduction/getting-started): Pick a wallet, add the network, get LAX, and use it.
+- [Parallax Wallet](https://parallaxprotocol.org/en/parallax-wallet): The official desktop wallet for Linux, Windows and macOS: a full node built in, sealed key storage, hardware and offline signing, and its own MCP server for AI assistants.
+- [Run a node](https://parallaxprotocol.org/en/resources/parallax-client): The Parallax Client, the CLI reference node software for servers, miners, and operators: what a full node does, why run one, downloads and a quick start.
 - [Mining](https://parallaxprotocol.org/en/participate/mining): Pools, solo mining, miner software, and the reward schedule.
-- [Development](https://parallaxprotocol.org/en/participate/development): Building contracts and dApps on the Parallax EVM, and contributing to the protocol.
-- [Support Parallax](https://parallaxprotocol.org/en/participate/support-parallax): Ways to contribute beyond code.
+- [Get involved](https://parallaxprotocol.org/en/resources/community): Community channels, ways to contribute (nodes, mining, code, docs, bootnodes, public RPC), and donation addresses.
 - [Wallets](https://parallaxprotocol.org/en/wallets): Wallets that support the network.
 - [Exchanges](https://parallaxprotocol.org/en/exchanges): Where LAX is traded.
-- [Beginner guides](https://parallaxprotocol.org/en/resources/beginner-guides): Step-by-step guides for nodes, wallets, and mining.
-- [Technical documentation](https://parallaxprotocol.org/en/resources/technical-documentation): Entry point to the protocol, architecture, API, and developer docs.
+- [Documentation](https://docs.parallaxprotocol.org): Step-by-step guides for nodes, wallets, and mining, and the technical reference for the protocol, APIs and client.
 - [Network atlas](https://parallaxprotocol.org/en/resources/network-atlas): Live world map and country breakdown of reachable nodes.
 - [Branding](https://parallaxprotocol.org/en/resources/branding): Logos and brand assets for press, exchanges, and integrators.
 
@@ -68,7 +67,7 @@ Using and running Parallax:
 
 - [ParallaxProtocol on GitHub](https://github.com/ParallaxProtocol): Reference client, whitepaper, doctrine, and associated repositories. All code open source under LGPL-3.0.
 - [parallax reference client (CLI)](https://github.com/ParallaxProtocol/parallax): Go-based reference implementation of the Parallax full node — command-line only, intended for servers, miners, pools, and technical operators. Clean-room build; the EVM execution layer reuses portions of go-ethereum (LGPL-3.0), while consensus, XHash mining, the ASERT difficulty algorithm, and the monetary rules are original.
-- [parallax-gui (desktop client)](https://github.com/ParallaxProtocol/parallax-gui): Graphical desktop wallet/node for Linux, Windows, and macOS. Wraps the reference client so non-technical users can sync the blockchain and use Parallax without touching a terminal.
+- [parallax-gui (Parallax Wallet)](https://github.com/ParallaxProtocol/parallax-gui): Parallax Wallet, the desktop wallet for Linux, Windows, and macOS. Embeds a full node in-process so users can sync the chain and hold LAX without touching a terminal.
 
 ## Network
 

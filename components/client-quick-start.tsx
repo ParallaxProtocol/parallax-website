@@ -75,10 +75,10 @@ function CodeBlock({ children, copiedLabel, copyLabel }: { children: string; cop
   );
 }
 
-export default function ClientQuickStart() {
+export default function ClientQuickStart({ defaultOpen = false }: { defaultOpen?: boolean }) {
   const t = useTranslations("resources.parallaxClient.quickStart");
   const { platform, ready } = usePlatform();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpen);
 
   // Default to linux content during SSR / before detection resolves so the layout is stable.
   const os: Os = platform?.os ?? "linux";
@@ -126,7 +126,7 @@ export default function ClientQuickStart() {
     os === "darwin" ? (
       <>
         {t.rich("darwin.runBody", {
-          code: () => <code className="font-mono text-foreground">prlx</code>,
+          code: () => <code className="font-mono text-foreground">parallaxd</code>,
         })}
       </>
     ) : os === "linux" ? (
@@ -134,14 +134,14 @@ export default function ClientQuickStart() {
     ) : (
       <>
         {t.rich("windows.runBody", {
-          code: () => <code className="font-mono text-foreground">prlx.exe</code>,
+          code: () => <code className="font-mono text-foreground">parallaxd.exe</code>,
           moreInfo: () => <span className="text-foreground">{t("windows.moreInfo")}</span>,
         })}
       </>
     );
 
   return (
-    <div className="mt-16">
+    <div>
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}

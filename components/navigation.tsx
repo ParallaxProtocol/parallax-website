@@ -3,8 +3,35 @@
 import { Button } from "@/components/ui/button"
 import { Link, usePathname } from "@/i18n/navigation"
 import { cn } from "@/lib/utils"
+import {
+  ArrowUpRight,
+  BookOpen,
+  CircleHelp,
+  Code2,
+  Cpu,
+  FileText,
+  Globe2,
+  Heart,
+  Activity,
+  Landmark,
+  Layers,
+  Menu,
+  Moon,
+  Newspaper,
+  Pickaxe,
+  Rocket,
+  ScrollText,
+  Search,
+  ShieldCheck,
+  Smartphone,
+  Sun,
+  Wallet,
+  X,
+  Bitcoin,
+  Scale,
+  type LucideIcon,
+} from "lucide-react"
 import { motion } from "framer-motion"
-import { Menu, Moon, Sun, X } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useTheme } from "next-themes"
 import Image from "next/image"
@@ -20,58 +47,69 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "./ui/navigation-menu"
-import { Separator } from "./ui/separator"
 
-type SubItem = { name: string; href?: string; badge?: string }
-type NavItem = { name: string; href?: string; subItems?: SubItem[] }
+type NavLink = { key: string; href: string; icon: LucideIcon; external?: boolean }
+type NavMenu = { key: string; columns: 1 | 2; items: NavLink[] }
 
-function useNavItems(): NavItem[] {
-  const t = useTranslations("nav")
-  const tCommon = useTranslations("common")
-  const badgeNew = tCommon("new")
+// The five menus, mirrored by the footer. Order within a menu runs from the
+// most to the least common reason to open it.
+const menus: NavMenu[] = [
+  {
+    key: "learn",
+    columns: 2,
+    items: [
+      { key: "howItWorks", href: "/introduction/how-it-works", icon: Layers },
+      { key: "compare", href: "/compare", icon: Scale },
+      { key: "bitcoiners", href: "/introduction/parallax-for-bitcoiners", icon: Bitcoin },
+      { key: "developers", href: "/introduction/parallax-for-developers", icon: Code2 },
+      { key: "verify", href: "/introduction/verify", icon: ShieldCheck },
+      { key: "doctrine", href: "/introduction/doctrine", icon: ScrollText },
+      { key: "whitepaper", href: "/parallax.pdf", icon: FileText, external: true },
+      { key: "faq", href: "/faq", icon: CircleHelp },
+    ],
+  },
+  {
+    key: "use",
+    columns: 1,
+    items: [
+      { key: "gettingStarted", href: "/introduction/getting-started", icon: Rocket },
+      { key: "parallaxWallet", href: "/parallax-wallet", icon: Wallet },
+      { key: "wallets", href: "/wallets", icon: Smartphone },
+      { key: "exchanges", href: "/exchanges", icon: Landmark },
+    ],
+  },
+  {
+    key: "run",
+    columns: 1,
+    items: [
+      { key: "client", href: "/resources/parallax-client", icon: Cpu },
+      { key: "mining", href: "/participate/mining", icon: Pickaxe },
+    ],
+  },
+  {
+    key: "network",
+    columns: 1,
+    items: [
+      { key: "explorer", href: "https://explorer.parallaxprotocol.org", icon: Search, external: true },
+      { key: "status", href: "https://status.parallaxprotocol.org", icon: Activity, external: true },
+      { key: "atlas", href: "/resources/network-atlas", icon: Globe2 },
+      { key: "docs", href: "https://docs.parallaxprotocol.org", icon: BookOpen, external: true },
+    ],
+  },
+  {
+    key: "community",
+    columns: 1,
+    items: [
+      { key: "getInvolved", href: "/resources/community", icon: Heart },
+      { key: "blog", href: "/blog", icon: Newspaper },
+    ],
+  },
+]
 
-  return [
-    {
-      name: t("introduction"),
-      subItems: [
-        { name: t("introductionSub.doctrine"), href: "/introduction/doctrine" },
-        { name: t("introductionSub.howItWorks"), href: "/introduction/how-it-works" },
-        { name: t("introductionSub.compare"), href: "/compare" },
-        { name: t("introductionSub.bitcoiners"), href: "/introduction/parallax-for-bitcoiners" },
-        { name: t("introductionSub.developers"), href: "/introduction/parallax-for-developers" },
-        { name: t("introductionSub.verify"), href: "/introduction/verify" },
-        { name: t("introductionSub.whitepaper"), href: "/parallax.pdf" },
-        { name: t("introductionSub.gettingStarted"), href: "/introduction/getting-started" },
-      ],
-    },
-    {
-      name: t("resources"),
-      subItems: [
-        { name: t("resourcesSub.beginnerGuides"), href: "/resources/beginner-guides" },
-        { name: t("resourcesSub.technicalDocumentation"), href: "/resources/technical-documentation" },
-        { name: t("resourcesSub.parallaxClient"), href: "/resources/parallax-client" },
-        { name: t("resourcesSub.wallets"), href: "/wallets" },
-        { name: t("resourcesSub.exchanges"), href: "/exchanges" },
-        { name: t("resourcesSub.community"), href: "/resources/community" },
-        { name: t("resourcesSub.brandAssets"), href: "/resources/branding" },
-        { name: "###" },
-        { name: t("resourcesSub.blockExplorer"), href: "https://explorer.parallaxprotocol.org" },
-        { name: t("resourcesSub.networkAtlas"), href: "/resources/network-atlas" },
-        { name: t("resourcesSub.networkStatus"), href: "https://status.parallaxprotocol.org" },
-      ],
-    },
-    {
-      name: t("participate"),
-      subItems: [
-        { name: t("participateSub.supportParallax"), href: "/participate/support-parallax" },
-        { name: t("participateSub.runningAFullNode"), href: "/participate/running-a-full-node" },
-        { name: t("participateSub.mining"), href: "/participate/mining" },
-        { name: t("participateSub.development"), href: "/participate/development" },
-      ],
-    },
-    { name: t("blog"), href: "/blog" },
-    { name: t("faq"), href: "/faq" },
-  ]
+// Root-level static assets (the whitepaper PDF) and other sites bypass the
+// locale-prefixing i18n Link.
+function linkProps(item: NavLink) {
+  return item.external ? { href: item.href, target: "_blank", rel: "noopener" } : { href: item.href }
 }
 
 export function Navigation() {
@@ -81,7 +119,6 @@ export function Navigation() {
   const { resolvedTheme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const t = useTranslations("nav")
-  const navItems = useNavItems()
 
   useEffect(() => { setMounted(true) }, [])
 
@@ -134,59 +171,39 @@ export function Navigation() {
               alt="Parallax Logo"
               priority
             />
-            <span className="hidden lg:inline text-[30px] leading-none font-medium tracking-[-0.04em]">
+            <span className="hidden xl:inline text-[30px] leading-none font-medium tracking-[-0.04em]">
               Parallax
             </span>
           </Link>
         </div>
 
         {/* Desktop menu */}
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <NavigationMenu viewport={false} delayDuration={0}>
             <NavigationMenuList>
-              {navItems.map((item) =>
-                item.subItems ? (
-                  <NavigationMenuItem key={`desk_${item.name}`}>
-                    <NavigationMenuTrigger>{item.name}</NavigationMenuTrigger>
-                    <NavigationMenuContent className="min-w-[15rem]">
-                      {item.subItems.map((sub, i) => {
-                        if (sub.name === "###") {
-                          return (
-                            <Separator
-                              className="bg-hairline my-1.5"
-                              key={`desk_sub_${i}`}
-                            />
-                          )
-                        }
-
-                        return (
-                          <ListItem
-                            key={`desk_sub_${item.name}_${sub.name}`}
-                            href={sub.href ?? "#"}
-                            title={sub.name}
-                            badge={sub.badge}
-                          />
-                        )
-                      })}
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                ) : (
-                  <NavigationMenuItem key={`desk_${item.name}`}>
-                    <NavigationMenuLink asChild className="h-9 justify-center rounded-full px-3.5 text-[15px] text-foreground/80 hover:bg-transparent hover:text-foreground focus:bg-transparent">
-                      <Link href={item.href ?? "#"}>{item.name}</Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                )
-              )}
+              {menus.map((menu) => (
+                <NavigationMenuItem key={menu.key}>
+                  <NavigationMenuTrigger>{t(`menus.${menu.key}` as "menus.learn")}</NavigationMenuTrigger>
+                  <NavigationMenuContent className={cn("p-2", menu.columns === 2 ? "md:w-[40rem]" : "md:w-[22rem]")}>
+                    <ul className={cn("grid gap-0.5", menu.columns === 2 && "grid-cols-2")}>
+                      {menu.items.map((item) => (
+                        <li key={item.key}>
+                          <MenuItem item={item} title={t(`items.${item.key}.title` as "items.faq.title")} description={t(`items.${item.key}.description` as "items.faq.description")} />
+                        </li>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              ))}
             </NavigationMenuList>
-            <div className="flex items-center gap-2 ml-8">
+            <div className="flex items-center gap-2 ml-6">
               <Button variant="brand" size="sm" className="h-9 px-4" asChild>
                 <Link href={"/introduction/getting-started"}>
                   {t("getStarted")}
                 </Link>
               </Button>
               <Button variant="outline" size="icon" className="size-9" asChild>
-                <a href={'https://github.com/ParallaxProtocol/parallax'} target="_blank" rel="noopener">
+                <a href={'https://github.com/ParallaxProtocol/parallax'} target="_blank" rel="noopener" aria-label="GitHub">
                   <FaGithub />
                 </a>
               </Button>
@@ -206,146 +223,102 @@ export function Navigation() {
         </div>
 
         {/* Mobile menu button */}
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <Button
             variant="ghost"
-            size="sm"
+            size="icon"
             aria-expanded={isOpen}
             aria-controls="mobile-nav"
             onClick={() => setIsOpen((v) => !v)}
-            className="ml-4 inline-flex items-center justify-center"
+            className="ml-4"
           >
             {isOpen ? <X className="size-6" /> : <Menu className="size-6" />}
           </Button>
         </div>
       </div>
 
-      {/* Mobile Sheet via Portal */}
+      {/* Mobile sheet via portal */}
       {typeof window !== "undefined" && isOpen &&
         createPortal(
-          <>
-            <div
-              id="mobile-nav"
-              role="dialog"
-              aria-modal="true"
-              className="fixed inset-x-0 top-16 bottom-0 md:hidden z-50 bg-background overflow-y-auto overscroll-contain"
-              style={{ WebkitOverflowScrolling: "touch" }}
-            >
-              <div className="mx-auto pb-20 max-w-6xl px-4 sm:px-6 lg:px-8 py-3">
-                {navItems.map((item) =>
-                  item.subItems ? (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4 }}
-                      className="flex flex-col gap-0"
-                      key={`mob_${item.name}`}
-                    >
-                      <div className="mb-2">
-                        <div className="flex items-center gap-2 px-3 py-2 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-                          {item.name}
-                        </div>
-                        <div className="flex pl-4 flex-col">
-                          {item.subItems.map((sub, i) => {
-                            if (sub.name === "###") {
-                              return (
-                                <Separator
-                                  className="bg-hairline my-1.5 ml-2"
-                                  key={`desk_sub_${i}`}
-                                />
-                              )
-                            }
+          <div
+            id="mobile-nav"
+            role="dialog"
+            aria-modal="true"
+            className="fixed inset-x-0 top-16 bottom-0 lg:hidden z-50 bg-background overflow-y-auto overscroll-contain"
+            style={{ WebkitOverflowScrolling: "touch" }}
+          >
+            <div className="mx-auto max-w-2xl px-5 pt-4 pb-24">
+              {menus.map((menu, i) => (
+                <motion.section
+                  key={menu.key}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: i * 0.04 }}
+                  className="border-b border-hairline py-5"
+                >
+                  <p className="tag mb-3 px-3">{t(`menus.${menu.key}` as "menus.learn")}</p>
+                  <ul className="grid gap-0.5 sm:grid-cols-2">
+                    {menu.items.map((item) => {
+                      const Comp = item.external ? "a" : Link
+                      const active = !item.external && item.href === pathname
+                      return (
+                        <li key={item.key}>
+                          <Comp
+                            {...linkProps(item)}
+                            onClick={() => setIsOpen(false)}
+                            className={cn(
+                              "flex items-center gap-3 rounded-lg px-3 py-2.5 text-base text-foreground/85 transition-colors hover:bg-foreground/5 hover:text-foreground",
+                              active && "bg-foreground/5 text-foreground"
+                            )}
+                          >
+                            <item.icon className={cn("size-4 shrink-0", active ? "text-brand" : "text-muted-foreground")} strokeWidth={1.75} />
+                            {t(`items.${item.key}.title` as "items.faq.title")}
+                            {item.external && <ArrowUpRight className="ml-auto size-3.5 text-muted-foreground" />}
+                          </Comp>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </motion.section>
+              ))}
 
-                            return (
-                              <Link
-                                key={`mob_sub_${item.name}_${sub.name}`}
-                                href={sub.href ?? "#"}
-                                className={cn("ml-2 px-4 py-2 text-base text-foreground/75 hover:text-foreground transition-colors border-l border-hairline flex items-center justify-between", {
-                                  "text-foreground border-brand": sub.href === pathname,
-                                })}
-                                onClick={() => setIsOpen(false)}
-                              >
-                                {sub.name}
-                                {sub.badge && (
-                                  <span className="inline-flex rounded-full bg-brand-muted px-2 py-0.5 text-[10px] font-mono font-medium leading-none text-brand uppercase">
-                                    {sub.badge}
-                                  </span>
-                                )}
-                              </Link>
-                            )
-                          })}
-                        </div>
-                      </div>
-                    </motion.div>
-                  ) : (
-                    <Link
-                      key={`mob_${item.name}`}
-                      href={item.href ?? "#"}
-                      className={cn("flex items-center gap-2 px-3 py-2 text-xl font-medium text-foreground hover:text-foreground/80 transition-colors", {
-                        "text-brand": item.href === pathname,
-                      })}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  )
-                )}
-
-                {/* Language + Theme toggle */}
-                <div className="mt-6 px-3 flex flex-col gap-3">
-                  <Separator className="mb-1" />
-                  <LanguageSwitcher mobile />
-                  <button
-                    className="flex items-center gap-3 px-3 py-2 text-base font-medium text-accent-foreground cursor-pointer"
-                    onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-                  >
-                    {mounted && resolvedTheme === 'dark' ? <Sun className="size-5 shrink-0" /> : <Moon className="size-5 shrink-0" />}
-                    <span>{mounted && resolvedTheme === 'dark' ? t("lightMode") : t("darkMode")}</span>
-                  </button>
-                </div>
+              <div className="mt-6 flex flex-col gap-3 px-3">
+                <Button variant="brand" asChild>
+                  <Link href="/introduction/getting-started" onClick={() => setIsOpen(false)}>{t("getStarted")}</Link>
+                </Button>
+                <LanguageSwitcher mobile />
+                <button
+                  className="flex items-center gap-3 py-2 text-base text-foreground/85 cursor-pointer"
+                  onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+                >
+                  {mounted && resolvedTheme === 'dark' ? <Sun className="size-5 shrink-0" /> : <Moon className="size-5 shrink-0" />}
+                  <span>{mounted && resolvedTheme === 'dark' ? t("lightMode") : t("darkMode")}</span>
+                </button>
               </div>
             </div>
-          </>,
+          </div>,
           document.body
         )}
     </nav>
   )
 }
 
-function ListItem({
-  title,
-  children,
-  href,
-  badge,
-}: React.ComponentPropsWithoutRef<"li"> & { href: string; badge?: string }) {
-  // Root-level static assets (e.g. the whitepaper PDF) must bypass the
-  // locale-prefixing i18n Link.
-  const isExternal = href.startsWith("http") || href.endsWith(".pdf")
-  const LinkComponent = isExternal ? "a" : Link
-  const linkProps = isExternal
-    ? { href, target: "_blank", rel: "noopener" }
-    : { href }
-
+/* A dropdown entry: a bare outline icon, the title, and one line on what
+   the page is for — the shape of solana.com's menus. */
+function MenuItem({ item, title, description }: { item: NavLink; title: string; description: string }) {
+  const Comp = item.external ? "a" : Link
   return (
     <NavigationMenuLink asChild>
-      <LinkComponent
-        {...linkProps}
-        className={cn({
-          "text-foreground/50 pointer-events-none": href === "#",
-        })}
-      >
-        <div className="text-sm leading-none font-medium flex items-center justify-between gap-2">
-          <span>{title}</span>
-          {badge && (
-            <span className="rounded-full bg-brand-muted px-2 py-0.5 text-[10px] font-mono font-medium leading-none text-brand uppercase inline-block">
-              {badge}
-            </span>
-          )}
-        </div>
-        <p className={"text-muted-foreground line-clamp-2 text-sm leading-snug"}>
-          {children}
-        </p>
-      </LinkComponent>
+      <Comp {...linkProps(item)} className="!flex-row items-start gap-3 rounded-lg p-3">
+        <item.icon className="mt-0.5 size-[18px] shrink-0 text-muted-foreground transition-colors group-hover/navlink:text-brand" strokeWidth={1.5} />
+        <span className="min-w-0">
+          <span className="flex items-center gap-1.5 text-sm font-medium text-foreground">
+            {title}
+            {item.external && <ArrowUpRight className="size-3 text-muted-foreground" />}
+          </span>
+          <span className="mt-0.5 block text-[13px] leading-snug text-muted-foreground">{description}</span>
+        </span>
+      </Comp>
     </NavigationMenuLink>
   )
 }

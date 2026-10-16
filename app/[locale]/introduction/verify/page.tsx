@@ -22,9 +22,20 @@ const CMD_GENESIS_EXTRA = `curl -s ${RPC} -X POST \\
   -d '{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["0x0",false],"id":1}' \\
   | jq -r '.result.extraData' | sed 's/^0x//' | xxd -r -p; echo`
 
-const CMD_SUPPLY = `curl -s https://parallaxprotocol.org/api/circulating_supply`
+// Supply follows from the height alone: blocks 1..h, 50 LAX each, halving
+// (integer division of the wei amount) every 210,000 blocks, genesis paying
+// nothing. Mirrors cumulativeEmissionThrough in the client's kernel/xhash.
+const CMD_SUPPLY_COMPUTED = `curl -s ${RPC} -X POST \\
+  -H "Content-Type: application/json" \\
+  -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' \\
+  | python3 -c 'import json,sys; h=int(json.load(sys.stdin)["result"],16); w=sum(max(0,min(h,(e+1)*210000-1)-max(1,e*210000)+1)*((50*10**18)>>e) for e in range(64)); print(f"height {h}: {w/10**18:,.0f} LAX")'`
 
-const CMD_EMISSIONS = `curl -s https://parallaxprotocol.org/api/emissions`
+// The node's own sum of every block reward, in wei. The xhash namespace is
+// off on the public RPC, so this needs a node started with --http.api
+// including xhash.
+const CMD_SUPPLY_NODE = `curl -s http://localhost:8545 -X POST \\
+  -H "Content-Type: application/json" \\
+  -d '{"jsonrpc":"2.0","method":"xhash_getTotalSupply","params":[],"id":1}'`
 
 const CMD_CHAIN_ID = `curl -s ${RPC} -X POST \\
   -H "Content-Type: application/json" \\
@@ -156,8 +167,8 @@ export default function VerifyPage() {
         heading={t("supply.heading")}
         commands={
           <>
-            <CommandBlock label={t("supply.cmdSupplyLabel")} command={CMD_SUPPLY} copyLabel={copyLabel} copiedLabel={copiedLabel} />
-            <CommandBlock label={t("supply.cmdEmissionsLabel")} command={CMD_EMISSIONS} copyLabel={copyLabel} copiedLabel={copiedLabel} />
+            <CommandBlock label={t("supply.cmdComputedLabel")} command={CMD_SUPPLY_COMPUTED} copyLabel={copyLabel} copiedLabel={copiedLabel} />
+            <CommandBlock label={t("supply.cmdNodeLabel")} command={CMD_SUPPLY_NODE} copyLabel={copyLabel} copiedLabel={copiedLabel} />
           </>
         }
       >
@@ -192,7 +203,7 @@ export default function VerifyPage() {
             </div>
             <div className="lg:col-span-4 lg:justify-self-end">
               <Button variant="brand" size="lg" className="w-full sm:w-fit" asChild>
-                <Link href={"/participate/running-a-full-node"}>
+                <Link href={"/resources/parallax-client"}>
                   {t("node.cta")}
                   <ArrowRight />
                 </Link>

@@ -6,7 +6,7 @@ import MainMotion from "@/components/main-motion"
 import { TwoToneTitle } from "@/components/section"
 import { Link } from "@/i18n/navigation"
 import { routing } from "@/i18n/routing"
-import { formatPostDate, getAdjacentPosts, getPost, getPostSlugs, tagSlug } from "@/lib/blog"
+import { formatPostDate, getAdjacentPosts, getAllPosts, getPost, getPostSlugs, tagSlug } from "@/lib/blog"
 import { blogAlternates, pageOgImage } from "@/lib/seo"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import type { Metadata } from "next"
@@ -69,6 +69,7 @@ export default async function BlogPostPage({
 
   const t = await getTranslations("blog")
   const { newer, older } = getAdjacentPosts(post.slug)
+  const morePosts = getAllPosts().filter((p) => p.slug !== post.slug).slice(0, 4)
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -108,12 +109,13 @@ export default async function BlogPostPage({
         ]}
       />
 
-      {/* Reading column: ~68ch of Geist at text-lg under a full-bleed
-          masthead lit by the same aurora as the inner-page PageHeader. */}
+      {/* The page sits on the site's 1440px container like every other page:
+          a full-width masthead, then the article held to a ~68ch reading
+          measure on the left with a sticky rail of more posts on the right. */}
       <article>
         <header className="relative mt-16 overflow-hidden border-b border-hairline">
           <div aria-hidden className="aurora" />
-          <div className="relative mx-auto flex max-w-[46rem] flex-col items-start gap-7 px-6 pt-16 pb-14 sm:px-8 md:pt-24 md:pb-20">
+          <div className="relative mx-auto flex max-w-[90rem] flex-col items-start gap-7 px-5 pt-16 pb-14 md:px-10 md:pt-24 md:pb-20">
             <Link
               href="/blog"
               className="group inline-flex items-center gap-2 text-[15px] font-medium text-foreground"
@@ -122,10 +124,10 @@ export default async function BlogPostPage({
               {t("backToBlog")}
             </Link>
             <PostMeta post={post} locale={locale} className="mt-6" />
-            <h1 className="text-4xl leading-[1.05] tracking-[-0.025em] text-foreground text-balance sm:text-5xl lg:text-[3.5rem]">
+            <h1 className="max-w-5xl text-4xl leading-[1.05] tracking-[-0.025em] text-foreground text-balance sm:text-5xl lg:text-6xl">
               <TwoToneTitle text={post.title} />
             </h1>
-            <p className="accent-rule pl-6 text-lg font-light leading-relaxed text-muted-foreground text-pretty sm:text-xl">{post.summary}</p>
+            <p className="accent-rule max-w-3xl pl-6 text-lg font-light leading-relaxed text-muted-foreground text-pretty sm:text-xl">{post.summary}</p>
             {post.tags.length > 0 && (
               <ul className="flex flex-wrap gap-2">
                 {post.tags.map((tag) => (
@@ -145,14 +147,15 @@ export default async function BlogPostPage({
           </div>
         </header>
 
-        <div className="mx-auto max-w-[46rem] px-6 pb-28 sm:px-8">
+        <div className="mx-auto grid max-w-[90rem] gap-16 px-5 pb-28 md:px-10 lg:grid-cols-12">
+          <div className="min-w-0 lg:col-span-8 xl:col-span-7">
           {post.cover && (
             <div className="relative mt-12 aspect-video overflow-hidden rounded-2xl border border-stroke bg-surface-elevated">
               <Cover
                 src={post.cover}
                 alt={post.coverAlt ?? ""}
                 priority
-                sizes="(min-width: 1024px) 736px, 100vw"
+                sizes="(min-width: 1280px) 760px, (min-width: 1024px) 66vw, 100vw"
               />
             </div>
           )}
@@ -165,8 +168,37 @@ export default async function BlogPostPage({
             </p>
           )}
 
+          </div>
+
+          {/* More posts — sticky beside the article on desktop, after it on mobile */}
+          {morePosts.length > 0 && (
+            <aside className="lg:col-span-4 xl:col-span-4 xl:col-start-9">
+              <div className="lg:sticky lg:top-28 lg:mt-12">
+                <p className="tag">{t("morePosts")}</p>
+                <ul className="mt-4 divide-y divide-hairline border-y border-hairline">
+                  {morePosts.map((p) => (
+                    <li key={p.slug}>
+                      <Link href={`/blog/${p.slug}`} className="group block py-4">
+                        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                          {formatPostDate(p.date, locale)}
+                        </span>
+                        <span className="mt-1.5 block text-[15px] leading-snug text-foreground/85 transition-colors group-hover:text-foreground">
+                          {p.title}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/blog" className="group mt-5 inline-flex items-center gap-2 text-[15px] font-medium text-foreground">
+                  {t("allPosts")}
+                  <ArrowRight className="size-4 text-brand transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
+                </Link>
+              </div>
+            </aside>
+          )}
+
           {(newer || older) && (
-            <nav className="mt-16 grid grid-cols-1 gap-4 border-t border-hairline pt-12 sm:grid-cols-2">
+            <nav className="grid grid-cols-1 gap-4 border-t border-hairline pt-12 sm:grid-cols-2 lg:col-span-12">
               {older && (
                 <Link href={`/blog/${older.slug}`} className="group block rounded-xl outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50">
                   <div className="plate-lift flex h-full flex-col gap-4 rounded-xl border border-stroke bg-card p-6">

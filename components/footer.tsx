@@ -7,39 +7,39 @@ type InternalLink = { key: string; href: string }
 type ExternalLink = { key: string; href: string; external: true }
 type FooterLink = InternalLink | ExternalLink
 
-// Mirrors the main navigation menus (plus the social links column).
+// Mirrors the main navigation's five menus, plus the brand assets that only
+// live here; the social links sit with Community.
 const footerLinks: Record<string, FooterLink[]> = {
-  protocol: [
-    { key: "doctrine", href: "/introduction/doctrine" },
+  learn: [
     { key: "howItWorks", href: "/introduction/how-it-works" },
     { key: "compare", href: "/compare" },
     { key: "bitcoiners", href: "/introduction/parallax-for-bitcoiners" },
     { key: "developers", href: "/introduction/parallax-for-developers" },
     { key: "verify", href: "/introduction/verify" },
+    { key: "doctrine", href: "/introduction/doctrine" },
     { key: "whitepaper", href: "/parallax.pdf", external: true },
-    { key: "gettingStarted", href: "/introduction/getting-started" },
+    { key: "faq", href: "/faq" },
   ],
-  resources: [
-    { key: "beginnerGuides", href: "/resources/beginner-guides" },
-    { key: "technicalDocumentation", href: "/resources/technical-documentation" },
-    { key: "parallaxClient", href: "/resources/parallax-client" },
+  use: [
+    { key: "gettingStarted", href: "/introduction/getting-started" },
+    { key: "parallaxWallet", href: "/parallax-wallet" },
     { key: "wallets", href: "/wallets" },
     { key: "exchanges", href: "/exchanges" },
-    { key: "community", href: "/resources/community" },
-    { key: "brandAssets", href: "/resources/branding" },
-    { key: "blockExplorer", href: "https://explorer.parallaxprotocol.org", external: true },
-    { key: "networkAtlas", href: "/resources/network-atlas" },
-    { key: "networkStatus", href: "https://status.parallaxprotocol.org", external: true },
-    { key: "faq", href: "/faq" },
-    { key: "blog", href: "/blog" },
   ],
-  participate: [
-    { key: "supportParallax", href: "/participate/support-parallax" },
-    { key: "runningAFullNode", href: "/participate/running-a-full-node" },
+  run: [
+    { key: "client", href: "/resources/parallax-client" },
     { key: "mining", href: "/participate/mining" },
-    { key: "development", href: "/participate/development" },
+  ],
+  network: [
+    { key: "blockExplorer", href: "https://explorer.parallaxprotocol.org", external: true },
+    { key: "networkStatus", href: "https://status.parallaxprotocol.org", external: true },
+    { key: "networkAtlas", href: "/resources/network-atlas" },
+    { key: "docs", href: "https://docs.parallaxprotocol.org", external: true },
   ],
   community: [
+    { key: "getInvolved", href: "/resources/community" },
+    { key: "blog", href: "/blog" },
+    { key: "brandAssets", href: "/resources/branding" },
     { key: "github", href: "https://github.com/ParallaxProtocol", external: true },
     { key: "bitcointalk", href: "https://bitcointalk.org/index.php?topic=5560698", external: true },
     { key: "twitter", href: "https://x.com/prlxchain", external: true },
@@ -84,17 +84,17 @@ export function Footer() {
             </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-10 pt-12 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-10 pt-12 sm:grid-cols-3 lg:grid-cols-5">
 
           {/* Link columns */}
           {Object.entries(footerLinks).map(([section, links]) => (
             <div key={section}>
               <h4 className="mb-6 font-mono text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">
-                {t(`sections.${section}` as "sections.protocol")}
+                {t(`sections.${section}` as "sections.learn")}
               </h4>
               <ul className="space-y-3">
                 {links.map((link) => {
-                  const label = t(`links.${link.key}` as "links.doctrine")
+                  const label = t(`links.${link.key}` as "links.faq")
                   if (isExternal(link)) {
                     return (
                       <li key={link.key}>
