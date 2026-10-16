@@ -263,7 +263,7 @@ export default async function CommunityPage() {
               meta={meta("build.items.evm")}
             >
               <ActionLink href="/introduction/parallax-for-developers">{t(`${g}.build.items.evm.cta`)}</ActionLink>
-              <ActionLink href={DOCS_URL}>{t(`${g}.build.items.evm.ctaDocs`)}</ActionLink>
+              <ActionLink href={`${DOCS_URL}/parallax-protocol/parallax-stack/smart-contracts`}>{t(`${g}.build.items.evm.ctaDocs`)}</ActionLink>
             </ContributeRow>
             <div className="py-10">
               <h4 className="text-2xl leading-tight text-foreground">{t(`${g}.build.items.client.title`)}</h4>

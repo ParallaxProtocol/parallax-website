@@ -143,7 +143,7 @@ export default function ParallaxForDevelopers() {
               <p className="accent-rule mt-8 max-w-3xl pl-6 text-base leading-relaxed text-muted-foreground sm:text-lg">{t("why.body")}</p>
               <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Button variant="brand" size="lg" className="w-full sm:w-fit" asChild>
-              <a href="https://docs.parallaxprotocol.org" target="_blank" rel="noopener">
+              <a href="https://docs.parallaxprotocol.org/parallax-protocol/parallax-stack/smart-contracts" target="_blank" rel="noopener">
                 {t("ctas.docs")}
                 <ArrowRight />
               </a>

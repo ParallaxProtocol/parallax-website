@@ -39,6 +39,7 @@ import {
   Usb,
   UserCheck,
   Zap,
+  ArrowUpRight,
 } from "lucide-react"
 import { getTranslations } from "next-intl/server"
 import { FaApple, FaGithub, FaLinux, FaWindows } from "react-icons/fa"
@@ -338,6 +339,9 @@ export default async function ParallaxWalletPage() {
                     </li>
                   ))}
                 </ul>
+                <div className="mt-6">
+                  <GuideLink href="https://docs.parallaxprotocol.org/guides/wallets/hardware-wallets">{t("signing.hardware.guide")}</GuideLink>
+                </div>
               </div>
             </div>
           </FadeIn>
@@ -443,6 +447,9 @@ export default async function ParallaxWalletPage() {
                 </p>
               </div>
               <p className="relative px-1 text-sm leading-relaxed text-muted-foreground">{t("assistant.connect.note")}</p>
+              <div className="relative px-1">
+                <GuideLink href="https://docs.parallaxprotocol.org/guides/ai/parallax-wallet">{t("assistant.connect.guide")}</GuideLink>
+              </div>
             </div>
           </FadeIn>
         </div>
@@ -528,6 +535,9 @@ export default async function ParallaxWalletPage() {
         </FadeIn>
         <FadeIn delay={0.1} className="mt-16">
           <WalletDownloads />
+          <div className="mt-6">
+            <GuideLink href="https://docs.parallaxprotocol.org/guides/client/desktop">{t("downloadSection.guide")}</GuideLink>
+          </div>
         </FadeIn>
         <FadeIn delay={0.15}>
           <Link
@@ -546,5 +556,15 @@ export default async function ParallaxWalletPage() {
         </FadeIn>
       </Section>
     </MainMotion>
+  )
+}
+
+/* An inline link out to a guide on the docs site. */
+function GuideLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a href={href} target="_blank" rel="noopener" className="group inline-flex items-center gap-2 text-[15px] font-medium text-foreground">
+      {children}
+      <ArrowUpRight className="size-4 text-brand transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none" />
+    </a>
   )
 }

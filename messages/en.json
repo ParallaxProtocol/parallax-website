@@ -2318,7 +2318,8 @@
           "A replacement restored from the same recovery phrase signs too. A device holding a different wallet is caught before it's asked to sign.",
           "Check a receiving address on the device's screen.",
           "On Linux, the app installs the USB rules the devices need."
-        ]
+        ],
+        "guide": "Hardware wallet guide"
       },
       "offline": {
         "label": "Air-gapped",
@@ -2391,7 +2392,8 @@
       },
       "connect": {
         "label": "Connect Claude Code",
-        "note": "Settings › AI assistants shows the address and your token, and a JSON config for any other MCP client."
+        "note": "Settings › AI assistants shows the address and your token, and a JSON config for any other MCP client.",
+        "guide": "Set up an assistant, step by step"
       }
     },
     "everyday": {
@@ -2469,7 +2471,8 @@
       "subtitle": "Free and open source, for Linux, macOS and Windows.",
       "cliPrompt": "Prefer the command line?",
       "cliDescription": "The Parallax Client is the node software for terminals and servers.",
-      "cliCta": "Parallax Client"
+      "cliCta": "Parallax Client",
+      "guide": "Install and first launch, step by step"
     },
     "download": {
       "getIt": "Get Parallax Wallet",

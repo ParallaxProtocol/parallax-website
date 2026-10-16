@@ -11,7 +11,7 @@ import { AppScreenshot } from "./wallet-app/app-screenshot"
 
 const STATUS_URL = "https://status.parallaxprotocol.org"
 const EXPLORER_URL = "https://explorer.parallaxprotocol.org"
-const MCP_GUIDE_URL = "https://docs.parallaxprotocol.org"
+const MCP_GUIDE_URL = "https://docs.parallaxprotocol.org/guides/ai/parallax-mcp"
 const MCP_ADD_COMMAND = "claude mcp add --transport http parallax https://mcp.parallaxprotocol.org/mcp"
 
 /* Three dots and a centred title — the browser shots' chrome. */
