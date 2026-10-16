@@ -14,6 +14,12 @@ const nextConfig: NextConfig = {
         destination: '/en/:path*',
         permanent: false,
       },
+      // The protocol deep-dive pages were removed in the redesign.
+      {
+        source: '/:locale(en)/introduction/protocol/:path*',
+        destination: '/:locale/introduction/how-it-works',
+        permanent: false,
+      },
       // The HTML transcription of the first-edition whitepaper was removed;
       // the canonical whitepaper is the PDF (second edition).
       {

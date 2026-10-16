@@ -42,8 +42,6 @@ function useNavItems(): NavItem[] {
         { name: t("introductionSub.verify"), href: "/introduction/verify" },
         { name: t("introductionSub.whitepaper"), href: "/parallax.pdf" },
         { name: t("introductionSub.gettingStarted"), href: "/introduction/getting-started" },
-        { name: "###" },
-        { name: t("introductionSub.protocol"), href: "/introduction/protocol/overview" },
       ],
     },
     {

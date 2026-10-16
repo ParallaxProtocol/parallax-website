@@ -19,7 +19,6 @@ const footerLinks: Record<string, FooterLink[]> = {
     { key: "verify", href: "/introduction/verify" },
     { key: "whitepaper", href: "/parallax.pdf", external: true },
     { key: "gettingStarted", href: "/introduction/getting-started" },
-    { key: "protocolOverview", href: "/introduction/protocol/overview" },
   ],
   resources: [
     { key: "beginnerGuides", href: "/resources/beginner-guides" },

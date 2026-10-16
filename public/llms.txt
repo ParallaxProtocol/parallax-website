@@ -50,15 +50,6 @@ Introduction:
 - [Parallax vs Bitcoin vs Ethereum](https://parallaxprotocol.org/en/compare): Side-by-side comparison across consensus, monetary policy, programmability, and settlement.
 - [FAQ](https://parallaxprotocol.org/en/faq): Recurring questions, in full.
 
-Protocol:
-
-- [Protocol overview](https://parallaxprotocol.org/en/introduction/protocol/overview): Cryptographic primitives, deterministic execution, proof-of-work, consensus logic.
-- [Protocol architecture](https://parallaxprotocol.org/en/introduction/protocol/architecture): The security model — signatures, execution, Proof-of-Work, Nakamoto consensus.
-- [XHash](https://parallaxprotocol.org/en/introduction/protocol/xhash): The memory-hard Proof-of-Work function, its Hashimoto lineage, and epoch handling.
-- [Difficulty and fork choice](https://parallaxprotocol.org/en/introduction/protocol/difficulty-and-forkchoice): The BTC-style-to-ASERT migration and the cumulative-work fork-choice rule.
-- [Block reward and halving](https://parallaxprotocol.org/en/introduction/protocol/block-reward-and-halving): The emission schedule and how block rewards are paid.
-- [Coinbase maturity](https://parallaxprotocol.org/en/introduction/protocol/coinbase-maturity): How miner subsidies are escrowed for 100 blocks.
-
 Using and running Parallax:
 
 - [Parallax client](https://parallaxprotocol.org/en/resources/parallax-client): Download page for both clients — the desktop app (GUI, Linux/Windows/macOS) and the CLI reference client for servers, miners, and technical operators.

@@ -2,9 +2,7 @@
 import GridView from "@/components/grid-view";
 import MainMotion from "@/components/main-motion";
 import PageHeader from "@/components/page-header";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import { ChevronRight, Cpu, Database, Key, Rabbit, Wallet } from "lucide-react";
+import { Cpu, Database, Key, Rabbit, Wallet } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 const ICONS = [Wallet, Database, Key, Cpu, Rabbit];
@@ -27,16 +25,6 @@ export default function ParallaxHowItWorks() {
         subTitle={t("pageSubtitle")}
       />
       <GridView items={topics} />
-      <div className="mb-8 text-center">
-        <div className="flex justify-center gap-4 mb-8 px-6">
-          <Button className="w-full sm:w-fit brand-gradient text-brand-foreground hover:opacity-90" asChild>
-            <Link href={'/introduction/protocol/overview'}>
-              {t("learnMore")}
-              <ChevronRight />
-            </Link>
-          </Button>
-        </div>
-      </div>
     </MainMotion>
   );
 }
