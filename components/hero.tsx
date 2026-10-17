@@ -1,20 +1,25 @@
 'use client'
 import { useStableVh } from "@/hooks/useStableVh"
+import { useArrival } from "@/hooks/useArrival"
 import { Link } from "@/i18n/navigation"
 import { Button } from "./ui/button"
 import { useRef } from "react"
 import { ArrowRight } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { DepthWordmark } from "./depth-wordmark"
+import { cn } from "@/lib/utils"
 
 /* The entrances are CSS animations (see "Entrance animations" in
    globals.css), not framer-motion: the h1 and subtitle are the homepage's
    LCP candidates and must paint from the SSR HTML, before hydration.
    The wordmark fades in first while lights cross it (it times itself); the
    subtitle and buttons follow as its last, widest light sweeps across
-   (FINALE_AT in depth-wordmark.tsx, ≈3.88s), then the nav. */
+   (FINALE_AT in depth-wordmark.tsx, ≈3.88s), then the nav. It plays only
+   when the visitor lands here; coming back from another page, the hero is
+   simply there. */
 export function Hero() {
   useStableVh()
+  const arriving = useArrival()
   const containerRef = useRef<HTMLElement>(null)
   const t = useTranslations("home.hero")
 
@@ -29,7 +34,7 @@ export function Hero() {
     >
       {/* A faint glow in the logo's colours, low on the right — the only
           light behind the wordmark. It comes up with the wordmark. */}
-      <div aria-hidden className="aurora opacity-80 enter-backdrop" />
+      <div aria-hidden className={cn("aurora opacity-80", arriving && "enter-backdrop")} />
 
       {/* Content */}
       <div className="relative z-[3] mx-auto flex min-h-[calc(var(--vh,1vh)*100)] w-full max-w-[90rem] flex-col justify-center px-5 pt-28 pb-16 md:px-10 lg:pb-24">
@@ -39,19 +44,22 @@ export function Hero() {
               h1 keeps the word for assistive tech and search. */}
           <h1>
             <span className="sr-only">Parallax</span>
-            <DepthWordmark variant="hero" area="section" className="w-full" />
+            <DepthWordmark variant="hero" area="section" still={!arriving} className="w-full" />
           </h1>
           <p
-            className="mt-6 max-w-2xl text-[1.75rem] font-light leading-[1.1] tracking-[-0.03em] text-white text-balance sm:text-4xl lg:text-5xl enter-fade-up"
-            style={{ "--enter-delay": "4.05s" } as React.CSSProperties}
+            className={cn(
+              "mt-6 max-w-2xl text-[1.75rem] font-light leading-[1.1] tracking-[-0.03em] text-white text-balance sm:text-4xl lg:text-5xl",
+              arriving && "enter-fade-up"
+            )}
+            style={arriving ? ({ "--enter-delay": "4.05s" } as React.CSSProperties) : undefined}
           >
             {t("subtitle")}
           </p>
         </div>
 
         <div
-          className="mt-10 flex flex-col gap-3 sm:flex-row lg:mt-12 enter-fade-up"
-          style={{ "--enter-delay": "4.25s" } as React.CSSProperties}
+          className={cn("mt-10 flex flex-col gap-3 sm:flex-row lg:mt-12", arriving && "enter-fade-up")}
+          style={arriving ? ({ "--enter-delay": "4.25s" } as React.CSSProperties) : undefined}
         >
           <Button size="xl" variant="brand" className="w-full sm:w-auto" asChild>
             <Link href={"/parallax-wallet"}>

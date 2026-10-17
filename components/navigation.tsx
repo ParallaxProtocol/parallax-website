@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import { useArrival } from "@/hooks/useArrival"
 import { Link, usePathname } from "@/i18n/navigation"
 import { cn } from "@/lib/utils"
 import {
@@ -140,10 +141,11 @@ export function Navigation() {
 
   const showBg = scrolled || isOpen
   const isHome = pathname === "/"
-  // Arriving on the homepage, the nav comes in last, after the hero's
+  // Landing on the homepage, the nav comes in last, after the hero's
   // entrance. Fixed at mount: the nav stays mounted across navigations, and
-  // later visits to the homepage shouldn't hide it.
-  const [entersAfterHero] = useState(isHome)
+  // later visits to the homepage (which skip the entrance) shouldn't hide it.
+  const arriving = useArrival()
+  const [entersAfterHero] = useState(isHome && arriving)
   const heroOverlay = isHome && !scrolled && !isOpen
 
   return (

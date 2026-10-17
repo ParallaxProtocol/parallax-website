@@ -108,14 +108,18 @@ const close = (a: Letter[], b: Letter[]) =>
 export function DepthWordmark({
   variant,
   area,
+  still = false,
   className,
 }: {
   variant: keyof typeof VARIANTS
   /** CSS selector of the ancestor the cursor light tracks over. */
   area: string
+  /** Skip the variant's entrance and show the word at rest. */
+  still?: boolean
   className?: string
 }) {
   const v = VARIANTS[variant]
+  const entrance = v.entrance && !still
   // The hero and the footer share a page, so every def id is scoped by
   // variant (one of each per page). Not useId: in dev its ids can come out
   // different on the client than in the server HTML, and the layers drawn
@@ -209,7 +213,7 @@ export function DepthWordmark({
     const spot = spotRef.current
     const stop = spotStopRef.current
     const lit = litRef.current
-    if (!v.entrance || !svg || !spot || !stop || !lit) return
+    if (!entrance || !svg || !spot || !stop || !lit) return
     // Absent under reduced motion, where the word is simply there.
     const fade = svg.querySelector(".wordmark-enter")?.getAnimations()[0]
     if (!fade) return
@@ -273,7 +277,7 @@ export function DepthWordmark({
       step()
     })
     return finish
-  }, [v.entrance, v.viewY, v.viewH, glow])
+  }, [entrance, v.viewY, v.viewH, glow])
 
   // Front to back, each layer smaller and fainter; layer 0 is the letter's
   // own outline.
@@ -288,8 +292,8 @@ export function DepthWordmark({
             y={TEXT_Y}
             fontSize={FONT_SIZE}
             fontWeight={FONT_WEIGHT}
-            className={cn(v.entrance && "wordmark-layer")}
-            style={{ fontFamily: "var(--font-geist-sans)", animationDelay: v.entrance ? `${appearAt(k, l.cx)}ms` : undefined }}
+            className={cn(entrance && "wordmark-layer")}
+            style={{ fontFamily: "var(--font-geist-sans)", animationDelay: entrance ? `${appearAt(k, l.cx)}ms` : undefined }}
             transform={`translate(${l.cx} ${l.cy}) scale(${scale}) translate(${-l.cx} ${-l.cy})`}
             fill="none"
             stroke={stroke}
@@ -347,7 +351,7 @@ export function DepthWordmark({
           <stop ref={spotStopRef} offset="0%" stopColor="white" stopOpacity="1" />
           <stop offset="100%" stopColor="white" stopOpacity="0" />
         </radialGradient>
-        {v.entrance && (
+        {entrance && (
           <filter id={id("glow")} x="-10%" y="-20%" width="120%" height="140%">
             <feGaussianBlur stdDeviation="5" result="blur" />
             <feMerge>
@@ -363,7 +367,7 @@ export function DepthWordmark({
 
       <g mask={`url(#${id("fade")})`} clipPath={`url(#${id("letters")})`}>
         {/* At rest: the receding layers */}
-        <g opacity={v.rest} className={cn(v.entrance && "wordmark-enter")}>
+        <g opacity={v.rest} className={cn(entrance && "wordmark-enter")}>
           {depth(`url(#${id("gradient")})`)}
         </g>
         {/* Under the cursor: the same layers, lit */}
@@ -374,7 +378,7 @@ export function DepthWordmark({
       {/* The hero's front outline, crisp over the layers so the word reads */}
       {v.front && (
         <Word
-          className={cn(v.entrance && "wordmark-enter")}
+          className={cn(entrance && "wordmark-enter")}
           fill="none"
           stroke={`url(#${id("front")})`}
           strokeWidth={1.6}
