@@ -16,7 +16,7 @@ const HARDHAT_CONFIG = `import { HardhatUserConfig } from "hardhat/config";
 const config: HardhatUserConfig = {
   solidity: {
     version: "0.8.24",
-    settings: { evmVersion: "paris" },
+    settings: { evmVersion: "berlin" },
   },
   networks: {
     parallax: {
@@ -29,7 +29,7 @@ const config: HardhatUserConfig = {
 export default config;`
 
 const FOUNDRY_CONFIG = `[profile.default]
-evm_version = "paris"
+evm_version = "berlin"
 
 [rpc_endpoints]
 parallax = "https://rpc.parallaxprotocol.org"`

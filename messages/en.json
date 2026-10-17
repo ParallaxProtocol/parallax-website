@@ -48,7 +48,7 @@
       },
       "parallaxForDevelopers": {
         "title": "Parallax for Ethereum Developers",
-        "description": "Chain ID 2110, EVM complete through Paris, your existing Solidity stack — on a settlement layer whose rules cannot be governance-voted out from under your contract."
+        "description": "Chain ID 2110, the EVM as of Berlin, your existing Solidity stack — on a settlement layer whose rules cannot be governance-voted out from under your contract."
       },
       "verify": {
         "title": "Verify It Yourself",
@@ -325,7 +325,7 @@
         }
       },
       "contrast": "Elsewhere, each of these waits on a protocol upgrade. On Parallax, it's a contract deployment that works on the chain exactly as it runs today.",
-      "cta": "Read: Covenants Without Forks"
+      "cta": "Read: Payments and Privacy, Without a Fork"
     },
     "client": {
       "eyebrow": "Software",
@@ -667,7 +667,7 @@
           },
           {
             "label": "Smart contracts",
-            "parallax": "EVM (complete through Paris)",
+            "parallax": "EVM (as of Berlin)",
             "bitcoin": "Script (limited)",
             "ethereum": "EVM native"
           },
@@ -752,23 +752,47 @@
       "general": [
         {
           "question": "What is Parallax?",
-          "answer": "Parallax is a proof-of-work blockchain with Bitcoin's monetary rules and the Ethereum Virtual Machine. Supply is capped at 21 million LAX, a block arrives about every 10 minutes, and the block subsidy halves every 210,000 blocks. Smart contracts written for Ethereum run on it, up to the Paris fork."
+          "answer": "Parallax is a proof-of-work blockchain with Bitcoin's monetary rules and the Ethereum Virtual Machine. Supply is capped at 21 million LAX, a block arrives about every 10 minutes, and the block subsidy halves every 210,000 blocks. Smart contracts written for Ethereum run on it, at the Berlin level of the EVM."
+        },
+        {
+          "question": "When did Parallax launch?",
+          "answer": "The genesis block was mined on October 28, 2025. Like Bitcoin's, it carries a newspaper headline from that day (\"The Times 28/Oct/2025 Trump tells Japan: Any favours you need, we'll be there\"), which shows it could not have been mined earlier. The genesis block held no coins."
         },
         {
           "question": "Who created Parallax?",
-          "answer": "It doesn't matter — and that is the point. The source code was public before launch, the launch date was announced in advance, and the supply at genesis was zero, so every participant stood at the same starting line. The original authors hold no keys to the protocol, received no allocation, and are required for nothing; the network would not notice their disappearance. Every claim about Parallax can be checked against the chain itself, so authorship carries no authority."
+          "answer": "It matters less than you might expect. The source code was public before launch, the launch date was announced in advance, and the supply at genesis was zero, so every participant started at the same line. The original authors hold no keys to the protocol, received no allocation and are needed for nothing: the network would carry on without them. Every claim about Parallax can be checked against the chain itself, so authorship carries no authority."
         },
         {
           "question": "How is Parallax different from Bitcoin and Ethereum?",
           "answer": "It takes its monetary policy from Bitcoin: a 21 million cap, 10-minute blocks, halvings every 210,000 blocks and proof of work. It takes the EVM from Ethereum, so it runs smart contracts that Bitcoin can't. Unlike today's Ethereum, it is mined rather than staked, its supply is fixed, and no fees are burned: the miner keeps the whole fee."
         },
         {
+          "question": "Is Parallax a fork of Bitcoin or Ethereum?",
+          "answer": "Not in the sense that matters for money: no balances, blocks or history were copied from either chain, and every LAX in existence was mined on Parallax. The software is a separate client. Its EVM layer is derived from go-ethereum (LGPL-3.0), while consensus, the XHash mining algorithm, the difficulty algorithm and the monetary rules are Parallax's own."
+        },
+        {
           "question": "Why Proof of Work instead of Proof of Stake?",
           "answer": "Proof of work ties security to an external cost, energy, that can't be simulated, voted into existence or negotiated. Proof of stake hands control to whoever holds the most coins, which moves trust to validators instead of removing it. Under proof of work, influence over the chain has to be paid for with work. It can't be granted by holdings or identity."
         },
         {
+          "question": "Which wallet should I use?",
+          "answer": "On a computer, Parallax Wallet: a desktop app for macOS, Windows and Linux with a full Parallax node inside, so your balances come from your own copy of the chain. On a phone, any EVM wallet that lets you add a custom network, such as MetaMask, Rabby or Trust Wallet; the Wallets page lists them. Whichever you choose, keep your recovery phrase offline and never share it."
+        },
+        {
           "question": "How do I add Parallax to MetaMask?",
           "answer": "Add a custom network in MetaMask with these values: network name Parallax, RPC URL https://rpc.parallaxprotocol.org, chain ID 2110, currency symbol LAX, block explorer https://explorer.parallaxprotocol.org. The Wallets page can also add it in one click. Other EVM wallets take the same values."
+        },
+        {
+          "question": "Can I use a Ledger or Trezor?",
+          "answer": "Yes. Parallax addresses and signatures are the same as Ethereum's, so both devices work with their standard Ethereum app; there's no Parallax app to install. Use them from Parallax Wallet, which supports both directly, or from MetaMask with the Parallax network added. The device shows and confirms every transaction on its own screen."
+        },
+        {
+          "question": "Is my Ethereum address also a Parallax address?",
+          "answer": "Yes. The same recovery phrase or private key controls the same address on both networks. They are still separate networks: LAX exists only on Parallax, and ETH only on Ethereum. Before sending LAX to an exchange or a service, check that it supports Parallax; sending it to an address that only watches Ethereum can lose it."
+        },
+        {
+          "question": "Can I ask an AI assistant about Parallax?",
+          "answer": "Yes. The Parallax MCP server lets assistants such as Claude, ChatGPT, Cursor and Gemini read the network directly, so they answer questions about blocks, transactions, addresses, mining and network health from live data. It is read-only: it can't send transactions or touch a wallet, and it never asks for a key. The setup for each assistant is on the homepage and in the docs."
         }
       ],
       "technical": [
@@ -778,15 +802,15 @@
         },
         {
           "question": "What is XHash and why was it chosen?",
-          "answer": "XHash is a modified Ethash variant: memory-hard, so commodity GPUs mine competitively, and altered precisely so that the existing stock of Ethash ASICs cannot be reused on Parallax. A proof-of-work network is most fragile in its early years, when total hashrate is small; XHash ensures that security in those years is supplied by widely held hardware rather than by whoever owns the residue of another chain's hardware arms race."
+          "answer": "XHash is a modified version of Ethash. It is memory-hard, so ordinary GPUs mine it competitively, and it was changed so that existing Ethash ASICs can't be reused on Parallax. A proof-of-work network is most fragile in its early years, while total hashrate is small. XHash means security in those years comes from widely owned hardware, not from whoever holds the leftover machines of another chain's arms race."
         },
         {
           "question": "Is Parallax EVM compatible?",
-          "answer": "Yes — Parallax runs the Ethereum Virtual Machine, complete through the Paris fork. Contracts written in Solidity or Vyper deploy unchanged, and familiar tools like MetaMask, Remix, Hardhat, and Foundry work with only a chain ID change (2110). One caveat: opcodes introduced after Paris (such as PUSH0 from Shanghai) are not available, so set your compiler's EVM version to \"paris\" — Solidity 0.8.20 and later targets Shanghai by default."
+          "answer": "Yes. Parallax runs the Ethereum Virtual Machine as of the Berlin upgrade. Contracts written in Solidity or Vyper deploy unchanged, and MetaMask, Remix, Hardhat and Foundry work once pointed at chain ID 2110. Two things differ from today's Ethereum. Later opcodes such as BASEFEE and PUSH0 don't exist, so set your compiler's EVM version to \"berlin\" (Solidity 0.8.20 and later emit PUSH0 by default). And there is no EIP-1559, so transactions use a plain gas price."
         },
         {
-          "question": "What are the block times and transaction fees?",
-          "answer": "A block arrives about every 10 minutes. Difficulty is retargeted every block with ASERT (two-day half-life), so the interval stays close to 10 minutes as hashrate comes and goes. Fees are a plain gas-price auction: there is no EIP-1559 base fee, miners include the highest-paying transactions first, and the whole fee goes to the miner."
+          "question": "What is the block time?",
+          "answer": "A block arrives about every 10 minutes on average. Like Bitcoin's, the gaps between blocks are random: a 30-minute wait is not unusual. Difficulty is adjusted every block with ASERT (two-day half-life), so the average stays close to 10 minutes as hashrate comes and goes."
         },
         {
           "question": "How many confirmations should I wait for?",
@@ -797,8 +821,20 @@
           "answer": "Global agreement takes physical time. Systems that push time-to-finality below physical limits create hidden advantages: proximity to other miners, specialized networking, privileged transaction ordering. Each of these centralizes consensus. Parallax treats time as a stabilizing force: finality earned slowly through accumulated work is more robust than finality declared quickly by agreement."
         },
         {
+          "question": "Can Parallax do instant payments?",
+          "answer": "Not on the base layer: a payment is confirmed when it's in a block. Payment channels, being built as a contract plus wallet software, handle the rest. You lock LAX in a channel once, on-chain, then pay the other side instantly by exchanging signed updates over the Nostr relay network, or by QR code with no internet at all. They are in development and need no change to the protocol."
+        },
+        {
+          "question": "Are transactions private?",
+          "answer": "No. Like Bitcoin and Ethereum, Parallax is a public ledger: every address, balance and transaction is visible to anyone. Two privacy features are being built as contracts and wallet software, with no change to the protocol. Stealth addresses, in development for Parallax Wallet, give each payment a fresh address so incoming payments can't be linked to you. A shielded pool, which would hide amounts and parties too, is at the research stage."
+        },
+        {
+          "question": "Is Parallax quantum-safe?",
+          "answer": "No more than Bitcoin or Ethereum. Accounts sign with ECDSA on secp256k1, which a large enough quantum computer is expected to break. Research is under way on a post-quantum shielded pool built from STARK proofs, hash-based spending and ML-KEM encryption, as a contract with no fork. It's research, not a product, and entering or leaving it would still use ordinary ECDSA accounts."
+        },
+        {
           "question": "What is the block gas limit?",
-          "answer": "600 million gas per block. At one block every 10 minutes that is about 1 million gas per second, less than Ethereum's mainnet. The limit is kept low on purpose so that a full node stays cheap to run on ordinary hardware."
+          "answer": "600 million gas per block, about 1 million gas per second at one block every 10 minutes, well below Ethereum's mainnet. Miners can move the limit by at most 0.1% per block. It is kept low on purpose so that a full node stays cheap to run on ordinary hardware."
         },
         {
           "question": "How does Parallax handle 51% attacks?",
@@ -810,7 +846,11 @@
         },
         {
           "question": "What are the hardware requirements for running a full node?",
-          "answer": "A full node runs on an ordinary computer: 2 or more CPU cores (4 recommended), at least 4 GB of RAM (16 GB recommended), an SSD with 200 GB free (500 GB or more for an archive node) and a stable connection of about 25 Mbit/s. The SSD matters most; hard drives struggle to sync."
+          "answer": "Modest, because blocks come every 10 minutes and the chain is still small. A dual-core CPU, 2 GB of RAM (4 GB if you also mine) and a 50 GB SSD are enough; 100 GB leaves room to grow. Any stable connection works, and 10 Mbit/s or more makes the first sync faster. Use an SSD rather than a hard drive. Parallax Wallet runs the same full node, so installing it is the easiest way to run one."
+        },
+        {
+          "question": "How can I check the supply myself?",
+          "answer": "Ask your own node. The Verify page walks through it: check the genesis block, compare block rewards against the halving schedule, and add up the issued supply from the chain itself. You don't need to trust this website, an explorer or anyone else for any of it."
         }
       ],
       "mining": [
@@ -819,22 +859,26 @@
           "answer": "Mine on a GPU with Hashwarp, the official open-source miner, or with SRBMiner-Multi. Point it at a Parallax pool, or at your own node to mine solo. Other Ethash miners such as ethminer do not work. The client also has a built-in CPU miner, but it is only useful for testing."
         },
         {
+          "question": "Can I mine with Parallax Wallet?",
+          "answer": "No. Parallax Wallet is a wallet with a full node; mining was removed from it. Mine with Hashwarp or SRBMiner-Multi, and use any of your wallet's addresses as the payout address."
+        },
+        {
           "question": "What is the mining reward schedule?",
           "answer": "The block subsidy started at 50 LAX and halves every 210,000 blocks, roughly every four years at 10-minute blocks: the same schedule as Bitcoin. The miner also collects every fee in the block. Mined LAX can be spent after 100 blocks."
         },
         {
           "question": "Can I use my Ethereum mining rig?",
-          "answer": "Yes — the hardware carries over. XHash is Ethash-derived and memory-hard, so Ethash-class GPU rigs mine Parallax competitively without hardware changes. The software does change: existing Ethash miners cannot mine XHash, so use Hashwarp (the official open-source miner) or SRBMiner-Multi, pointed at a Parallax pool or your own node."
+          "answer": "Yes, the hardware carries over. XHash is Ethash-derived and memory-hard, so Ethash-class GPU rigs mine Parallax competitively without hardware changes. The software does change: existing Ethash miners cannot mine XHash, so use Hashwarp (the official open-source miner) or SRBMiner-Multi, pointed at a Parallax pool or your own node."
         }
       ],
       "economics": [
         {
           "question": "What is the total supply of Parallax?",
-          "answer": "21 million LAX, the same cap as Bitcoin. New supply comes only from the block subsidy, which halves every 210,000 blocks. There was no premine, and there is no governance body that could raise the cap."
+          "answer": "21 million LAX, the same cap as Bitcoin. New supply comes only from the block subsidy, which halves every 210,000 blocks. There is no governance body that could raise the cap."
         },
         {
-          "question": "How are transaction fees handled?",
-          "answer": "Fees are a first-price auction on gas price. There is no EIP-1559 base fee and nothing is burned: the miner who includes a transaction receives its entire fee."
+          "question": "How do transaction fees work?",
+          "answer": "Fees are a plain auction on gas price, like Ethereum before 2021. There is no EIP-1559 base fee: you set a gas price, miners include the highest-paying transactions first, and the miner who includes a transaction receives its entire fee. Nothing is burned. Wallets estimate a price from recent blocks, so you rarely set it by hand."
         },
         {
           "question": "Why doesn't Parallax burn fees like Ethereum?",
@@ -860,11 +904,11 @@
         },
         {
           "question": "Is there a foundation or company behind Parallax?",
-          "answer": "No. There is no foundation, no company, no treasury, no council, and no privileged governance tokens. Client development happens in the open, and consensus rules are intended to ossify: changes are limited to technical repair, and even a repair becomes real only through the voluntary adoption of node operators, one by one. The original authors hold no keys and are required for nothing — the protocol must remain correct even if its creators disappear or disagree."
+          "answer": "No. There is no foundation, company, treasury or council, and no governance token. Client development happens in the open, on GitHub, and anyone can propose a change. Whether a change takes effect is decided by node operators, each choosing which software to run."
         },
         {
           "question": "Will Parallax support Layer 2 solutions?",
-          "answer": "The base layer is kept conservative on purpose: it exists to settle, not to impress. Experiments belong on higher layers, where failure doesn't threaten settlement. Because Parallax runs the EVM, rollups and sidechains can anchor to it with ordinary contracts, and building one needs no change to the protocol."
+          "answer": "The base layer is kept conservative on purpose: it exists to settle, not to impress. Experiments belong on higher layers, where failure doesn't threaten settlement. Because Parallax runs the EVM, rollups, sidechains and payment channels can anchor to it with ordinary contracts, and building one needs no change to the protocol."
         },
         {
           "question": "Are there bridges to other blockchains?",
@@ -874,19 +918,23 @@
       "development": [
         {
           "question": "How can I build on Parallax?",
-          "answer": "Building on Parallax works like building on Ethereum. Use Solidity, Remix, Hardhat, or Foundry, and deploy with MetaMask or any Web3 wallet connected to the Parallax network (chain ID 2110). Set evmVersion to \"paris\" in your compiler config — the execution layer is complete through the Paris fork, and Solidity 0.8.20+ otherwise emits PUSH0, which Parallax does not support."
+          "answer": "The same way you build on Ethereum. Write Solidity or Vyper, use Remix, Hardhat or Foundry, and deploy with MetaMask or any wallet connected to chain ID 2110. Two settings matter: compile with evmVersion \"berlin\", and send legacy transactions with a gas price, since Parallax has no EIP-1559. The Parallax for developers page has ready-made Hardhat and Foundry configs."
         },
         {
           "question": "Is there a testnet?",
           "answer": "There is no public testnet. For contract development, start the client with --dev, which runs a local single-node chain, then deploy to mainnet when you're ready."
         },
         {
+          "question": "What tools and libraries are supported?",
+          "answer": "The usual Ethereum tools work: ethers.js, web3.js, viem, MetaMask, Remix, Hardhat, Foundry and OpenZeppelin contracts. ethers and viem detect that blocks have no base fee and send legacy transactions on their own. The explorer is Blockscout, with an Etherscan-compatible API for contract verification."
+        },
+        {
           "question": "Are there development grants available?",
           "answer": "No. There is no foundation or treasury, so there is no grant program. Projects are funded by the people who build and use them."
         },
         {
-          "question": "What tools and libraries are supported?",
-          "answer": "The usual Ethereum tools work: ethers.js, web3.js, viem, MetaMask, Remix, Hardhat, Foundry and OpenZeppelin contracts. Compile with EVM version \"paris\"; the execution layer does not include post-Paris opcodes."
+          "question": "How do I report a security vulnerability?",
+          "answer": "Privately, to security@parallaxprotocol.org, not in a public issue. The client repository's SECURITY.md explains what to include and how disclosure works."
         }
       ]
     }
@@ -1189,7 +1237,7 @@
           },
           {
             "title": "Ethereum's tools",
-            "description": "Solidity, Hardhat, Foundry and MetaMask all work. The EVM matches Ethereum's through the Paris upgrade."
+            "description": "Solidity, Hardhat, Foundry and MetaMask all work. The EVM matches Ethereum's as of the Berlin upgrade."
           }
         ]
       },
@@ -1225,7 +1273,7 @@
           },
           "developers": {
             "title": "For developers",
-            "description": "Chain ID 2110, the EVM through Paris, and what differs from Ethereum."
+            "description": "Chain ID 2110, the EVM as of Berlin, and what differs from Ethereum."
           },
           "whitepaper": {
             "title": "Read the whitepaper",
@@ -1372,7 +1420,7 @@
         "tagline": "Four deliberate departures, each with its reasoning on record.",
         "items": [
           {
-            "title": "The EVM, complete through Paris",
+            "title": "The EVM, as of Berlin",
             "description": "Credit, exchange, escrow — every instrument historically built atop scarce money can be built here without a custodian, a wrapper, or a peg. Contracts hold, move, and settle the base asset directly: agreements that execute exactly as written, against money that cannot be diluted."
           },
           {
@@ -1434,7 +1482,7 @@
           },
           {
             "label": "EVM version",
-            "value": "Complete through Paris"
+            "value": "Berlin"
           },
           {
             "label": "Target block time",
@@ -1452,7 +1500,7 @@
       },
       "config": {
         "heading": "Compiler and network config",
-        "tagline": "The one thing that will bite you: Solidity 0.8.20+ targets Shanghai by default and emits PUSH0, which Paris does not have. Pin the EVM version and everything else is ordinary.",
+        "tagline": "The one thing that will bite you: Solidity 0.8.20+ targets Shanghai by default and emits PUSH0, which Berlin does not have. Pin the EVM version and everything else is ordinary.",
         "hardhatTitle": "hardhat.config.ts",
         "foundryTitle": "foundry.toml"
       },
@@ -1473,8 +1521,8 @@
             "description": "A first-price gas auction: set gasPrice directly. There is no base fee and no EIP-1559 estimation — fee logic written for mainnet's fee market needs a legacy pricing path."
           },
           {
-            "title": "Paris-level EVM",
-            "description": "No PUSH0, no transient storage (EIP-1153), no MCOPY, no blobs (EIP-4844). Everything through Paris behaves exactly as on mainnet — the semantics your audited dependencies were originally written against."
+            "title": "Berlin-level EVM",
+            "description": "No BASEFEE, no PUSH0, no transient storage (EIP-1153), no MCOPY, no blobs (EIP-4844). Everything through Berlin behaves exactly as it did on Ethereum — the semantics your audited dependencies were originally written against."
           },
           {
             "title": "No scheduled forks",
@@ -1909,14 +1957,14 @@
           },
           "build": {
             "title": "Build",
-            "description": "Parallax runs the EVM through Paris, with Ethereum-format addresses. The tools you already use work.",
+            "description": "Parallax runs the EVM as of Berlin, with Ethereum-format addresses. The tools you already use work.",
             "items": {
               "evm": {
                 "title": "Build on the EVM",
-                "description": "Deploy with Solidity, Hardhat, Foundry and MetaMask against chain ID 2110 and https://rpc.parallaxprotocol.org. Pin the compiler's EVM version to paris — Solidity 0.8.20+ emits PUSH0 by default. There is no EIP-1559: set a legacy gas price.",
+                "description": "Deploy with Solidity, Hardhat, Foundry and MetaMask against chain ID 2110 and https://rpc.parallaxprotocol.org. Pin the compiler's EVM version to berlin — Solidity 0.8.20+ emits PUSH0 by default. There is no EIP-1559: set a legacy gas price.",
                 "meta": [
                   "Chain ID 2110",
-                  "EVM: Paris",
+                  "EVM: Berlin",
                   "Legacy gas price"
                 ],
                 "cta": "Parallax for developers",
