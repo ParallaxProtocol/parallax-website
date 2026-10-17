@@ -1,5 +1,5 @@
 'use client'
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import Globe, { type GlobeMethods } from "react-globe.gl"
 import { useTheme } from "next-themes"
 import { MeshPhongMaterial } from "three"
@@ -300,6 +300,8 @@ function buildPoints(
   return level === "merged" ? mergeNearby(exact, MERGE_RADIUS_DEG) : exact
 }
 
+const subscribeNever = () => () => {}
+
 function escapeHtml(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
 }
@@ -319,7 +321,6 @@ export default function NodeGlobe({
   const [size, setSize] = useState({ width: 0, height: 0 })
   const [land, setLand] = useState<FeatureCollection | null>(null)
   const [ready, setReady] = useState(false)
-  const [brand, setBrand] = useState(BRAND_FALLBACK)
   // Seeded from the resting camera altitude so the first paint matches the
   // band the camera actually starts in.
   const [level, setLevel] = useState<DetailLevel>(() => detailLevel(altitude.desktop))
@@ -340,11 +341,11 @@ export default function NodeGlobe({
   // Mirrors the palette choice above: a globe that ignores the theme sits on
   // the dark sphere in both modes, so it wants the full-strength stops rather
   // than light mode's darkened brand.
-  useEffect(() => {
+  const readBrand = useCallback(() => {
     const token = palette === LIGHT_PALETTE ? "--brand" : "--brand-on-dark"
-    const value = getComputedStyle(document.documentElement).getPropertyValue(token).trim()
-    if (value) setBrand(value)
+    return getComputedStyle(document.documentElement).getPropertyValue(token).trim() || BRAND_FALLBACK
   }, [palette])
+  const brand = useSyncExternalStore(subscribeNever, readBrand, () => BRAND_FALLBACK)
 
   useEffect(() => {
     let cancelled = false

@@ -4,23 +4,23 @@ import { Button } from "@/components/ui/button";
 import { addParallaxNetwork, checkParallaxAdded, STORAGE_KEY } from "@/lib/parallax-network";
 import { Check, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
+
+const subscribeNever = () => () => {};
 
 export default function AddNetworkSection() {
   const t = useTranslations("addNetworkSection");
-  const [state, setState] = useState<"loading" | "not-added" | "added" | "no-wallet">("loading");
+  // No wallet on the server, so the HTML matches a visitor without one.
+  const hasWallet = useSyncExternalStore(subscribeNever, () => Boolean(window.ethereum), () => false);
+  const [state, setState] = useState<"loading" | "not-added" | "added">("loading");
   const [status, setStatus] = useState<"idle" | "adding" | "success" | "error">("idle");
 
   useEffect(() => {
-    if (!window.ethereum) {
-      setState("no-wallet");
-      return;
-    }
-
+    if (!hasWallet) return;
     checkParallaxAdded().then((added) => {
       setState(added ? "added" : "not-added");
     });
-  }, []);
+  }, [hasWallet]);
 
   async function handleAdd() {
     setStatus("adding");
@@ -34,7 +34,7 @@ export default function AddNetworkSection() {
     }
   }
 
-  if (state === "loading" || state === "no-wallet") return null;
+  if (!hasWallet || state === "loading") return null;
 
   if (state === "added" && status !== "success") {
     return (

@@ -20,11 +20,18 @@ import {
   X,
 } from "lucide-react"
 import { useTranslations } from "next-intl"
-import { useEffect, useState } from "react"
+import { useSyncExternalStore } from "react"
 
 const PARALLAX_LAUNCH = new Date("2025-10-28T00:00:00Z")
 const BITCOIN_LAUNCH = new Date("2009-01-03T00:00:00Z")
 const ETHEREUM_LAUNCH = new Date("2015-07-30T00:00:00Z")
+
+// Ages count to the visitor's clock, read once; the server HTML counts to
+// Parallax's launch so hydration matches.
+let clientNow: Date | undefined
+const getNow = () => (clientNow ??= new Date())
+const getLaunch = () => PARALLAX_LAUNCH
+const subscribeNever = () => () => {}
 
 function yearsSince(date: Date, now: Date): number {
   const ms = now.getTime() - date.getTime()
@@ -143,8 +150,7 @@ function formatMaturity(years: number, t: ReturnType<typeof useTranslations<"com
 export default function ComparePage() {
   const t = useTranslations("compare")
   const tMaturity = useTranslations("compare.maturity")
-  const [now, setNow] = useState<Date>(PARALLAX_LAUNCH)
-  useEffect(() => { setNow(new Date()) }, [])
+  const now = useSyncExternalStore(subscribeNever, getNow, getLaunch)
 
   const chains = [
     { key: "parallax" as const, name: t("chains.parallax"), highlight: true },
