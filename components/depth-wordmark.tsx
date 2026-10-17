@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { useEffect, useId, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 // Each letter recedes into itself: DEPTH copies of it, each scaled by SHRINK
 // more around the letter's centre and fainter, clipped to the letter, so the
@@ -19,13 +19,16 @@ const FONT_WEIGHT = 800
 const VIEW_X = 52.8
 const VIEW_W = 903.3
 const RADIUS = 190
+const SWEEP_DELAY = 300
+const SWEEP_MS = 1800
 
 const VARIANTS = {
   // Cropped by the page floor, fading towards it, dim at rest.
-  footer: { viewY: 0, viewH: 200, fade: true, rest: 0.5, front: false, align: "xMidYMax" },
+  footer: { viewY: 0, viewH: 200, fade: true, rest: 0.5, front: false, align: "xMidYMax", sweep: false },
   // The whole word, its front outline in the foreground colour so the name
-  // reads, the receding layers brighter than the footer's.
-  hero: { viewY: 52, viewH: 186, fade: false, rest: 0.85, front: true, align: "xMinYMid" },
+  // reads, the receding layers brighter than the footer's. On load the light
+  // sweeps across it once, left to right.
+  hero: { viewY: 52, viewH: 186, fade: false, rest: 0.85, front: true, align: "xMinYMid", sweep: true },
 } as const
 
 type Letter = { char: string; x: number; cx: number; cy: number }
@@ -33,7 +36,8 @@ type Letter = { char: string; x: number; cx: number; cy: number }
 /* "Parallax" with every letter receding into itself, in the logo gradient.
    On devices with a fine pointer a soft light follows the cursor across the
    surrounding `area` (the footer, the hero) and brightens the lines beneath
-   it. Decorative: callers carry the real text for assistive tech. */
+   it. Variants with `sweep` pass the light across the word once on load.
+   Decorative: callers carry the real text for assistive tech. */
 export function DepthWordmark({
   variant,
   area,
@@ -45,9 +49,11 @@ export function DepthWordmark({
   className?: string
 }) {
   const v = VARIANTS[variant]
-  // Two of these can share a page, so every def id is scoped.
-  const uid = useId().replace(/[^a-zA-Z0-9_-]/g, "")
-  const id = (name: string) => `dw-${uid}-${name}`
+  // The hero and the footer share a page, so every def id is scoped by
+  // variant (one of each per page). Not useId: in dev its ids can come out
+  // different on the client than in the server HTML, and the layers drawn
+  // after measuring would then point at defs that don't exist.
+  const id = (name: string) => `dw-${variant}-${name}`
 
   const svgRef = useRef<SVGSVGElement>(null)
   const spotRef = useRef<SVGCircleElement>(null)
@@ -112,6 +118,59 @@ export function DepthWordmark({
       host.removeEventListener("pointerleave", leave)
     }
   }, [area, v.viewY, v.viewH])
+
+  // The load sweep: the same light, travelling from just off the left edge to
+  // just off the right, once the lit layers exist. A cursor moving over the
+  // area takes the light over from it.
+  const measured = letters.length > 0
+  useEffect(() => {
+    const svg = svgRef.current
+    const spot = spotRef.current
+    const lit = litRef.current
+    if (!v.sweep || !measured || !svg || !spot || !lit) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+
+    let frame = 0
+    let start = 0
+    const from = VIEW_X - RADIUS
+    const to = VIEW_X + VIEW_W + RADIUS
+    const step = (now: number) => {
+      if (!start) start = now
+      const t = Math.min((now - start) / SWEEP_MS, 1)
+      const eased = t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2
+      spot.setAttribute("cx", String(from + (to - from) * eased))
+      if (t < 1) frame = requestAnimationFrame(step)
+      else show(false)
+    }
+    // The light enters and leaves beyond the word's edges, so the lit layers
+    // switch on and off without the cursor light's fade: animating their
+    // opacity re-rasterizes the whole word, and its lines visibly shift.
+    const show = (on: boolean) => {
+      const fade = lit.style.transition
+      lit.style.transition = "none"
+      lit.style.opacity = on ? "1" : "0"
+      void lit.getBoundingClientRect()
+      lit.style.transition = fade
+    }
+    const timer = window.setTimeout(() => {
+      spot.setAttribute("cy", String(v.viewY + v.viewH / 2))
+      spot.setAttribute("cx", String(from))
+      show(true)
+      frame = requestAnimationFrame(step)
+    }, SWEEP_DELAY)
+
+    // Only where the cursor light runs; elsewhere the sweep always finishes.
+    const host = svg.closest(area) ?? svg
+    const stop = () => {
+      clearTimeout(timer)
+      cancelAnimationFrame(frame)
+    }
+    if (window.matchMedia("(pointer: fine)").matches) host.addEventListener("pointermove", stop, { once: true })
+    return () => {
+      stop()
+      host.removeEventListener("pointermove", stop)
+    }
+  }, [measured, area, v.sweep, v.viewY, v.viewH])
 
   // Front to back, each layer smaller and fainter; layer 0 is the letter's
   // own outline.
