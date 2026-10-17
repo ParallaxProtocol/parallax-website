@@ -2314,7 +2314,8 @@
         "hardenedRuntime": "Hardened runtime",
         "linuxErase": "x86_64, ARM64",
         "note": "Windows has nothing like Linux's non-dumpable flag. There, your keys are protected by the encryption and the locked memory above."
-      }
+      },
+      "guide": "How the wallet keeps your keys safe"
     },
     "signing": {
       "eyebrow": "Cold signing",
@@ -2350,7 +2351,8 @@
             "description": "The signed transaction comes back the same way and is checked against the request before it's broadcast."
           }
         },
-        "note": "Messages can be signed offline too. The request format is shared with the parallax-wallet command-line tool."
+        "note": "Messages can be signed offline too. The request format is shared with the parallax-wallet command-line tool.",
+        "guide": "Offline signing guide"
       }
     },
     "assistant": {
