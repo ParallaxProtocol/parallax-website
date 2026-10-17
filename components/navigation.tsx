@@ -140,6 +140,10 @@ export function Navigation() {
 
   const showBg = scrolled || isOpen
   const isHome = pathname === "/"
+  // Arriving on the homepage, the nav comes in last, after the hero's
+  // entrance. Fixed at mount: the nav stays mounted across navigations, and
+  // later visits to the homepage shouldn't hide it.
+  const [entersAfterHero] = useState(isHome)
   const heroOverlay = isHome && !scrolled && !isOpen
 
   return (
@@ -149,8 +153,10 @@ export function Navigation() {
         showBg
           ? "bg-background/85 backdrop-blur-xl border-hairline"
           : "bg-transparent border-transparent",
-        heroOverlay && "nav-hero-overlay"
+        heroOverlay && "nav-hero-overlay",
+        entersAfterHero && "enter-fade"
       )}
+      style={entersAfterHero ? ({ "--enter-delay": "4.35s" } as React.CSSProperties) : undefined}
     >
       <div className="flex h-full items-center mx-auto max-w-[90rem] px-5 md:px-6 justify-between">
         {/* Logo */}

@@ -19,24 +19,91 @@ const FONT_WEIGHT = 800
 const VIEW_X = 52.8
 const VIEW_W = 903.3
 const RADIUS = 190
-const SWEEP_DELAY = 300
-const SWEEP_MS = 1800
+
+// The hero's entrance: the word fades in, slow at first and quickening
+// (`.wordmark-enter` in globals.css), as if filling with energy. The lights
+// aren't part of the fade, so they show over the faint word: they cross it
+// left to right back to back, each quicker, brighter and a little wider than
+// the last; then the word releases it in one pulse, lit near white from its
+// centre outward, as the subtitle and buttons come in (their delays in
+// hero.tsx follow FINALE_AT). Times are from the start of the fade, read off
+// its CSS animation, so the lights stay in step with it however late the
+// page hydrates, and any already past are skipped.
+const CHARGE = { count: 16, first: 600, speedup: 0.85, shortest: 110, strength: [0.3, 0.95], r: [160, 240] } as const
+type Shine = { at: number; ms: number; r: number; strength: number; pulse?: boolean }
+const SHINES: Shine[] = []
+for (let i = 0, at = 0; i < CHARGE.count; i++) {
+  const f = i / (CHARGE.count - 1)
+  const ms = Math.max(CHARGE.first * CHARGE.speedup ** i, CHARGE.shortest)
+  SHINES.push({
+    at,
+    ms,
+    r: CHARGE.r[0] + (CHARGE.r[1] - CHARGE.r[0]) * f,
+    strength: CHARGE.strength[0] + (CHARGE.strength[1] - CHARGE.strength[0]) * f,
+  })
+  at += ms
+}
+/** ≈3880ms: when the release starts. */
+const FINALE_AT = SHINES[SHINES.length - 1].at + SHINES[SHINES.length - 1].ms
+// The release: a pulse from the word's centre, its layers lit near white
+// rather than in the gradient's tint, thicker, all at full strength and
+// glowing (`.wordmark-pulse` in globals.css, and the glow filter). It swells over its first quarter and
+// fades over the rest while its light spreads from r to PULSE_REACH, past
+// the word's ends.
+SHINES.push({ at: FINALE_AT, ms: 700, r: 300, strength: 0.85, pulse: true })
+const PULSE_REACH = 1100
+const BRIGHT = ["#eafff5", "#edf4ff"] as const
+
+const sweepEase = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2)
+
+// Each layer is drawn by a charge shine, outermost first: layer k by every
+// LAYER_EVERY-th shine, appearing in each letter as the light's centre
+// crosses it (`.wordmark-layer` in globals.css, delayed per letter here).
+const LAYER_EVERY = 2
+const appearAt = (k: number, cx: number) => {
+  const shine = SHINES[k * LAYER_EVERY]
+  const p = (cx - (VIEW_X - shine.r)) / (VIEW_W + 2 * shine.r)
+  let lo = 0
+  let hi = 1
+  for (let i = 0; i < 20; i++) {
+    const mid = (lo + hi) / 2
+    if (sweepEase(mid) < p) lo = mid
+    else hi = mid
+  }
+  return Math.round(shine.at + lo * shine.ms)
+}
 
 const VARIANTS = {
   // Cropped by the page floor, fading towards it, dim at rest.
-  footer: { viewY: 0, viewH: 200, fade: true, rest: 0.5, front: false, align: "xMidYMax", sweep: false },
+  footer: { viewY: 0, viewH: 200, fade: true, rest: 0.5, front: false, align: "xMidYMax", entrance: false },
   // The whole word, its front outline in the foreground colour so the name
-  // reads, the receding layers brighter than the footer's. On load the light
-  // sweeps across it once, left to right.
-  hero: { viewY: 52, viewH: 186, fade: false, rest: 0.85, front: true, align: "xMinYMid", sweep: true },
+  // reads, the receding layers brighter than the footer's. It plays the
+  // entrance on load.
+  hero: { viewY: 52, viewH: 186, fade: false, rest: 0.85, front: true, align: "xMinYMid", entrance: true },
 } as const
 
 type Letter = { char: string; x: number; cx: number; cy: number }
 
+// The letters as measured in Geist at this size, so the layers are in the
+// server HTML and paint (and fade in) from the first frame. The client
+// re-measures once the font is ready, in case the font's metrics change.
+const LETTERS: Letter[] = [
+  { char: "P", x: 36.76, cx: 110.32, cy: 186 },
+  { char: "a", x: 183.86, cx: 251.99, cy: 186 },
+  { char: "r", x: 320.1, cx: 365.03, cy: 186 },
+  { char: "a", x: 409.94, cx: 476.83, cy: 186 },
+  { char: "l", x: 543.7, cx: 578.29, cy: 186 },
+  { char: "l", x: 612.85, cx: 648.21, cy: 186 },
+  { char: "a", x: 683.55, cx: 748.23, cy: 186 },
+  { char: "x", x: 812.88, cx: 888.06, cy: 186 },
+]
+const close = (a: Letter[], b: Letter[]) =>
+  a.length === b.length && a.every((l, i) => l.char === b[i].char && Math.abs(l.x - b[i].x) + Math.abs(l.cx - b[i].cx) + Math.abs(l.cy - b[i].cy) < 0.5)
+
 /* "Parallax" with every letter receding into itself, in the logo gradient.
    On devices with a fine pointer a soft light follows the cursor across the
    surrounding `area` (the footer, the hero) and brightens the lines beneath
-   it. Variants with `sweep` pass the light across the word once on load.
+   it. The hero plays an entrance on load (see SHINES above).
    Decorative: callers carry the real text for assistive tech. */
 export function DepthWordmark({
   variant,
@@ -54,14 +121,21 @@ export function DepthWordmark({
   // different on the client than in the server HTML, and the layers drawn
   // after measuring would then point at defs that don't exist.
   const id = (name: string) => `dw-${variant}-${name}`
+  const glow = `url(#${id("glow")})`
 
   const svgRef = useRef<SVGSVGElement>(null)
   const spotRef = useRef<SVGCircleElement>(null)
   const litRef = useRef<SVGGElement>(null)
   const wordRef = useRef<SVGTextElement>(null)
-  const [letters, setLetters] = useState<Letter[]>([])
+  const spotStopRef = useRef<SVGStopElement>(null)
+  // While the entrance plays, it owns the light; the cursor light waits, then
+  // picks up wherever the cursor is (`handOver`, false if it's not over the
+  // area).
+  const entering = useRef(false)
+  const handOver = useRef<() => boolean>(() => false)
+  const [letters, setLetters] = useState<Letter[]>(LETTERS)
 
-  // Measure each letter's start and box from the laid-out text.
+  // Check each letter's start and box against the laid-out text.
   useEffect(() => {
     let live = true
     document.fonts.ready.then(() => {
@@ -73,7 +147,7 @@ export function DepthWordmark({
         const box = el.getExtentOfChar(i)
         out.push({ char: text[i], x: el.getStartPositionOfChar(i).x, cx: box.x + box.width / 2, cy: box.y + box.height * 0.62 })
       }
-      setLetters(out)
+      if (!close(out, LETTERS)) setLetters(out)
     })
     return () => { live = false }
   }, [])
@@ -90,8 +164,10 @@ export function DepthWordmark({
     let frame = 0
     let x = 0
     let y = 0
+    let inside = false
     const place = () => {
       frame = 0
+      if (entering.current) return
       const r = svg.getBoundingClientRect()
       spot.setAttribute("cx", String(VIEW_X + ((x - r.left) / r.width) * VIEW_W))
       spot.setAttribute("cy", String(v.viewY + ((y - r.top) / r.height) * v.viewH))
@@ -99,11 +175,19 @@ export function DepthWordmark({
     const onMove = (e: PointerEvent) => {
       x = e.clientX
       y = e.clientY
+      inside = true
       if (!frame) frame = requestAnimationFrame(place)
     }
-    const show = (on: boolean) => () => { lit.style.opacity = on ? "1" : "0" }
+    const show = (on: boolean) => () => {
+      inside = on
+      if (!entering.current) lit.style.opacity = on ? "1" : "0"
+    }
     const enter = show(true)
     const leave = show(false)
+    handOver.current = () => {
+      if (inside) place()
+      return inside
+    }
 
     // Track over the whole area, not just the letters, so the light is
     // already in place when the cursor reaches them.
@@ -113,37 +197,26 @@ export function DepthWordmark({
     host.addEventListener("pointerleave", leave)
     return () => {
       cancelAnimationFrame(frame)
+      handOver.current = () => false
       host.removeEventListener("pointermove", onMove as EventListener)
       host.removeEventListener("pointerenter", enter)
       host.removeEventListener("pointerleave", leave)
     }
   }, [area, v.viewY, v.viewH])
 
-  // The load sweep: the same light, travelling from just off the left edge to
-  // just off the right, once the lit layers exist. A cursor moving over the
-  // area takes the light over from it.
-  const measured = letters.length > 0
   useEffect(() => {
     const svg = svgRef.current
     const spot = spotRef.current
+    const stop = spotStopRef.current
     const lit = litRef.current
-    if (!v.sweep || !measured || !svg || !spot || !lit) return
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    if (!v.entrance || !svg || !spot || !stop || !lit) return
+    // Absent under reduced motion, where the word is simply there.
+    const fade = svg.querySelector(".wordmark-enter")?.getAnimations()[0]
+    if (!fade) return
 
     let frame = 0
-    let start = 0
-    const from = VIEW_X - RADIUS
-    const to = VIEW_X + VIEW_W + RADIUS
-    const step = (now: number) => {
-      if (!start) start = now
-      const t = Math.min((now - start) / SWEEP_MS, 1)
-      const eased = t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2
-      spot.setAttribute("cx", String(from + (to - from) * eased))
-      if (t < 1) frame = requestAnimationFrame(step)
-      else show(false)
-    }
-    // The light enters and leaves beyond the word's edges, so the lit layers
-    // switch on and off without the cursor light's fade: animating their
+    let done = false
+    // Switched without the cursor light's fade: animating the lit layers'
     // opacity re-rasterizes the whole word, and its lines visibly shift.
     const show = (on: boolean) => {
       const fade = lit.style.transition
@@ -152,25 +225,55 @@ export function DepthWordmark({
       void lit.getBoundingClientRect()
       lit.style.transition = fade
     }
-    const timer = window.setTimeout(() => {
-      spot.setAttribute("cy", String(v.viewY + v.viewH / 2))
-      spot.setAttribute("cx", String(from))
-      show(true)
-      frame = requestAnimationFrame(step)
-    }, SWEEP_DELAY)
-
-    // Only where the cursor light runs; elsewhere the sweep always finishes.
-    const host = svg.closest(area) ?? svg
-    const stop = () => {
-      clearTimeout(timer)
+    const bright = (on: boolean) => {
+      svg.style.setProperty("--dw-lit-1", on ? BRIGHT[0] : "")
+      svg.style.setProperty("--dw-lit-2", on ? BRIGHT[1] : "")
+      lit.classList.toggle("wordmark-pulse", on)
+      if (on) lit.setAttribute("filter", glow)
+      else lit.removeAttribute("filter")
+    }
+    const light = (cx: number, r: number, strength: number) => {
+      spot.setAttribute("cx", String(cx))
+      spot.setAttribute("r", String(r))
+      stop.setAttribute("stop-opacity", String(strength))
+    }
+    const finish = () => {
+      if (done) return
+      done = true
+      entering.current = false
       cancelAnimationFrame(frame)
+      light(-RADIUS, RADIUS, 1)
+      bright(false)
+      if (!handOver.current()) show(false)
     }
-    if (window.matchMedia("(pointer: fine)").matches) host.addEventListener("pointermove", stop, { once: true })
-    return () => {
-      stop()
-      host.removeEventListener("pointermove", stop)
+    const step = () => {
+      const elapsed = (document.timeline.currentTime as number) - (fade.startTime as number)
+      const shine = SHINES.find((s) => elapsed < s.at + s.ms)
+      if (!shine) return finish()
+      // Between shines the light waits off the left edge.
+      const t = Math.max(0, (elapsed - shine.at) / shine.ms)
+      bright(Boolean(shine.pulse))
+      if (shine.pulse) {
+        const swell = t < 0.25 ? t / 0.25 : (1 - (t - 0.25) / 0.75) ** 2
+        const spread = 1 - (1 - t) ** 3
+        light(VIEW_X + VIEW_W / 2, shine.r + (PULSE_REACH - shine.r) * spread, shine.strength * swell)
+      } else {
+        const eased = sweepEase(t)
+        const from = VIEW_X - shine.r
+        const to = VIEW_X + VIEW_W + shine.r
+        light(from + (to - from) * eased, shine.r, shine.strength)
+      }
+      frame = requestAnimationFrame(step)
     }
-  }, [measured, area, v.sweep, v.viewY, v.viewH])
+    entering.current = true
+    fade.ready.then(() => {
+      if (done) return
+      spot.setAttribute("cy", String(v.viewY + v.viewH / 2))
+      show(true)
+      step()
+    })
+    return finish
+  }, [v.entrance, v.viewY, v.viewH, glow])
 
   // Front to back, each layer smaller and fainter; layer 0 is the letter's
   // own outline.
@@ -185,7 +288,8 @@ export function DepthWordmark({
             y={TEXT_Y}
             fontSize={FONT_SIZE}
             fontWeight={FONT_WEIGHT}
-            style={{ fontFamily: "var(--font-geist-sans)" }}
+            className={cn(v.entrance && "wordmark-layer")}
+            style={{ fontFamily: "var(--font-geist-sans)", animationDelay: v.entrance ? `${appearAt(k, l.cx)}ms` : undefined }}
             transform={`translate(${l.cx} ${l.cy}) scale(${scale}) translate(${-l.cx} ${-l.cy})`}
             fill="none"
             stroke={stroke}
@@ -240,21 +344,28 @@ export function DepthWordmark({
           <rect x={VIEW_X - 40} y={v.viewY} width={VIEW_W + 80} height={v.viewH} fill={`url(#${id("floor")})`} />
         </mask>
         <radialGradient id={id("spot-fill")}>
-          <stop offset="0%" stopColor="white" stopOpacity="1" />
+          <stop ref={spotStopRef} offset="0%" stopColor="white" stopOpacity="1" />
           <stop offset="100%" stopColor="white" stopOpacity="0" />
         </radialGradient>
+        {v.entrance && (
+          <filter id={id("glow")} x="-10%" y="-20%" width="120%" height="140%">
+            <feGaussianBlur stdDeviation="5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        )}
         <mask id={id("spot")}>
           <circle ref={spotRef} cx={-RADIUS} cy={-RADIUS} r={RADIUS} fill={`url(#${id("spot-fill")})`} />
         </mask>
       </defs>
 
       <g mask={`url(#${id("fade")})`} clipPath={`url(#${id("letters")})`}>
-        {/* Before the font loads and letters are measured: the outline alone */}
-        {letters.length === 0 && (
-          <Word fill="none" stroke={`url(#${id("gradient")})`} strokeWidth={LINE * 2} opacity={v.rest} />
-        )}
         {/* At rest: the receding layers */}
-        <g opacity={v.rest}>{depth(`url(#${id("gradient")})`)}</g>
+        <g opacity={v.rest} className={cn(v.entrance && "wordmark-enter")}>
+          {depth(`url(#${id("gradient")})`)}
+        </g>
         {/* Under the cursor: the same layers, lit */}
         <g ref={litRef} mask={`url(#${id("spot")})`} style={{ opacity: 0, transition: "opacity 300ms ease-out" }}>
           {depth(`url(#${id("lit")})`)}
@@ -262,10 +373,18 @@ export function DepthWordmark({
       </g>
       {/* The hero's front outline, crisp over the layers so the word reads */}
       {v.front && (
-        <Word fill="none" stroke={`url(#${id("front")})`} strokeWidth={1.6} strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+        <Word
+          className={cn(v.entrance && "wordmark-enter")}
+          fill="none"
+          stroke={`url(#${id("front")})`}
+          strokeWidth={1.6}
+          strokeLinejoin="round"
+          vectorEffect="non-scaling-stroke"
+        />
       )}
     </svg>
   )
+
 }
 
 function Word(props: React.SVGProps<SVGTextElement> & { ref?: React.Ref<SVGTextElement> }) {

@@ -9,7 +9,10 @@ import { DepthWordmark } from "./depth-wordmark"
 
 /* The entrances are CSS animations (see "Entrance animations" in
    globals.css), not framer-motion: the h1 and subtitle are the homepage's
-   LCP candidates and must paint from the SSR HTML, before hydration. */
+   LCP candidates and must paint from the SSR HTML, before hydration.
+   The wordmark fades in first while lights cross it (it times itself); the
+   subtitle and buttons follow as its last, widest light sweeps across
+   (FINALE_AT in depth-wordmark.tsx, ≈3.88s), then the nav. */
 export function Hero() {
   useStableVh()
   const containerRef = useRef<HTMLElement>(null)
@@ -25,8 +28,8 @@ export function Hero() {
                   bg-black on-dark-surface border-b border-hairline"
     >
       {/* A faint glow in the logo's colours, low on the right — the only
-          light behind the wordmark. */}
-      <div aria-hidden className="aurora opacity-80" />
+          light behind the wordmark. It comes up with the wordmark. */}
+      <div aria-hidden className="aurora opacity-80 enter-backdrop" />
 
       {/* Content */}
       <div className="relative z-[3] mx-auto flex min-h-[calc(var(--vh,1vh)*100)] w-full max-w-[90rem] flex-col justify-center px-5 pt-28 pb-16 md:px-10 lg:pb-24">
@@ -34,24 +37,21 @@ export function Hero() {
           {/* The name as the depth wordmark, across the full content width. The svg renders on the server,
               so it paints before hydration like the text it replaces; the
               h1 keeps the word for assistive tech and search. */}
-          <h1
-            className="enter-fade-up"
-            style={{ "--enter-delay": "0.1s" } as React.CSSProperties}
-          >
+          <h1>
             <span className="sr-only">Parallax</span>
             <DepthWordmark variant="hero" area="section" className="w-full" />
           </h1>
           <p
             className="mt-6 max-w-2xl text-[1.75rem] font-light leading-[1.1] tracking-[-0.03em] text-white text-balance sm:text-4xl lg:text-5xl enter-fade-up"
-            style={{ "--enter-delay": "0.25s" } as React.CSSProperties}
+            style={{ "--enter-delay": "4.05s" } as React.CSSProperties}
           >
             {t("subtitle")}
           </p>
         </div>
 
         <div
-          className="mt-10 flex flex-col gap-3 sm:flex-row lg:mt-12 enter-fade"
-          style={{ "--enter-delay": "0.6s" } as React.CSSProperties}
+          className="mt-10 flex flex-col gap-3 sm:flex-row lg:mt-12 enter-fade-up"
+          style={{ "--enter-delay": "4.25s" } as React.CSSProperties}
         >
           <Button size="xl" variant="brand" className="w-full sm:w-auto" asChild>
             <Link href={"/parallax-wallet"}>

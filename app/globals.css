@@ -458,11 +458,46 @@ a:focus-visible > [data-slot="card"] {
 .enter-bob {
   animation: enter-bob 2s ease-in-out infinite;
 }
+/* The hero wordmark's fade-in, slow at first and quickening to the end
+   (ease-in), on its resting layers and outline; the lights that cross it
+   aren't faded. They're timed off this animation in depth-wordmark.tsx
+   (SHINES). */
+@keyframes wordmark-enter {
+  from {
+    opacity: 0;
+  }
+}
+.wordmark-enter {
+  animation: wordmark-enter 4s cubic-bezier(0.5, 0, 0.75, 0) both;
+}
+/* The hero's backdrop comes up with the wordmark, on the same curve. */
+.enter-backdrop {
+  animation: wordmark-enter 4s cubic-bezier(0.5, 0, 0.75, 0) both;
+}
+/* Its layers, each drawn in as a light crosses it; the delays are set per
+   letter and layer in depth-wordmark.tsx (appearAt). */
+@keyframes wordmark-layer {
+  from {
+    opacity: 0;
+  }
+}
+.wordmark-layer {
+  animation: wordmark-layer 250ms ease-out both;
+}
+/* Its closing pulse: the lit layers thicker and every one at full strength
+   (over the stroke attributes each layer carries). */
+.wordmark-pulse text {
+  stroke-width: 1.7px;
+  stroke-opacity: 1;
+}
 @media (prefers-reduced-motion: reduce) {
   .enter-fade-up,
   .enter-fade,
   .enter-scale-x,
-  .enter-bob {
+  .enter-bob,
+  .wordmark-enter,
+  .wordmark-layer,
+  .enter-backdrop {
     animation: none;
   }
 }
