@@ -274,11 +274,14 @@
   content: "";
   position: absolute;
   inset: -20%;
+  /* Soft by the gradients' own long falloff, not by a blur filter: a
+     40px blur over a layer 40% larger than its panel had to be re-rendered
+     as panels scrolled, and with dozens of glows on a page it dropped a
+     frame in every few while scrolling. */
   background:
-    radial-gradient(40% 35% at 85% 85%, var(--aurora-blue), transparent 70%),
-    radial-gradient(35% 30% at 65% 95%, var(--aurora-green), transparent 70%),
-    radial-gradient(30% 25% at 95% 60%, var(--aurora-teal), transparent 70%);
-  filter: blur(40px);
+    radial-gradient(48% 42% at 85% 85%, var(--aurora-blue), transparent 78%),
+    radial-gradient(42% 36% at 65% 95%, var(--aurora-green), transparent 78%),
+    radial-gradient(36% 30% at 95% 60%, var(--aurora-teal), transparent 78%);
 }
 .aurora::after {
   content: "";
@@ -292,8 +295,8 @@
 }
 .aurora-left::before {
   background:
-    radial-gradient(40% 35% at 10% 90%, var(--aurora-green), transparent 70%),
-    radial-gradient(35% 30% at 30% 100%, var(--aurora-blue), transparent 70%);
+    radial-gradient(48% 42% at 10% 90%, var(--aurora-green), transparent 78%),
+    radial-gradient(42% 36% at 30% 100%, var(--aurora-blue), transparent 78%);
 }
 .aurora-left::after {
   mask-image: radial-gradient(60% 60% at 15% 95%, black, transparent 75%);
