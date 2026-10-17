@@ -92,7 +92,7 @@ export function NoForks() {
           </p>
           <div className="lg:col-span-4 lg:justify-self-end">
             <Button variant="brand" size="lg" asChild>
-              <Link href="/blog/covenants-without-forks">
+              <Link href="/blog/payments-and-privacy-without-a-fork">
                 {t("cta")}
                 <ArrowRight />
               </Link>
