@@ -1,0 +1,171 @@
+---
+title: "Payments and Privacy, Without a Fork"
+date: 2026-10-16
+summary: "Instant payments that work with no internet, and private transfers that don't rest on elliptic curves. Two of the hardest problems in cryptocurrency, being solved on Parallax as contracts and software — with no change to the rules every node enforces."
+author: "Parallax Protocol"
+tags: ["channels", "privacy", "post-quantum", "evm"]
+draft: false
+---
+Parallax's consensus rules are meant to stay put. Twenty-one million coins,
+proof of work, ten-minute blocks: the base layer is supposed to be slow,
+boring and hard to change, and it is. So when people ask how Parallax will
+ever get instant payments or private transfers, the expected answer is a
+roadmap of hard forks.
+
+There isn't one. Both are being built right now, and neither needs a single
+change to consensus. This post explains how, and states plainly where each
+one stands.
+
+## Two problems every sound-money chain hits
+
+**Ten-minute blocks are too slow to pay for coffee.** That's not a flaw to
+fix; it's the price of a chain a modest computer can verify. Bitcoin's
+answer was Lightning: payments that happen off-chain and settle on it.
+Building that on Bitcoin took years of script workarounds and is still
+waiting on opcodes, like `SIGHASH_ANYPREVOUT`, that need a soft fork.
+
+**A public ledger is public.** Every balance and payment is visible to
+anyone, forever. The usual fixes are privacy pools built on zero-knowledge
+proofs, and almost all of them rest on elliptic-curve cryptography: pairing
+checks, trusted setups, curve-based encryption. That's the same math a large
+quantum computer is expected to break, and a public chain keeps every
+ciphertext forever for whoever can break it later.
+
+On most chains, fixing either problem means changing the protocol. On
+Parallax, the full EVM sits on top of an ossified base, so both become
+ordinary programs: a contract that enforces the rules, and software that
+does the rest.
+
+## Payment channels: instant, and they work offline
+
+A payment channel is a running tab between two people, secured by a
+contract. You lock LAX into the Parallax channel registry once, on-chain.
+From then on, each payment is just a new version of the tab — your balance
+down, theirs up — signed by both of you. Nothing touches the chain until
+someone closes the tab.
+
+Paying takes one round trip. Your wallet signs the new state and sends it;
+the other side checks it and signs it back. That countersignature is both
+your receipt and the thing that protects your remaining balance.
+
+**There are no payment servers.** Signed states travel over
+[Nostr](https://nostr.com), an open network of interchangeable relays that
+forward encrypted messages between keys. Your wallet uses several at once.
+Every payment is sealed end to end with NIP-44 encryption and NIP-59 gift
+wrapping, with timestamps fuzzed, so a relay sees only that *some* envelope
+went to *some* key. A relay can't forge, alter or replay anything: every
+binding commitment is a signature inside the envelope. The worst a relay can
+do is fail to deliver, and your wallet retransmits through the others until
+the message is acknowledged.
+
+**They even work with no internet.** The messages are small enough for QR
+codes, so a payment at a market stall with no signal is three scans: the
+merchant shows the invoice, you show your signed payment, they show their
+countersignature. The signatures are byte-for-byte the ones the online path
+uses, so the payment is just as enforceable. The device files its encrypted
+backup once it's back online.
+
+### What keeps it honest
+
+The registry contract is the referee, and it has no owner: no admin key, no
+pause switch, no upgrade proxy. A future version would be a separate
+deployment, not a change to this one.
+
+- **Cooperative closes** settle at once, on two fresh signatures over the
+  final balances.
+- **A one-sided close** opens a challenge window, set when the channel opens:
+  from 36 blocks (about six hours) up to a month, 144 blocks (about a day) by
+  default. During it, *anyone* may submit a newer state signed by both
+  parties.
+- **Cheating costs money.** Closing with an old state is caught by that
+  challenge, and 20% of the over-claim is burned, so fraud loses money unless
+  it goes unchallenged almost every time.
+- **Watchtowers are trustless.** You can hand your latest states to one or
+  more watchtowers to challenge on your behalf while you're offline. The
+  material they hold can only do one thing — prove the truth — so the worst
+  a malicious tower can do is nothing. Your own wallet is always the first
+  watcher.
+- **Merchants get a server-side daemon** with a REST API and signed webhooks,
+  so a shop can accept channel payments without a person at the till.
+
+Channels in this first version are direct, between two parties, rather than
+routed across a network of them. That keeps the security story small enough
+to state in full, and the channel docs do: every assumption and residual
+risk is written down. The one that matters most is shared by every channel
+design: if you're offline for the whole challenge window with no
+watchtower, a cheating counterparty could close at an old state. You size
+that risk with the window length and the number of towers.
+
+## The shielded pool: private, and post-quantum
+
+The second project is earlier: research, being designed in the open. Its
+goal is a **shielded pool** for private transfers of LAX and tokens, where
+nothing in the pool's security rests on elliptic curves or pairings.
+
+The design starts from three choices.
+
+- **STARK proofs, with no trusted setup.** Every private transfer comes with
+  a STARK proving it's valid: the notes being spent exist, they haven't been
+  spent before, value is conserved, and the spender holds the key. STARKs are
+  built from hash functions rather than curves, and they need no setup
+  ceremony whose secrets someone might have kept.
+- **Spending by hash preimage, not signature.** Proving you may spend a note
+  means proving, inside the STARK, that you know the secret its owner's key is
+  derived from. There's no signature for a quantum computer to forge.
+- **Notes encrypted with ML-KEM-768**, the post-quantum key encapsulation
+  standardized by NIST as FIPS 203. Amounts, assets and recipients are
+  readable only by the sender, the recipient and whoever holds a viewing key.
+  That matters because harvest-now, decrypt-later is a real threat for a
+  ledger that keeps every ciphertext forever.
+
+### Why this needs no fork
+
+An earlier post, [Covenants Without
+Forks](/blog/covenants-without-forks), noted that adding post-quantum
+*signatures* to an account would take a new precompile, which on Parallax is
+a fork. The pool doesn't verify a new signature scheme. It verifies a STARK,
+and a STARK verifier is arithmetic and hashing: the proof's commitments use
+Keccak-256, which the EVM computes with a native opcode. A plain contract can
+check it. The pool is a contract, a prover in the wallet, and services that
+batch and relay transactions. Nothing in it asks every node to adopt new
+rules.
+
+### What it doesn't do, stated plainly
+
+- **The boundary is classical.** LAX enters and leaves the pool from ordinary
+  accounts, which sign with ECDSA. Inside the pool nothing rests on curves;
+  getting in and out still does.
+- **Privacy needs company.** A shielded pool hides you among its other users.
+  On a young chain, that crowd starts small.
+- **Proofs are big.** STARK proofs may run past 100 KB, larger than the
+  transaction limits most nodes apply today. If they don't shrink enough,
+  carrying them may take a change to node *policy* — what a node relays,
+  never what's valid — shipped in an ordinary client release.
+- **The verifier is the risk.** A pool holds funds behind custom
+  cryptographic verification code, and a single missing check could create
+  money from nothing. So the work runs security first, ahead of speed, cost
+  and schedule. Every security property needs a specification, a test and
+  an adversarial review before anything is built on top of it.
+
+There is no date for it, and there won't be one until the cryptography and
+the code have earned it.
+
+## The pattern
+
+Neither project needed anyone's permission. Payment channels are a contract,
+a wallet and an open relay network. The shielded pool is a contract, a
+prover and some services. The rules every node enforces — the supply, the
+proof of work, the block interval — stay exactly where they are.
+
+That's the bet Parallax makes: keep the base layer still, and let everything
+built on it move as fast as it can be made safe.
+
+## Further reading
+
+- [Covenants Without Forks](/blog/covenants-without-forks): why contract-layer
+  enforcement can stand in for Bitcoin's proposed covenant opcodes.
+- [Nostr NIP-44](https://github.com/nostr-protocol/nips/blob/master/44.md)
+  and [NIP-59](https://github.com/nostr-protocol/nips/blob/master/59.md):
+  the encryption and gift-wrapping channel messages travel in.
+- [FIPS 203: ML-KEM](https://csrc.nist.gov/pubs/fips/203/final): the
+  post-quantum key encapsulation standard behind the pool's note encryption.
