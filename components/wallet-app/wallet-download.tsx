@@ -2,6 +2,7 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { usePlatform } from "@/hooks/usePlatform"
+import { Link } from "@/i18n/navigation"
 import { cn } from "@/lib/utils"
 import { ArrowDown, Download, ExternalLink, Smartphone } from "lucide-react"
 import { useTranslations } from "next-intl"
@@ -25,9 +26,9 @@ const ARCH_LABEL: Record<WalletOs, Record<WalletArch, string>> = {
 
 const OS_LABEL: Record<WalletOs, string> = { linux: "Linux", macos: "macOS", windows: "Windows" }
 
-/* The hero's call to action: this computer's build once a release carries
-   Parallax Wallet builds, "coming soon" until then. Either way the rest of
-   the builds are one jump down, in the download section. `children` are
+/* The hero's call to action: this computer's build from the latest
+   release, or — when GitHub can't be read — the releases page itself. The
+   rest of the builds are one jump down, in the download section. `children` are
    secondary actions set in the same row, above the status line. */
 export function WalletDownloadButton({ children }: { children?: React.ReactNode }) {
   const t = useTranslations("parallaxWallet.download")
@@ -71,12 +72,14 @@ export function WalletDownloadButton({ children }: { children?: React.ReactNode 
     )
   } else if (ready && !available) {
     primary = (
-      <span className="inline-flex h-11 items-center gap-2.5 rounded-full border border-stroke bg-foreground/[0.04] px-5 text-[15px] font-medium text-foreground">
-        <span aria-hidden className="size-1.5 rounded-full bg-brand animate-pulse motion-reduce:animate-none" />
-        {t("comingSoon")}
-      </span>
+      <Button variant="brand" size="lg" asChild>
+        <a href={WALLET_RELEASES_URL} target="_blank" rel="noopener">
+          <FaGithub />
+          {t("fromGithub")}
+        </a>
+      </Button>
     )
-    status = t("comingSoonHint")
+    status = t("allPlatforms")
   } else {
     // Still asking GitHub, or a release without this computer's build:
     // send them to the full list.
@@ -110,8 +113,8 @@ const BUILDS: { os: WalletOs; icon: typeof FaLinux; rows: { kind: WalletKind; ar
 
 const DETECTED_OS: Record<string, WalletOs> = { darwin: "macos", windows: "windows", linux: "linux" }
 
-/* Every build of the latest release, by platform. Before the first
-   Parallax Wallet release the same grid lists what will ship, unlinked. */
+/* Every build of the latest release, by platform. When the release can't be
+   read, each row points to the releases page instead. */
 export function WalletDownloads() {
   const t = useTranslations("parallaxWallet.download")
   const { platform } = usePlatform()
@@ -126,8 +129,6 @@ export function WalletDownloads() {
             <Badge>{t("latest")}</Badge>
             <span className="font-mono text-sm text-foreground">{release.version}</span>
           </>
-        ) : ready ? (
-          <Badge variant="outline">{t("comingSoon")}</Badge>
         ) : (
           <span className="h-[22px]" />
         )}
@@ -164,11 +165,19 @@ export function WalletDownloads() {
                           <span className="sr-only">{t("downloadAsset", { name: asset.name })}</span>
                         </span>
                       </a>
+                    ) : ready && !available ? (
+                      <a href={WALLET_RELEASES_URL} target="_blank" rel="noopener" className="group flex items-center justify-between gap-4 py-3.5">
+                        {label}
+                        <span className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground transition-colors group-hover:text-foreground">
+                          {t("onGithub")}
+                          <ExternalLink className="size-3" aria-hidden />
+                        </span>
+                      </a>
                     ) : (
                       <div className="flex items-center justify-between gap-4 py-3.5">
                         {label}
                         <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground/70">
-                          {ready && available ? t("notInRelease") : t("soon")}
+                          {ready ? t("notInRelease") : ""}
                         </span>
                       </div>
                     )}
@@ -203,10 +212,46 @@ export function WalletDownloads() {
           </>
         ) : (
           <a href={WALLET_RELEASES_URL} target="_blank" rel="noopener" className="text-sm text-muted-foreground underline decoration-stroke underline-offset-4 transition-colors hover:text-foreground hover:decoration-brand sm:ml-2">
-            {t("watchReleases")}
+            {t("allReleases")}
           </a>
         )}
       </div>
     </div>
   )
 }
+
+/* A compact download button for other pages (homepage, /wallets): this
+   computer's build when the latest release has it, otherwise the wallet
+   page's download section. */
+export function WalletDownloadCta({ className }: { className?: string }) {
+  const t = useTranslations("parallaxWallet.download")
+  const tc = useTranslations("common")
+  const { platform, ready: platformReady } = usePlatform()
+  const { release, ready: releaseReady, available } = useWalletRelease()
+  const asset = platformReady && releaseReady && available && release && platform && !platform.isMobile ? assetFor(release, platform) : null
+
+  return (
+    <Button variant="brand" className={className} asChild>
+      {asset ? (
+        <a href={asset.url}>
+          <Download className="size-4" strokeWidth={2} />
+          {tc("downloadFor", { platform: OS_LABEL[asset.os] })}
+        </a>
+      ) : (
+        <Link href="/parallax-wallet#download">
+          <Download className="size-4" strokeWidth={2} />
+          {t("getIt")}
+        </Link>
+      )}
+    </Button>
+  )
+}
+
+/* "Latest v1.2.3" from GitHub, or nothing until (or unless) it's known. */
+export function WalletVersionBadge() {
+  const t = useTranslations("parallaxWallet.download")
+  const { release, available } = useWalletRelease()
+  if (!available || !release) return null
+  return <Badge>{t("latestVersion", { version: release.version })}</Badge>
+}
+

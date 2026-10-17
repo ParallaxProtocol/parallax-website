@@ -7,8 +7,10 @@ import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { FadeIn } from "./fade-in"
 import { Section, SectionHeading, TwoToneTitle } from "./section"
+import { LedgerLogo, TrezorLogo } from "./hardware-logos"
 import { McpConnect } from "./mcp-connect"
 import { AppScreenshot } from "./wallet-app/app-screenshot"
+import { WalletDownloadCta, WalletVersionBadge } from "./wallet-app/wallet-download"
 
 const STATUS_URL = "https://status.parallaxprotocol.org"
 const EXPLORER_URL = "https://explorer.parallaxprotocol.org"
@@ -238,7 +240,7 @@ export function WalletShowcase() {
           <div className="lg:col-span-7">
             <div className="mb-6 flex flex-wrap items-center gap-3">
               <p className="tag"><span className="text-brand">04</span><span aria-hidden className="text-hairline">/</span>{t("eyebrow")}</p>
-              <Badge>{t("badge")}</Badge>
+              <WalletVersionBadge />
             </div>
             <h2 className="text-4xl leading-[1.05] text-foreground text-balance sm:text-5xl lg:text-6xl">
               <TwoToneTitle text={t("heading")} />
@@ -248,12 +250,15 @@ export function WalletShowcase() {
             <p className="accent-rule max-w-md pl-6 text-base text-muted-foreground text-pretty sm:text-lg">
               {t("subtitle")}
             </p>
-            <Button variant="outline" asChild>
-              <Link href="/parallax-wallet">
-                {t("cta")}
-                <ArrowRight className="text-brand" />
-              </Link>
-            </Button>
+            <div className="flex flex-wrap gap-3">
+              <WalletDownloadCta />
+              <Button variant="outline" asChild>
+                <Link href="/parallax-wallet">
+                  {t("cta")}
+                  <ArrowRight className="text-brand" />
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </FadeIn>
@@ -276,6 +281,21 @@ export function WalletShowcase() {
               <Icon className="size-6 text-brand" strokeWidth={1.5} aria-hidden />
               <h3 className="mt-8 text-lg leading-tight text-foreground">{t(`features.${key}.title` as "features.node.title")}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t(`features.${key}.description` as "features.node.description")}</p>
+              {/* The devices it signs with */}
+              {key === "signing" && (
+                <div className="mt-6 flex flex-wrap items-center gap-6">
+                  {/* Sized by eye: Ledger's wordmark sits inside its bracket
+                      frame, so it needs more height to read as large */}
+                  {[
+                    { Logo: LedgerLogo, size: "h-[25px]" },
+                    { Logo: TrezorLogo, size: "h-[17px]" },
+                  ].map(({ Logo, size }, i) => (
+                    <span key={i} className="inline-flex h-9 items-center text-foreground">
+                      <Logo className={`${size} w-auto`} />
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>

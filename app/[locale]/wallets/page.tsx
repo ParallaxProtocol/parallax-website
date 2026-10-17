@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { wallets } from "@/lib/wallets";
+import { WalletDownloadCta, WalletVersionBadge } from "@/components/wallet-app/wallet-download";
 import { ArrowRight, ArrowUpRight, Check, Download, ExternalLink, Fingerprint, KeyRound, Link2, Plus, Smartphone } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
@@ -95,19 +96,22 @@ export default async function Page() {
             <div className="lg:col-span-7">
               <div className="flex flex-wrap items-center gap-3">
                 <p className="tag">{t("official.eyebrow")}</p>
-                <Badge>{t("official.badge")}</Badge>
+                <WalletVersionBadge />
               </div>
               <div className="mt-10 flex items-center gap-5">
                 <Image src="/new_parallax_logo_rounded.svg" alt="" width={64} height={64} className="size-14 sm:size-16" />
                 <h2 className="text-4xl leading-[1.05] text-foreground sm:text-5xl">{t("official.title")}</h2>
               </div>
               <p className="mt-6 max-w-xl text-base text-muted-foreground text-pretty sm:text-lg">{t("official.description")}</p>
-              <Button variant="brand" size="lg" className="mt-8" asChild>
-                <Link href="/parallax-wallet">
-                  {t("official.cta")}
-                  <ArrowRight />
-                </Link>
-              </Button>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <WalletDownloadCta className="h-11 px-6" />
+                <Button variant="outline" size="lg" asChild>
+                  <Link href="/parallax-wallet">
+                    {t("official.cta")}
+                    <ArrowRight className="text-brand" />
+                  </Link>
+                </Button>
+              </div>
             </div>
             <ul className="space-y-px overflow-hidden rounded-xl border border-stroke bg-hairline lg:col-span-5">
               {features.map((feature) => (

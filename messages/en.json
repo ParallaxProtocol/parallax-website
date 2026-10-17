@@ -413,7 +413,6 @@
     },
     "wallet": {
       "eyebrow": "Parallax Wallet",
-      "badge": "Coming soon",
       "heading": "A state-of-the-art wallet with a full node inside",
       "subtitle": "Your own node, keys sealed under modern encryption, and an AI assistant that can help without ever touching a key. For Linux, macOS and Windows.",
       "features": {
@@ -1636,7 +1635,6 @@
     },
     "official": {
       "eyebrow": "Official desktop app",
-      "badge": "Coming soon",
       "title": "Parallax Wallet",
       "description": "The official wallet for Linux, macOS and Windows. It runs a full Parallax node inside the app, so your balances and history come from your own copy of the chain, not someone else's server.",
       "features": [
@@ -2490,9 +2488,6 @@
     "download": {
       "getIt": "Get Parallax Wallet",
       "allPlatforms": "Linux, macOS and Windows",
-      "comingSoon": "Coming soon",
-      "comingSoonHint": "The first release is on its way. Builds will appear on this page.",
-      "soon": "Soon",
       "latest": "Latest",
       "yourSystem": "Your system",
       "notInRelease": "Not in this release",
@@ -2511,7 +2506,10 @@
       "source": "Source on GitHub",
       "releaseNotes": "Release notes",
       "checksums": "SHA256SUMS.txt",
-      "watchReleases": "Follow releases on GitHub"
+      "fromGithub": "Download from GitHub",
+      "onGithub": "On GitHub",
+      "allReleases": "All releases on GitHub",
+      "latestVersion": "Latest {version}"
     },
     "shots": {
       "overview": {
