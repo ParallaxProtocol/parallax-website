@@ -255,8 +255,8 @@
   "home": {
     "hero": {
       "subtitle": "A peer-to-peer programmable cash system.",
-      "runNode": "Run a node",
-      "readDocs": "Read the Docs"
+      "getWallet": "Get Parallax Wallet",
+      "runNode": "Run a node"
     },
     "audience": {
       "eyebrow": "Orientation",

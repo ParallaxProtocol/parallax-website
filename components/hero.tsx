@@ -54,15 +54,13 @@ export function Hero() {
           style={{ "--enter-delay": "0.6s" } as React.CSSProperties}
         >
           <Button size="xl" variant="brand" className="w-full sm:w-auto" asChild>
-            <Link href={"/resources/parallax-client"}>
-              {t("runNode")}
+            <Link href={"/parallax-wallet"}>
+              {t("getWallet")}
               <ArrowRight />
             </Link>
           </Button>
           <Button size="xl" variant="outline" className="w-full sm:w-auto" asChild>
-            <a href={"https://docs.parallaxprotocol.org"} target="_blank" rel="noopener">
-              {t("readDocs")}
-            </a>
+            <Link href={"/resources/parallax-client"}>{t("runNode")}</Link>
           </Button>
         </div>
       </div>
