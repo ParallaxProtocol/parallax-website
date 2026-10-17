@@ -438,7 +438,11 @@ a:focus-visible > [data-slot="card"] {
 .enter-fade-up,
 .enter-fade,
 .enter-scale-x {
-  animation: 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+  /* Longhands: the CSS minifier compiles a shorthand with no name to
+     `animation: none`, dropping the duration and fill. */
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+  animation-fill-mode: both;
   animation-delay: var(--enter-delay, 0s);
 }
 .enter-fade-up {
