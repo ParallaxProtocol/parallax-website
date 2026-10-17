@@ -12,20 +12,22 @@ const FEED_TITLE = "Parallax Protocol Blog"
  *
  * The version query exists for scraper caches: X (and others) cache a fetched
  * card image by its exact URL for about a week — including fetch failures.
- * Bump `v` whenever the brand card's design changes (or a bad fetch got
- * cached) so scrapers see a fresh URL; the route ignores the parameter.
+ * Bump OG_VERSION whenever the cards' design changes (or a bad fetch got
+ * cached) so scrapers see fresh URLs; the route ignores the parameter.
  */
+const OG_VERSION = 4
+
 export const OG_IMAGE = {
-  url: "/og.png?v=4",
+  url: `/og.png?v=${OG_VERSION}`,
   width: 1200,
   height: 630,
-  alt: "Parallax Protocol — secured by physics",
+  alt: "Parallax Protocol",
 }
 
 /** Per-page social card: the brand card carrying this page's title. */
 export function pageOgImage(title: string) {
   return {
-    url: `/og.png?title=${encodeURIComponent(title)}`,
+    url: `/og.png?title=${encodeURIComponent(title)}&v=${OG_VERSION}`,
     width: OG_IMAGE.width,
     height: OG_IMAGE.height,
     alt: `${title} — Parallax Protocol`,
