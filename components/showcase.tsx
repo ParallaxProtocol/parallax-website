@@ -2,7 +2,7 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Link } from "@/i18n/navigation"
-import { ArrowRight, ArrowUpRight, Eye, EyeOff, KeyRound, Lock, Radio, Server, ShieldCheck, Sparkles, Usb, Zap } from "lucide-react"
+import { ArrowRight, ArrowUpRight, Eye, EyeOff, KeyRound, Lock, Radio, Server, ShieldCheck, Sparkles, Usb, Users, Zap } from "lucide-react"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { FadeIn } from "./fade-in"
@@ -225,6 +225,7 @@ const walletFeatures = [
 const walletUpcoming = [
   { key: "stealth", icon: EyeOff },
   { key: "channels", icon: Zap },
+  { key: "multisig", icon: Users },
 ] as const
 
 /* Parallax Wallet: the desktop app, shipping with the redesign. The window
@@ -303,7 +304,7 @@ export function WalletShowcase() {
 
       {/* What's being built */}
       <FadeIn delay={0.15}>
-        <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
           {walletUpcoming.map(({ key, icon: Icon }) => (
             <div key={key} className="relative overflow-hidden rounded-2xl border border-dashed border-stroke p-6 sm:p-8">
               <div className="flex items-center justify-between gap-4">

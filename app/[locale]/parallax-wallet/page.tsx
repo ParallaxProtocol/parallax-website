@@ -14,22 +14,34 @@ import {
   Ban,
   Bell,
   BookUser,
+  Cable,
   Check,
+  ClipboardX,
+  Dices,
   Eye,
   EyeOff,
   FileKey,
+  FileLock,
+  Globe,
   HardDrive,
   History,
   KeyRound,
   Languages,
   Layers,
+  ListChecks,
   Lock,
   Minus,
+  MonitorOff,
+  Package,
   Pickaxe,
   QrCode,
   Radio,
+  RefreshCw,
+  Route,
+  Search,
   Send,
   Server,
+  ShieldBan,
   ShieldCheck,
   Signature,
   Sparkles,
@@ -38,6 +50,7 @@ import {
   Timer,
   Usb,
   UserCheck,
+  Users,
   Zap,
   ArrowUpRight,
 } from "lucide-react"
@@ -54,6 +67,29 @@ const nodePoints = [
   { key: "inbound", icon: Radio },
 ] as const
 
+/* What parallax-gui's backend sends through Tor once it's on (tor.go,
+   flags.go): the node's peers and DNS seeds, the status-page reports, the
+   updater and the assistants' explorer and status-page lookups. */
+const privacyPoints = [
+  { key: "builtIn", icon: Package },
+  { key: "everything", icon: Route },
+  { key: "failClosed", icon: Ban },
+  { key: "onion", icon: Globe },
+] as const
+
+const torRoutes = [
+  { key: "peers", icon: Server },
+  { key: "seeds", icon: Search },
+  { key: "updates", icon: RefreshCw },
+  { key: "assistant", icon: Sparkles },
+  { key: "stats", icon: Activity },
+] as const
+
+const privacyExtras = [
+  { key: "tracking", icon: EyeOff },
+  { key: "logs", icon: FileLock },
+] as const
+
 const securityItems = [
   { key: "password", icon: KeyRound },
   { key: "keystore", icon: FileKey },
@@ -61,19 +97,27 @@ const securityItems = [
   { key: "moment", icon: Timer },
   { key: "confirm", icon: UserCheck },
   { key: "local", icon: HardDrive },
+  { key: "calls", icon: Cable },
+  { key: "shielded", icon: ShieldBan },
+  { key: "random", icon: Dices },
+  { key: "capture", icon: MonitorOff },
+  { key: "clipboard", icon: ClipboardX },
+  { key: "tamper", icon: Package },
 ] as const
 
 /* What parallax-gui's backend does on each OS: harden_linux.go (no core
-   dump, non-dumpable), harden_unix.go (no core dump; memory reads left to
-   the hardened runtime), harden_windows.go (nothing to do), session.go
-   (memguard on every OS) and secret_erase.go (runtime/secret, Linux
-   amd64/arm64 builds only). */
-type Cell = "yes" | "no" | "na" | "hardened" | "linuxErase"
-const platformRows: { key: "guarded" | "dumps" | "attach" | "erase"; cells: [Cell, Cell, Cell] }[] = [
+   dump, non-dumpable), harden_unix.go (no core dump; memory reads kept out
+   by the hardened runtime the backend is signed with), harden_windows.go
+   (an access list against memory reads, left out of Windows Error
+   Reporting), desktop/src/main.ts (content protection and locking on a
+   screen lock, macOS and Windows) and session.go (memguard on every OS). */
+type Cell = "yes" | "no"
+const platformRows: { key: "guarded" | "dumps" | "attach" | "capture" | "away"; cells: [Cell, Cell, Cell] }[] = [
   { key: "guarded", cells: ["yes", "yes", "yes"] },
-  { key: "dumps", cells: ["yes", "yes", "na"] },
-  { key: "attach", cells: ["yes", "hardened", "no"] },
-  { key: "erase", cells: ["linuxErase", "no", "no"] },
+  { key: "dumps", cells: ["yes", "yes", "yes"] },
+  { key: "attach", cells: ["yes", "yes", "yes"] },
+  { key: "capture", cells: ["no", "yes", "yes"] },
+  { key: "away", cells: ["no", "yes", "yes"] },
 ]
 const platformCols = [
   { label: "Linux", icon: FaLinux },
@@ -118,6 +162,7 @@ const everydayItems = [
 const upcoming = [
   { key: "stealth", icon: EyeOff },
   { key: "channels", icon: Zap },
+  { key: "multisig", icon: Users },
 ] as const
 
 export default async function ParallaxWalletPage() {
@@ -126,11 +171,7 @@ export default async function ParallaxWalletPage() {
   const neverItems = t.raw("assistant.never.items") as string[]
 
   const cellLabel = (cell: Cell) =>
-    cell === "yes" ? t("security.platform.yes")
-      : cell === "no" ? t("security.platform.no")
-        : cell === "na" ? t("security.platform.notApplicable")
-          : cell === "hardened" ? t("security.platform.hardenedRuntime")
-            : t("security.platform.linuxErase")
+    cell === "yes" ? t("security.platform.yes") : t("security.platform.no")
 
   return (
     <MainMotion>
@@ -247,10 +288,77 @@ export default async function ParallaxWalletPage() {
         </div>
       </Section>
 
-      {/* 02 Security */}
+      {/* 02 Privacy */}
       <Section>
         <FadeIn>
-          <SectionHeading index="02" eyebrow={t("security.eyebrow")} title={t("security.heading")} subtitle={t("security.subtitle")} />
+          <SectionHeading index="02" eyebrow={t("privacy.eyebrow")} title={t("privacy.heading")} subtitle={t("privacy.subtitle")} />
+        </FadeIn>
+        <div className="mt-16 grid gap-10 lg:grid-cols-12 lg:gap-16">
+          <FadeIn className="lg:col-span-5">
+            <ul className="divide-y divide-hairline border-y border-hairline">
+              {privacyPoints.map(({ key, icon: Icon }) => (
+                <li key={key} className="flex gap-5 py-6">
+                  <Icon className="mt-0.5 size-5 shrink-0 text-brand" strokeWidth={1.5} aria-hidden />
+                  <div>
+                    <h3 className="text-lg leading-tight text-foreground">{t(`privacy.points.${key}.title`)}</h3>
+                    <p className="mt-1.5 text-[15px] leading-relaxed text-muted-foreground">{t(`privacy.points.${key}.description`)}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </FadeIn>
+
+          <FadeIn delay={0.1} className="lg:col-span-7">
+            <div className="relative flex h-full flex-col justify-center overflow-hidden rounded-2xl border border-stroke bg-card p-5 sm:p-10">
+              <div aria-hidden className="aurora" />
+              <div className="relative">
+                {/* The app's Tor bar, as it reads once connected */}
+                <div className="flex items-center gap-3 rounded-full border border-brand/40 bg-background/70 px-4 py-2.5 sm:px-5">
+                  <span aria-hidden className="size-2 shrink-0 rounded-full bg-brand" />
+                  <span className="text-[15px] text-foreground">{t("privacy.routes.status")}</span>
+                </div>
+                <div aria-hidden className="mx-auto h-8 w-px bg-gradient-to-b from-brand/70 to-foreground/10" />
+
+                <div className="rounded-xl border border-dashed border-stroke bg-background/70 p-3 sm:p-5">
+                  <p className="tag mb-4 px-1">{t("privacy.routes.heading")}</p>
+                  <ul className="divide-y divide-hairline overflow-hidden rounded-lg border border-stroke bg-background">
+                    {torRoutes.map(({ key, icon: Icon }) => (
+                      <li key={key} className="flex items-center gap-4 px-4 py-3.5 sm:px-5">
+                        <Icon className="size-[18px] shrink-0 text-foreground" strokeWidth={1.5} aria-hidden />
+                        <span className="min-w-0 flex-1 text-[15px] text-foreground">{t(`privacy.routes.${key}Title`)}</span>
+                        <span className="hidden truncate font-mono text-xs text-muted-foreground sm:block">{t(`privacy.routes.${key}Meta`)}</span>
+                        <Check className="size-4 shrink-0 text-brand" strokeWidth={2} aria-hidden />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <p className="mt-6 flex gap-3 text-sm leading-relaxed text-muted-foreground">
+                  <Lock className="mt-0.5 size-4 shrink-0 text-brand" strokeWidth={1.5} aria-hidden />
+                  {t("privacy.routes.closed")}
+                </p>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+
+        <FadeIn delay={0.15}>
+          <div className="mt-4 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-stroke bg-hairline sm:grid-cols-2">
+            {privacyExtras.map(({ key, icon: Icon }) => (
+              <div key={key} className="bg-background p-6 sm:p-8">
+                <Icon className="size-6 text-brand" strokeWidth={1.5} aria-hidden />
+                <h3 className="mt-8 text-xl leading-tight text-foreground">{t(`privacy.extras.${key}.title`)}</h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{t(`privacy.extras.${key}.description`)}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 text-sm leading-relaxed text-muted-foreground">{t("privacy.note")}</p>
+        </FadeIn>
+      </Section>
+
+      {/* 03 Security */}
+      <Section>
+        <FadeIn>
+          <SectionHeading index="03" eyebrow={t("security.eyebrow")} title={t("security.heading")} subtitle={t("security.subtitle")} />
         </FadeIn>
         <FadeIn delay={0.1}>
           <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-stroke bg-hairline sm:grid-cols-2 lg:grid-cols-3">
@@ -261,6 +369,17 @@ export default async function ParallaxWalletPage() {
                 <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{t(`security.items.${key}.description`)}</p>
               </div>
             ))}
+          </div>
+        </FadeIn>
+
+        {/* Settings' Security page, which reads each protection as it stands */}
+        <FadeIn delay={0.1}>
+          <div className="mt-4 flex gap-5 rounded-2xl border border-stroke bg-card p-6 sm:p-8">
+            <ListChecks className="mt-0.5 size-6 shrink-0 text-brand" strokeWidth={1.5} aria-hidden />
+            <div>
+              <h3 className="text-xl leading-tight text-foreground">{t("security.status.title")}</h3>
+              <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-muted-foreground">{t("security.status.description")}</p>
+            </div>
           </div>
         </FadeIn>
 
@@ -293,14 +412,9 @@ export default async function ParallaxWalletPage() {
                             <Check className="size-4 text-brand" strokeWidth={2} aria-hidden />
                             {cellLabel(cell)}
                           </span>
-                        ) : cell === "no" || cell === "na" ? (
+                        ) : (
                           <span className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
                             <Minus className="size-4" strokeWidth={1.5} aria-hidden />
-                            {cellLabel(cell)}
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1.5 text-sm text-foreground">
-                            <Check className="size-4 shrink-0 text-brand" strokeWidth={2} aria-hidden />
                             {cellLabel(cell)}
                           </span>
                         )}
@@ -318,10 +432,10 @@ export default async function ParallaxWalletPage() {
         </FadeIn>
       </Section>
 
-      {/* 03 Hardware and offline signing */}
+      {/* 04 Hardware and offline signing */}
       <Section>
         <FadeIn>
-          <SectionHeading index="03" eyebrow={t("signing.eyebrow")} title={t("signing.heading")} subtitle={t("signing.subtitle")} />
+          <SectionHeading index="04" eyebrow={t("signing.eyebrow")} title={t("signing.heading")} subtitle={t("signing.subtitle")} />
         </FadeIn>
         <div className="mt-16 grid grid-cols-1 gap-4 lg:grid-cols-2">
           <FadeIn className="h-full">
@@ -392,10 +506,10 @@ export default async function ParallaxWalletPage() {
         </FadeIn>
       </Section>
 
-      {/* 04 AI assistant */}
+      {/* 05 AI assistant */}
       <Section>
         <FadeIn>
-          <SectionHeading index="04" eyebrow={t("assistant.eyebrow")} title={t("assistant.heading")} subtitle={t("assistant.subtitle")} />
+          <SectionHeading index="05" eyebrow={t("assistant.eyebrow")} title={t("assistant.heading")} subtitle={t("assistant.subtitle")} />
         </FadeIn>
         <div className="mt-16 grid gap-10 lg:grid-cols-12 lg:gap-16">
           <FadeIn className="lg:col-span-5">
@@ -488,10 +602,10 @@ export default async function ParallaxWalletPage() {
         </FadeIn>
       </Section>
 
-      {/* 05 Everyday */}
+      {/* 06 Everyday */}
       <Section>
         <FadeIn>
-          <SectionHeading index="05" eyebrow={t("everyday.eyebrow")} title={t("everyday.heading")} subtitle={t("everyday.subtitle")} />
+          <SectionHeading index="06" eyebrow={t("everyday.eyebrow")} title={t("everyday.heading")} subtitle={t("everyday.subtitle")} />
         </FadeIn>
         <FadeIn delay={0.1}>
           <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-stroke bg-hairline sm:grid-cols-2 lg:grid-cols-4">
@@ -513,13 +627,13 @@ export default async function ParallaxWalletPage() {
         </FadeIn>
       </Section>
 
-      {/* 06 In development */}
+      {/* 07 In development */}
       <Section>
         <FadeIn>
-          <SectionHeading index="06" eyebrow={t("upcoming.eyebrow")} title={t("upcoming.heading")} subtitle={t("upcoming.subtitle")} />
+          <SectionHeading index="07" eyebrow={t("upcoming.eyebrow")} title={t("upcoming.heading")} subtitle={t("upcoming.subtitle")} />
         </FadeIn>
         <FadeIn delay={0.1}>
-          <div className="mt-16 grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <div className="mt-16 grid grid-cols-1 gap-4 lg:grid-cols-3">
             {upcoming.map(({ key, icon: Icon }) => (
               <div key={key} className="relative overflow-hidden rounded-2xl border border-dashed border-stroke p-6 sm:p-10">
                 <div className="flex items-center justify-between gap-4">
@@ -534,10 +648,10 @@ export default async function ParallaxWalletPage() {
         </FadeIn>
       </Section>
 
-      {/* 07 Download */}
+      {/* 08 Download */}
       <Section id="download" className="scroll-mt-16 border-b-0">
         <FadeIn>
-          <SectionHeading index="07" eyebrow={t("downloadSection.eyebrow")} title={t("downloadSection.heading")} subtitle={t("downloadSection.subtitle")} />
+          <SectionHeading index="08" eyebrow={t("downloadSection.eyebrow")} title={t("downloadSection.heading")} subtitle={t("downloadSection.subtitle")} />
         </FadeIn>
         <FadeIn delay={0.1} className="mt-16">
           <WalletDownloads />

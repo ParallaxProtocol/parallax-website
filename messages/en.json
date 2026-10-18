@@ -85,7 +85,7 @@
     },
     "parallaxWallet": {
       "title": "Parallax Wallet",
-      "description": "The desktop Parallax wallet with a full node built in: keys sealed under one password, Ledger and Trezor, offline signing by QR code, and an AI assistant that never touches a key. For Linux, macOS and Windows."
+      "description": "The desktop Parallax wallet with a full node built in: Tor for everything it sends if you choose, keys sealed under one password, Ledger and Trezor, offline signing by QR code, and an AI assistant that never touches a key. For Linux, macOS and Windows."
     }
   },
   "common": {
@@ -414,15 +414,15 @@
     "wallet": {
       "eyebrow": "Parallax Wallet",
       "heading": "A state-of-the-art wallet with a full node inside",
-      "subtitle": "Your own node, keys sealed under modern encryption, and an AI assistant that can help without ever touching a key. For Linux, macOS and Windows.",
+      "subtitle": "Your own node, over Tor if you choose, keys sealed under modern encryption, and an AI assistant that can help without ever touching a key. For Linux, macOS and Windows.",
       "features": {
         "node": {
-          "title": "A full node, built in",
-          "description": "One app runs a complete Parallax node. Balances and history come from your own copy of the chain, not someone else's server."
+          "title": "A full node, over Tor",
+          "description": "One app runs a complete Parallax node, so balances and history come from your own copy of the chain. One switch sends everything the app sends through Tor: its peers, its update checks and what your assistant looks up."
         },
         "sealed": {
           "title": "Sealed by default",
-          "description": "Keys, recovery phrases, contacts and labels are encrypted under one password. A key is decrypted only for the moment it signs, then wiped, and the app's memory stays out of crash dumps."
+          "description": "Keys, recovery phrases, contacts and labels are encrypted under one password. A key is decrypted only for the moment it signs, then wiped, and other programs on your computer can't read the app's memory."
         },
         "signing": {
           "title": "Hardware and offline signing",
@@ -442,6 +442,10 @@
         "channels": {
           "title": "Payment channels",
           "description": "Instant LAX payments signed off-chain and carried end-to-end encrypted over Nostr relays, with no payment servers. They even work with no internet, in three QR scans."
+        },
+        "multisig": {
+          "title": "Multi-sig",
+          "description": "Hold LAX in an account that takes several keys to send from, such as two of three, so no single lost or stolen key can move it."
         }
       },
       "cta": "Explore Parallax Wallet",
@@ -826,7 +830,7 @@
         },
         {
           "question": "Are transactions private?",
-          "answer": "No. Like Bitcoin and Ethereum, Parallax is a public ledger: every address, balance and transaction is visible to anyone. Two privacy features are being built as contracts and wallet software, with no change to the protocol. Stealth addresses, in development for Parallax Wallet, give each payment a fresh address so incoming payments can't be linked to you. A shielded pool, which would hide amounts and parties too, is at the research stage."
+          "answer": "No. Like Bitcoin and Ethereum, Parallax is a public ledger: every address, balance and transaction is visible to anyone. Parallax Wallet can send everything it sends through Tor, which hides your IP address from the network, though not what's on the chain. Two privacy features are being built as contracts and wallet software, with no change to the protocol. Stealth addresses, in development for Parallax Wallet, give each payment a fresh address so incoming payments can't be linked to you. A shielded pool, which would hide amounts and parties too, is at the research stage."
         },
         {
           "question": "Is Parallax quantum-safe?",
@@ -2277,7 +2281,7 @@
       "eyebrow": "Parallax Wallet",
       "badge": "Open source",
       "title": "Your own node and your own keys, in one app",
-      "subtitle": "Parallax Wallet runs a complete Parallax node, keeps your keys sealed under one password, signs on a Ledger, a Trezor or an air-gapped computer, and lets an AI assistant help without ever touching a key.",
+      "subtitle": "Parallax Wallet runs a complete Parallax node, over Tor if you choose, keeps your keys sealed under one password, signs on a Ledger, a Trezor or an air-gapped computer, and lets an AI assistant help without ever touching a key.",
       "platforms": "Linux, macOS and Windows",
       "source": "View the source"
     },
@@ -2300,7 +2304,7 @@
         },
         "inbound": {
           "title": "It helps the network",
-          "description": "By default the node accepts connections from other peers on port 32110 and maps it on your router by UPnP or NAT-PMP. Prefer outbound only? It's one switch."
+          "description": "By default the node accepts connections from other peers on port 32110 and maps it on your router by UPnP or NAT-PMP. Prefer outbound only? It's one switch. With Tor on, peers reach it through its onion address instead."
         }
       },
       "diagram": {
@@ -2317,10 +2321,59 @@
         "rpc": "Local HTTP-RPC on 127.0.0.1, for your own tools. Never exposed to the network, and the wallet doesn't need it."
       }
     },
+    "privacy": {
+      "eyebrow": "Privacy",
+      "heading": "Everything it sends, through Tor",
+      "subtitle": "Turn on Tor in Settings and everything the app sends goes through it, hiding your IP address from the network and the services the app uses. It's off until you switch it on.",
+      "points": {
+        "builtIn": {
+          "title": "Tor, built in",
+          "description": "The app ships its own Tor, the Tor Project's own build, its checksum checked against the Tor Project's signed release. Already run Tor or Tor Browser? Point the app at it instead."
+        },
+        "everything": {
+          "title": "One switch for everything",
+          "description": "The node's peers, the DNS seeds it looks up, the update check and download, and what assistants look up on the explorer all go through Tor, with a circuit of its own for each peer."
+        },
+        "failClosed": {
+          "title": "Nothing slips out",
+          "description": "While Tor connects, nothing goes out directly. If Tor can't connect, the node doesn't start and the app's requests fail rather than going around it."
+        },
+        "onion": {
+          "title": "Your node, as an onion service",
+          "description": "Peers reach your node only through its own onion address, with UPnP off. Choose onion peers only and nothing the node sends leaves the Tor network, though syncing can be slower."
+        }
+      },
+      "routes": {
+        "status": "Connected through Tor",
+        "heading": "What goes through Tor",
+        "peersTitle": "Peers",
+        "peersMeta": "A circuit for each peer",
+        "seedsTitle": "DNS seeds",
+        "seedsMeta": "Finding peers",
+        "updatesTitle": "Updates",
+        "updatesMeta": "The check and the download",
+        "assistantTitle": "Assistant lookups",
+        "assistantMeta": "Block explorer and status page",
+        "statsTitle": "Network stats",
+        "statsMeta": "Only if you share them",
+        "closed": "Tor isn't connected? Nothing goes out."
+      },
+      "extras": {
+        "tracking": {
+          "title": "No analytics",
+          "description": "The app has no analytics and sends nothing about you or your wallet. Sharing your node's public stats with the network's status page is off until you turn it on."
+        },
+        "logs": {
+          "title": "Logs only your wallet can read",
+          "description": "The app's logs name addresses and amounts, so they're sealed to a key kept in your wallet. Copied off the computer, they can't be read without your password."
+        }
+      },
+      "note": "Tor ships with the app for Linux x64, macOS and Windows. On Linux ARM, the app uses the Tor or Tor Browser on your computer."
+    },
     "security": {
       "eyebrow": "Security",
       "heading": "Sealed by default",
-      "subtitle": "Built on the node's own key management and established libraries, not new cryptography.",
+      "subtitle": "Built on the node's own key management and established libraries, not new cryptography, and each protection shows in Settings whether it's working.",
       "items": {
         "password": {
           "title": "One password",
@@ -2345,7 +2398,35 @@
         "local": {
           "title": "Crash reports stay on your disk",
           "description": "Crash reports are written to your own config folder and never sent anywhere. Fonts ship with the app, so it makes no third-party requests to draw itself."
+        },
+        "calls": {
+          "title": "Sealed past the app's own shell",
+          "description": "The window and the app's engine agree a key between themselves (X25519, AES-256-GCM) and seal every call that carries a secret. The process between them only relays ciphertext, so it never sees a password or a key."
+        },
+        "shielded": {
+          "title": "Shielded from other programs",
+          "description": "Other programs running as you can't read the app's memory, on Linux, macOS and Windows. On Windows, only code signed by Microsoft can load into it, and the window's own processes are shielded the same way."
+        },
+        "random": {
+          "title": "Keys from secure randomness",
+          "description": "Every key and recovery phrase comes from your system's secure random generator. If it ever failed, the app would stop rather than make a key from weak randomness."
+        },
+        "capture": {
+          "title": "Hidden from screenshots",
+          "description": "While a recovery phrase or a key is on screen, the window is kept out of screenshots, recordings and screen sharing, on macOS and Windows."
+        },
+        "clipboard": {
+          "title": "Pasted secrets don't linger",
+          "description": "Paste in a private key or a recovery phrase to import it, and the app clears it from the clipboard once it's imported, as long as nothing else has been copied since."
+        },
+        "tamper": {
+          "title": "Sealed against tampering",
+          "description": "The window is sandboxed and runs only the app's own code, and release builds are locked against having code slipped into them."
         }
+      },
+      "status": {
+        "title": "See what's protecting you",
+        "description": "Settings lists every protection here and whether it's working on your computer right now, read from the app itself, not assumed. A protection your system can't give isn't listed."
       },
       "platform": {
         "heading": "Memory protection, by platform",
@@ -2354,14 +2435,12 @@
           "guarded": "The password and wallet key are held in locked, guarded memory while the wallet is unlocked",
           "dumps": "No core dump is written if the app crashes",
           "attach": "Other programs running as you can't read the app's memory",
-          "erase": "Memory used while signing is wiped afterwards"
+          "capture": "The window is hidden from screenshots while a phrase or key is on screen",
+          "away": "The wallet locks when the screen locks, not only on sleep"
         },
         "yes": "Yes",
         "no": "No",
-        "notApplicable": "Not applicable",
-        "hardenedRuntime": "Hardened runtime",
-        "linuxErase": "x86_64, ARM64",
-        "note": "Windows has nothing like Linux's non-dumpable flag. There, your keys are protected by the encryption and the locked memory above."
+        "note": "Linux keeps other programs out by making the app non-dumpable, macOS by the hardened runtime it's signed with, and Windows by the app's own access list. None of them stop an administrator or root."
       },
       "guide": "How the wallet keeps your keys safe"
     },
@@ -2515,7 +2594,7 @@
     "upcoming": {
       "eyebrow": "In development",
       "heading": "What's being built",
-      "subtitle": "Not in the app yet. Both are being built for Parallax Wallet now.",
+      "subtitle": "Not in the app yet, and all three being built for Parallax Wallet now. Tor already hides where you connect from; stealth addresses will hide who's paying you.",
       "badge": "In development",
       "stealth": {
         "title": "Stealth addresses",
@@ -2524,6 +2603,10 @@
       "channels": {
         "title": "Payment channels",
         "description": "Instant LAX payments signed off-chain and carried end-to-end encrypted over Nostr relays, with no payment servers. They even work with no internet, in three QR scans."
+      },
+      "multisig": {
+        "title": "Multi-sig",
+        "description": "Hold LAX in an account that takes several keys to send from, such as two of three, so no single lost or stolen key can move it."
       }
     },
     "downloadSection": {
