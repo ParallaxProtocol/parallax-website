@@ -8,10 +8,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 
-/* The command-line client's releases. Parallax Wallet's are on its own
-   page (wallet-app/). */
-const RELEASES_API = "https://api.github.com/repos/ParallaxProtocol/parallax/releases?per_page=10";
-const ALL_RELEASES = "https://github.com/ParallaxProtocol/parallax/releases";
+/* A repository's recent releases: the command-line client's by default,
+   Hashwarp's on its page. Parallax Wallet's are on its own page
+   (wallet-app/). */
+const DEFAULT_REPO = "ParallaxProtocol/parallax";
 
 const MAX_RELEASES = 4;
 
@@ -67,6 +67,8 @@ function ReleaseTable({ releases, allReleasesUrl }: { releases: Release[]; allRe
           const binaryAssets = release.assets.filter(
             (a) =>
               a.name.endsWith(".tar.gz") ||
+              a.name.endsWith(".tar.xz") ||
+              a.name.endsWith(".tgz") ||
               a.name.endsWith(".zip"),
           );
           const isLatestStable = releases.indexOf(release) === latestStableIndex;
@@ -140,17 +142,17 @@ function ReleaseTable({ releases, allReleasesUrl }: { releases: Release[]; allRe
   );
 }
 
-export default function ClientReleases() {
+export default function ClientReleases({ repo = DEFAULT_REPO, intro }: { repo?: string; intro?: string }) {
   const t = useTranslations("resources.parallaxClient.releases");
   const [open, setOpen] = useState(false);
   const [releases, setReleases] = useState<Release[] | null>(null);
 
   useEffect(() => {
-    fetch(RELEASES_API, { headers: { Accept: "application/vnd.github+json" } })
+    fetch(`https://api.github.com/repos/${repo}/releases?per_page=10`, { headers: { Accept: "application/vnd.github+json" } })
       .then((r) => (r.ok ? (r.json() as Promise<Release[]>) : null))
       .catch(() => null)
       .then((r) => setReleases(r ?? []));
-  }, []);
+  }, [repo]);
 
   if (releases !== null && releases.length === 0) return null;
 
@@ -179,10 +181,10 @@ export default function ClientReleases() {
             className="overflow-hidden"
           >
             <p className="mb-8 mt-10 max-w-2xl text-base text-muted-foreground sm:text-lg">
-              {t("intro")}
+              {intro ?? t("intro")}
             </p>
             {releases ? (
-              <ReleaseTable releases={releases} allReleasesUrl={ALL_RELEASES} />
+              <ReleaseTable releases={releases} allReleasesUrl={`https://github.com/${repo}/releases`} />
             ) : (
               <p className="py-8 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">{t("loading")}</p>
             )}

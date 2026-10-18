@@ -29,6 +29,7 @@ const footerLinks: Record<string, FooterLink[]> = {
   ],
   run: [
     { key: "client", href: "/resources/parallax-client" },
+    { key: "hashwarp", href: "/hashwarp" },
     { key: "mining", href: "/participate/mining" },
   ],
   network: [

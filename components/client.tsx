@@ -1,6 +1,6 @@
 'use client'
 import { Link } from "@/i18n/navigation"
-import { AppWindow, ArrowRight, CircleSlash, Hexagon } from "lucide-react"
+import { AppWindow, ArrowRight, CircleSlash, Hexagon, Pickaxe } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { FaGithub } from "react-icons/fa"
 import ClientDownloadButton from "./client-download-button"
@@ -52,7 +52,7 @@ export default function Client() {
       </FadeIn>
 
       {/* Download CTA panel: the command-line node software, with the
-          desktop app one link away */}
+          desktop app and the miner one link away */}
       <FadeIn delay={0.2}>
         <div className="relative overflow-hidden rounded-2xl border border-stroke bg-card px-8 py-14 text-center sm:px-12 sm:py-20">
           <div aria-hidden className="aurora" />
@@ -93,6 +93,22 @@ export default function Client() {
           </p>
           <span className="inline-flex shrink-0 items-center gap-2 text-[15px] font-medium text-foreground sm:ml-auto">
             {t("wallet.cta")}
+            <ArrowRight className="size-4 text-brand transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
+          </span>
+        </Link>
+      </FadeIn>
+
+      <FadeIn delay={0.3}>
+        <Link
+          href="/hashwarp"
+          className="group plate-lift mt-4 flex flex-col gap-4 rounded-2xl border border-stroke bg-card p-6 sm:flex-row sm:items-center sm:gap-6 sm:px-8"
+        >
+          <Pickaxe className="size-7 shrink-0 text-brand" strokeWidth={1.5} aria-hidden />
+          <p className="text-base text-muted-foreground">
+            <span className="text-foreground">{t("hashwarp.prompt")}</span> {t("hashwarp.description")}
+          </p>
+          <span className="inline-flex shrink-0 items-center gap-2 text-[15px] font-medium text-foreground sm:ml-auto">
+            {t("hashwarp.cta")}
             <ArrowRight className="size-4 text-brand transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
           </span>
         </Link>

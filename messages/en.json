@@ -58,7 +58,7 @@
     "participate": {
       "mining": {
         "title": "Mining",
-        "description": "Mine LAX with XHash — memory-hard, Ethash-derived proof-of-work. Ethash-class GPU rigs work. Pools, solo mining, and the full reward schedule."
+        "description": "Mine LAX with XHash, a memory-hard, Ethash-derived proof-of-work. Ethash-class GPU rigs work with Hashwarp, the official miner. Pools, solo mining, and the full reward schedule."
       }
     },
     "resources": {
@@ -86,6 +86,10 @@
     "parallaxWallet": {
       "title": "Parallax Wallet",
       "description": "The desktop Parallax wallet with a full node built in: Tor for everything it sends if you choose, keys sealed under one password, Ledger and Trezor, offline signing by QR code, and an AI assistant that never touches a key. For Linux, macOS and Windows."
+    },
+    "hashwarp": {
+      "title": "Hashwarp, the Parallax GPU miner",
+      "description": "Hashwarp is the official open-source XHash miner for Parallax, with no fee: NVIDIA, AMD and Intel GPUs, pools or solo, temperature limits and a watchdog, a web dashboard and Prometheus metrics, and packages for HiveOS and mmpOS."
     }
   },
   "common": {
@@ -167,6 +171,10 @@
         "title": "Run a node",
         "description": "Parallax Client, the reference node software"
       },
+      "hashwarp": {
+        "title": "Hashwarp",
+        "description": "The official GPU miner: open source, no fee"
+      },
       "mining": {
         "title": "Mining",
         "description": "Mine LAX with the GPUs you already have"
@@ -220,6 +228,7 @@
       "wallets": "Wallets",
       "exchanges": "Exchanges",
       "client": "Run a node",
+      "hashwarp": "Hashwarp",
       "mining": "Mining",
       "blockExplorer": "Block explorer",
       "networkStatus": "Network status",
@@ -261,7 +270,12 @@
     "audience": {
       "eyebrow": "Orientation",
       "heading": "Two Ways In",
-      "subtitle": "One protocol, two vantage points. Each briefing starts from what you already know — Bitcoin's monetary rules, or the EVM you build on."
+      "subtitle": "One protocol, two vantage points. Each briefing starts from what you already know — Bitcoin's monetary rules, or the EVM you build on.",
+      "mining": {
+        "prompt": "Have a GPU rig?",
+        "description": "Ethash-class GPUs mine Parallax. Rewards, pools and the official miner, on one page.",
+        "cta": "Start mining"
+      }
     },
     "soundMoney": {
       "eyebrow": "Economics",
@@ -351,6 +365,11 @@
         "prompt": "Want a desktop app?",
         "description": "Parallax Wallet runs a full node too.",
         "cta": "Explore Parallax Wallet"
+      },
+      "hashwarp": {
+        "prompt": "Mining?",
+        "description": "Hashwarp is the official GPU miner, open source with no fee.",
+        "cta": "Explore Hashwarp"
       }
     },
     "showcase": {
@@ -1584,8 +1603,9 @@
       "subtitle": "Every coin in existence was mined, and every coin ever issued will be. Miners are the network's security budget — and if you kept an Ethash-class GPU rig, it still works.",
       "rig": {
         "heading": "Your old Ethereum rig works",
-        "body": "XHash is Ethash-derived: memory-hard, GPU-competitive, and altered precisely so that the existing stock of Ethash ASICs cannot be reused. Your GPUs carry over — the software changes: mine with Hashwarp, the official open-source miner, or with SRBMiner-Multi. Epochs are shortened to 720 blocks (about five days per DAG regeneration at ten-minute blocks).",
-        "hashwarpCta": "Download Hashwarp",
+        "body": "XHash is Ethash-derived: memory-hard, GPU-competitive, and altered precisely so that the existing stock of Ethash ASICs cannot be reused. Your GPUs carry over; the software changes. Mine with Hashwarp, the official open-source miner, which takes no fee. Epochs are shortened to 720 blocks (about five days per DAG regeneration at ten-minute blocks).",
+        "hashwarpCta": "Get Hashwarp",
+        "srbminerPrefix": "Also mines XHash:",
         "srbminerCta": "SRBMiner-Multi"
       },
       "facts": {
@@ -1621,20 +1641,20 @@
         "heading": "Getting started",
         "steps": [
           {
-            "title": "Run the client",
-            "description": "Download the Parallax client and sync a full node. Solo mining requires one; pool miners can point their rigs directly at a pool endpoint."
+            "title": "Get Hashwarp",
+            "description": "Download Hashwarp, the official open-source GPU miner, for Linux or Windows. SRBMiner-Multi also mines XHash; ethminer and other legacy Ethash miners don't."
           },
           {
-            "title": "Test with the built-in CPU miner",
-            "description": "The client ships a CPU miner — fine for learning the flow on any machine, not for meaningful hashrate."
+            "title": "Pick a pool",
+            "description": "Solo blocks are rare at low personal hashrate. Pools smooth variance into steady payouts. Compare live pools on the pool index."
           },
           {
-            "title": "Point your GPUs",
-            "description": "Point Hashwarp — the official open-source GPU miner — or SRBMiner-Multi at your node or a pool, with your LAX address as the payout target."
+            "title": "Start mining",
+            "description": "Give Hashwarp the pool and your LAX address, or run it without arguments and let its wizard set it up. Rewards are paid to that address."
           },
           {
-            "title": "Join a pool",
-            "description": "Solo blocks are rare at low personal hashrate. Pools smooth variance into steady payouts — compare live pools on the pool index."
+            "title": "Or mine solo",
+            "description": "Run the Parallax client as a full node with mining enabled and point Hashwarp at it. The client's built-in CPU miner is for learning the flow, not for real hashrate."
           }
         ]
       },
@@ -1643,9 +1663,10 @@
         "body": "Mining income is subsidy plus fees, paid in full. Profitability still depends on your hashrate, hardware efficiency, and electricity price — and on a young network, total hashrate (and therefore your share of it) can move fast in both directions. Difficulty re-targets every block. Run the numbers before you buy hardware; nothing here promises a return."
       },
       "ctas": {
+        "hashwarp": "Get Hashwarp",
+        "client": "Download the client",
         "pools": "Mining pool index",
-        "guides": "Mining guides",
-        "client": "Download the client"
+        "guides": "Mining guides"
       }
     }
   },
@@ -2668,6 +2689,277 @@
         "alt": "The full transaction history, grouped by day, with search and filters for received, sent, mined and failed",
         "caption": "Your full history, indexed by your own node: search it, filter it, export it."
       }
+    }
+  },
+  "hashwarp": {
+    "hero": {
+      "eyebrow": "Hashwarp",
+      "badge": "Open source · No fee",
+      "title": "The official miner for Parallax",
+      "subtitle": "Hashwarp mines XHash on NVIDIA, AMD and Intel GPUs, on a pool or solo on your own node. It is open source, takes no fee, and watches every card's temperature while it works.",
+      "platforms": "Linux and Windows · CUDA and OpenCL",
+      "source": "View the source"
+    },
+    "download": {
+      "label": "Download Hashwarp",
+      "for": "Download for {os}",
+      "platforms": "Builds for Linux and Windows"
+    },
+    "shots": {
+      "placeholder": "Screenshot to come",
+      "console": {
+        "alt": "Hashwarp's console, mining on several GPUs"
+      },
+      "dashboard": {
+        "alt": "Hashwarp's web dashboard",
+        "caption": "The dashboard each rig serves once the API is on."
+      }
+    },
+    "start": {
+      "eyebrow": "Quick start",
+      "heading": "Mining in one command",
+      "subtitle": "Run it without arguments and a short wizard sets it up. Or give it a pool and your address, and it starts.",
+      "points": {
+        "wizard": {
+          "title": "A wizard on first run",
+          "description": "It asks whether you mine on a pool or solo, offers the Parallax pools that take an address, saves the answers to hashwarp.json and starts. Next time it starts straight away."
+        },
+        "stratum": {
+          "title": "Every pool's stratum",
+          "description": "EthProxy and EthereumStratum 1.0 and 2.0, detected from the pool, with TLS and failover pools. If a pool drops, it reconnects with backoff and never gives up the only pool it has."
+        },
+        "config": {
+          "title": "One file for a whole farm",
+          "description": "Every option works on the command line or in a JSON file. Copy one hashwarp.json to every rig and override what differs on the command line."
+        }
+      },
+      "tabs": {
+        "firstRun": {
+          "label": "First run",
+          "note": "Starts the wizard. The answers are saved for next time."
+        },
+        "pool": {
+          "label": "Pool",
+          "note": "Most Parallax pools take your Parallax address as the user name."
+        },
+        "failover": {
+          "label": "TLS and failover",
+          "note": "Pools in failover order, over TLS. Hashwarp moves to the next one when a pool stops answering."
+        },
+        "solo": {
+          "label": "Solo",
+          "note": "Start your node with mining enabled, then point Hashwarp at it on 127.0.0.1:8545. Rewards go to the node's --miner.coinbase address."
+        }
+      },
+      "copy": "Copy command",
+      "copied": "Copied",
+      "pools": "Compare pools on the pool index"
+    },
+    "console": {
+      "eyebrow": "Console",
+      "heading": "Everything a rig needs to tell you",
+      "subtitle": "Hashrate, temperatures and every share, on one screen you can read at a glance.",
+      "points": {
+        "hashrate": {
+          "title": "Hashrate you can trust",
+          "description": "1 and 15 minute averages beside the effective hashrate the pool sees, so a drop shows up before the payout does."
+        },
+        "gpus": {
+          "title": "A row for every GPU",
+          "description": "Hashrate, temperatures, fan speed, power draw and efficiency for each card."
+        },
+        "shares": {
+          "title": "One line per share",
+          "description": "Each share with its difficulty and latency, and when a pool rejects one, the reason it gave."
+        },
+        "kernels": {
+          "title": "Tuned at start",
+          "description": "On NVIDIA cards, Hashwarp times its two search kernels on each GPU at start and keeps the faster one."
+        }
+      },
+      "keys": {
+        "label": "Keys while it mines",
+        "items": [
+          {
+            "key": "h",
+            "action": "Show these keys"
+          },
+          {
+            "key": "s",
+            "action": "Statistics"
+          },
+          {
+            "key": "p / r",
+            "action": "Pause or resume all GPUs"
+          },
+          {
+            "key": "0–9",
+            "action": "Pause or resume one GPU"
+          },
+          {
+            "key": "c",
+            "action": "Connection details"
+          },
+          {
+            "key": "l",
+            "action": "Debug output"
+          },
+          {
+            "key": "q",
+            "action": "Quit"
+          }
+        ]
+      }
+    },
+    "safety": {
+      "eyebrow": "Safety",
+      "heading": "Built to run unattended",
+      "subtitle": "Rigs run overnight and in back rooms. Hashwarp protects the cards and tells your scripts what happened.",
+      "items": {
+        "tempStop": {
+          "title": "Temperature limits",
+          "description": "Pause a GPU when its core, memory or hotspot reaches a limit, and resume it once it cools. One value for all cards, or one per card."
+        },
+        "shutdown": {
+          "title": "A last-resort stop",
+          "description": "Stop mining entirely if any GPU reaches the temperature you set."
+        },
+        "watchdog": {
+          "title": "A watchdog",
+          "description": "Restarts a GPU whose mining failed. If a card stops responding, it runs a script of yours, to reboot the rig for example, and exits with its own code."
+        },
+        "verified": {
+          "title": "Every share checked",
+          "description": "Each solution is verified on the CPU before it's submitted, so an overclock pushed too far shows up as bad results on that GPU, not as rejected shares."
+        },
+        "selftest": {
+          "title": "A self-test",
+          "description": "hashwarp --selftest mines offline for up to 30 seconds and checks every GPU's results. Run it after changing drivers or an overclock."
+        },
+        "epochs": {
+          "title": "Through every epoch",
+          "description": "The DAG changes about every five days. If building it fails on a GPU, Hashwarp retries instead of leaving the card idle."
+        }
+      },
+      "exitCodes": {
+        "heading": "Exit codes for your scripts",
+        "columnCode": "Code",
+        "columnMeaning": "Meaning",
+        "rows": [
+          {
+            "code": "0",
+            "meaning": "Normal exit, or --selftest passed"
+          },
+          {
+            "code": "1",
+            "meaning": "Invalid options, or --selftest failed"
+          },
+          {
+            "code": "2",
+            "meaning": "Runtime error, such as no usable GPU"
+          },
+          {
+            "code": "5",
+            "meaning": "Watchdog: a GPU kept failing or stopped responding"
+          },
+          {
+            "code": "6",
+            "meaning": "A GPU reached --shutdown-temp"
+          }
+        ]
+      }
+    },
+    "monitoring": {
+      "eyebrow": "Monitoring",
+      "heading": "Watch every rig from one place",
+      "subtitle": "Turn on the API and each rig serves a dashboard, a JSON summary and Prometheus metrics.",
+      "points": {
+        "dashboard": {
+          "title": "A web dashboard",
+          "description": "Hashrate, shares and every GPU's temperatures in a browser."
+        },
+        "json": {
+          "title": "A JSON API",
+          "description": "A summary at /api/v1/summary for your own scripts and tools."
+        },
+        "prometheus": {
+          "title": "Prometheus metrics",
+          "description": "/metrics for Grafana dashboards and alerts across a farm."
+        },
+        "locked": {
+          "title": "Closed unless you open it",
+          "description": "Add a token to require one on every request. Pausing, resuming and restarting from the API stay off until you allow them."
+        }
+      },
+      "command": "Turn it on"
+    },
+    "rigs": {
+      "eyebrow": "Rig operating systems",
+      "heading": "Ready for HiveOS and mmpOS",
+      "subtitle": "Each Linux release has a package for both, reporting hashrate, shares, temperatures and fans to the rig OS.",
+      "hiveos": {
+        "title": "HiveOS",
+        "description": "Add it to a flight sheet as a custom miner:",
+        "fields": [
+          {
+            "label": "Miner name",
+            "value": "hashwarp"
+          },
+          {
+            "label": "Installation URL",
+            "value": "hashwarp-<version>.tar.gz"
+          },
+          {
+            "label": "Hash algorithm",
+            "value": "xhash"
+          },
+          {
+            "label": "Wallet and worker",
+            "value": "%WAL%.%WORKER_NAME%"
+          }
+        ]
+      },
+      "mmpos": {
+        "title": "mmpOS",
+        "description": "Create a miner profile with the Custom miner type, and give it the download URL of the release's mmpOS package, the one ending in -mmpos.tgz, and a pool. Extra Hashwarp options go after the arguments."
+      },
+      "docker": {
+        "title": "Docker",
+        "description": "A Dockerfile for NVIDIA rigs, on NVIDIA's CUDA runtime image. Build it once and run it with --gpus all."
+      },
+      "restart": "Both rig OSes restart Hashwarp when it exits, which is what its watchdog relies on.",
+      "guide": "HiveOS and mmpOS setup"
+    },
+    "downloadSection": {
+      "eyebrow": "Download",
+      "heading": "Get Hashwarp",
+      "subtitle": "Free and open source under GPL-3.0, for Linux and Windows.",
+      "requirements": {
+        "heading": "What it needs",
+        "items": [
+          {
+            "label": "NVIDIA",
+            "value": "Driver 525 or newer"
+          },
+          {
+            "label": "AMD",
+            "value": "The AMD driver with OpenCL (ROCm or Adrenalin)"
+          },
+          {
+            "label": "Linux",
+            "value": "glibc 2.28 or newer: Ubuntu 20.04, Debian 10, RHEL 8 and later, current HiveOS and mmpOS"
+          },
+          {
+            "label": "Windows",
+            "value": "Windows 10 or newer; the Visual C++ runtime comes in the archive"
+          }
+        ]
+      },
+      "releasesIntro": "Recent versions of Hashwarp. Prefer the latest release unless you have a reason to run an older build.",
+      "guide": "The full mining guide, with tuning and troubleshooting",
+      "miningPrompt": "New to mining Parallax?",
+      "miningDescription": "Rewards, difficulty and pools, on one page.",
+      "miningCta": "Mining Parallax"
     }
   }
 }

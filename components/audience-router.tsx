@@ -1,6 +1,6 @@
 'use client'
 import { Link } from "@/i18n/navigation"
-import { ArrowRight, Bitcoin, Code2 } from "lucide-react"
+import { ArrowRight, Bitcoin, Code2, Pickaxe } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { FadeIn } from "./fade-in"
 import { Section, SectionHeading } from "./section"
@@ -50,6 +50,23 @@ export function AudienceRouter() {
           )
         })}
       </div>
+
+      {/* Miners: a narrower door under the two briefings, to the mining page */}
+      <FadeIn delay={0.2}>
+        <Link
+          href="/participate/mining"
+          className="group plate-lift mt-4 flex flex-col gap-4 rounded-2xl border border-stroke bg-card p-6 sm:flex-row sm:items-center sm:gap-6 sm:px-8"
+        >
+          <Pickaxe className="size-7 shrink-0 text-brand" strokeWidth={1.5} aria-hidden />
+          <p className="text-base text-muted-foreground">
+            <span className="text-foreground">{t("mining.prompt")}</span> {t("mining.description")}
+          </p>
+          <span className="inline-flex shrink-0 items-center gap-2 text-[15px] font-medium text-foreground sm:ml-auto">
+            {t("mining.cta")}
+            <ArrowRight className="size-4 text-brand transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
+          </span>
+        </Link>
+      </FadeIn>
     </Section>
   )
 }

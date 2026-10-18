@@ -23,6 +23,7 @@ const routes = [
   "/parallax-wallet",
   "/resources/network-atlas",
   "/participate/mining",
+  "/hashwarp",
   "/blog",
 ]
 

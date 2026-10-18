@@ -27,7 +27,7 @@ const DATA_DIRS: Record<Os, string> = {
 /* Terminal panel: always dark, whatever the theme — a hairline header with
    the copy control, then the command behind a prompt glyph. The outline
    stays outside .on-dark-surface so it matches the panels around it. */
-function TerminalPlate({ children, action }: { children: React.ReactNode; action?: React.ReactNode }) {
+export function TerminalPlate({ children, action }: { children: React.ReactNode; action?: React.ReactNode }) {
   return (
     <div className="overflow-hidden rounded-xl border border-stroke bg-[#0a0a0b]">
       <div className="on-dark-surface flex h-10 items-center justify-between border-b border-hairline pr-1.5 pl-4">
@@ -42,7 +42,7 @@ function TerminalPlate({ children, action }: { children: React.ReactNode; action
   );
 }
 
-function CodeBlock({ children, copiedLabel, copyLabel }: { children: string; copiedLabel: string; copyLabel: string }) {
+export function CodeBlock({ children, copiedLabel, copyLabel }: { children: string; copiedLabel: string; copyLabel: string }) {
   const [copied, setCopied] = useState(false);
 
   const onCopy = async () => {

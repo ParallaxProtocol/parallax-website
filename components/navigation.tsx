@@ -11,6 +11,7 @@ import {
   Code2,
   Cpu,
   FileText,
+  Gauge,
   Globe2,
   Heart,
   Activity,
@@ -81,6 +82,7 @@ const menus: NavMenu[] = [
     columns: 1,
     items: [
       { key: "client", href: "/resources/parallax-client", icon: Cpu },
+      { key: "hashwarp", href: "/hashwarp", icon: Gauge },
       { key: "mining", href: "/participate/mining", icon: Pickaxe },
     ],
   },

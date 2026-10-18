@@ -50,19 +50,26 @@ export default function MiningPage() {
             </div>
             <div className="relative flex flex-col justify-between gap-10 p-8 sm:p-10 lg:col-span-7">
               <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">{t("rig.body")}</p>
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <Button variant="outline" className="w-full sm:w-fit" asChild>
-                  <a href="https://github.com/ParallaxProtocol/hashwarp/releases" target="_blank" rel="noopener">
+              {/* Hashwarp first; SRBMiner-Multi also mines XHash, with a dev fee */}
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
+                <Button variant="brand" className="w-full sm:w-fit" asChild>
+                  <Link href="/hashwarp">
                     {t("rig.hashwarpCta")}
-                    <ExternalLink />
-                  </a>
+                    <ArrowRight />
+                  </Link>
                 </Button>
-                <Button variant="outline" className="w-full sm:w-fit" asChild>
-                  <a href="https://github.com/doktor83/SRBMiner-Multi/releases" target="_blank" rel="noopener">
+                <p className="text-sm text-muted-foreground">
+                  {t("rig.srbminerPrefix")}{" "}
+                  <a
+                    href="https://github.com/doktor83/SRBMiner-Multi/releases"
+                    target="_blank"
+                    rel="noopener"
+                    className="inline-flex items-center gap-1 text-foreground underline decoration-stroke underline-offset-4 transition-colors hover:decoration-brand"
+                  >
                     {t("rig.srbminerCta")}
-                    <ExternalLink />
+                    <ExternalLink className="size-3.5" />
                   </a>
-                </Button>
+                </p>
               </div>
             </div>
           </div>
@@ -128,6 +135,12 @@ export default function MiningPage() {
         {/* CTAs */}
         <div className="mt-12 flex flex-col gap-3 sm:flex-row">
           <Button variant="brand" size="lg" className="w-full sm:w-fit" asChild>
+            <Link href="/hashwarp">
+              {t("ctas.hashwarp")}
+              <ArrowRight />
+            </Link>
+          </Button>
+          <Button variant="outline" size="lg" className="w-full sm:w-fit" asChild>
             <Link href={"/resources/parallax-client"}>
               {t("ctas.client")}
               <ArrowRight />
