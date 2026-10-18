@@ -67,7 +67,7 @@ const nodePoints = [
   { key: "inbound", icon: Radio },
 ] as const
 
-/* What parallax-gui's backend sends through Tor once it's on (tor.go,
+/* What parallax-wallet's backend sends through Tor once it's on (tor.go,
    flags.go): the node's peers and DNS seeds, the status-page reports, the
    updater and the assistants' explorer and status-page lookups. */
 const privacyPoints = [
@@ -105,7 +105,7 @@ const securityItems = [
   { key: "tamper", icon: Package },
 ] as const
 
-/* What parallax-gui's backend does on each OS: harden_linux.go (no core
+/* What parallax-wallet's backend does on each OS: harden_linux.go (no core
    dump, non-dumpable), harden_unix.go (no core dump; memory reads kept out
    by the hardened runtime the backend is signed with), harden_windows.go
    (an access list against memory reads, left out of Windows Error
@@ -134,7 +134,7 @@ const assistantPoints = [
   { key: "lock", icon: Lock },
 ] as const
 
-/* The app's defaults (defaultMCPAllow in parallax-gui's backend/config.go). */
+/* The app's defaults (defaultMCPAllow in parallax-wallet's backend/config.go). */
 const permissionRows = [
   { key: "nodeStatus", mode: "allow" },
   { key: "wallet", mode: "ask" },

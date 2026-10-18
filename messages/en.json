@@ -1993,7 +1993,7 @@
                     "description": "XHash proof of work, C/C++"
                   },
                   {
-                    "name": "parallax-gui",
+                    "name": "parallax-wallet",
                     "description": "Desktop wallet"
                   },
                   {

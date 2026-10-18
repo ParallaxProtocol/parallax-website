@@ -67,7 +67,7 @@ Using and running Parallax:
 
 - [ParallaxProtocol on GitHub](https://github.com/ParallaxProtocol): Reference client, whitepaper, doctrine, and associated repositories. All code open source under LGPL-3.0.
 - [parallax reference client (CLI)](https://github.com/ParallaxProtocol/parallax): Go-based reference implementation of the Parallax full node — command-line only, intended for servers, miners, pools, and technical operators. Clean-room build; the EVM execution layer reuses portions of go-ethereum (LGPL-3.0), while consensus, XHash mining, the ASERT difficulty algorithm, and the monetary rules are original.
-- [parallax-gui (Parallax Wallet)](https://github.com/ParallaxProtocol/parallax-gui): Parallax Wallet, the desktop wallet for Linux, Windows, and macOS. Embeds a full node in-process so users can sync the chain and hold LAX without touching a terminal.
+- [parallax-wallet (Parallax Wallet)](https://github.com/ParallaxProtocol/parallax-wallet): Parallax Wallet, the desktop wallet for Linux, Windows, and macOS. Embeds a full node in-process so users can sync the chain and hold LAX without touching a terminal.
 
 ## Network
 

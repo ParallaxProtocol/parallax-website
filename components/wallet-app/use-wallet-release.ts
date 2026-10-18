@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react"
 import type { Platform } from "@/hooks/usePlatform"
 
-export const WALLET_REPO_URL = "https://github.com/ParallaxProtocol/parallax-gui"
+export const WALLET_REPO_URL = "https://github.com/ParallaxProtocol/parallax-wallet"
 export const WALLET_RELEASES_URL = `${WALLET_REPO_URL}/releases`
-const LATEST_API = "https://api.github.com/repos/ParallaxProtocol/parallax-gui/releases/latest"
+const LATEST_API = "https://api.github.com/repos/ParallaxProtocol/parallax-wallet/releases/latest"
 
 export type WalletOs = "linux" | "macos" | "windows"
 export type WalletArch = "x86_64" | "arm64"
@@ -36,7 +36,7 @@ type GithubRelease = {
 }
 
 /* Release artifacts are named as the in-app updater looks for them
-   (desiredAssetName in parallax-gui's backend/updater.go):
+   (desiredAssetName in parallax-wallet's backend/updater.go):
    Parallax-Wallet-<version>-<os>-<arch>.<ext>, the Windows installer
    ending -setup.exe. Builds of the old app (Parallax-Client-*) don't match,
    so a release without Wallet builds reads as "not out yet". */
