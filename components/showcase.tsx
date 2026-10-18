@@ -116,7 +116,7 @@ export function ToolsShowcase() {
   return (
     <Section>
       <FadeIn>
-        <SectionHeading index="06" eyebrow={t("eyebrow")} title={t("heading")} subtitle={t("subtitle")} />
+        <SectionHeading index="03" eyebrow={t("eyebrow")} title={t("heading")} subtitle={t("subtitle")} />
       </FadeIn>
 
       <div className="mt-16 space-y-4">
@@ -164,7 +164,7 @@ export function AskParallaxShowcase() {
   return (
     <Section>
       <FadeIn>
-        <SectionHeading index="05" eyebrow={t("eyebrow")} title={t("heading")} subtitle={t("subtitle")} />
+        <SectionHeading index="06" eyebrow={t("eyebrow")} title={t("heading")} subtitle={t("subtitle")} />
       </FadeIn>
 
       <div className="mt-16 grid gap-10 lg:grid-cols-12 lg:gap-16 [&>*]:min-w-0">
@@ -240,7 +240,7 @@ export function WalletShowcase() {
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
             <div className="mb-6 flex flex-wrap items-center gap-3">
-              <p className="tag"><span className="text-brand">04</span><span aria-hidden className="text-hairline">/</span>{t("eyebrow")}</p>
+              <p className="tag"><span className="text-brand">05</span><span aria-hidden className="text-hairline">/</span>{t("eyebrow")}</p>
               <WalletVersionBadge />
             </div>
             <h2 className="text-4xl leading-[1.05] text-foreground text-balance sm:text-5xl lg:text-6xl">

@@ -19,11 +19,12 @@ export default function Home() {
         <Hero />
         <SoundMoney />
         <NoForks />
+        {/* The proof right after the claims: the live explorer and status page */}
+        <ToolsShowcase />
         <AudienceRouter />
         <WalletShowcase />
         <MobileWallets />
         <AskParallaxShowcase />
-        <ToolsShowcase />
         <Client />
         <Documentation />
         <Community />
