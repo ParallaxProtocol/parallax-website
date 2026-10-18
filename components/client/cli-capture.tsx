@@ -1,9 +1,26 @@
 import { TerminalPlate } from "@/components/client-quick-start"
 
-// Real `parallax-cli info` output from a synced mainnet node, pasted as-is.
-// Until it exists the plate shows a placeholder of about the same height:
-// set this to the output and the placeholder goes.
-const CLI_INFO_OUTPUT: string | null = null
+// `parallax-cli info` from a synced mainnet node (v2.1.5), with the node's id
+// replaced by a random one, the enode line dropped and a few pending
+// transactions in the mempool. Set to null and the plate shows a
+// placeholder of about the same height instead.
+const CLI_INFO_OUTPUT: string | null = `{
+  "blocks": 60399,
+  "chainid": 2110,
+  "connections": 8,
+  "gasprice": "1000000000",
+  "id": "60f601255cc6d344f513f7ee3093cb69f42044d7b4d58a060c2f1651352ab760",
+  "listenaddr": "[::]:32110",
+  "mempool": {
+    "pending": 3,
+    "queued": 0
+  },
+  "mining": false,
+  "networkid": "2110",
+  "protocolversion": 66,
+  "syncing": false,
+  "version": "Parallax/v2.1.5-stable-e7d55074/linux-amd64/go1.27.2-X:nodwarf5"
+}`
 
 /* The hero's terminal: the command behind a prompt glyph, then its output. */
 export function CliInfoCapture({ label, placeholder, alt }: { label: string; placeholder: string; alt: string }) {
