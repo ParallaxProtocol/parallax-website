@@ -42,7 +42,10 @@ const nextConfig: NextConfig = {
       // The inner-pages consolidation (2026-10): thin pages merged into the
       // pages that cover the same ground, the docs hubs replaced by the docs.
       ...[
-        ['/participate/running-a-full-node', '/:locale/resources/parallax-client'],
+        ['/participate/running-a-full-node', '/:locale/parallax-client'],
+        // The client's page left Resources for the top level, beside the other
+        // official programs (2026-10).
+        ['/resources/parallax-client', '/:locale/parallax-client'],
         ['/participate/development', '/:locale/resources/community#contribute'],
         ['/participate/support-parallax', '/:locale/resources/community#support'],
         ['/resources/beginner-guides', 'https://docs.parallaxprotocol.org/guides'],

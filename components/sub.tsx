@@ -30,7 +30,7 @@ export default function Sub() {
               variant="outline"
               asChild
             >
-              <Link href="/resources/parallax-client">
+              <Link href="/parallax-client">
                 <LucideDownload />
                 Download Parallax Client
               </Link>

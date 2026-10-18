@@ -19,7 +19,7 @@ const routes = [
   "/introduction/verify",
   "/resources/community",
   "/resources/branding",
-  "/resources/parallax-client",
+  "/parallax-client",
   "/parallax-wallet",
   "/resources/network-atlas",
   "/participate/mining",

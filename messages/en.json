@@ -76,7 +76,7 @@
       },
       "parallaxClient": {
         "title": "Parallax Client: Run a Node",
-        "description": "Download parallaxd, the reference Parallax full node, with parallax-cli and the parallax-wallet tool. For Linux, macOS, Windows and Docker. Verify every block yourself."
+        "description": "Download parallaxd, the reference Parallax full node, with parallax-cli and the parallax-wallet tool: peer-to-peer networking modelled on Bitcoin Core's, built-in Tor, a smart fee estimator, JSON-RPC and metrics. For Linux, macOS, Windows and Docker."
       }
     },
     "privacy": {
@@ -2104,6 +2104,20 @@
       }
     },
     "parallaxClient": {
+      "hero": {
+        "eyebrow": "Parallax Client",
+        "badge": "Open source",
+        "title": "The reference node for Parallax",
+        "subtitle": "Run parallaxd and check every block against Parallax's rules yourself. Its peer-to-peer layer is modelled on Bitcoin Core's, Tor is built in, and it serves JSON-RPC and metrics to everything you build on it.",
+        "platforms": "Linux, macOS, Windows and Docker",
+        "source": "View the source",
+        "setupGuide": "Setup guide",
+        "capture": {
+          "label": "parallax-cli info",
+          "placeholder": "Output to come",
+          "alt": "parallax-cli info on a synced mainnet node: chain, network, mempool and mining at a glance"
+        }
+      },
       "title": "Run a Parallax node",
       "subtitle": "The Parallax Client is the reference node software. Run parallaxd and check every block against Parallax's rules yourself, on Linux, macOS, Windows or in Docker.",
       "header": {
@@ -2123,28 +2137,159 @@
           "heading": "No voting",
           "body": "There's no voting or other corruptible process involved: there's just individual software following identical rules—\"math\"—to evaluate identical blocks and coming to identical conclusions about which block chain is valid."
         },
-        "blockquote": "This shared agreement (called consensus) allows people like you to only accept valid transactions, enforcing Parallax's rules against even the most powerful miners."
-      },
-      "why": {
-        "eyebrow": "Why run one",
-        "heading": "Why run your own node",
-        "items": {
-          "verify": {
-            "title": "Verify, don't trust",
-            "description": "Your node checks every block, signature and proof of work against the rules, the 21,000,000 LAX cap among them. A wallet pointed at it sees the chain as it is, not as a server reports it."
-          },
-          "privacy": {
-            "title": "Keep your lookups private",
-            "description": "A public RPC sees which addresses you ask about. Point your wallet at your own node and those questions never leave your computer."
-          },
-          "network": {
-            "title": "Strengthen the network",
-            "description": "Every independent node is one more copy of the rules that a bad block has to get past. Open port 32110 (TCP and UDP) and your node also serves the chain to new peers."
-          },
-          "build": {
-            "title": "Build on it",
-            "description": "parallaxd serves JSON-RPC over HTTP, WebSocket and IPC for your own apps and scripts. Keep it on your machine or network; never expose an unauthenticated RPC port to the internet."
+        "why": {
+          "heading": "Why run your own node",
+          "items": {
+            "verify": {
+              "title": "Verify, don't trust",
+              "description": "Your node checks every block, signature and proof of work against the rules, the 21,000,000 LAX cap among them. A wallet pointed at it sees the chain as it is, not as a server reports it."
+            },
+            "privacy": {
+              "title": "Keep your lookups private",
+              "description": "A public RPC sees which addresses you ask about. Point your wallet at your own node and those questions never leave your computer."
+            },
+            "network": {
+              "title": "Strengthen the network",
+              "description": "Every independent node is one more copy of the rules that a bad block has to get past. Open port 32110 (TCP and UDP) and your node also serves the chain to new peers."
+            },
+            "build": {
+              "title": "Build on it",
+              "description": "parallaxd serves JSON-RPC over HTTP, WebSocket and IPC for your own apps and scripts. Keep it on your machine or network; never expose an unauthenticated RPC port to the internet."
+            }
           }
+        }
+      },
+      "p2p": {
+        "eyebrow": "Peer-to-peer",
+        "heading": "Networking modelled on Bitcoin Core's",
+        "subtitle": "A node is only as honest as the peers it hears from. The client picks, keeps and drops its peers the way Bitcoin Core does, so one operator can't easily surround it.",
+        "items": {
+          "addrman": {
+            "title": "A stochastic address manager",
+            "description": "Peer addresses live in new and tried tables, bucketed with a secret key only your node knows, so an attacker can't predict which addresses it keeps or crowd out the rest."
+          },
+          "anchors": {
+            "title": "Anchors across restarts",
+            "description": "Two block-relay peers are saved on shutdown and dialled first on the next start, so a restart doesn't hand every connection to whoever answers first."
+          },
+          "feelers": {
+            "title": "Feeler connections",
+            "description": "Short test connections check that stored addresses still answer, without taking up one of the node's outbound slots."
+          },
+          "eviction": {
+            "title": "Eviction that protects good peers",
+            "description": "When inbound slots are full, the peers with the lowest ping, the most recent blocks and transactions, the longest uptime and the most varied networks are kept."
+          },
+          "groups": {
+            "title": "Diversity by network group",
+            "description": "Outbound peers are spread across distinct network ranges, with Tor addresses in groups of their own, so no single range holds more than its share."
+          },
+          "bans": {
+            "title": "Bans and DNS seeds",
+            "description": "Misbehaving peers are banned, and bans are listed and lifted from parallax-cli. DNS seeds are asked for fresh peers once a day, as in Bitcoin Core."
+          }
+        },
+        "guide": "Connecting to peers"
+      },
+      "tor": {
+        "eyebrow": "Tor",
+        "heading": "Tor, built in",
+        "subtitle": "The client's Tor support follows Bitcoin Core's: reach peers through Tor, accept them on an onion address, or run with no clearnet connections at all.",
+        "points": {
+          "onion": {
+            "title": "An onion service on its own",
+            "description": "With Tor running, the node creates a Tor v3 onion service for its P2P port through the control port. Peers can reach it with no port forwarding."
+          },
+          "proxy": {
+            "title": "Outbound through Tor",
+            "description": "Route connections through a SOCKS5 proxy, or only the ones to .onion peers. Each connection gets its own Tor circuit by default."
+          },
+          "gossip": {
+            "title": "Onion peers like any other",
+            "description": "Onion addresses are shared and stored next to IPv4 and IPv6 ones, so the Tor side of the network finds itself."
+          },
+          "dark": {
+            "title": "Fully dark",
+            "description": "--onlynet=onion keeps every outbound connection inside Tor."
+          }
+        },
+        "command": "Run a dark node",
+        "guide": "Running over Tor"
+      },
+      "operate": {
+        "eyebrow": "Operate",
+        "heading": "Built to be run for years",
+        "subtitle": "Short commands, a daemon mode, config files, and a fee estimator worth trusting.",
+        "items": {
+          "cli": {
+            "title": "parallax-cli",
+            "description": "info, tip, peers, mempool, setban, addnode and more. It finds the node's socket by itself and prints bare values for scripts."
+          },
+          "daemon": {
+            "title": "Daemon mode",
+            "description": "parallax-cli start runs the node in the background with its logs in the data directory, and parallax-cli stop shuts it down cleanly."
+          },
+          "config": {
+            "title": "Config files",
+            "description": "dumpconfig writes your flags to a TOML file, and --config loads it back on the next start."
+          },
+          "fees": {
+            "title": "A smart fee estimator",
+            "description": "On by default and modelled on Bitcoin Core's: it learns how fast transactions confirm at each fee and answers eth_estimateSmartFee for a target number of blocks."
+          },
+          "sync": {
+            "title": "Full or archive",
+            "description": "Snap sync from a recent block or sync in full from genesis, keep every historical state as an archive node, and choose how many blocks the transaction index covers."
+          },
+          "prune": {
+            "title": "Pruning",
+            "description": "parallaxd snapshot prune-state reclaims disk space on a full node offline, with no resync."
+          },
+          "completion": {
+            "title": "Shell completion",
+            "description": "bash and zsh completion for every program, generated from the flags themselves."
+          },
+          "usb": {
+            "title": "Hardware wallets",
+            "description": "Ledger and Trezor accounts through USB, or clef as an external signer with its own rules."
+          }
+        },
+        "example": "Everyday commands",
+        "guide": "Command-line RPC reference"
+      },
+      "serve": {
+        "eyebrow": "Serve",
+        "heading": "A node for everything you build",
+        "subtitle": "Exchanges, pools, explorers and apps run on the same parallaxd. It speaks Ethereum's JSON-RPC, so the tools you already use work unchanged.",
+        "points": {
+          "rpc": {
+            "title": "JSON-RPC everywhere",
+            "description": "HTTP, WebSocket and IPC, with batch requests and subscriptions to new blocks, logs and pending transactions."
+          },
+          "graphql": {
+            "title": "GraphQL",
+            "description": "Query blocks, transactions and logs in one request with the built-in GraphQL server."
+          },
+          "auth": {
+            "title": "Authenticated endpoints",
+            "description": "A JWT-protected endpoint for services that need one. Keep the rest on localhost: never expose an unauthenticated RPC port to the internet."
+          },
+          "metrics": {
+            "title": "Metrics",
+            "description": "Prometheus and InfluxDB metrics for the chain, the peers and the database, with guides for building Grafana dashboards."
+          }
+        },
+        "exchanges": {
+          "label": "Listing LAX",
+          "title": "Integrating Parallax on an exchange",
+          "description": "Running nodes, crediting deposits, sending withdrawals and choosing confirmations, from first node to first withdrawal.",
+          "cta": "Exchange integration guide"
+        },
+        "metricsGuide": "Metrics and dashboards",
+        "stats": {
+          "prompt": "Put your node on the status page.",
+          "description": "Start it with --prlstats and it reports its name, client version and OS, the blocks it sees, its peers, latency and uptime to status.parallaxprotocol.org. Off unless you turn it on; give it a name with --prlstats yourname@status.parallaxprotocol.org, or point it at your own prlstats server.",
+          "cta": "Network status"
         }
       },
       "binaries": {
@@ -2173,6 +2318,11 @@
           "networkRec": "10+ Mbps",
           "storageMin": "50 GB SSD",
           "storageRec": "100 GB SSD"
+        },
+        "versioning": {
+          "title": "Releases change the software, never the rules",
+          "description": "Version numbers describe the client, not consensus. There is no scheduled fork, and a new release is never an occasion to change what a valid block is.",
+          "cta": "How versions work"
         }
       },
       "download": {
@@ -2197,6 +2347,12 @@
         "heading": "Want a desktop app?",
         "body": "Parallax Wallet runs a full node too, with a wallet, hardware and offline signing, and an AI assistant built in.",
         "cta": "Explore Parallax Wallet"
+      },
+      "hashwarpCta": {
+        "eyebrow": "Hashwarp",
+        "heading": "Mining?",
+        "body": "Hashwarp, the official GPU miner, mines solo on your node or through a pool. Open source, with no fee.",
+        "cta": "Explore Hashwarp"
       },
       "quickStart": {
         "heading": "Quick start",

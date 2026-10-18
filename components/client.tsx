@@ -65,7 +65,7 @@ export default function Client() {
               <ClientDownloadButton />
             </div>
             <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm text-muted-foreground">
-              <Link href="/resources/parallax-client" className="transition-colors hover:text-foreground">
+              <Link href="/parallax-client" className="transition-colors hover:text-foreground">
                 {t("quickStart")}
               </Link>
               <a

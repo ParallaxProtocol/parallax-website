@@ -11,7 +11,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "metadata.resources.parallaxClient" })
   return pageMetadata({
     locale,
-    path: "/resources/parallax-client",
+    path: "/parallax-client",
     title: t("title"),
     description: t("description"),
   })

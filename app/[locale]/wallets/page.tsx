@@ -180,7 +180,7 @@ export default async function Page() {
             </div>
             <div className="flex flex-col gap-4 sm:flex-row lg:col-span-5 lg:justify-end">
               <Button variant="brand" size="lg" asChild>
-                <Link href="/resources/parallax-client">
+                <Link href="/parallax-client">
                   <Download />
                   {t("runClient.download")}
                 </Link>

@@ -68,7 +68,7 @@ export function Hero() {
             </Link>
           </Button>
           <Button size="xl" variant="outline" className="w-full sm:w-auto" asChild>
-            <Link href={"/resources/parallax-client"}>{t("runNode")}</Link>
+            <Link href={"/parallax-client"}>{t("runNode")}</Link>
           </Button>
         </div>
       </div>

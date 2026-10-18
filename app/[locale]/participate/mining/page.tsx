@@ -141,7 +141,7 @@ export default function MiningPage() {
             </Link>
           </Button>
           <Button variant="outline" size="lg" className="w-full sm:w-fit" asChild>
-            <Link href={"/resources/parallax-client"}>
+            <Link href={"/parallax-client"}>
               {t("ctas.client")}
               <ArrowRight />
             </Link>

@@ -209,7 +209,7 @@ export default async function CommunityPage() {
                     </p>
                     <div className="mt-8">
                       <Button variant="brand" size="lg" asChild>
-                        <Link href="/resources/parallax-client">
+                        <Link href="/parallax-client">
                           {t(`${g}.network.items.node.cta`)}
                           <ArrowRight />
                         </Link>

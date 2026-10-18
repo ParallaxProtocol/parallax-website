@@ -81,7 +81,7 @@ const menus: NavMenu[] = [
     key: "run",
     columns: 1,
     items: [
-      { key: "client", href: "/resources/parallax-client", icon: Cpu },
+      { key: "client", href: "/parallax-client", icon: Cpu },
       { key: "hashwarp", href: "/hashwarp", icon: Gauge },
       { key: "mining", href: "/participate/mining", icon: Pickaxe },
     ],

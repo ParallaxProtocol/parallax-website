@@ -54,7 +54,7 @@ Using and running Parallax:
 
 - [Get started](https://parallaxprotocol.org/en/introduction/getting-started): Pick a wallet, add the network, get LAX, and use it.
 - [Parallax Wallet](https://parallaxprotocol.org/en/parallax-wallet): The official desktop wallet for Linux, Windows and macOS: a full node built in, sealed key storage, hardware and offline signing, and its own MCP server for AI assistants.
-- [Run a node](https://parallaxprotocol.org/en/resources/parallax-client): The Parallax Client, the CLI reference node software for servers, miners, and operators: what a full node does, why run one, downloads and a quick start.
+- [Run a node](https://parallaxprotocol.org/en/parallax-client): The Parallax Client, the CLI reference node software for servers, miners, exchanges and operators: what a full node does, peer-to-peer networking modelled on Bitcoin Core's, built-in Tor, parallax-cli and the smart fee estimator, JSON-RPC, GraphQL and metrics, opt-in reporting to the status page, downloads and a quick start.
 - [Mining](https://parallaxprotocol.org/en/participate/mining): Pools, solo mining, miner software, and the reward schedule.
 - [Hashwarp](https://parallaxprotocol.org/en/hashwarp): Hashwarp, the official open-source XHash GPU miner, with no fee: quick start, console, temperature limits and watchdog, dashboard and Prometheus metrics, HiveOS and mmpOS packages, downloads for Linux and Windows.
 - [Get involved](https://parallaxprotocol.org/en/resources/community): Community channels, ways to contribute (nodes, mining, code, docs, bootnodes, public RPC), and donation addresses.

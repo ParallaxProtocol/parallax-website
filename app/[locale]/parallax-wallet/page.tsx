@@ -661,7 +661,7 @@ export default async function ParallaxWalletPage() {
         </FadeIn>
         <FadeIn delay={0.15}>
           <Link
-            href="/resources/parallax-client"
+            href="/parallax-client"
             className="group plate-lift mt-16 flex flex-col gap-4 rounded-2xl border border-stroke bg-card p-6 sm:flex-row sm:items-center sm:gap-6 sm:px-8"
           >
             <TerminalSquare className="size-7 shrink-0 text-brand" strokeWidth={1.5} aria-hidden />

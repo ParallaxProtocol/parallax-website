@@ -234,7 +234,7 @@ export default function HowItWorks() {
             </div>
             <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
               <Button variant="outline" asChild>
-                <Link href="/resources/parallax-client">
+                <Link href="/parallax-client">
                   {t("nodes.cta")}
                   <ArrowRight className="text-brand" />
                 </Link>

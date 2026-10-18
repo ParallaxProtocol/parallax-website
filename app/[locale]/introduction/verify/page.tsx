@@ -203,7 +203,7 @@ export default function VerifyPage() {
             </div>
             <div className="lg:col-span-4 lg:justify-self-end">
               <Button variant="brand" size="lg" className="w-full sm:w-fit" asChild>
-                <Link href={"/resources/parallax-client"}>
+                <Link href={"/parallax-client"}>
                   {t("node.cta")}
                   <ArrowRight />
                 </Link>
