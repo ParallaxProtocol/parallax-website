@@ -345,21 +345,26 @@
       "eyebrow": "Software",
       "heading": "The Parallax Client",
       "subtitle": "The reference node software, for the command line. Run it and check every block against Parallax's rules yourself.",
-      "decentralized": {
-        "title": "Decentralized",
-        "description": "Users running a node are the ones keeping Parallax decentralized. They individually run their own Parallax full nodes, and each of those full nodes separately follows the exact same rules to decide which block chain is valid.",
-        "cta": "See the live node map"
+      "points": {
+        "verify": {
+          "title": "Check every block yourself",
+          "description": "Your node verifies every block and transaction against Parallax's rules, the 21,000,000 LAX cap among them. It trusts no one, miners included."
+        },
+        "noVoting": {
+          "title": "Rules no one votes on",
+          "description": "Every node runs the same rules on the same blocks and reaches the same answer. A block that breaks them is rejected, however much hashrate is behind it."
+        },
+        "network": {
+          "title": "One more copy of the rules",
+          "description": "Each independent node is another check a bad block has to get past, and one more source of the chain for new peers.",
+          "cta": "See the live node map"
+        }
       },
-      "noVoting": {
-        "title": "No Voting",
-        "description": "There's no voting or other corruptible process involved: there's just individual software following identical rules—\"math\"—to evaluate identical blocks and coming to identical conclusions about which block chain is valid."
-      },
-      "blockquote": "This shared agreement (called consensus) allows people like you to only accept valid transactions, enforcing Parallax's rules against even the most powerful miners.",
       "runNode": {
         "title": "Run a Parallax node",
-        "description": "parallaxd, parallax-cli and the parallax-wallet tool, prebuilt for Linux, macOS and Windows, or as a Docker image."
+        "description": "A full node for the command line, with Tor in one flag and a peer-to-peer layer modelled on Bitcoin Core's. Prebuilt for Linux, macOS and Windows, or as a Docker image."
       },
-      "quickStart": "Quick start",
+      "explore": "Explore the client",
       "github": "GitHub",
       "wallet": {
         "prompt": "Want a desktop app?",
