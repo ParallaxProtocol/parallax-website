@@ -427,7 +427,7 @@ export default async function ParallaxWalletPage() {
             <p className="border-t border-hairline px-6 py-4 text-sm leading-relaxed text-muted-foreground sm:px-8">{t("security.platform.note")}</p>
           </div>
           <div className="mt-6">
-            <GuideLink href="https://docs.parallaxprotocol.org/guides/parallax-wallet/security">{t("security.guide")}</GuideLink>
+            <GuideLink href="https://docs.parallaxprotocol.org/parallax-wallet/security">{t("security.guide")}</GuideLink>
           </div>
         </FadeIn>
       </Section>
@@ -457,7 +457,7 @@ export default async function ParallaxWalletPage() {
                   ))}
                 </ul>
                 <div className="mt-6">
-                  <GuideLink href="https://docs.parallaxprotocol.org/guides/parallax-wallet/hardware-wallets">{t("signing.hardware.guide")}</GuideLink>
+                  <GuideLink href="https://docs.parallaxprotocol.org/parallax-wallet/hardware-wallets">{t("signing.hardware.guide")}</GuideLink>
                 </div>
               </div>
             </div>
@@ -489,7 +489,7 @@ export default async function ParallaxWalletPage() {
                 </ol>
                 <p className="mt-8 border-t border-hairline pt-5 text-sm leading-relaxed text-muted-foreground">{t("signing.offline.note")}</p>
                 <div className="mt-6">
-                  <GuideLink href="https://docs.parallaxprotocol.org/guides/parallax-wallet/offline-signing">{t("signing.offline.guide")}</GuideLink>
+                  <GuideLink href="https://docs.parallaxprotocol.org/parallax-wallet/offline-signing">{t("signing.offline.guide")}</GuideLink>
                 </div>
               </div>
             </div>
@@ -568,7 +568,7 @@ export default async function ParallaxWalletPage() {
               </div>
               <p className="relative px-1 text-sm leading-relaxed text-muted-foreground">{t("assistant.connect.note")}</p>
               <div className="relative px-1">
-                <GuideLink href="https://docs.parallaxprotocol.org/guides/ai/parallax-wallet">{t("assistant.connect.guide")}</GuideLink>
+                <GuideLink href="https://docs.parallaxprotocol.org/parallax-wallet/ai-assistants">{t("assistant.connect.guide")}</GuideLink>
               </div>
             </div>
           </FadeIn>
@@ -656,7 +656,7 @@ export default async function ParallaxWalletPage() {
         <FadeIn delay={0.1} className="mt-16">
           <WalletDownloads />
           <div className="mt-6">
-            <GuideLink href="https://docs.parallaxprotocol.org/guides/parallax-wallet/installing">{t("downloadSection.guide")}</GuideLink>
+            <GuideLink href="https://docs.parallaxprotocol.org/parallax-wallet/installing">{t("downloadSection.guide")}</GuideLink>
           </div>
         </FadeIn>
         <FadeIn delay={0.15}>
