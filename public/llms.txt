@@ -89,7 +89,7 @@ Using and running Parallax:
 ## Mining
 
 - [miningpoolstats.stream/parallax](https://miningpoolstats.stream/parallax): Network hashrate, difficulty, pools, and per-pool share for Parallax. XHash is Ethash-derived and memory-hard, so Ethash-class GPU hardware mines Parallax competitively with no hardware changes. The mining software does not carry over: existing Ethash miners (ethminer and similar) cannot mine XHash — use Hashwarp or SRBMiner-Multi, below. The reference client also ships a built-in CPU miner, intended for testing and local development rather than competitive mining.
-- [hashwarp](https://github.com/ParallaxProtocol/hashwarp): Official open-source XHash GPU miner developed by the Parallax project. C++, GPL-3.0, with both CUDA (NVIDIA) and OpenCL (AMD / cross-vendor) backends.
+- [hashwarp](https://github.com/ParallaxProtocol/hashwarp): Official open-source XHash GPU miner developed by the Parallax project. C++, GPL-3.0, with both CUDA (NVIDIA) and OpenCL (AMD / cross-vendor) backends. Documentation (setup, pool and solo mining, HiveOS/mmpOS, tuning, safety, dashboard and API): https://docs.parallaxprotocol.org/hashwarp/getting-started
 - [SRBMiner](https://www.srbminer.com): Third-party closed-source miner with XHash support; widely used by the existing Ethash mining community.
 
 ## Community and announcements

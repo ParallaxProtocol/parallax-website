@@ -89,7 +89,7 @@
     },
     "hashwarp": {
       "title": "Hashwarp, the Parallax GPU miner",
-      "description": "Hashwarp is the official open-source XHash miner for Parallax, with no fee: NVIDIA, AMD and Intel GPUs, pools or solo, temperature limits and a watchdog, a web dashboard and Prometheus metrics, and packages for HiveOS and mmpOS."
+      "description": "Hashwarp is the official open-source XHash miner for Parallax, with no fee: NVIDIA and AMD GPUs, pools or solo, temperature limits and a watchdog, a web dashboard and Prometheus metrics, and packages for HiveOS and mmpOS."
     }
   },
   "common": {
@@ -2857,7 +2857,7 @@
       "eyebrow": "Hashwarp",
       "badge": "Open source · No fee",
       "title": "The official miner for Parallax",
-      "subtitle": "Hashwarp mines XHash on NVIDIA, AMD and Intel GPUs, on a pool or solo on your own node. It is open source, takes no fee, and watches every card's temperature while it works.",
+      "subtitle": "Hashwarp mines XHash on NVIDIA and AMD GPUs, on a pool or solo on your own node. It is open source, takes no fee, and watches every card's temperature while it works.",
       "platforms": "Linux and Windows · CUDA and OpenCL",
       "source": "View the source",
       "rigOs": {
@@ -2891,7 +2891,7 @@
         },
         "stratum": {
           "title": "Every pool's stratum",
-          "description": "EthProxy and EthereumStratum 1.0 and 2.0, detected from the pool, with TLS and failover pools. If a pool drops, it reconnects with backoff and never gives up the only pool it has."
+          "description": "EthereumStratum 1.0, EthProxy and plain Stratum, detected from the pool, and EthereumStratum 2.0 when you ask for it. With TLS and failover pools. If a pool drops, it reconnects with backoff and never gives up the only pool it has."
         },
         "config": {
           "title": "One file for a whole farm",
@@ -3088,10 +3088,6 @@
         "title": "mmpOS",
         "description": "Create a miner profile with the Custom miner type, and give it the download URL of the release's mmpOS package, the one ending in -mmpos.tgz, and a pool. Extra Hashwarp options go after the arguments."
       },
-      "docker": {
-        "title": "Docker",
-        "description": "A Dockerfile for NVIDIA rigs, on NVIDIA's CUDA runtime image. Build it once and run it with --gpus all."
-      },
       "restart": "Both rig OSes restart Hashwarp when it exits, which is what its watchdog relies on.",
       "guide": "HiveOS and mmpOS setup"
     },
@@ -3121,7 +3117,7 @@
         ]
       },
       "releasesIntro": "Recent versions of Hashwarp. Prefer the latest release unless you have a reason to run an older build.",
-      "guide": "The full mining guide, with tuning and troubleshooting",
+      "guide": "Hashwarp's documentation, with tuning and troubleshooting",
       "miningPrompt": "New to mining Parallax?",
       "miningDescription": "Rewards, difficulty and pools, on one page.",
       "miningCta": "Mining Parallax"

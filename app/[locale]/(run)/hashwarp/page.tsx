@@ -8,14 +8,13 @@ import { Section, SectionHeading, TwoToneTitle } from "@/components/section"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Link } from "@/i18n/navigation"
-import { HASHWARP_MINING_GUIDE, HASHWARP_REPO, HASHWARP_REPO_URL } from "@/lib/hashwarp"
+import { HASHWARP_DOCS, HASHWARP_REPO, HASHWARP_REPO_URL } from "@/lib/hashwarp"
 import {
   Activity,
   ArrowRight,
   ArrowUpRight,
   Braces,
   Cable,
-  Container,
   Cpu,
   FileCog,
   Gauge,
@@ -51,8 +50,8 @@ const consolePoints = [
   { key: "kernels", icon: Timer },
 ] as const
 
-/* Hashwarp's README "Safety" and docs/MINING.md "Temperatures and the
-   watchdog"; epochs: the retry on a failed DAG build. */
+/* Hashwarp's docs, "Safety" (docs.parallaxprotocol.org/hashwarp/safety);
+   epochs: the retry on a failed DAG build. */
 const safetyItems = [
   { key: "tempStop", icon: Thermometer },
   { key: "shutdown", icon: Power },
@@ -327,7 +326,6 @@ export default async function HashwarpPage() {
           <div className="grid grid-cols-1 gap-4">
             {([
               { key: "mmpos", icon: Cpu },
-              { key: "docker", icon: Container },
             ] as const).map(({ key, icon: Icon }, i) => (
               <FadeIn key={key} delay={0.1 + i * 0.05} className="h-full">
                 <div className="h-full rounded-2xl border border-stroke bg-card p-6 sm:p-8">
@@ -342,7 +340,7 @@ export default async function HashwarpPage() {
         <FadeIn delay={0.15}>
           <p className="mt-6 text-sm leading-relaxed text-muted-foreground">{t("rigs.restart")}</p>
           <div className="mt-6">
-            <GuideLink href={`${HASHWARP_MINING_GUIDE}#hiveos-and-mmpos`}>{t("rigs.guide")}</GuideLink>
+            <GuideLink href={`${HASHWARP_DOCS}/rig-os`}>{t("rigs.guide")}</GuideLink>
           </div>
         </FadeIn>
       </Section>
@@ -371,7 +369,7 @@ export default async function HashwarpPage() {
           </div>
           <ClientReleases repo={HASHWARP_REPO} intro={t("downloadSection.releasesIntro")} />
           <div className="mt-6">
-            <GuideLink href={HASHWARP_MINING_GUIDE}>{t("downloadSection.guide")}</GuideLink>
+            <GuideLink href={`${HASHWARP_DOCS}/getting-started`}>{t("downloadSection.guide")}</GuideLink>
           </div>
         </FadeIn>
         <FadeIn delay={0.15}>
