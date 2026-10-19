@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils"
 // Until one exists its src is null and a placeholder of the same shape
 // holds its place: drop the .webp in, set src (and the real size), done.
 export const hashwarpShots = {
-  console: { src: null as string | null, width: 2880, height: 1800 },
-  dashboard: { src: null as string | null, width: 2880, height: 1800 },
+  console: { src: "/showcase/hashwarp/console.webp" as string | null, width: 2326, height: 1706 },
+  dashboard: { src: "/showcase/hashwarp/dashboard.webp" as string | null, width: 2880, height: 1530 },
 } as const
 
 export type HashwarpShotName = keyof typeof hashwarpShots

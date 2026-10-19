@@ -35,6 +35,7 @@ import {
   Wand2,
 } from "lucide-react"
 import { getTranslations } from "next-intl/server"
+import Image from "next/image"
 import { FaGithub, FaLinux, FaWindows } from "react-icons/fa"
 
 const startPoints = [
@@ -66,6 +67,11 @@ const monitoringPoints = [
   { key: "json", icon: Braces },
   { key: "prometheus", icon: Activity },
   { key: "locked", icon: Lock },
+] as const
+
+const RIG_OSES = [
+  { name: "HiveOS", logo: "/rig-os/hiveos.png" },
+  { name: "mmpOS", logo: "/rig-os/mmpos.png" },
 ] as const
 
 const API_COMMAND = "hashwarp --api-bind 127.0.0.1:21550 --api-token <token>"
@@ -114,6 +120,23 @@ export default async function HashwarpPage() {
                   {t("hero.source")}
                 </a>
               </Button>
+              {/* The rig OSes each release is packaged for, at a glance; both
+                  jump to the setup in section 05 */}
+              <div className="flex items-center gap-2 self-center">
+                <span aria-hidden className="mr-1 hidden h-6 w-px bg-hairline sm:block" />
+                <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{t("hero.rigOs.label")}</span>
+                {RIG_OSES.map(({ name, logo }) => (
+                  <a
+                    key={name}
+                    href="#rigs"
+                    aria-label={t("hero.rigOs.link", { os: name })}
+                    className="inline-flex h-8 items-center gap-2 rounded-full border border-stroke bg-foreground/[0.04] pr-3 pl-2 text-sm text-foreground/85 transition-colors hover:border-foreground/30 hover:text-foreground"
+                  >
+                    <Image src={logo} alt="" width={16} height={16} className="size-4" />
+                    {name}
+                  </a>
+                ))}
+              </div>
             </HashwarpDownloadButton>
           </div>
           <p className="mt-6 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
@@ -277,7 +300,7 @@ export default async function HashwarpPage() {
       </Section>
 
       {/* 05 Rig operating systems */}
-      <Section>
+      <Section id="rigs" className="scroll-mt-16">
         <FadeIn>
           <SectionHeading index="05" eyebrow={t("rigs.eyebrow")} title={t("rigs.heading")} subtitle={t("rigs.subtitle")} />
         </FadeIn>

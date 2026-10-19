@@ -2854,7 +2854,11 @@
       "title": "The official miner for Parallax",
       "subtitle": "Hashwarp mines XHash on NVIDIA, AMD and Intel GPUs, on a pool or solo on your own node. It is open source, takes no fee, and watches every card's temperature while it works.",
       "platforms": "Linux and Windows · CUDA and OpenCL",
-      "source": "View the source"
+      "source": "View the source",
+      "rigOs": {
+        "label": "Ready for",
+        "link": "Set up Hashwarp on {os}"
+      }
     },
     "download": {
       "label": "Download Hashwarp",
@@ -2864,11 +2868,11 @@
     "shots": {
       "placeholder": "Screenshot to come",
       "console": {
-        "alt": "Hashwarp's console, mining on several GPUs"
+        "alt": "Hashwarp's console mining on an RTX 4090: hashrate, accepted shares, temperature, fan, power and efficiency"
       },
       "dashboard": {
-        "alt": "Hashwarp's web dashboard",
-        "caption": "The dashboard each rig serves once the API is on."
+        "alt": "Hashwarp's web dashboard, showing four rigs and this rig's GPU",
+        "caption": "One rig's dashboard, watching three more rigs added with --rig."
       }
     },
     "start": {
@@ -3032,7 +3036,7 @@
       "points": {
         "dashboard": {
           "title": "A web dashboard",
-          "description": "Hashrate, shares and every GPU's temperatures in a browser."
+          "description": "Hashrate, shares and every GPU's temperatures in a browser, for this rig and any others you add with --rig."
         },
         "json": {
           "title": "A JSON API",
