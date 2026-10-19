@@ -8,8 +8,8 @@ import { Section, SectionHeading } from "./section"
 // Each briefing carries its own glow corner so the two doors read as two
 // distinct entrances, not two copies of one card.
 const audiences = [
-  { key: "parallaxForBitcoiners", icon: Bitcoin, href: "/introduction/parallax-for-bitcoiners", glow: "aurora-left" },
-  { key: "parallaxForDevelopers", icon: Code2, href: "/introduction/parallax-for-developers", glow: "" },
+  { key: "parallaxForBitcoiners", icon: Bitcoin, href: "/bitcoiners", glow: "aurora-left" },
+  { key: "parallaxForDevelopers", icon: Code2, href: "/developers", glow: "" },
 ] as const
 
 export function AudienceRouter() {
@@ -54,7 +54,7 @@ export function AudienceRouter() {
       {/* Miners: a narrower door under the two briefings, to the mining page */}
       <FadeIn delay={0.2}>
         <Link
-          href="/participate/mining"
+          href="/mining"
           className="group plate-lift mt-4 flex flex-col gap-4 rounded-2xl border border-stroke bg-card p-6 sm:flex-row sm:items-center sm:gap-6 sm:px-8"
         >
           <Pickaxe className="size-7 shrink-0 text-brand" strokeWidth={1.5} aria-hidden />

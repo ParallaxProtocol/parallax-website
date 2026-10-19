@@ -34,7 +34,7 @@ export default function Client() {
               <p className="mt-3 text-base leading-relaxed text-muted-foreground">{t(`points.${key}.description`)}</p>
               {key === "network" && (
                 <Link
-                  href="/resources/network-atlas"
+                  href="/network-atlas"
                   className="group mt-6 inline-flex items-center gap-2 text-[15px] font-medium text-foreground"
                 >
                   {t("points.network.cta")}

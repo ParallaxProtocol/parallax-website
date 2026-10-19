@@ -52,7 +52,7 @@ export default async function PrivacyPage() {
                       {t.rich("sections.contact.body", {
                         link: (chunks) => (
                           <Link
-                            href="/resources/community"
+                            href="/community"
                             className="text-foreground underline decoration-brand/50 underline-offset-4 hover:decoration-brand"
                           >
                             {chunks}

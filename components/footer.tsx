@@ -12,17 +12,17 @@ type FooterLink = InternalLink | ExternalLink
 // live here; the social links sit with Community.
 const footerLinks: Record<string, FooterLink[]> = {
   learn: [
-    { key: "howItWorks", href: "/introduction/how-it-works" },
+    { key: "howItWorks", href: "/how-it-works" },
     { key: "compare", href: "/compare" },
-    { key: "bitcoiners", href: "/introduction/parallax-for-bitcoiners" },
-    { key: "developers", href: "/introduction/parallax-for-developers" },
-    { key: "verify", href: "/introduction/verify" },
-    { key: "doctrine", href: "/introduction/doctrine" },
+    { key: "bitcoiners", href: "/bitcoiners" },
+    { key: "developers", href: "/developers" },
+    { key: "verify", href: "/verify" },
+    { key: "doctrine", href: "/doctrine" },
     { key: "whitepaper", href: "/parallax.pdf", external: true },
     { key: "faq", href: "/faq" },
   ],
   use: [
-    { key: "gettingStarted", href: "/introduction/getting-started" },
+    { key: "gettingStarted", href: "/get-started" },
     { key: "parallaxWallet", href: "/parallax-wallet" },
     { key: "wallets", href: "/wallets" },
     { key: "exchanges", href: "/exchanges" },
@@ -30,18 +30,18 @@ const footerLinks: Record<string, FooterLink[]> = {
   run: [
     { key: "client", href: "/parallax-client" },
     { key: "hashwarp", href: "/hashwarp" },
-    { key: "mining", href: "/participate/mining" },
+    { key: "mining", href: "/mining" },
   ],
   network: [
     { key: "blockExplorer", href: "https://explorer.parallaxprotocol.org", external: true },
     { key: "networkStatus", href: "https://status.parallaxprotocol.org", external: true },
-    { key: "networkAtlas", href: "/resources/network-atlas" },
+    { key: "networkAtlas", href: "/network-atlas" },
     { key: "docs", href: "https://docs.parallaxprotocol.org", external: true },
   ],
   community: [
-    { key: "getInvolved", href: "/resources/community" },
+    { key: "getInvolved", href: "/community" },
     { key: "blog", href: "/blog" },
-    { key: "brandAssets", href: "/resources/branding" },
+    { key: "brandAssets", href: "/branding" },
     { key: "github", href: "https://github.com/ParallaxProtocol", external: true },
     { key: "bitcointalk", href: "https://bitcointalk.org/index.php?topic=5560698", external: true },
     { key: "twitter", href: "https://x.com/prlxchain", external: true },

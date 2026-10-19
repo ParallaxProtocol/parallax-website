@@ -16,7 +16,7 @@ import {
 } from "lucide-react"
 import { useTranslations } from "next-intl"
 
-/* The diagrams on /introduction/how-it-works. Each draws the mechanism it
+/* The diagrams on /how-it-works. Each draws the mechanism it
    sits next to with hairlines and type, the way the homepage's panels do,
    so they read as part of the page rather than as embedded figures. */
 

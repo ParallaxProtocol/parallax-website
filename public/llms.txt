@@ -41,28 +41,28 @@ The site is published in English under the `/en` prefix.
 
 Introduction:
 
-- [How it works](https://parallaxprotocol.org/en/introduction/how-it-works): Wallets, transactions, mining, and blockchain basics for newcomers.
-- [Getting started](https://parallaxprotocol.org/en/introduction/getting-started): Using Parallax, and accepting it as a merchant.
-- [The Parallax Doctrine](https://parallaxprotocol.org/en/introduction/doctrine): The axioms and commentary, presented on-site.
-- [Parallax for Bitcoiners](https://parallaxprotocol.org/en/introduction/parallax-for-bitcoiners): What is kept from Bitcoin, what is changed and why, and what a young chain honestly costs.
-- [Parallax for Ethereum developers](https://parallaxprotocol.org/en/introduction/parallax-for-developers): Chain ID 2110, the EVM as of Berlin, and the existing Solidity stack on a settlement layer whose rules cannot be voted away.
-- [Verify it yourself](https://parallaxprotocol.org/en/introduction/verify): Commands for checking the genesis hash, the launch-day headline, and the zero-premine supply against the chain.
+- [How it works](https://parallaxprotocol.org/en/how-it-works): Wallets, transactions, mining, and blockchain basics for newcomers.
+- [Getting started](https://parallaxprotocol.org/en/get-started): Using Parallax, and accepting it as a merchant.
+- [The Parallax Doctrine](https://parallaxprotocol.org/en/doctrine): The axioms and commentary, presented on-site.
+- [Parallax for Bitcoiners](https://parallaxprotocol.org/en/bitcoiners): What is kept from Bitcoin, what is changed and why, and what a young chain honestly costs.
+- [Parallax for Ethereum developers](https://parallaxprotocol.org/en/developers): Chain ID 2110, the EVM as of Berlin, and the existing Solidity stack on a settlement layer whose rules cannot be voted away.
+- [Verify it yourself](https://parallaxprotocol.org/en/verify): Commands for checking the genesis hash, the launch-day headline, and the zero-premine supply against the chain.
 - [Parallax vs Bitcoin vs Ethereum](https://parallaxprotocol.org/en/compare): Side-by-side comparison across consensus, monetary policy, programmability, and settlement.
 - [FAQ](https://parallaxprotocol.org/en/faq): Recurring questions, in full.
 
 Using and running Parallax:
 
-- [Get started](https://parallaxprotocol.org/en/introduction/getting-started): Pick a wallet, add the network, get LAX, and use it.
+- [Get started](https://parallaxprotocol.org/en/get-started): Pick a wallet, add the network, get LAX, and use it.
 - [Parallax Wallet](https://parallaxprotocol.org/en/parallax-wallet): The official desktop wallet for Linux, Windows and macOS: a full node built in, sealed key storage, hardware and offline signing, and its own MCP server for AI assistants.
 - [Run a node](https://parallaxprotocol.org/en/parallax-client): The Parallax Client, the CLI reference node software for servers, miners, exchanges and operators: what a full node does, peer-to-peer networking modelled on Bitcoin Core's, built-in Tor, parallax-cli and the smart fee estimator, JSON-RPC, GraphQL and metrics, opt-in reporting to the status page, downloads and a quick start.
-- [Mining](https://parallaxprotocol.org/en/participate/mining): Pools, solo mining, miner software, and the reward schedule.
+- [Mining](https://parallaxprotocol.org/en/mining): Pools, solo mining, miner software, and the reward schedule.
 - [Hashwarp](https://parallaxprotocol.org/en/hashwarp): Hashwarp, the official open-source XHash GPU miner, with no fee: quick start, console, temperature limits and watchdog, dashboard and Prometheus metrics, HiveOS and mmpOS packages, downloads for Linux and Windows.
-- [Get involved](https://parallaxprotocol.org/en/resources/community): Community channels, ways to contribute (nodes, mining, code, docs, bootnodes, public RPC), and donation addresses.
+- [Get involved](https://parallaxprotocol.org/en/community): Community channels, ways to contribute (nodes, mining, code, docs, bootnodes, public RPC), and donation addresses.
 - [Wallets](https://parallaxprotocol.org/en/wallets): Wallets that support the network.
 - [Exchanges](https://parallaxprotocol.org/en/exchanges): Where LAX is traded.
 - [Documentation](https://docs.parallaxprotocol.org): Step-by-step guides for nodes, wallets, and mining, and the technical reference for the protocol, APIs and client.
-- [Network atlas](https://parallaxprotocol.org/en/resources/network-atlas): Live world map and country breakdown of reachable nodes.
-- [Branding](https://parallaxprotocol.org/en/resources/branding): Logos and brand assets for press, exchanges, and integrators.
+- [Network atlas](https://parallaxprotocol.org/en/network-atlas): Live world map and country breakdown of reachable nodes.
+- [Branding](https://parallaxprotocol.org/en/branding): Logos and brand assets for press, exchanges, and integrators.
 
 ## Code
 
@@ -95,7 +95,7 @@ Using and running Parallax:
 ## Community and announcements
 
 - [Blog](https://parallaxprotocol.org/en/blog): First-party notes, announcements, and technical write-ups from the project. Posts are published in English only, regardless of the locale prefix in the URL. RSS feed: `https://parallaxprotocol.org/blog/rss.xml`.
-- [Community channels](https://parallaxprotocol.org/en/resources/community): Canonical list of all official social and chat channels (Telegram, Discord, Reddit, Bitcointalk, and more).
+- [Community channels](https://parallaxprotocol.org/en/community): Canonical list of all official social and chat channels (Telegram, Discord, Reddit, Bitcointalk, and more).
 - [X / Twitter — @prlxchain](https://x.com/prlxchain): Official announcements.
 
 ## Essays and long-form writing

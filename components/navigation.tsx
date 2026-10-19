@@ -57,12 +57,12 @@ const menus: NavMenu[] = [
     key: "learn",
     columns: 2,
     items: [
-      { key: "howItWorks", href: "/introduction/how-it-works", icon: Layers },
+      { key: "howItWorks", href: "/how-it-works", icon: Layers },
       { key: "compare", href: "/compare", icon: Scale },
-      { key: "bitcoiners", href: "/introduction/parallax-for-bitcoiners", icon: Bitcoin },
-      { key: "developers", href: "/introduction/parallax-for-developers", icon: Code2 },
-      { key: "verify", href: "/introduction/verify", icon: ShieldCheck },
-      { key: "doctrine", href: "/introduction/doctrine", icon: ScrollText },
+      { key: "bitcoiners", href: "/bitcoiners", icon: Bitcoin },
+      { key: "developers", href: "/developers", icon: Code2 },
+      { key: "verify", href: "/verify", icon: ShieldCheck },
+      { key: "doctrine", href: "/doctrine", icon: ScrollText },
       { key: "whitepaper", href: "/parallax.pdf", icon: FileText, external: true },
       { key: "faq", href: "/faq", icon: CircleHelp },
     ],
@@ -71,7 +71,7 @@ const menus: NavMenu[] = [
     key: "use",
     columns: 1,
     items: [
-      { key: "gettingStarted", href: "/introduction/getting-started", icon: Rocket },
+      { key: "gettingStarted", href: "/get-started", icon: Rocket },
       { key: "parallaxWallet", href: "/parallax-wallet", icon: Wallet },
       { key: "wallets", href: "/wallets", icon: Smartphone },
       { key: "exchanges", href: "/exchanges", icon: Landmark },
@@ -83,7 +83,7 @@ const menus: NavMenu[] = [
     items: [
       { key: "client", href: "/parallax-client", icon: Cpu },
       { key: "hashwarp", href: "/hashwarp", icon: Gauge },
-      { key: "mining", href: "/participate/mining", icon: Pickaxe },
+      { key: "mining", href: "/mining", icon: Pickaxe },
     ],
   },
   {
@@ -92,7 +92,7 @@ const menus: NavMenu[] = [
     items: [
       { key: "explorer", href: "https://explorer.parallaxprotocol.org", icon: Search, external: true },
       { key: "status", href: "https://status.parallaxprotocol.org", icon: Activity, external: true },
-      { key: "atlas", href: "/resources/network-atlas", icon: Globe2 },
+      { key: "atlas", href: "/network-atlas", icon: Globe2 },
       { key: "docs", href: "https://docs.parallaxprotocol.org", icon: BookOpen, external: true },
     ],
   },
@@ -100,7 +100,7 @@ const menus: NavMenu[] = [
     key: "community",
     columns: 1,
     items: [
-      { key: "getInvolved", href: "/resources/community", icon: Heart },
+      { key: "getInvolved", href: "/community", icon: Heart },
       { key: "blog", href: "/blog", icon: Newspaper },
     ],
   },
@@ -201,7 +201,7 @@ export function Navigation() {
             </NavigationMenuList>
             <div className="flex items-center gap-2 ml-6">
               <Button variant="brand" size="sm" className="h-9 px-4" asChild>
-                <Link href={"/introduction/getting-started"}>
+                <Link href={"/get-started"}>
                   {t("getStarted")}
                 </Link>
               </Button>
@@ -277,7 +277,7 @@ export function Navigation() {
 
               <div className="mt-6 flex flex-col gap-3 px-3">
                 <Button variant="brand" asChild>
-                  <Link href="/introduction/getting-started" onClick={() => setIsOpen(false)}>{t("getStarted")}</Link>
+                  <Link href="/get-started" onClick={() => setIsOpen(false)}>{t("getStarted")}</Link>
                 </Button>
                 <LanguageSwitcher mobile />
               </div>
