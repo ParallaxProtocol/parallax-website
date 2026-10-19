@@ -46,8 +46,8 @@ import { getTranslations } from "next-intl/server";
 import { FaApple, FaDocker, FaGithub, FaLinux, FaWindows } from "react-icons/fa";
 
 const SETUP_GUIDE = "https://docs.parallaxprotocol.org/guides/client/setup";
-const DOCS = "https://docs.parallaxprotocol.org/parallax-client";
-const EXCHANGE_GUIDE = "https://docs.parallaxprotocol.org/v2.1.x/exchange-integration/overview";
+const DOCS = "https://docs.parallaxprotocol.org/client";
+const EXCHANGE_GUIDE = "https://docs.parallaxprotocol.org/exchange-integration/overview";
 const REPO = "https://github.com/ParallaxProtocol/parallax";
 const DOCKER_HUB = "https://hub.docker.com/r/parallaxprotocol/parallax";
 const STATUS_PAGE = "https://status.parallaxprotocol.org";

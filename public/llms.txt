@@ -80,7 +80,7 @@ Using and running Parallax:
   ```
   → returns `{"jsonrpc":"2.0","id":1,"result":"0x83e"}` (0x83e = 2110).
 - [Documentation site](https://docs.parallaxprotocol.org): Full operator and developer docs — installation, configuration, JSON-RPC, monitoring, FAQs.
-- [JSON-RPC documentation](https://docs.parallaxprotocol.org/parallax-client/interacting-with-parallax/json-rpc-namespaces/): Namespaces and methods supported by the reference client.
+- [JSON-RPC documentation](https://docs.parallaxprotocol.org/client/interacting-with-parallax/json-rpc-namespaces/eth): Namespaces and methods supported by the reference client.
 - [Block explorer](https://explorer.parallaxprotocol.org): Blockscout-based explorer — blocks, transactions, addresses, and contract data for Parallax mainnet. Etherscan-style REST API available at `https://explorer.parallaxprotocol.org/api` (Blockscout API).
 - [Chainlist entry](https://chainlist.org/?search=parallax): Chain ID 2110 registration for wallet auto-configuration.
 - [Node discovery (EIP-1459)](https://all.mainnet.prlxdisc.org): DNS-based ENR list for Parallax mainnet peers.
