@@ -31,6 +31,7 @@ const footerLinks: Record<string, FooterLink[]> = {
     { key: "client", href: "/parallax-client" },
     { key: "hashwarp", href: "/hashwarp" },
     { key: "mining", href: "/mining" },
+    { key: "pool", href: "/parallax-pool" },
   ],
   network: [
     { key: "blockExplorer", href: "https://explorer.parallaxprotocol.org", external: true },

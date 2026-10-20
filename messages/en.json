@@ -90,6 +90,10 @@
     "hashwarp": {
       "title": "Hashwarp, the Parallax GPU miner",
       "description": "Hashwarp is the official open-source XHash miner for Parallax, with no fee: NVIDIA and AMD GPUs, pools or solo, temperature limits and a watchdog, a web dashboard and Prometheus metrics, and packages for HiveOS and mmpOS."
+    },
+    "parallaxPool": {
+      "title": "Parallax Pool, a mining pool you can run",
+      "description": "Parallax Pool is open-source mining pool software for Parallax, ready in one Docker Compose command: solo mine to your own wallet with no keys on the server, or run a shared pool with PPLNS, PROP or SOLO payouts, a web interface and an API."
     }
   },
   "common": {
@@ -179,6 +183,10 @@
         "title": "Mining",
         "description": "Mine LAX with the GPUs you already have"
       },
+      "pool": {
+        "title": "Parallax Pool",
+        "description": "Run your own mining pool, solo or public"
+      },
       "explorer": {
         "title": "Block explorer",
         "description": "Every block and transaction since genesis"
@@ -230,6 +238,7 @@
       "client": "Run a node",
       "hashwarp": "Hashwarp",
       "mining": "Mining",
+      "pool": "Parallax Pool",
       "blockExplorer": "Block explorer",
       "networkStatus": "Network status",
       "networkAtlas": "Network Atlas",
@@ -3121,6 +3130,197 @@
       "miningPrompt": "New to mining Parallax?",
       "miningDescription": "Rewards, difficulty and pools, on one page.",
       "miningCta": "Mining Parallax"
+    }
+  },
+  "parallaxPool": {
+    "hero": {
+      "eyebrow": "Parallax Pool",
+      "badge": "Open source · MIT",
+      "title": "Your own pool, in one command",
+      "subtitle": "Parallax Pool runs a Parallax node, a database and a stratum server together. Solo mine to your own wallet, or open a pool to other miners. It is a working pool on day one, and a starting point you can make your own.",
+      "start": "Quick start",
+      "source": "View the source",
+      "platforms": "Docker Compose · amd64 and arm64"
+    },
+    "shot": {
+      "alt": "Parallax Pool's overview page: pool hashrate, the expected time between the pool's blocks, the time since the last block, and the last 100 blocks of the chain with the pool's own highlighted",
+      "caption": "The web interface every pool serves, here with demo figures at mainnet scale."
+    },
+    "modes": {
+      "eyebrow": "Two modes",
+      "heading": "Solo for yourself. Shared for everyone else",
+      "subtitle": "One setting decides who gets paid. Start solo; switch when other miners join.",
+      "direct": {
+        "title": "Solo mining",
+        "description": "The node mines straight to your address, so every block reward lands in your wallet. The pool tracks your rigs, shares and blocks, and never sends a transaction.",
+        "facts": [
+          {
+            "label": "Rewards",
+            "value": "Paid by the chain to your address"
+          },
+          {
+            "label": "Keys on the server",
+            "value": "None"
+          },
+          {
+            "label": "Good for",
+            "value": "Your own rigs, behind one address"
+          }
+        ]
+      },
+      "pool": {
+        "title": "Shared pool",
+        "description": "Rewards land at the pool's address and are split between miners by their shares, minus your fee, then paid out by the node as ordinary transactions.",
+        "facts": [
+          {
+            "label": "Payout schemes",
+            "value": "PPLNS by default, PPLNSBF, PROP or SOLO"
+          },
+          {
+            "label": "Fee",
+            "value": "Yours to set, 0% by default"
+          },
+          {
+            "label": "Payouts",
+            "value": "From 1 LAX, every 10 minutes by default"
+          },
+          {
+            "label": "Keys on the server",
+            "value": "The pool's own key, unlocked in the node"
+          }
+        ]
+      }
+    },
+    "start": {
+      "eyebrow": "Quick start",
+      "heading": "Mining in minutes",
+      "subtitle": "Everything runs in Docker. Two values in a .env file are all it needs.",
+      "steps": [
+        {
+          "title": "Set two values",
+          "description": "Copy .env.example to .env and set POOL_ADDRESS, your LAX address, and a database password."
+        },
+        {
+          "title": "Start it",
+          "description": "docker compose up -d starts the node, PostgreSQL and the pool. The pool waits for the node to sync, then opens stratum on port 4073."
+        },
+        {
+          "title": "Point your rigs at it",
+          "description": "Miners use their LAX address as the user name. The web interface on port 4000 builds the command for them."
+        }
+      ],
+      "tabs": {
+        "solo": {
+          "label": "Solo",
+          "note": "Set POOL_ADDRESS and DB_PASSWORD in .env before starting. Solo is the default: rewards go straight to POOL_ADDRESS and the server holds no keys."
+        },
+        "shared": {
+          "label": "Shared pool",
+          "note": "Creates a password and a pool account in the node's volume. Set POOL_ADDRESS to the new address, PAYOUT_MODE=pool, and NODE_EXTRA_ARGS to unlock it (the README has the line), then start. Back up the keystore and the password: together they control the pool's funds."
+        },
+        "miners": {
+          "label": "Connect a rig",
+          "note": "Any XHash miner that speaks EthereumStratum works. Use d=0.5 as the stratum password for a fixed share difficulty."
+        }
+      },
+      "copy": "Copy command",
+      "copied": "Copied"
+    },
+    "features": {
+      "eyebrow": "What's inside",
+      "heading": "A full pool, built for Parallax",
+      "subtitle": "A Parallax-only fork of Miningcore, the open-source pool engine. Its stratum server, share accounting and payout engine, with XHash and Parallax's rules built in.",
+      "items": {
+        "xhash": {
+          "title": "XHash validation",
+          "description": "Every share is hashed by the pool itself, in native code, from a light cache of a few megabytes per epoch."
+        },
+        "stratum": {
+          "title": "EthereumStratum",
+          "description": "The stratum Hashwarp and SRBMiner-Multi speak, with legacy eth-proxy and TLS ports available from a config file."
+        },
+        "vardiff": {
+          "title": "Adaptive difficulty",
+          "description": "Each miner's share difficulty follows its hashrate, aiming for a share every 15 seconds. Miners can also fix their own."
+        },
+        "maturity": {
+          "title": "Parallax's maturity rule",
+          "description": "Rewards are credited only after the 100-block lockbox, about 17 hours, from the halving schedule the chain itself uses."
+        },
+        "ui": {
+          "title": "A web interface",
+          "description": "Pool hashrate, expected time to a block, recent blocks, payments, a page per miner, and a connect page that builds the miner command."
+        },
+        "api": {
+          "title": "REST API and live events",
+          "description": "Pools, blocks, payments and miners over REST, and a WebSocket stream for new blocks, unlocks, payments and hashrate."
+        },
+        "zeroConfig": {
+          "title": "No setup to speak of",
+          "description": "Configured from environment variables alone. It creates its own database schema on first start."
+        },
+        "ops": {
+          "title": "Operator tools",
+          "description": "Prometheus metrics, banning, e-mail and Pushover alerts, and ZeroMQ share relays for pools spread over several servers."
+        }
+      }
+    },
+    "operators": {
+      "eyebrow": "Going public",
+      "heading": "Before you open it to others",
+      "subtitle": "A shared pool holds other people's earnings in a hot wallet. A few things matter more than the rest.",
+      "points": {
+        "rpc": {
+          "title": "Keep the node's RPC private",
+          "description": "In pool mode the node holds the unlocked pool key: anyone who reaches its RPC can spend from it. Compose keeps the RPC inside the project; keep it that way."
+        },
+        "keys": {
+          "title": "Back up the key and the password",
+          "description": "The keystore and its password sit in the node's volume. Together they control the pool's funds. Lose them and the funds are gone."
+        },
+        "admin": {
+          "title": "Admin and metrics stay local",
+          "description": "The admin API and /metrics answer only to the machine the pool runs on. Mind that behind a reverse proxy on the same host, every visitor looks local."
+        },
+        "config": {
+          "title": "Outgrow the .env with a config file",
+          "description": "TLS stratum, several ports, notifications, share relays and multiple pools are set in a JSON config file. Every option is in the schema."
+        }
+      },
+      "readme": "Read the full README",
+      "configExample": "The example config file"
+    },
+    "get": {
+      "eyebrow": "Get it",
+      "heading": "Get Parallax Pool",
+      "subtitle": "Free and open source under the MIT license, published as a Docker image for amd64 and arm64.",
+      "repo": "GitHub repository",
+      "image": "Docker image",
+      "requirements": {
+        "heading": "What it needs",
+        "items": [
+          {
+            "label": "Docker",
+            "value": "Docker with the Compose plugin, on amd64 or arm64"
+          },
+          {
+            "label": "From source",
+            "value": "The .NET 10 SDK, make and g++"
+          },
+          {
+            "label": "Node",
+            "value": "A Parallax node mining to the pool's address. Compose runs one for you"
+          },
+          {
+            "label": "Ports",
+            "value": "4073 stratum, 4000 web interface and API, 32110 peer-to-peer"
+          }
+        ]
+      },
+      "releasesIntro": "Recent versions of Parallax Pool. Pin POOL_IMAGE to a release to stay on it; the latest tag follows new releases.",
+      "minerPrompt": "Need a miner?",
+      "minerDescription": "Hashwarp, the official XHash miner, connects to it out of the box.",
+      "minerCta": "Get Hashwarp"
     }
   }
 }

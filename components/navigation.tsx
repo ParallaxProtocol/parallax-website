@@ -23,6 +23,7 @@ import {
   Rocket,
   ScrollText,
   Search,
+  Server,
   ShieldCheck,
   Smartphone,
   Wallet,
@@ -84,6 +85,7 @@ const menus: NavMenu[] = [
       { key: "client", href: "/parallax-client", icon: Cpu },
       { key: "hashwarp", href: "/hashwarp", icon: Gauge },
       { key: "mining", href: "/mining", icon: Pickaxe },
+      { key: "pool", href: "/parallax-pool", icon: Server },
     ],
   },
   {

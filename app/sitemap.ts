@@ -24,6 +24,7 @@ const routes = [
   "/network-atlas",
   "/mining",
   "/hashwarp",
+  "/parallax-pool",
   "/blog",
 ]
 
