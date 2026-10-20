@@ -1,5 +1,4 @@
 import { Link } from "@/i18n/navigation"
-import { LineChart } from "lucide-react"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { FooterWordmark } from "./footer-wordmark"
@@ -129,24 +128,6 @@ export function Footer() {
         </div>
 
         <div className="mt-16 border-t border-hairline pt-8">
-          <div className="flex items-center gap-2 mb-6">
-            <LineChart className="size-3.5 text-muted-foreground" />
-            <p className="text-xs text-muted-foreground">
-              {t.rich("marketDataBy", {
-                link: (chunks) => (
-                  <a
-                    href="https://www.coingecko.com/en/coins/parallax-2"
-                    target="_blank"
-                    rel="noopener"
-                    className="hover:text-foreground transition-colors underline underline-offset-4"
-                  >
-                    {chunks}
-                  </a>
-                ),
-              })}
-            </p>
-          </div>
-
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-sm">
             <p className="text-muted-foreground">{t("copyright")}</p>
             <Link

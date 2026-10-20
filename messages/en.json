@@ -214,7 +214,7 @@
     }
   },
   "footer": {
-    "tagline": "A peer-to-peer programmable cash system. Secured by physics, governed by no one.",
+    "tagline": "A peer-to-peer programmable cash system.",
     "sections": {
       "learn": "Learn",
       "use": "Use",
@@ -252,7 +252,6 @@
       "discord": "Discord",
       "telegram": "Telegram"
     },
-    "marketDataBy": "Market data provided by <link>CoinGecko</link>",
     "copyright": "© Parallax Protocol 2026",
     "license": "Released under <link>LGPL-3.0</link> license.",
     "privacy": "Privacy"
