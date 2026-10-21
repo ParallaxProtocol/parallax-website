@@ -150,9 +150,6 @@ export default async function HashwarpPage() {
             <HashwarpShot
               shot="console"
               alt={t("shots.console.alt")}
-              placeholder={t("shots.placeholder")}
-              sizes="(max-width: 1152px) 100vw, 1152px"
-              priority
             />
           </div>
         </div>
@@ -274,8 +271,6 @@ export default async function HashwarpPage() {
                   shot="dashboard"
                   alt={t("shots.dashboard.alt")}
                   caption={t("shots.dashboard.caption")}
-                  placeholder={t("shots.placeholder")}
-                  sizes="(max-width: 1024px) 100vw, 640px"
                 />
               </div>
               <div className="on-dark-surface relative overflow-hidden rounded-xl border border-stroke bg-[#050506] text-white">

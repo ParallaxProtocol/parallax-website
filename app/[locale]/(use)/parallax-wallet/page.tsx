@@ -216,7 +216,7 @@ export default async function ParallaxWalletPage() {
           </p>
 
           <div className="relative mx-auto mt-16 max-w-6xl sm:mt-20">
-            <AppScreenshot shot="overview" alt={t("shots.overview.alt")} sizes="(max-width: 1152px) 100vw, 1152px" priority />
+            <AppScreenshot shot="overview" alt={t("shots.overview.alt")} />
           </div>
         </div>
       </div>
@@ -500,7 +500,7 @@ export default async function ParallaxWalletPage() {
           <div className="relative mt-4 overflow-hidden rounded-2xl border border-stroke bg-card p-4 sm:p-10">
             <div aria-hidden className="aurora aurora-left opacity-70" />
             <div className="relative mx-auto max-w-4xl">
-              <CaptionedShot shot="ledger" alt={t("shots.ledger.alt")} caption={t("shots.ledger.caption")} sizes="(max-width: 1024px) 100vw, 896px" />
+              <CaptionedShot shot="ledger" alt={t("shots.ledger.alt")} caption={t("shots.ledger.caption")} />
             </div>
           </div>
         </FadeIn>

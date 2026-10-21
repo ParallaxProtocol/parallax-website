@@ -4,13 +4,16 @@ import { Button } from "@/components/ui/button"
 import { Link } from "@/i18n/navigation"
 import { ArrowRight, ArrowUpRight, Eye, EyeOff, KeyRound, Lock, Radio, Server, ShieldCheck, Sparkles, Usb, Users, Zap } from "lucide-react"
 import { useTranslations } from "next-intl"
-import Image from "next/image"
 import { FadeIn } from "./fade-in"
 import { Section, SectionHeading, TwoToneTitle } from "./section"
 import { LedgerLogo, TrezorLogo } from "./hardware-logos"
 import { McpConnect } from "./mcp-connect"
 import { AppScreenshot } from "./wallet-app/app-screenshot"
+import { ExplorerArt } from "./showcase-art/explorer-art"
+import { StatusArt } from "./showcase-art/status-art"
 import { WalletDownloadCta, WalletVersionBadge } from "./wallet-app/wallet-download"
+
+type ArtComponent = (props: { alt: string }) => React.ReactNode
 
 const STATUS_URL = "https://status.parallaxprotocol.org"
 const EXPLORER_URL = "https://explorer.parallaxprotocol.org"
@@ -31,9 +34,9 @@ function WindowBar({ children }: { children: React.ReactNode }) {
   )
 }
 
-/* A screenshot set in minimal browser chrome. The captures in
-   public/showcase are 2x renders of a 1440×900 viewport. */
-function BrowserFrame({ src, alt, host }: { src: string; alt: string; host: string }) {
+/* A page set in minimal browser chrome: the page drawn as SVG from its
+   app's code (components/showcase-art), at a 1440×900 viewport. */
+function BrowserFrame({ art: Art, alt, host }: { art: ArtComponent; alt: string; host: string }) {
   return (
     <div className="overflow-hidden rounded-xl border border-stroke bg-background shadow-[0_24px_80px_-24px_rgb(0_0_0/0.6)]">
       <WindowBar>
@@ -42,7 +45,7 @@ function BrowserFrame({ src, alt, host }: { src: string; alt: string; host: stri
           {host}
         </span>
       </WindowBar>
-      <Image src={src} alt={alt} width={2880} height={1800} sizes="(max-width: 1024px) 100vw, 60vw" className="block h-auto w-full" />
+      <Art alt={alt} />
     </div>
   )
 }
@@ -64,7 +67,7 @@ function ProductPanel({
   description,
   cta,
   href,
-  src,
+  art,
   host,
   live,
   reverse,
@@ -75,7 +78,7 @@ function ProductPanel({
   description: string
   cta: string
   href: string
-  src: string
+  art: ArtComponent
   host: string
   live?: boolean
   reverse?: boolean
@@ -101,7 +104,7 @@ function ProductPanel({
         </div>
         <div className={`lg:col-span-8 lg:pt-10 ${reverse ? "pr-8 sm:pr-10 lg:order-1 lg:pr-0" : "pl-8 sm:pl-10 lg:pl-0"}`}>
           <div className={`-mb-20 ${reverse ? "-translate-x-8 lg:-translate-x-10" : "translate-x-8 lg:translate-x-10"}`}>
-            <BrowserFrame src={src} alt={title} host={host} />
+            <BrowserFrame art={art} alt={title} host={host} />
           </div>
         </div>
       </div>
@@ -129,7 +132,7 @@ export function ToolsShowcase() {
             cta={t("status.cta")}
             href={STATUS_URL}
             note={t("status.note")}
-            src="/showcase/status-dashboard.webp"
+            art={StatusArt}
             host="status.parallaxprotocol.org"
           />
         </FadeIn>
@@ -141,7 +144,7 @@ export function ToolsShowcase() {
             description={t("explorer.description")}
             cta={t("explorer.cta")}
             href={EXPLORER_URL}
-            src="/showcase/explorer.webp"
+            art={ExplorerArt}
             host="explorer.parallaxprotocol.org"
           />
         </FadeIn>
@@ -269,7 +272,7 @@ export function WalletShowcase() {
           <div aria-hidden className="aurora" />
           <div aria-hidden className="aurora aurora-left opacity-70" />
           <div className="relative mx-auto max-w-5xl">
-            <AppScreenshot shot="assistantSend" alt={t("shotAlt")} sizes="(max-width: 1024px) 100vw, 1024px" />
+            <AppScreenshot shot="assistantSend" alt={t("shotAlt")} />
           </div>
         </div>
       </FadeIn>

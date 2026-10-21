@@ -2879,7 +2879,6 @@
       "platforms": "Builds for Linux and Windows"
     },
     "shots": {
-      "placeholder": "Screenshot to come",
       "console": {
         "alt": "Hashwarp's console mining on an RTX 4090: hashrate, accepted shares, temperature, fan, power and efficiency"
       },
