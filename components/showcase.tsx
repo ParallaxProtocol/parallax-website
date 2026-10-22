@@ -11,12 +11,14 @@ import { McpConnect } from "./mcp-connect"
 import { AppScreenshot } from "./wallet-app/app-screenshot"
 import { ExplorerArt } from "./showcase-art/explorer-art"
 import { StatusArt } from "./showcase-art/status-art"
+import { BitcityArt } from "./showcase-art/bitcity-art"
 import { WalletDownloadCta, WalletVersionBadge } from "./wallet-app/wallet-download"
 
 type ArtComponent = (props: { alt: string }) => React.ReactNode
 
 const STATUS_URL = "https://status.parallaxprotocol.org"
 const EXPLORER_URL = "https://explorer.parallaxprotocol.org"
+const BITCITY_URL = "https://parallax.thebitcity.io"
 const MCP_GUIDE_URL = "https://docs.parallaxprotocol.org/guides/ai/parallax-mcp"
 
 /* Three dots and a centred title — the browser shots' chrome. */
@@ -112,7 +114,8 @@ function ProductPanel({
   )
 }
 
-/* Status page and explorer: the two windows onto the live network. */
+/* Status page and explorer: the two windows onto the live network; then
+   BitCity, a lighter view of the same chain, as a strip beneath them. */
 export function ToolsShowcase() {
   const t = useTranslations("home.showcase")
 
@@ -147,6 +150,27 @@ export function ToolsShowcase() {
             art={ExplorerArt}
             host="explorer.parallaxprotocol.org"
           />
+        </FadeIn>
+        <FadeIn>
+          <a
+            href={BITCITY_URL}
+            target="_blank"
+            rel="noopener"
+            className="group grid overflow-hidden rounded-2xl border border-stroke bg-card transition-colors hover:border-foreground/20 sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] [&>*]:min-w-0"
+          >
+            <div className="h-32 border-b border-hairline sm:h-auto sm:border-r sm:border-b-0">
+              <BitcityArt alt={t("bitcity.alt")} />
+            </div>
+            <div className="flex flex-col justify-center gap-2 p-6 sm:p-8">
+              <p className="tag">{t("bitcity.label")}</p>
+              <h3 className="mt-2 text-xl leading-tight text-foreground">{t("bitcity.title")}</h3>
+              <p className="text-[15px] leading-relaxed text-muted-foreground">{t("bitcity.description")}</p>
+              <span className="mt-2 inline-flex items-center gap-2 font-mono text-[12px] text-muted-foreground transition-colors group-hover:text-foreground">
+                parallax.thebitcity.io
+                <ArrowUpRight className="size-3.5 text-brand transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none" aria-hidden />
+              </span>
+            </div>
+          </a>
         </FadeIn>
       </div>
     </Section>

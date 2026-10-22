@@ -401,6 +401,12 @@
         "title": "Every block since genesis",
         "description": "Search any block, transaction, address, token or verified contract on the chain.",
         "cta": "Open the explorer"
+      },
+      "bitcity": {
+        "label": "BitCity",
+        "title": "The chain, as a living city",
+        "description": "Explore the chain as a skyline at night: each address a building, as tall as its balance, its windows lit by the days it was active, updated with every block.",
+        "alt": "A night skyline of buildings with scattered lit windows"
       }
     },
     "askParallax": {
